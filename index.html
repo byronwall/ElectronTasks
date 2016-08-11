@@ -1,25 +1,12 @@
 <html>
 
-<head>
-</head>
+  <head>
+  </head>
 
-<body onload=saveFile()>
-  <h1>test app</h1>
-</body>
+  <body onload=saveFile()>
+    <h1>test app</h1>
+  </body>
 
-<script type="text/javascript">
-  function saveFile(){
-    var fs = require('fs');
-
-    //this works as expected!!
-    fs.writeFile("./temp.txt", "aaaaa",function (err) {
-           if(err){
-               alert("An error ocurred creating the file "+ err.message)
-           }else{
-           alert("The file has been succesfully saved");
-         }
-       })
-  }
-</script>
+  <script src="app/js/testing_code.js" type="text/javascript"> </script>
 
 </html>
