@@ -1,10 +1,13 @@
 var Task = require("./Task.js")
 
-module.exports = function TaskList() {
+module.exports = class TaskList {
 
-    this.tasks = [];
+    constructor() {
+        this.tasks = [];
+    }
 
-    this.createDummyData = function () {
+
+    createDummyData() {
         for (var index = 0; index < 5; index++) {
             var task = new Task();
             task.description = index;
@@ -12,7 +15,7 @@ module.exports = function TaskList() {
         }
     }
 
-    this.render = function () {
+    render() {
         //dom should be a valid object to render to
         var d3 = require("d3");
         var data = this.tasks;
@@ -25,5 +28,12 @@ module.exports = function TaskList() {
             .data(data).enter()
             .append('div')
             .text(function (d) { return d.description })
+    }
+    save() {
+        var jsonfile = require("jsonfile");
+        
+    }
+    load() {
+        console.log("develop this");
     }
 }
