@@ -10,3 +10,12 @@ function saveFile() {
         }
     })
 }
+
+function entryPoint() {
+    var Task = require("./app/js/Task.js");
+    var TaskList = require("./app/js/TaskList.js");
+
+    var tasks = new TaskList();
+    tasks.createDummyData();
+    tasks.render();
+}
