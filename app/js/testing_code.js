@@ -1,3 +1,6 @@
+var Task = require("./app/js/Task.js");
+var TaskList = require("./app/js/TaskList.js");
+
 function saveFile() {
     var fs = require('fs');
 
@@ -12,10 +15,18 @@ function saveFile() {
 }
 
 function entryPoint() {
-    var Task = require("./app/js/Task.js");
-    var TaskList = require("./app/js/TaskList.js");
-
+    setupMainPageTasks();
+    
     var tasks = new TaskList();
     tasks.createDummyData();
     tasks.render();
+}
+
+function setupMainPageTasks() {
+    $ = require("jquery");
+    $("#loader").on("click", function () {
+        console.log("click triggered");
+        console.log(TaskList);
+        TaskList.load();
+    })
 }
