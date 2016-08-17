@@ -6,7 +6,6 @@ module.exports = class TaskList {
         this.tasks = [];
     }
 
-
     createDummyData() {
         for (var index = 0; index < 5; index++) {
             var task = new Task();
@@ -28,37 +27,46 @@ module.exports = class TaskList {
             .append('div')
             .text(function (d) { return d.description })
             .on("click", function () {
+                //TODO remove this bit of saving here
                 parent.save();
             })
     }
+
     save() {
         var jsonfile = require("jsonfile");
 
         //create new object with only the date to keep
         var _ = require("lodash");
         var output = _.map(this.tasks, function (d) {
-            return {
-                "desc": d.description,
-                "id": d.ID
-            }
+            return d.getObjectForSaving();
         })
 
         console.log(output);
 
         jsonfile.writeFile("./output.json", output, function (err) {
-            console.error(err);
+            if (err != null) {
+                console.error(err);
+            }
         })
 
     }
+
     static load() {
         var jsonfile = require("jsonfile");
 
         //create new object with only the date to keep
         var _ = require("lodash");
-        
 
-        jsonfile.readFile("./output.json", function (err,obj) {
+        var taskList = new TaskList();
+
+        jsonfile.readFile("./output.json", function (err, obj) {
             console.log(obj);
+
+            _.each(obj, function (item) {
+                var task = Task.createFromData(item);
+
+                taskList.tasks.push(task);
+            })
 
             //obj contains all of the data that is needed
             //TODO spin this up into a new TaskList object and generate the tasks correctly
@@ -67,13 +75,6 @@ module.exports = class TaskList {
             //go through tasks in some order to generate links and such
         })
 
-        return;
-
-        var output = _.map(this.tasks, function (d) {
-            return {
-                "desc": d.description,
-                "id": d.ID
-            }
-        })
+        return taskList;
     }
 }
