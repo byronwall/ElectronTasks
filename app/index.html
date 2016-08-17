@@ -1,17 +1,22 @@
 <html>
 
-  <head>
-  </head>
+<head>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
 
-  <body onload=entryPoint()> </body>
-  <div id="loader">load</div>
-  <div id="saver">save</div>
+<body onload=entryPoint()> </body>
+<div class="container-fluid">
+  <div class="row">
+    <button id="loader" class="col-md-8 col-xs-6 btn">load</button>
+    <button id="saver" class="col-md-8 col-xs-6 btn">save</button>
+  </div>
   <div id="taskList"></div>
   <div id="newTask">
     <form>
       <input type="text" id="taskDesc" />
     </form>
   </div>
-  <script src="js/testing_code.js" type="text/javascript"> </script>
+</div>
+<script src="js/testing_code.js" type="text/javascript"> </script>
 
 </html>
