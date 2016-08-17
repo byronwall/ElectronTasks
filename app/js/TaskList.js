@@ -1,5 +1,3 @@
-var Task = require("./Task.js")
-
 module.exports = class TaskList {
 
     constructor() {
@@ -10,7 +8,7 @@ module.exports = class TaskList {
         for (var index = 0; index < 5; index++) {
             var task = new Task();
             task.description = index;
-            this.tasks.push(task)
+            this.tasks.push(task);
         }
     }
 
@@ -21,18 +19,14 @@ module.exports = class TaskList {
 
         //iterates through the TaskList and creates a new DIV for each Task
         var parent = this;
-        var body = d3.select('body')
+        var body = d3.select('#taskList')
             .selectAll('div')
             .data(data).enter()
             .append('div')
             .text(function (d) { return d.description })
-            .on("click", function () {
-                //TODO remove this bit of saving here
-                parent.save();
-            })
     }
 
-    save() {
+    save(callback) {
         var jsonfile = require("jsonfile");
 
         //create new object with only the date to keep
@@ -47,11 +41,13 @@ module.exports = class TaskList {
             if (err != null) {
                 console.error(err);
             }
+
+            callback();
         })
 
     }
 
-    static load() {
+    static load(callback) {
         var jsonfile = require("jsonfile");
 
         //create new object with only the date to keep
@@ -73,8 +69,9 @@ module.exports = class TaskList {
 
             //iterate through tasks to create the main list
             //go through tasks in some order to generate links and such
-        })
 
-        return taskList;
+            //work is done, call the callback
+            callback(taskList);
+        })
     }
 }
