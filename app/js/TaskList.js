@@ -24,6 +24,21 @@ module.exports = class TaskList {
             .data(data).enter()
             .append('div')
             .text(function (d) { return d.description })
+            .classed("row", true)
+            .on("click", function(item){
+                //this needs to handle the transition from display to edit
+                console.log(item);
+                console.log(this);
+
+                $(this).text("")
+                $(this).append($("#newTask"))
+                //remove the text for the current div... store it somewhere
+                //move the text input up to here
+                //set the text on that input to the previous text
+                //when ENTER is hit, need to save that text back to this task instead of a new one
+
+                //might need to make it so that the new text item is always associated with a task (migth be need and empty)
+            })
     }
 
     save(callback) {
