@@ -12,7 +12,6 @@ module.exports = class Task {
         this.childrenTasks = [];
     }
 
-
     static createFromData(data) {
         //this will create a task from a given JSON object
         var task = new Task();
@@ -31,4 +30,3 @@ module.exports = class Task {
         }
     }
 }
-

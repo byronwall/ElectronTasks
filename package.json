@@ -14,7 +14,8 @@
     "editable-grid": "^2.0.5",
     "jquery": "*",
     "jsonfile": "^2.3.1",
-    "lodash": "*"
+    "lodash": "*",
+    "bootstrap": "^3.3.7"
   },
   "repository": "gitlab:byronwall/electron-tasks",
   "license": "all rights reserved"
