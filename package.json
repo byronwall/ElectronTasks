@@ -12,6 +12,8 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "d3": "*",
+    "google-auth-library": "^0.9.8",
+    "googleapis": "^12.4.0",
     "jquery": "*",
     "jsonfile": "^2.3.1",
     "lodash": "*"
