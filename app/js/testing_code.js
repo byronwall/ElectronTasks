@@ -1,6 +1,7 @@
 //these requires are needed in order to load objects on the Browser side of things
 var Task = require("./js/Task.js");
 var TaskList = require("./js/TaskList.js");
+var _ = require("lodash")
 
 function entryPoint() {
     //this is equal to the onLoad event for the body
@@ -19,7 +20,22 @@ function setupMainPageTasks() {
         //set the list object
         TaskList.load(function (loadedTaskList) {
             mainTaskList = loadedTaskList;
-            mainTaskList.render();
+            
+            //get the tasks from the main list and render here
+            var gridDataObject = {
+                "metadata": [
+                    { "name": "description", "label": "desc", "datatype": "string", "editable": true }
+                ],
+                "data":  _.map(mainTaskList.tasks, function(item){
+                    return {"id":item.ID, "values":item}
+                })
+            };
+            console.log(gridDataObject);
+
+            grid = new EditableGrid("task-list");
+            grid.load(gridDataObject);
+            grid.renderGrid("gridList", "testgrid");
+
         });
     })
 
