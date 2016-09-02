@@ -8,7 +8,7 @@ var googleAuth = require('google-auth-library');
 // at ~/.credentials/drive-nodejs-quickstart.json
 var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
 var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
-    process.env.USERPROFILE) + '/.credentials/';
+  process.env.USERPROFILE) + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'drive-nodejs-quickstart.json';
 
 // Load client secrets from a local file.
@@ -32,12 +32,12 @@ fs.readFile('client_secret.json', function processClientSecrets(err, content) {
 function authorize(credentials, callback) {
   var clientSecret = credentials.installed.client_secret;
   var clientId = credentials.installed.client_id;
-  var redirectUrl = credentials.installed.redirect_uris[0];
+
   var auth = new googleAuth();
-  var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
+  var oauth2Client = new auth.OAuth2(clientId, clientSecret, "http://localhost:9004");
 
   // Check if we have previously stored a token.
-  fs.readFile(TOKEN_PATH, function(err, token) {
+  fs.readFile(TOKEN_PATH, function (err, token) {
     if (err) {
       getNewToken(oauth2Client, callback);
     } else {
@@ -60,23 +60,36 @@ function getNewToken(oauth2Client, callback) {
     access_type: 'offline',
     scope: SCOPES
   });
-  console.log('Authorize this app by visiting this url: ', authUrl);
-  var rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-  });
-  rl.question('Enter the code from that page here: ', function(code) {
-    rl.close();
-    oauth2Client.getToken(code, function(err, token) {
+
+  //opens the desired auth page
+  var open = require("open");
+  open(authUrl);
+
+  //need to spin up a server quickly here to accept the call back
+  var http = require("http");
+  var server = http.createServer(function (request, response) {
+    response.end("You can close this window now.");
+
+    //process the code that is sent in
+    var url = require("url");
+
+    oauth2Client.getToken(url.parse(request.url, true).query.code, function (err, token) {
       if (err) {
         console.log('Error while trying to retrieve access token', err);
         return;
       }
       oauth2Client.credentials = token;
       storeToken(token);
+      server.close(function () { console.log("server closed") });
       callback(oauth2Client);
     });
   });
+
+  server.listen(9004);
+  console.log("Server is listening");
+
+  //TODO need a check down here to make sure that things don't stay open too long
+
 }
 
 /**
@@ -107,7 +120,7 @@ function listFiles(auth) {
     auth: auth,
     pageSize: 10,
     fields: "nextPageToken, files(id, name)"
-  }, function(err, response) {
+  }, function (err, response) {
     if (err) {
       console.log('The API returned an error: ' + err);
       return;

@@ -1,4 +1,5 @@
 //create a Task object
+
 module.exports = class Task {
     constructor() {
         //TODO change this out to use a data object instead of fields
@@ -6,7 +7,7 @@ module.exports = class Task {
         this.duration = 0;
         this.startDate = null;
         this.endDate = null;
-        this.ID = 0;
+        this.ID = Task.getUnique;
 
         this.parentTask = null;
         this.childrenTasks = [];
@@ -17,9 +18,16 @@ module.exports = class Task {
         var task = new Task();
 
         task.description = data.description;
-        task.ID = data.ID;
+        //task.ID = (function () { var id = 0; return function () { return id++; }; })();
 
         return task;
+    }
+
+    static get getUnique() {
+        if (!Task._id) {
+            Task._id = 0;
+        }
+        return Task._id++;
     }
 
     getObjectForSaving() {
