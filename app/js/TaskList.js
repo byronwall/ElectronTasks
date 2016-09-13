@@ -12,33 +12,24 @@ module.exports = class TaskList {
         }
     }
 
-    render() {
-        //dom should be a valid object to render to
-        var d3 = require("d3");
-        var data = this.tasks;
-
-        //iterates through the TaskList and creates a new DIV for each Task
-        var parent = this;
-        var body = d3.select('#taskList')
-            .selectAll('div')
-            .data(data).enter()
-            .append('div')
-            .text(function (d) { return d.description })
-            .classed("row", true)
-            .on("click", function(item){
-                //this needs to handle the transition from display to edit
-                console.log(item);
-                console.log(this);
-
-                $(this).text("")
-                $(this).append($("#newTask"))
-                //remove the text for the current div... store it somewhere
-                //move the text input up to here
-                //set the text on that input to the previous text
-                //when ENTER is hit, need to save that text back to this task instead of a new one
-
-                //might need to make it so that the new text item is always associated with a task (migth be need and empty)
+    getGridDataObject() {
+        var gridDataObject = {
+            "metadata": [
+                { "name": "description", "label": "desc", "datatype": "string", "editable": true }
+            ],
+            "data": _.map(this.tasks, function (item) {
+                return { "id": item.ID, "values": item }
             })
+        };
+
+        return gridDataObject;
+    }
+
+    getNew() {
+        var task = new Task();
+        this.tasks[task.ID] = task;
+
+        return task;
     }
 
     save(callback) {
@@ -57,7 +48,10 @@ module.exports = class TaskList {
                 console.error(err);
             }
 
-            callback();
+            console.log("saved... calling callback");
+            if (callback !== undefined) {
+                callback();
+            }
         })
 
     }
@@ -76,7 +70,7 @@ module.exports = class TaskList {
             _.each(obj, function (item) {
                 var task = Task.createFromData(item);
 
-                taskList.tasks.push(task);
+                taskList.tasks[task.ID] = task;
             })
 
             //obj contains all of the data that is needed

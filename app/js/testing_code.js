@@ -3,12 +3,20 @@ var Task = require("./js/Task.js");
 var TaskList = require("./js/TaskList.js");
 var _ = require("lodash")
 
+//TODO clean this section up to hide these variables
+//delcare any local/global variables
+var grid;
+
 function entryPoint() {
     //this is equal to the onLoad event for the body
     setupMainPageTasks();
 
     mainTaskList = new TaskList();
-    mainTaskList.render();
+}
+
+function renderGrid() {
+    grid.load(mainTaskList.getGridDataObject());
+    grid.renderGrid("gridList", "testgrid");
 }
 
 function setupMainPageTasks() {
@@ -20,49 +28,41 @@ function setupMainPageTasks() {
         //set the list object
         TaskList.load(function (loadedTaskList) {
             mainTaskList = loadedTaskList;
-            
+
             //get the tasks from the main list and render here
-            var gridDataObject = {
-                "metadata": [
-                    { "name": "description", "label": "desc", "datatype": "string", "editable": true }
-                ],
-                "data":  _.map(mainTaskList.tasks, function(item){
-                    return {"id":item.ID, "values":item}
-                })
-            };
-            console.log(gridDataObject);
+            console.log(mainTaskList.getGridDataObject());
 
+            //TODO pull this initialziation code out of this single event
             grid = new EditableGrid("task-list");
-            grid.load(gridDataObject);
-            grid.renderGrid("gridList", "testgrid");
 
+            grid.modelChanged = function (rowIndex, columnIndex, oldValue, newValue, row) {
+                //TODO update this call to handle validation
+                //TODO allow this to delete the task if the name is blank
+                console.log("Value for '" + this.getColumnName(columnIndex) +
+                    "' in row " + this.getRowId(rowIndex) +
+                    " has changed from '" + oldValue +
+                    "' to '" + newValue + "'");
+
+                //this will update the underlying data
+                mainTaskList.tasks[rowIndex][this.getColumnName(columnIndex)] = newValue
+                mainTaskList.save()
+            };
+
+            renderGrid();
         });
-    })
+    });
 
     $("#saver").on("click", function () {
         //save the tasklist object
-        mainTaskList.save(function () {
-            console.log("saved");
-        })
+        mainTaskList.save();
     })
 
-    $("#taskDesc").on("keydown", function (e) {
-        var txtBox = $(this);
-        if (e.keyCode == 13) {
+    $("#newTask").on("click", function () {
+        //create a new task, stick at the end, and engage the editor
+        var newTask = mainTaskList.getNew();
+        newTask.description = "new task";
 
-            //TODO create a new task and stick in list
-            var desc = txtBox.val();
-            var newTask = new Task();
-            newTask.description = desc;
-
-            mainTaskList.tasks.push(newTask);
-            mainTaskList.render();
-
-            //clear the box
-            txtBox.val("");
-
-            //kill the event
-            return false;
-        }
-    });
+        renderGrid();
+        grid.editCell(newTask.ID, 0)
+    })
 }
