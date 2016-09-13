@@ -9,6 +9,10 @@ module.exports = class Task {
         this.endDate = null;
         this.ID = Task.getUnique;
 
+        //some new fields for testig
+        this.priority = 5;
+        this.importance = 5;
+
         this.parentTask = null;
         this.childrenTasks = [];
     }
@@ -17,7 +21,11 @@ module.exports = class Task {
         //this will create a task from a given JSON object
         var task = new Task();
 
-        task.description = data.description;
+        var _ = require("lodash");
+        _.map(data, function(value, index){
+            console.log(index);
+            task[index] = value
+        })
         //task.ID = (function () { var id = 0; return function () { return id++; }; })();
 
         return task;
@@ -34,7 +42,11 @@ module.exports = class Task {
         //this will be used up above, ideally they match
         return {
             "description": this.description,
-            "ID": this.ID
+            "ID": this.ID,
+            "priority" : this.priority,
+            "importance" : this.importance,
+            "startDate" : this.startDate,
+            "endDate" : this.endDate
         }
     }
 }

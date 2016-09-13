@@ -42,9 +42,19 @@ function setupMainPageTasks() {
                     "' in row " + this.getRowId(rowIndex) +
                     " has changed from '" + oldValue +
                     "' to '" + newValue + "'");
+                
+                //convert to rowId to get the correct ID in the task list
+                var rowId = grid.getRowId(rowIndex);
 
-                //this will update the underlying data
-                mainTaskList.tasks[rowIndex][this.getColumnName(columnIndex)] = newValue
+                if (columnIndex == 0 && newValue == "") {
+                    //delete the current item, it has been blanked
+                    mainTaskList.removeTask(rowId);
+                }
+                else {
+                    //this will update the underlying data
+                    mainTaskList.tasks[rowId][this.getColumnName(columnIndex)] = newValue
+                }
+
                 mainTaskList.save()
             };
 
@@ -63,6 +73,6 @@ function setupMainPageTasks() {
         newTask.description = "new task";
 
         renderGrid();
-        grid.editCell(newTask.ID, 0)
+        grid.editCell(grid.getRowIndex(newTask.ID), 0)
     })
 }

@@ -1,21 +1,17 @@
 module.exports = class TaskList {
 
     constructor() {
-        this.tasks = [];
-    }
-
-    createDummyData() {
-        for (var index = 0; index < 5; index++) {
-            var task = new Task();
-            task.description = index;
-            this.tasks.push(task);
-        }
+        this.tasks = {};
     }
 
     getGridDataObject() {
         var gridDataObject = {
             "metadata": [
-                { "name": "description", "label": "desc", "datatype": "string", "editable": true }
+                { "name": "description", "label": "desc", "datatype": "string", "editable": true },
+                { "name": "priority", "label": "priority", "datatype": "integer", "editable": true },
+                { "name": "importance", "label": "importance", "datatype": "integer", "editable": true },
+                { "name": "startDate", "label": "start", "datatype": "date", "editable": true },
+                { "name": "endDate", "label": "end", "datatype": "date", "editable": true }
             ],
             "data": _.map(this.tasks, function (item) {
                 return { "id": item.ID, "values": item }
@@ -32,18 +28,23 @@ module.exports = class TaskList {
         return task;
     }
 
+    removeTask(ID) {
+        //this will delete the task from the object
+        delete this.tasks[ID];
+    }
+
     save(callback) {
         var jsonfile = require("jsonfile");
-
-        //create new object with only the date to keep
         var _ = require("lodash");
+
+        //create new object with only the date to keep        
         var output = _.map(this.tasks, function (d) {
             return d.getObjectForSaving();
         })
 
         console.log(output);
 
-        jsonfile.writeFile("./output.json", output, function (err) {
+        jsonfile.writeFile("./output.json", output, { spaces: 2 }, function (err) {
             if (err != null) {
                 console.error(err);
             }
