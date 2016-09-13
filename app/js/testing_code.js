@@ -1,6 +1,7 @@
 //these requires are needed in order to load objects on the Browser side of things
 var Task = require("./js/Task.js");
 var TaskList = require("./js/TaskList.js");
+var jQuery = require("jquery")
 var _ = require("lodash")
 
 //TODO clean this section up to hide these variables
@@ -49,6 +50,7 @@ function setupMainPageTasks() {
                 if (columnIndex == 0 && newValue == "") {
                     //delete the current item, it has been blanked
                     mainTaskList.removeTask(rowId);
+                    grid.remove(rowIndex);
                 }
                 else {
                     //this will update the underlying data

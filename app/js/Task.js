@@ -26,7 +26,11 @@ module.exports = class Task {
             console.log(index);
             task[index] = value
         })
-        //task.ID = (function () { var id = 0; return function () { return id++; }; })();
+        
+        if(data.ID > Task._id || !Task._id){
+            Task._id = data.ID + 1;
+            console.log(Task._id);
+        }
 
         return task;
     }

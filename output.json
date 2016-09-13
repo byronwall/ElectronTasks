@@ -1,5 +1,29 @@
 [
   {
+    "description": "make the new ID match the largest value out there",
+    "ID": 12,
+    "priority": 8,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null
+  },
+  {
+    "description": "improve the visuals on the date picker",
+    "ID": 13,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null
+  },
+  {
+    "description": "adding two new tasks seems to have broken deleting one?",
+    "ID": 14,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null
+  },
+  {
     "description": "improve visuals so that each task is distinct",
     "ID": 26,
     "priority": 5,
@@ -32,15 +56,7 @@
     "endDate": null
   },
   {
-    "description": "add add'l fields for the tasks including priority and importance",
-    "ID": 30,
-    "priority": 9,
-    "importance": 5,
-    "startDate": null,
-    "endDate": null
-  },
-  {
-    "description": "apply bootstrap themes to the task list",
+    "description": "provide the ability to choose which columns are showing",
     "ID": 31,
     "priority": 5,
     "importance": 5,
@@ -48,15 +64,15 @@
     "endDate": null
   },
   {
-    "description": "remove the developer tools and use as a bigger window",
+    "description": "integrate Google Drive for storing the files so that it will work across different platforms",
     "ID": 32,
-    "priority": 5,
+    "priority": 8,
     "importance": 5,
     "startDate": null,
     "endDate": null
   },
   {
-    "description": "allow for multiple projects to be displayed",
+    "description": "add the ability for a calculated column (e.g. priority * importance)",
     "ID": 33,
     "priority": 5,
     "importance": 5,
@@ -82,14 +98,6 @@
   {
     "description": "create a settings page",
     "ID": 36,
-    "priority": 5,
-    "importance": 5,
-    "startDate": null,
-    "endDate": null
-  },
-  {
-    "description": "load the last used list automatically",
-    "ID": 37,
     "priority": 5,
     "importance": 5,
     "startDate": null,
