@@ -10,7 +10,7 @@
   {
     "description": "improve the visuals on the date picker",
     "ID": 13,
-    "priority": 5,
+    "priority": 7,
     "importance": 5,
     "startDate": null,
     "endDate": null
@@ -34,8 +34,8 @@
   {
     "description": "support parent/child tasks and indentation",
     "ID": 27,
-    "priority": 5,
-    "importance": 5,
+    "priority": 10,
+    "importance": 10,
     "startDate": "05/09/2016",
     "endDate": null
   },
@@ -58,7 +58,7 @@
   {
     "description": "provide the ability to choose which columns are showing",
     "ID": 31,
-    "priority": 5,
+    "priority": 6,
     "importance": 5,
     "startDate": null,
     "endDate": null
@@ -96,9 +96,25 @@
     "endDate": null
   },
   {
-    "description": "create a settings page",
+    "description": "need to reapply the sorting after a change is made to a column",
     "ID": 36,
     "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null
+  },
+  {
+    "description": "create a settings page",
+    "ID": 78,
+    "priority": 3,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null
+  },
+  {
+    "description": "create a list of the features that need to be copied from Todoist (tags, notes, etc.)",
+    "ID": 93,
+    "priority": 8,
     "importance": 5,
     "startDate": null,
     "endDate": null
