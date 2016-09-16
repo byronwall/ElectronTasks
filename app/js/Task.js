@@ -13,8 +13,9 @@ module.exports = class Task {
         this.priority = 5;
         this.importance = 5;
 
+        //these will be INTs that store the ID
         this.parentTask = null;
-        this.childrenTasks = [];
+        this.childTasks = [];
     }
 
     static createFromData(data) {
@@ -22,14 +23,12 @@ module.exports = class Task {
         var task = new Task();
 
         var _ = require("lodash");
-        _.map(data, function(value, index){
-            console.log(index);
+        _.map(data, function (value, index) {
             task[index] = value
         })
-        
-        if(data.ID > Task._id || !Task._id){
+
+        if (data.ID > Task._id || !Task._id) {
             Task._id = data.ID + 1;
-            console.log(Task._id);
         }
 
         return task;
@@ -42,15 +41,24 @@ module.exports = class Task {
         return Task._id++;
     }
 
+    get indentLevel() {
+        if (this.parentTask == null) {
+            return 1;
+        }
+        else {
+            return this.parentTask.indentLevel + 1;
+        }
+    }
+
     getObjectForSaving() {
         //this will be used up above, ideally they match
         return {
             "description": this.description,
             "ID": this.ID,
-            "priority" : this.priority,
-            "importance" : this.importance,
-            "startDate" : this.startDate,
-            "endDate" : this.endDate
+            "priority": this.priority,
+            "importance": this.importance,
+            "startDate": this.startDate,
+            "endDate": this.endDate
         }
     }
 }

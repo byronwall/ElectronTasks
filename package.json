@@ -17,6 +17,7 @@
     "jquery": "*",
     "jsonfile": "^2.3.1",
     "lodash": "*",
+    "mousetrap": "^1.6.0",
     "open": "0.0.5"
   },
   "repository": "gitlab:byronwall/electron-tasks",

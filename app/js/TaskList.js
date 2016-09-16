@@ -13,9 +13,16 @@ module.exports = class TaskList {
                 { "name": "startDate", "label": "start", "datatype": "date", "editable": true },
                 { "name": "endDate", "label": "end", "datatype": "date", "editable": true }
             ],
-            "data": _.map(this.tasks, function (item) {
+            "data": (function(obj){                 
+
+                //get a list of all tasks
+                //iterate through them
+                //if they have a child... process the child next... same for that child
+                //if they have a parent... skip and let the parent find them first
+                
+                return _.map(obj.tasks, function (item) {
                 return { "id": item.ID, "values": item }
-            })
+            })})(this)
         };
 
         return gridDataObject;

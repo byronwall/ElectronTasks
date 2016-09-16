@@ -64,6 +64,51 @@ function setupMainPageTasks() {
         });
     });
 
+    Mousetrap.bind("ctrl+right", function(e){
+        console.log("indent right requested");
+        console.log(e)
+
+        if(e.target.tagName == "INPUT"){
+            //we have a text box
+            console.log(e.target.parentElement.parentElement.id)
+            //this contains "task-list_13"
+
+
+            var currentID = e.target.parentElement.parentElement.id;
+            currentID = currentID.split("task-list_")[1];
+
+            //now holds the current ID
+            var currentTask = mainTaskList.tasks[currentID];
+
+            console.log(currentID);
+            console.log(currentTask);
+
+            //need to get the task located above the current one (0 index)
+            var currentRow = grid.getRowIndex(currentID);
+
+            //get the task above the current
+
+            var aboveId = grid.getRowId(currentRow - 1);
+
+            var aboveTask = mainTaskList.tasks[aboveId];
+
+            console.log(aboveTask);
+
+            //need to set the parent for the current and the child for the above
+            currentTask.parentTask = aboveId;
+            aboveTask.childTasks.push(currentID);
+
+            //the relationship is known... rerender?
+            renderGrid();            
+            
+        }
+    })
+
+    Mousetrap.prototype.stopCallback = function(a,b,c){
+        //this lets the shortcuts go through whenever
+        return false;
+    }
+
     $("#saver").on("click", function () {
         //save the tasklist object
         mainTaskList.save();
