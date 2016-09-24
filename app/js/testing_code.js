@@ -43,7 +43,7 @@ function setupMainPageTasks() {
                     "' in row " + this.getRowId(rowIndex) +
                     " has changed from '" + oldValue +
                     "' to '" + newValue + "'");
-                
+
                 //convert to rowId to get the correct ID in the task list
                 var rowId = grid.getRowId(rowIndex);
 
@@ -64,11 +64,11 @@ function setupMainPageTasks() {
         });
     });
 
-    Mousetrap.bind("ctrl+right", function(e){
+    Mousetrap.bind("alt+right", function (e) {
         console.log("indent right requested");
         console.log(e)
 
-        if(e.target.tagName == "INPUT"){
+        if (e.target.tagName == "INPUT") {
             //we have a text box
             console.log(e.target.parentElement.parentElement.id)
             //this contains "task-list_13"
@@ -89,22 +89,97 @@ function setupMainPageTasks() {
             //get the task above the current
 
             var aboveId = grid.getRowId(currentRow - 1);
-
             var aboveTask = mainTaskList.tasks[aboveId];
 
             console.log(aboveTask);
+
+
+            //remove the current parent if it exists
+            if (currentTask.parentTask != null) {
+                var parentTask = mainTaskList.tasks[currentTask.parentTask];
+                var parentChildIndex = parentTask.childTasks.indexOf(currentID);
+                parentTask.childTasks.splice(parentChildIndex, 1);
+            }
 
             //need to set the parent for the current and the child for the above
             currentTask.parentTask = aboveId;
             aboveTask.childTasks.push(currentID);
 
             //the relationship is known... rerender?
-            renderGrid();            
-            
+            renderGrid();
+            grid.editCell(currentRow, 0)
+        }
+    })
+    Mousetrap.bind("alt+left", function (e) {
+        console.log("indent left requested");
+        console.log(e)
+
+        //indent left should put the current task under the level 
+        //parent -> task -> current task, should be a child of parent
+        //parent -> current task, should just null out the parent
+
+        //remove this node from the childTasks of the current parent
+        //check the parent of the parent and make them equal
+        //add this node to the child nodes of that parent if it exists
+
+        if (e.target.tagName == "INPUT") {
+            //we have a text box
+            console.log(e.target.parentElement.parentElement.id)
+            //this contains "task-list_13"
+
+
+            var currentID = e.target.parentElement.parentElement.id;
+            currentID = currentID.split("task-list_")[1];
+
+            //now holds the current ID
+            var currentTask = mainTaskList.tasks[currentID];
+
+            console.log(currentID);
+            console.log(currentTask);
+
+            //need to get the task located above the current one (0 index)
+            var currentRow = grid.getRowIndex(currentID);
+
+            //get the task above the current
+
+            var aboveId = grid.getRowId(currentRow - 1);
+            var aboveTask = mainTaskList.tasks[aboveId];
+
+            console.log(aboveTask);
+
+            //need to set the parent for the current and the child for the above
+            console.log("childTasks of above task before:")
+            console.log(aboveTask.childTasks)
+            //get index of self in children of parent task and remove from current parent
+            var parentChildIndex = aboveTask.childTasks.indexOf(currentID);
+            aboveTask.childTasks.splice(parentChildIndex, 1);
+            console.log("childTasks of above task:")
+            console.log(aboveTask.childTasks)
+
+            //get the new parent
+            //grandparent
+            var grandparentID = aboveTask.parentTask;
+            console.log(grandparentID)
+            console.log(mainTaskList)
+            currentTask.parentTask = grandparentID;
+            if (grandparentID != null) {
+                var grandparentTask = mainTaskList.tasks[grandparentID];
+                grandparentTask.childTasks.push(currentID);
+
+                console.log("grandparent task after adding", grandparentTask)
+            }
+
+            console.log("currentTask after all")
+            console.log(currentTask)
+
+
+            //the relationship is known... rerender?
+            renderGrid();
+            grid.editCell(currentRow, 0)
         }
     })
 
-    Mousetrap.prototype.stopCallback = function(a,b,c){
+    Mousetrap.prototype.stopCallback = function (a, b, c) {
         //this lets the shortcuts go through whenever
         return false;
     }

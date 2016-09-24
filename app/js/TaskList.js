@@ -13,16 +13,39 @@ module.exports = class TaskList {
                 { "name": "startDate", "label": "start", "datatype": "date", "editable": true },
                 { "name": "endDate", "label": "end", "datatype": "date", "editable": true }
             ],
-            "data": (function(obj){                 
+            "data": (function (obj) {
 
                 //get a list of all tasks
                 //iterate through them
                 //if they have a child... process the child next... same for that child
                 //if they have a parent... skip and let the parent find them first
-                
-                return _.map(obj.tasks, function (item) {
-                return { "id": item.ID, "values": item }
-            })})(this)
+
+                //all tasks with either be at the root or have a parent
+                //if at the root, add to the root, and process the child tasks, just push them on
+                //do a depth first seach and all will get added
+
+                var tasksOut = []
+                var tasksToProcess = []
+
+                //obj is the current TaskList
+                _.each(obj.tasks, function (item) {
+                    if (item.parentTask == null) {
+                        var indent = 0
+                        //process children
+                        function recurseChildren(task, indentLevel) {
+                            tasksOut.push(task);
+                            task.indent = indentLevel;
+                            _.each(task.childTasks, function (itemNo) { recurseChildren(obj.tasks[itemNo], indentLevel+1) });
+                        }
+
+                        recurseChildren(item, 0)
+                    }
+                });
+
+                return _.map(tasksOut, function (item) {
+                    return { "id": item.ID, "values": item }
+                })
+            })(this)
         };
 
         return gridDataObject;

@@ -16,6 +16,8 @@ module.exports = class Task {
         //these will be INTs that store the ID
         this.parentTask = null;
         this.childTasks = [];
+
+        this.indent = 0;
     }
 
     static createFromData(data) {
@@ -58,7 +60,9 @@ module.exports = class Task {
             "priority": this.priority,
             "importance": this.importance,
             "startDate": this.startDate,
-            "endDate": this.endDate
+            "endDate": this.endDate,
+            "parentTask": this.parentTask,
+            "childTasks": this.childTasks
         }
     }
 }

@@ -5,7 +5,9 @@
     "priority": 8,
     "importance": 5,
     "startDate": null,
-    "endDate": null
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
   },
   {
     "description": "improve the visuals on the date picker",
@@ -13,7 +15,9 @@
     "priority": 7,
     "importance": 5,
     "startDate": null,
-    "endDate": null
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
   },
   {
     "description": "adding two new tasks seems to have broken deleting one?",
@@ -21,7 +25,9 @@
     "priority": 5,
     "importance": 5,
     "startDate": null,
-    "endDate": null
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
   },
   {
     "description": "improve visuals so that each task is distinct",
@@ -29,7 +35,9 @@
     "priority": 5,
     "importance": 5,
     "startDate": "13/09/2016",
-    "endDate": null
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
   },
   {
     "description": "support parent/child tasks and indentation",
@@ -37,7 +45,9 @@
     "priority": 10,
     "importance": 10,
     "startDate": "05/09/2016",
-    "endDate": null
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
   },
   {
     "description": "allow for saving to a non-default location",
@@ -45,7 +55,9 @@
     "priority": 5,
     "importance": 5,
     "startDate": "02/09/2016",
-    "endDate": null
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
   },
   {
     "description": "allow for loading from a non-default location",
@@ -53,7 +65,9 @@
     "priority": 5,
     "importance": 5,
     "startDate": null,
-    "endDate": null
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
   },
   {
     "description": "provide the ability to choose which columns are showing",
@@ -61,7 +75,9 @@
     "priority": 6,
     "importance": 5,
     "startDate": null,
-    "endDate": null
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
   },
   {
     "description": "integrate Google Drive for storing the files so that it will work across different platforms",
@@ -69,7 +85,9 @@
     "priority": 8,
     "importance": 5,
     "startDate": null,
-    "endDate": null
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
   },
   {
     "description": "add the ability for a calculated column (e.g. priority * importance)",
@@ -77,7 +95,9 @@
     "priority": 5,
     "importance": 5,
     "startDate": null,
-    "endDate": null
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
   },
   {
     "description": "figure out how to archive or hide completed tasks",
@@ -85,7 +105,9 @@
     "priority": 5,
     "importance": 5,
     "startDate": null,
-    "endDate": null
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
   },
   {
     "description": "provide ability to search/filter/sort",
@@ -93,7 +115,9 @@
     "priority": 5,
     "importance": 5,
     "startDate": null,
-    "endDate": null
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
   },
   {
     "description": "need to reapply the sorting after a change is made to a column",
@@ -101,7 +125,9 @@
     "priority": 5,
     "importance": 5,
     "startDate": null,
-    "endDate": null
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
   },
   {
     "description": "create a settings page",
@@ -109,7 +135,9 @@
     "priority": 3,
     "importance": 5,
     "startDate": null,
-    "endDate": null
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
   },
   {
     "description": "create a list of the features that need to be copied from Todoist (tags, notes, etc.)",
@@ -117,6 +145,108 @@
     "priority": 8,
     "importance": 5,
     "startDate": null,
-    "endDate": null
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
+  },
+  {
+    "description": "add support for moving tasks up and down",
+    "ID": 94,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
+  },
+  {
+    "description": "save automatically after changing indentation",
+    "ID": 95,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
+  },
+  {
+    "description": "make the text box larger for new tasks.  \"g\" is going off the bottom",
+    "ID": 96,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
+  },
+  {
+    "description": "improve error checking with indentatiojn",
+    "ID": 97,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
+  },
+  {
+    "description": "provide a way to quickly add a new task after finishing another one",
+    "ID": 98,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
+  },
+  {
+    "description": "keep the edit box in place after changing indentation to allow for multiple changes",
+    "ID": 99,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
+  },
+  {
+    "description": "refine how the indenter chooses the level to go down to",
+    "ID": 121,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
+  },
+  {
+    "description": "do not allow indenting to take place while sorted (at least while parent child relationships are not in order)",
+    "ID": 122,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
+  },
+  {
+    "description": "add ability to choose where a new task is created",
+    "ID": 123,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
+  },
+  {
+    "description": "hitting ALT+LEFT twice adds a new task",
+    "ID": 172,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": []
   }
 ]
