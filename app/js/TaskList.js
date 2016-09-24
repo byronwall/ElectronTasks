@@ -27,18 +27,34 @@ module.exports = class TaskList {
                 var tasksOut = []
                 var tasksToProcess = []
 
+                //get a list of ids and the order to process them
+                var ordering = _.map(obj.tasks, function(item){
+                    return {"sort" : item.sortOrder, "ID" : item.ID}
+                })
+
+                ordering = _.sortBy(ordering, ["sort"])
+
                 //obj is the current TaskList
-                _.each(obj.tasks, function (item) {
+                //this function is used to output tasks in the correct default order
+                //the grid does not understand parent-child and will render whatever it is given
+
+                var processOrder = 0;
+
+                _.each(ordering, function(orderItem){
+                  var item = obj.tasks[orderItem.ID];
+
+                
                     if (item.parentTask == null) {
                         var indent = 0
                         //process children
                         function recurseChildren(task, indentLevel) {
                             tasksOut.push(task);
                             task.indent = indentLevel;
-                            _.each(task.childTasks, function (itemNo) { recurseChildren(obj.tasks[itemNo], indentLevel+1) });
+                            _.each(task.childTasks, function (itemNo) { recurseChildren(obj.tasks[itemNo], indentLevel + 1) });
                         }
 
                         recurseChildren(item, 0)
+                        item.sortOrder = processOrder++;
                     }
                 });
 

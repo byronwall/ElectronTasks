@@ -18,6 +18,7 @@ module.exports = class Task {
         this.childTasks = [];
 
         this.indent = 0;
+        this.sortOrder = 0;
     }
 
     static createFromData(data) {
@@ -43,15 +44,6 @@ module.exports = class Task {
         return Task._id++;
     }
 
-    get indentLevel() {
-        if (this.parentTask == null) {
-            return 1;
-        }
-        else {
-            return this.parentTask.indentLevel + 1;
-        }
-    }
-
     getObjectForSaving() {
         //this will be used up above, ideally they match
         return {
@@ -62,7 +54,8 @@ module.exports = class Task {
             "startDate": this.startDate,
             "endDate": this.endDate,
             "parentTask": this.parentTask,
-            "childTasks": this.childTasks
+            "childTasks": this.childTasks,
+            "sortOrder" : this.sortOrder
         }
     }
 }

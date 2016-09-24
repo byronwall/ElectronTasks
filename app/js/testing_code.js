@@ -142,7 +142,11 @@ function setupMainPageTasks() {
 
             //get the task above the current
 
-            var aboveId = grid.getRowId(currentRow - 1);
+            if (currentTask.parentTask == null) {
+                return;
+            }
+
+            var aboveId = currentTask.parentTask;
             var aboveTask = mainTaskList.tasks[aboveId];
 
             console.log(aboveTask);
@@ -176,6 +180,66 @@ function setupMainPageTasks() {
             //the relationship is known... rerender?
             renderGrid();
             grid.editCell(currentRow, 0)
+        }
+    })
+
+    Mousetrap.bind("alt+up", function (e) {
+        console.log("move up requested");
+        console.log(e)
+
+        //need to change the sort order to be one less than the task above the current one but at the same indent level
+        //sort orders will be corrected to be sequential, so just need to get a number between the two spots
+
+        if (e.target.tagName == "INPUT") {
+            //we have a text box
+            console.log(e.target.parentElement.parentElement.id)
+            //this contains "task-list_13"
+
+            var currentID = e.target.parentElement.parentElement.id;
+            currentID = currentID.split("task-list_")[1];
+
+            //now holds the current ID
+            var currentTask = mainTaskList.tasks[currentID];
+
+            currentTask.sortOrder -= 1.1;
+            
+            //need to cancel the editing before rendering to avoid a change being fired            
+            //NOTE that these two calls always appear together... not sure why the onblur is nulled
+            e.target.onblur = null
+            e.target.celleditor.cancelEditing(e.target.element) ;
+
+            renderGrid();
+            grid.editCell(grid.getRowIndex(currentID), 0)
+        }
+    })
+
+    Mousetrap.bind("alt+down", function (e) {
+        console.log("move down requested");
+        console.log(e)
+
+        //need to change the sort order to be one less than the task above the current one but at the same indent level
+        //sort orders will be corrected to be sequential, so just need to get a number between the two spots
+
+        if (e.target.tagName == "INPUT") {
+            //we have a text box
+            console.log(e.target.parentElement.parentElement.id)
+            //this contains "task-list_13"
+
+            var currentID = e.target.parentElement.parentElement.id;
+            currentID = currentID.split("task-list_")[1];
+
+            //now holds the current ID
+            var currentTask = mainTaskList.tasks[currentID];
+
+            currentTask.sortOrder += 1.1;
+            
+            //need to cancel the editing before rendering to avoid a change being fired            
+            //NOTE that these two calls always appear together... not sure why the onblur is nulled
+            e.target.onblur = null
+            e.target.celleditor.cancelEditing(e.target.element) ;
+
+            renderGrid();
+            grid.editCell(grid.getRowIndex(currentID), 0)
         }
     })
 
