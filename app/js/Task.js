@@ -18,7 +18,7 @@ module.exports = class Task {
         this.childTasks = [];
 
         this.indent = 0;
-        this.sortOrder = 0;
+        this.sortOrder = Number.MAX_SAFE_INTEGER;
     }
 
     static createFromData(data) {
