@@ -28,8 +28,8 @@ module.exports = class TaskList {
                 var tasksToProcess = []
 
                 //get a list of ids and the order to process them
-                var ordering = _.map(obj.tasks, function(item){
-                    return {"sort" : item.sortOrder, "ID" : item.ID}
+                var ordering = _.map(obj.tasks, function (item) {
+                    return { "sort": item.sortOrder, "ID": item.ID }
                 })
 
                 ordering = _.sortBy(ordering, ["sort"])
@@ -40,17 +40,34 @@ module.exports = class TaskList {
 
                 var processOrder = 0;
 
-                _.each(ordering, function(orderItem){
-                  var item = obj.tasks[orderItem.ID];
+                _.each(ordering, function (orderItem) {
+                    var item = obj.tasks[orderItem.ID];
 
-                
+
                     if (item.parentTask == null) {
                         var indent = 0
                         //process children
                         function recurseChildren(task, indentLevel) {
                             tasksOut.push(task);
                             task.indent = indentLevel;
-                            _.each(task.childTasks, function (itemNo) { recurseChildren(obj.tasks[itemNo], indentLevel + 1) });
+                            var subProcessOrder = 0;
+
+                            //determine subtask ordering
+                            var subOrder = _.map(task.childTasks, function(childTaskId){
+                                return { "sort": obj.tasks[childTaskId].sortOrder, "id" : childTaskId }
+                            })
+
+                            subOrder = _.sortBy(subOrder, ["sort"])
+
+                            console.log("subOrder", subOrder)
+
+                            _.each(subOrder, function (itemObj) {
+                                var itemNo = itemObj.id;
+                                //TODO apply sort order to the children here
+                                var childTask = obj.tasks[itemNo];
+                                childTask.sortOrder = subProcessOrder++;
+                                recurseChildren(childTask, indentLevel + 1)
+                            });
                         }
 
                         recurseChildren(item, 0)

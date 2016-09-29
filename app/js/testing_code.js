@@ -231,6 +231,8 @@ function setupMainPageTasks() {
             //now holds the current ID
             var currentTask = mainTaskList.tasks[currentID];
 
+            console.log("current task", currentTask)
+
             currentTask.sortOrder += 1.1;
             
             //need to cancel the editing before rendering to avoid a change being fired            
@@ -242,6 +244,11 @@ function setupMainPageTasks() {
             grid.editCell(grid.getRowIndex(currentID), 0)
         }
     })
+
+    Mousetrap.bind("alt+a", function (e) {
+        console.log("new task requested");
+        createNewTask();
+    });
 
     Mousetrap.prototype.stopCallback = function (a, b, c) {
         //this lets the shortcuts go through whenever
@@ -255,10 +262,14 @@ function setupMainPageTasks() {
 
     $("#newTask").on("click", function () {
         //create a new task, stick at the end, and engage the editor
+        createNewTask();
+    })
+
+    function createNewTask(){
         var newTask = mainTaskList.getNew();
         newTask.description = "new task";
 
         renderGrid();
         grid.editCell(grid.getRowIndex(newTask.ID), 0)
-    })
+    }
 }

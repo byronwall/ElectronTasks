@@ -19,18 +19,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 5
-  },
-  {
-    "description": "adding two new tasks seems to have broken deleting one?",
-    "ID": 14,
-    "priority": 5,
-    "importance": 5,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 7
+    "sortOrder": 6
   },
   {
     "description": "improve visuals so that each task is distinct",
@@ -96,7 +85,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 6
+    "sortOrder": 7
   },
   {
     "description": "add the ability for a calculated column (e.g. priority * importance)",
@@ -250,7 +239,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 4
+    "sortOrder": 5
   },
   {
     "description": "sort order needs to be addressed for childTasks",
@@ -261,7 +250,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 3
+    "sortOrder": 4
   },
   {
     "description": "add a keyboard shortcut for a new task",
@@ -272,7 +261,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 2
+    "sortOrder": 3
   },
   {
     "description": "select all text after calling for \"editCell\" so that it's the same as before",
@@ -283,6 +272,54 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
+    "sortOrder": 2
+  },
+  {
+    "description": "testing the indented sort order",
+    "ID": 177,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [
+      "181",
+      "180",
+      "179"
+    ],
     "sortOrder": 1
+  },
+  {
+    "description": "test 1",
+    "ID": 179,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 177,
+    "childTasks": [],
+    "sortOrder": 1
+  },
+  {
+    "description": "test 2",
+    "ID": 180,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 177,
+    "childTasks": [],
+    "sortOrder": 2
+  },
+  {
+    "description": "test 3",
+    "ID": 181,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 177,
+    "childTasks": [],
+    "sortOrder": 0
   }
 ]
