@@ -202,11 +202,11 @@ function setupMainPageTasks() {
             var currentTask = mainTaskList.tasks[currentID];
 
             currentTask.sortOrder -= 1.1;
-            
+
             //need to cancel the editing before rendering to avoid a change being fired            
             //NOTE that these two calls always appear together... not sure why the onblur is nulled
             e.target.onblur = null
-            e.target.celleditor.cancelEditing(e.target.element) ;
+            e.target.celleditor.cancelEditing(e.target.element);
 
             renderGrid();
             grid.editCell(grid.getRowIndex(currentID), 0)
@@ -234,11 +234,11 @@ function setupMainPageTasks() {
             console.log("current task", currentTask)
 
             currentTask.sortOrder += 1.1;
-            
+
             //need to cancel the editing before rendering to avoid a change being fired            
             //NOTE that these two calls always appear together... not sure why the onblur is nulled
             e.target.onblur = null
-            e.target.celleditor.cancelEditing(e.target.element) ;
+            e.target.celleditor.cancelEditing(e.target.element);
 
             renderGrid();
             grid.editCell(grid.getRowIndex(currentID), 0)
@@ -247,7 +247,33 @@ function setupMainPageTasks() {
 
     Mousetrap.bind("alt+a", function (e) {
         console.log("new task requested");
-        createNewTask();
+
+        var options = {};
+
+        if (e.target.tagName == "INPUT") {
+            //we have a text box
+            console.log(e.target.parentElement.parentElement.id)
+            //this contains "task-list_13"
+
+
+            var currentID = e.target.parentElement.parentElement.id;
+            currentID = currentID.split("task-list_")[1];
+
+            //now holds the current ID
+            var currentTask = mainTaskList.tasks[currentID];
+
+            console.log(currentID);
+            console.log(currentTask);
+
+            //need to get the task located above the current one (0 index)
+            var currentRow = grid.getRowIndex(currentID);
+
+            //have the task be below the current one
+            options.sortOrder = currentTask.sortOrder + 0.5;
+        }
+
+        createNewTask(options);
+        return false;
     });
 
     Mousetrap.prototype.stopCallback = function (a, b, c) {
@@ -265,9 +291,13 @@ function setupMainPageTasks() {
         createNewTask();
     })
 
-    function createNewTask(){
+    function createNewTask(options = {}) {
         var newTask = mainTaskList.getNew();
         newTask.description = "new task";
+
+        if(options.sortOrder != undefined){
+            newTask.sortOrder = options.sortOrder;
+        }
 
         renderGrid();
         grid.editCell(grid.getRowIndex(newTask.ID), 0)

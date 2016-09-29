@@ -1,16 +1,5 @@
 [
   {
-    "description": "make the new ID match the largest value out there",
-    "ID": 12,
-    "priority": 8,
-    "importance": 5,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 0
-  },
-  {
     "description": "improve the visuals on the date picker",
     "ID": 13,
     "priority": 7,
@@ -19,18 +8,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 5
-  },
-  {
-    "description": "adding two new tasks seems to have broken deleting one?",
-    "ID": 14,
-    "priority": 5,
-    "importance": 5,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 6
+    "sortOrder": 2
   },
   {
     "description": "improve visuals so that each task is distinct",
@@ -41,18 +19,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 7
-  },
-  {
-    "description": "support parent/child tasks and indentation",
-    "ID": 27,
-    "priority": 10,
-    "importance": 10,
-    "startDate": "05/09/2016",
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 8
+    "sortOrder": 3
   },
   {
     "description": "allow for saving to a non-default location",
@@ -63,7 +30,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 9
+    "sortOrder": 4
   },
   {
     "description": "allow for loading from a non-default location",
@@ -74,7 +41,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 10
+    "sortOrder": 5
   },
   {
     "description": "provide the ability to choose which columns are showing",
@@ -85,7 +52,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 11
+    "sortOrder": 6
   },
   {
     "description": "integrate Google Drive for storing the files so that it will work across different platforms",
@@ -96,7 +63,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 4
+    "sortOrder": 1
   },
   {
     "description": "add the ability for a calculated column (e.g. priority * importance)",
@@ -107,7 +74,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 12
+    "sortOrder": 7
   },
   {
     "description": "figure out how to archive or hide completed tasks",
@@ -118,7 +85,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 13
+    "sortOrder": 8
   },
   {
     "description": "provide ability to search/filter/sort",
@@ -129,7 +96,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 14
+    "sortOrder": 9
   },
   {
     "description": "need to reapply the sorting after a change is made to a column",
@@ -140,7 +107,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 15
+    "sortOrder": 10
   },
   {
     "description": "create a settings page",
@@ -150,8 +117,10 @@
     "startDate": null,
     "endDate": null,
     "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 16
+    "childTasks": [
+      "209"
+    ],
+    "sortOrder": 11
   },
   {
     "description": "create a list of the features that need to be copied from Todoist (tags, notes, etc.)",
@@ -167,7 +136,7 @@
       "202",
       "203"
     ],
-    "sortOrder": 24
+    "sortOrder": 19
   },
   {
     "description": "save automatically after changing indentation",
@@ -178,7 +147,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 17
+    "sortOrder": 12
   },
   {
     "description": "make the text box larger for new tasks.  \"g\" is going off the bottom",
@@ -189,7 +158,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 18
+    "sortOrder": 13
   },
   {
     "description": "improve error checking with indentatiojn",
@@ -200,18 +169,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 19
-  },
-  {
-    "description": "provide a way to quickly add a new task after finishing another one (using CTRL+ENTER)",
-    "ID": 98,
-    "priority": 5,
-    "importance": 5,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 20
+    "sortOrder": 14
   },
   {
     "description": "refine how the indenter chooses the level to go down to",
@@ -222,7 +180,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 21
+    "sortOrder": 16
   },
   {
     "description": "do not allow indenting to take place while sorted (at least while parent child relationships are not in order)",
@@ -233,29 +191,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 22
-  },
-  {
-    "description": "add ability to choose where a new task is created, this can be handled with sortOrder now",
-    "ID": 123,
-    "priority": 5,
-    "importance": 5,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 23
-  },
-  {
-    "description": "add a keyboard shortcut for a new task",
-    "ID": 175,
-    "priority": 5,
-    "importance": 5,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 3
+    "sortOrder": 17
   },
   {
     "description": "select all text after calling for \"editCell\" so that it's the same as before",
@@ -266,55 +202,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 1
-  },
-  {
-    "description": "testing the indented sort order",
-    "ID": 177,
-    "priority": 5,
-    "importance": 5,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [
-      "181",
-      "180",
-      "179"
-    ],
-    "sortOrder": 2
-  },
-  {
-    "description": "test 1",
-    "ID": 179,
-    "priority": 5,
-    "importance": 5,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": 177,
-    "childTasks": [],
     "sortOrder": 0
-  },
-  {
-    "description": "test 2",
-    "ID": 180,
-    "priority": 5,
-    "importance": 5,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": 177,
-    "childTasks": [],
-    "sortOrder": 1
-  },
-  {
-    "description": "test 3",
-    "ID": 181,
-    "priority": 5,
-    "importance": 5,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": 177,
-    "childTasks": [],
-    "sortOrder": 2
   },
   {
     "description": "support attaching notes/comments/attachments to tasks to deal with blobby information",
@@ -359,5 +247,27 @@
     "parentTask": 93,
     "childTasks": [],
     "sortOrder": 0
+  },
+  {
+    "description": "allow for dragging and dropping tasks/groups to a new location",
+    "ID": 204,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [],
+    "sortOrder": 20
+  },
+  {
+    "description": "delete the child tasks when deleting the parent (or give a prompt how to handle)",
+    "ID": 205,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [],
+    "sortOrder": 21
   }
 ]
