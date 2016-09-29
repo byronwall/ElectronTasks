@@ -53,8 +53,8 @@ module.exports = class TaskList {
                             var subProcessOrder = 0;
 
                             //determine subtask ordering
-                            var subOrder = _.map(task.childTasks, function(childTaskId){
-                                return { "sort": obj.tasks[childTaskId].sortOrder, "id" : childTaskId }
+                            var subOrder = _.map(task.childTasks, function (childTaskId) {
+                                return { "sort": obj.tasks[childTaskId].sortOrder, "id": childTaskId }
                             })
 
                             subOrder = _.sortBy(subOrder, ["sort"])

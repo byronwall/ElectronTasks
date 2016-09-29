@@ -117,9 +117,7 @@
     "startDate": null,
     "endDate": null,
     "parentTask": null,
-    "childTasks": [
-      "209"
-    ],
+    "childTasks": [],
     "sortOrder": 11
   },
   {
@@ -136,7 +134,7 @@
       "202",
       "203"
     ],
-    "sortOrder": 19
+    "sortOrder": 17
   },
   {
     "description": "save automatically after changing indentation",
@@ -180,7 +178,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 16
+    "sortOrder": 15
   },
   {
     "description": "do not allow indenting to take place while sorted (at least while parent child relationships are not in order)",
@@ -191,7 +189,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 17
+    "sortOrder": 16
   },
   {
     "description": "select all text after calling for \"editCell\" so that it's the same as before",
@@ -240,7 +238,7 @@
   {
     "description": "support tags across tasks so they can be grouped later",
     "ID": 203,
-    "priority": 5,
+    "priority": 6,
     "importance": 5,
     "startDate": null,
     "endDate": null,
@@ -257,7 +255,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 20
+    "sortOrder": 18
   },
   {
     "description": "delete the child tasks when deleting the parent (or give a prompt how to handle)",
@@ -268,6 +266,17 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 21
+    "sortOrder": 19
+  },
+  {
+    "description": "when deleting child task, remove from parent task list also",
+    "ID": 206,
+    "priority": 8,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [],
+    "sortOrder": 20
   }
 ]

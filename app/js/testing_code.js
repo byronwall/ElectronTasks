@@ -265,9 +265,6 @@ function setupMainPageTasks() {
             console.log(currentID);
             console.log(currentTask);
 
-            //need to get the task located above the current one (0 index)
-            var currentRow = grid.getRowIndex(currentID);
-
             //have the task be below the current one
             options.sortOrder = currentTask.sortOrder + 0.5;
         }
@@ -295,7 +292,7 @@ function setupMainPageTasks() {
         var newTask = mainTaskList.getNew();
         newTask.description = "new task";
 
-        if(options.sortOrder != undefined){
+        if (options.sortOrder != undefined) {
             newTask.sortOrder = options.sortOrder;
         }
 
