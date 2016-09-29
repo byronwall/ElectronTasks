@@ -19,7 +19,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 6
+    "sortOrder": 5
   },
   {
     "description": "adding two new tasks seems to have broken deleting one?",
@@ -52,7 +52,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 9
+    "sortOrder": 8
   },
   {
     "description": "allow for saving to a non-default location",
@@ -96,7 +96,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 5
+    "sortOrder": 4
   },
   {
     "description": "add the ability for a calculated column (e.g. priority * importance)",
@@ -255,7 +255,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 2
+    "sortOrder": 3
   },
   {
     "description": "select all text after calling for \"editCell\" so that it's the same as before",
@@ -267,28 +267,6 @@
     "parentTask": null,
     "childTasks": [],
     "sortOrder": 1
-  },
-  {
-    "description": "support projects in the same data file",
-    "ID": 202,
-    "priority": 5,
-    "importance": 5,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": 93,
-    "childTasks": [],
-    "sortOrder": 26
-  },
-  {
-    "description": "support tags across tasks so they can be grouped later",
-    "ID": 203,
-    "priority": 5,
-    "importance": 5,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": 93,
-    "childTasks": [],
-    "sortOrder": 2
   },
   {
     "description": "testing the indented sort order",
@@ -303,7 +281,7 @@
       "180",
       "179"
     ],
-    "sortOrder": 1
+    "sortOrder": 2
   },
   {
     "description": "test 1",
@@ -314,7 +292,7 @@
     "endDate": null,
     "parentTask": 177,
     "childTasks": [],
-    "sortOrder": 1
+    "sortOrder": 0
   },
   {
     "description": "test 2",
@@ -325,7 +303,7 @@
     "endDate": null,
     "parentTask": 177,
     "childTasks": [],
-    "sortOrder": 2
+    "sortOrder": 1
   },
   {
     "description": "test 3",
@@ -336,7 +314,7 @@
     "endDate": null,
     "parentTask": 177,
     "childTasks": [],
-    "sortOrder": 26
+    "sortOrder": 2
   },
   {
     "description": "support attaching notes/comments/attachments to tasks to deal with blobby information",
@@ -347,7 +325,7 @@
     "endDate": null,
     "parentTask": 93,
     "childTasks": [],
-    "sortOrder": 24.9
+    "sortOrder": 1
   },
   {
     "description": "support quick field setting using markers @#$ etc in the description field",
@@ -358,6 +336,28 @@
     "endDate": null,
     "parentTask": 93,
     "childTasks": [],
-    "sortOrder": 26
+    "sortOrder": 2
+  },
+  {
+    "description": "support projects in the same data file",
+    "ID": 202,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 93,
+    "childTasks": [],
+    "sortOrder": 3
+  },
+  {
+    "description": "support tags across tasks so they can be grouped later",
+    "ID": 203,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 93,
+    "childTasks": [],
+    "sortOrder": 0
   }
 ]
