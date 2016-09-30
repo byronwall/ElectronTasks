@@ -2,6 +2,8 @@ module.exports = class TaskList {
 
     constructor() {
         this.tasks = {};
+        this.sortField = "priority";
+        this.sortDir = "desc";
     }
 
     getGridDataObject() {
@@ -25,55 +27,33 @@ module.exports = class TaskList {
                 //do a depth first seach and all will get added
 
                 var tasksOut = []
-                var tasksToProcess = []
 
-                //get a list of ids and the order to process them
-                var ordering = _.map(obj.tasks, function (item) {
-                    return { "sort": item.sortOrder, "ID": item.ID }
-                })
-
-                ordering = _.sortBy(ordering, ["sort"])
-
-                //obj is the current TaskList
-                //this function is used to output tasks in the correct default order
-                //the grid does not understand parent-child and will render whatever it is given
-
-                var processOrder = 0;
-
-                _.each(ordering, function (orderItem) {
-                    var item = obj.tasks[orderItem.ID];
-
-
-                    if (item.parentTask == null) {
-                        var indent = 0
-                        //process children
-                        function recurseChildren(task, indentLevel) {
-                            tasksOut.push(task);
-                            task.indent = indentLevel;
-                            var subProcessOrder = 0;
-
-                            //determine subtask ordering
-                            var subOrder = _.map(task.childTasks, function (childTaskId) {
-                                return { "sort": obj.tasks[childTaskId].sortOrder, "id": childTaskId }
-                            })
-
-                            subOrder = _.sortBy(subOrder, ["sort"])
-
-                            console.log("subOrder", subOrder)
-
-                            _.each(subOrder, function (itemObj) {
-                                var itemNo = itemObj.id;
-                                //TODO apply sort order to the children here
-                                var childTask = obj.tasks[itemNo];
-                                childTask.sortOrder = subProcessOrder++;
-                                recurseChildren(childTask, indentLevel + 1)
-                            });
-                        }
-
-                        recurseChildren(item, 0)
-                        item.sortOrder = processOrder++;
+                //process children
+                function recurseChildren(task, indentLevel) {
+                    //skip if starting on the pseudo root
+                    if (indentLevel > -1) {
+                        tasksOut.push(task);
                     }
-                });
+                    task.indent = indentLevel;
+                    var subProcessOrder = 0;
+
+                    //determine subtask ordering
+                    var subOrder = _.map(task.childTasks, function (childTaskId) {
+                        return { "sort": obj.tasks[childTaskId][obj.sortField], "id": childTaskId }
+                    })
+
+                    subOrder = _.orderBy(subOrder, ["sort"], [obj.sortDir])
+
+                    _.each(subOrder, function (itemObj) {
+                        var itemNo = itemObj.id;
+                        //TODO apply sort order to the children here
+                        var childTask = obj.tasks[itemNo];
+                        childTask.sortOrder = subProcessOrder++;
+                        recurseChildren(childTask, indentLevel + 1)
+                    });
+                }
+
+                recurseChildren(obj.getPseudoRootNode(), -1)
 
                 return _.map(tasksOut, function (item) {
                     return { "id": item.ID, "values": item }
@@ -82,6 +62,20 @@ module.exports = class TaskList {
         };
 
         return gridDataObject;
+    };
+
+    getPseudoRootNode() {
+        //need to return a "task" that has the parentless nodes as its children
+
+        var newTask = new Task();
+
+        _.each(this.tasks, function (task) {
+            if (task.parentTask == null) {
+                newTask.childTasks.push(task.ID)
+            }
+        })
+
+        return newTask;
     }
 
     getNew() {
