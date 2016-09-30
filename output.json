@@ -2,13 +2,13 @@
   {
     "description": "improve the visuals on the date picker",
     "ID": 13,
-    "priority": 7,
+    "priority": 4,
     "importance": 5,
     "startDate": null,
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 6
+    "sortOrder": 20
   },
   {
     "description": "improve visuals so that each task is distinct",
@@ -19,7 +19,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 8
+    "sortOrder": 13
   },
   {
     "description": "allow for saving to a non-default location",
@@ -30,7 +30,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 9
+    "sortOrder": 14
   },
   {
     "description": "allow for loading from a non-default location",
@@ -41,11 +41,22 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 10
+    "sortOrder": 15
   },
   {
     "description": "provide the ability to choose which columns are showing",
     "ID": 31,
+    "priority": 7,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [],
+    "sortOrder": 6
+  },
+  {
+    "description": "integrate Google Drive for storing the files so that it will work across different platforms",
+    "ID": 32,
     "priority": 6,
     "importance": 5,
     "startDate": null,
@@ -55,37 +66,26 @@
     "sortOrder": 7
   },
   {
-    "description": "integrate Google Drive for storing the files so that it will work across different platforms",
-    "ID": 32,
-    "priority": 8,
-    "importance": 5,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 0
-  },
-  {
     "description": "add the ability for a calculated column (e.g. priority * importance)",
     "ID": 33,
-    "priority": 5,
+    "priority": 4,
     "importance": 5,
     "startDate": null,
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 11
+    "sortOrder": 21
   },
   {
     "description": "figure out how to archive or hide completed tasks",
     "ID": 34,
-    "priority": 5,
+    "priority": 4,
     "importance": 5,
     "startDate": null,
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 12
+    "sortOrder": 22
   },
   {
     "description": "need to reapply the sorting after a change is made to a column",
@@ -96,7 +96,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 1
+    "sortOrder": 0
   },
   {
     "description": "create a settings page",
@@ -107,22 +107,21 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 22
+    "sortOrder": 27
   },
   {
     "description": "create a list of the features that need to be copied from Todoist (tags, notes, etc.)",
     "ID": 93,
-    "priority": 8,
+    "priority": 5,
     "importance": 5,
     "startDate": null,
     "endDate": null,
     "parentTask": null,
     "childTasks": [
       "200",
-      "201",
-      "203"
+      "201"
     ],
-    "sortOrder": 2
+    "sortOrder": 16
   },
   {
     "description": "save automatically after changing indentation",
@@ -133,7 +132,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 3
+    "sortOrder": 1
   },
   {
     "description": "make the text box larger for new tasks.  \"g\" is going off the bottom",
@@ -144,7 +143,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 13
+    "sortOrder": 17
   },
   {
     "description": "improve error checking with indentatiojn",
@@ -155,7 +154,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 14
+    "sortOrder": 18
   },
   {
     "description": "refine how the indenter chooses the level to go down to",
@@ -166,32 +165,32 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 15
+    "sortOrder": 19
   },
   {
     "description": "do not allow indenting to take place while sorted (at least while parent child relationships are not in order)",
     "ID": 122,
-    "priority": 5,
+    "priority": 4,
     "importance": 5,
     "startDate": null,
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 16
+    "sortOrder": 23
   },
   {
     "description": "select all text after calling for \"editCell\" so that it's the same as before",
     "ID": 176,
-    "priority": 5,
+    "priority": 6,
     "importance": 5,
     "startDate": null,
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 17
+    "sortOrder": 8
   },
   {
-    "description": "support attaching notes/comments/attachments to tasks to deal with blobby information",
+    "description": "support tags across tasks so they can be grouped later",
     "ID": 200,
     "priority": 5,
     "importance": 5,
@@ -199,7 +198,7 @@
     "endDate": null,
     "parentTask": 93,
     "childTasks": [],
-    "sortOrder": 1
+    "sortOrder": 0
   },
   {
     "description": "support projects in the same data file",
@@ -212,7 +211,7 @@
     "childTasks": [
       "202"
     ],
-    "sortOrder": 2
+    "sortOrder": 1
   },
   {
     "description": "these can be tasklists that are made up of other tasklists",
@@ -228,35 +227,35 @@
   {
     "description": "support tags across tasks so they can be grouped later",
     "ID": 203,
-    "priority": 8,
+    "priority": 7,
     "importance": 5,
     "startDate": null,
     "endDate": null,
-    "parentTask": 93,
+    "parentTask": null,
     "childTasks": [],
-    "sortOrder": 0
+    "sortOrder": 2
   },
   {
     "description": "allow for dragging and dropping tasks/groups to a new location",
     "ID": 204,
-    "priority": 5,
+    "priority": 6,
     "importance": 5,
     "startDate": null,
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 18
+    "sortOrder": 9
   },
   {
     "description": "delete the child tasks when deleting the parent (or give a prompt how to handle)",
     "ID": 205,
-    "priority": 5,
+    "priority": 8,
     "importance": 5,
     "startDate": null,
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 19
+    "sortOrder": 3
   },
   {
     "description": "when deleting child task, remove from parent task list also",
@@ -272,13 +271,13 @@
   {
     "description": "allow for collapsing and expanding tasks with children",
     "ID": 207,
-    "priority": 5,
+    "priority": 4,
     "importance": 5,
     "startDate": null,
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 20
+    "sortOrder": 24
   },
   {
     "description": "new task needs to be created with the same parent so that sort order is correct",
@@ -290,5 +289,85 @@
     "parentTask": null,
     "childTasks": [],
     "sortOrder": 5
+  },
+  {
+    "description": "allow for navigating the tasks using some shortcut with arrows",
+    "ID": 307,
+    "priority": 6,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [],
+    "sortOrder": 10
+  },
+  {
+    "description": "add ability to filter/search code to find tasks",
+    "ID": 309,
+    "priority": 6,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [],
+    "sortOrder": 11
+  },
+  {
+    "description": "add a UI element to control sorting features",
+    "ID": 371,
+    "priority": 6,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [
+      "373",
+      "375"
+    ],
+    "sortOrder": 12
+  },
+  {
+    "description": "allow choosing the field to sort by",
+    "ID": 373,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 371,
+    "childTasks": [],
+    "sortOrder": 0
+  },
+  {
+    "description": "allow choosing if sorting is continuous",
+    "ID": 375,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 371,
+    "childTasks": [],
+    "sortOrder": 1
+  },
+  {
+    "description": "add a visual indicator to show that the tasklist was saved (a quick blip thing)",
+    "ID": 380,
+    "priority": 4,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [],
+    "sortOrder": 25
+  },
+  {
+    "description": "provide color on the columns to indicate value (make it easier to quickly spot things)",
+    "ID": 382,
+    "priority": 4,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [],
+    "sortOrder": 26
   }
 ]
