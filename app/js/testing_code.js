@@ -107,6 +107,7 @@ function setupMainPageTasks() {
             aboveTask.childTasks.push(currentID);
 
             //the relationship is known... rerender?
+            mainTaskList.save()
             renderGrid();
             grid.editCell(currentRow, 0)
         }
@@ -179,6 +180,7 @@ function setupMainPageTasks() {
 
 
             //the relationship is known... rerender?
+            mainTaskList.save()
             renderGrid();
             grid.editCell(currentRow, 0)
         }
@@ -209,6 +211,7 @@ function setupMainPageTasks() {
             e.target.onblur = null
             e.target.celleditor.cancelEditing(e.target.element);
 
+            mainTaskList.save()
             renderGrid();
             grid.editCell(grid.getRowIndex(currentID), 0)
         }
@@ -241,6 +244,7 @@ function setupMainPageTasks() {
             e.target.onblur = null
             e.target.celleditor.cancelEditing(e.target.element);
 
+            mainTaskList.save()
             renderGrid();
             grid.editCell(grid.getRowIndex(currentID), 0)
         }

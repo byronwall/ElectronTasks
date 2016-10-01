@@ -99,19 +99,17 @@ module.exports = class TaskList {
             return d.getObjectForSaving();
         })
 
-        console.log(output);
-
         jsonfile.writeFile("./output.json", output, { spaces: 2 }, function (err) {
             if (err != null) {
                 console.error(err);
             }
 
+            //TODO change this out for a status update proper
             console.log("saved... calling callback");
             if (callback !== undefined) {
                 callback();
             }
         })
-
     }
 
     static load(callback) {

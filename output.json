@@ -19,7 +19,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 12
+    "sortOrder": 11
   },
   {
     "description": "allow for saving to a non-default location",
@@ -30,7 +30,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 13
+    "sortOrder": 12
   },
   {
     "description": "allow for loading from a non-default location",
@@ -41,7 +41,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 14
+    "sortOrder": 13
   },
   {
     "description": "provide the ability to choose which columns are showing",
@@ -52,7 +52,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 5
+    "sortOrder": 4
   },
   {
     "description": "integrate Google Drive for storing the files so that it will work across different platforms",
@@ -63,7 +63,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 15
+    "sortOrder": 14
   },
   {
     "description": "add the ability for a calculated column (e.g. priority * importance)",
@@ -110,7 +110,7 @@
       "200",
       "201"
     ],
-    "sortOrder": 16
+    "sortOrder": 15
   },
   {
     "description": "save automatically after changing indentation",
@@ -121,7 +121,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 1
+    "sortOrder": 0
   },
   {
     "description": "make the text box larger for new tasks.  \"g\" is going off the bottom",
@@ -132,7 +132,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 17
+    "sortOrder": 16
   },
   {
     "description": "improve error checking with indentatiojn",
@@ -143,7 +143,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 18
+    "sortOrder": 17
   },
   {
     "description": "refine how the indenter chooses the level to go down to",
@@ -154,7 +154,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 19
+    "sortOrder": 18
   },
   {
     "description": "do not allow indenting to take place while sorted (at least while parent child relationships are not in order)",
@@ -176,7 +176,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 7
+    "sortOrder": 6
   },
   {
     "description": "support tags across tasks so they can be grouped later",
@@ -222,7 +222,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 6
+    "sortOrder": 5
   },
   {
     "description": "allow for dragging and dropping tasks/groups to a new location",
@@ -233,7 +233,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 8
+    "sortOrder": 7
   },
   {
     "description": "delete the child tasks when deleting the parent (or give a prompt how to handle)",
@@ -244,7 +244,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 2
+    "sortOrder": 1
   },
   {
     "description": "when deleting child task, remove from parent task list also",
@@ -255,7 +255,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 3
+    "sortOrder": 2
   },
   {
     "description": "allow for collapsing and expanding tasks with children",
@@ -277,7 +277,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 4
+    "sortOrder": 3
   },
   {
     "description": "allow for navigating the tasks using some shortcut with arrows",
@@ -288,7 +288,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 9
+    "sortOrder": 8
   },
   {
     "description": "add ability to filter/search code to find tasks",
@@ -299,7 +299,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 10
+    "sortOrder": 9
   },
   {
     "description": "add a UI element to control sorting features",
@@ -313,7 +313,7 @@
       "373",
       "375"
     ],
-    "sortOrder": 11
+    "sortOrder": 10
   },
   {
     "description": "allow choosing the field to sort by",
