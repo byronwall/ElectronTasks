@@ -58,6 +58,7 @@ function setupMainPageTasks() {
                 }
 
                 mainTaskList.save()
+                renderGrid();
             };
 
             renderGrid();
