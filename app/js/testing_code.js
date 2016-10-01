@@ -277,6 +277,7 @@ function setupMainPageTasks() {
 
             //have the task be below the current one
             options.sortOrder = currentTask.sortOrder + 0.5;
+            options.parentTask = currentTask.parentTask;
         }
 
         createNewTask(options);
@@ -302,8 +303,11 @@ function setupMainPageTasks() {
         var newTask = mainTaskList.getNew();
         newTask.description = "new task";
 
-        if (options.sortOrder != undefined) {
-            newTask.sortOrder = options.sortOrder;
+        _.assign(newTask, options);
+
+        //assign child for the parent
+        if(newTask.parentTask != null){
+            mainTaskList.tasks[newTask.parentTask].childTasks.push(newTask.ID);
         }
 
         renderGrid();
