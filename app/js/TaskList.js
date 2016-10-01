@@ -87,6 +87,35 @@ module.exports = class TaskList {
 
     removeTask(ID) {
         //this will delete the task from the object
+        
+        //check if the task has a parent, if so remove from there
+        var taskToDelete = this.tasks[ID];
+
+        if(taskToDelete.parentTask != null){
+            //assign children to current parent
+            var parentTask = this.tasks[taskToDelete.parentTask];
+
+            parentTask.childTasks = parentTask.childTasks.concat(taskToDelete.childTasks);
+
+            //find the index of the current task and splice it out
+            console.log("childTasks before", parentTask.childTasks)
+            console.log("id to remove", ID);
+            var index = parentTask.childTasks.indexOf(ID);
+            console.log("index", index)
+            parentTask.childTasks.splice(index, 1);
+            console.log("childTasks after", parentTask.childTasks)
+        }
+
+        //update parent of children to current parent
+        var obj = this;
+        _.each(taskToDelete.childTasks, function(taskId){
+            obj.tasks[taskId].parentTask = taskToDelete.parentTask;
+        })
+
+        //check if task has children, if so, delete those children too (and their children)
+        // -or- collapse the current node "up" a level into the current parent
+
+
         delete this.tasks[ID];
     }
 

@@ -77,6 +77,7 @@ function setupMainPageTasks() {
 
             var currentID = e.target.parentElement.parentElement.id;
             currentID = currentID.split("task-list_")[1];
+            currentID = parseInt(currentID);
 
             //now holds the current ID
             var currentTask = mainTaskList.tasks[currentID];
@@ -132,6 +133,7 @@ function setupMainPageTasks() {
 
             var currentID = e.target.parentElement.parentElement.id;
             currentID = currentID.split("task-list_")[1];
+            currentID = parseInt(currentID);
 
             //now holds the current ID
             var currentTask = mainTaskList.tasks[currentID];
@@ -200,6 +202,7 @@ function setupMainPageTasks() {
 
             var currentID = e.target.parentElement.parentElement.id;
             currentID = currentID.split("task-list_")[1];
+            currentID = parseInt(currentID);
 
             //now holds the current ID
             var currentTask = mainTaskList.tasks[currentID];
@@ -231,6 +234,7 @@ function setupMainPageTasks() {
 
             var currentID = e.target.parentElement.parentElement.id;
             currentID = currentID.split("task-list_")[1];
+            currentID = parseInt(currentID);
 
             //now holds the current ID
             var currentTask = mainTaskList.tasks[currentID];
@@ -263,6 +267,7 @@ function setupMainPageTasks() {
 
             var currentID = e.target.parentElement.parentElement.id;
             currentID = currentID.split("task-list_")[1];
+            currentID = parseInt(currentID);
 
             //now holds the current ID
             var currentTask = mainTaskList.tasks[currentID];
