@@ -260,6 +260,9 @@ function setupMainPageTasks() {
         var options = {};
 
         if (e.target.tagName == "INPUT") {
+
+            
+
             //we have a text box
             console.log(e.target.parentElement.parentElement.id)
             //this contains "task-list_13"
@@ -278,6 +281,15 @@ function setupMainPageTasks() {
             //have the task be below the current one
             options.sortOrder = currentTask.sortOrder + 0.5;
             options.parentTask = currentTask.parentTask;
+
+            var editor = e.target.celleditor;
+            //if editing or a change was made, apply that change
+            // backup onblur then remove it: it will be restored if editing could not be applied
+            e.target.onblur_backup = e.target.onblur;
+            e.target.onblur = null;
+            if (editor.applyEditing(e.target.element, editor.getEditorValue(e.target)) === false) {
+                e.target.onblur = e.target.onblur_backup;
+            }
         }
 
         createNewTask(options);
@@ -306,7 +318,7 @@ function setupMainPageTasks() {
         _.assign(newTask, options);
 
         //assign child for the parent
-        if(newTask.parentTask != null){
+        if (newTask.parentTask != null) {
             mainTaskList.tasks[newTask.parentTask].childTasks.push(newTask.ID);
         }
 
