@@ -107,6 +107,15 @@ function setupMainPageTasks() {
             currentTask.parentTask = aboveId;
             aboveTask.childTasks.push(currentID);
 
+            var editor = e.target.celleditor;
+            //if editing or a change was made, apply that change
+            // backup onblur then remove it: it will be restored if editing could not be applied
+            e.target.onblur_backup = e.target.onblur;
+            e.target.onblur = null;
+            if (editor.applyEditing(e.target.element, editor.getEditorValue(e.target)) === false) {
+                e.target.onblur = e.target.onblur_backup;
+            }
+
             //the relationship is known... rerender?
             mainTaskList.save()
             renderGrid();
@@ -180,6 +189,15 @@ function setupMainPageTasks() {
             console.log("currentTask after all")
             console.log(currentTask)
 
+            var editor = e.target.celleditor;
+            //if editing or a change was made, apply that change
+            // backup onblur then remove it: it will be restored if editing could not be applied
+            e.target.onblur_backup = e.target.onblur;
+            e.target.onblur = null;
+            if (editor.applyEditing(e.target.element, editor.getEditorValue(e.target)) === false) {
+                e.target.onblur = e.target.onblur_backup;
+            }
+
 
             //the relationship is known... rerender?
             mainTaskList.save()
@@ -211,8 +229,14 @@ function setupMainPageTasks() {
 
             //need to cancel the editing before rendering to avoid a change being fired            
             //NOTE that these two calls always appear together... not sure why the onblur is nulled
-            e.target.onblur = null
-            e.target.celleditor.cancelEditing(e.target.element);
+            var editor = e.target.celleditor;
+            //if editing or a change was made, apply that change
+            // backup onblur then remove it: it will be restored if editing could not be applied
+            e.target.onblur_backup = e.target.onblur;
+            e.target.onblur = null;
+            if (editor.applyEditing(e.target.element, editor.getEditorValue(e.target)) === false) {
+                e.target.onblur = e.target.onblur_backup;
+            }
 
             mainTaskList.save()
             renderGrid();
@@ -245,8 +269,14 @@ function setupMainPageTasks() {
 
             //need to cancel the editing before rendering to avoid a change being fired            
             //NOTE that these two calls always appear together... not sure why the onblur is nulled
-            e.target.onblur = null
-            e.target.celleditor.cancelEditing(e.target.element);
+            var editor = e.target.celleditor;
+            //if editing or a change was made, apply that change
+            // backup onblur then remove it: it will be restored if editing could not be applied
+            e.target.onblur_backup = e.target.onblur;
+            e.target.onblur = null;
+            if (editor.applyEditing(e.target.element, editor.getEditorValue(e.target)) === false) {
+                e.target.onblur = e.target.onblur_backup;
+            }
 
             mainTaskList.save()
             renderGrid();
