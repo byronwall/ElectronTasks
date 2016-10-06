@@ -4,17 +4,21 @@ module.exports = class TaskList {
         this.tasks = {};
         this.sortField = "priority";
         this.sortDir = "desc";
+
+        this._possibleColumns = [
+            { "name": "description", "label": "desc", "datatype": "string", "editable": true, "active": true },
+            { "name": "priority", "label": "priority", "datatype": "integer", "editable": true , "active": true},
+            { "name": "importance", "label": "importance", "datatype": "integer", "editable": true , "active": true},
+            { "name": "startDate", "label": "start", "datatype": "date", "editable": true , "active": true},
+            { "name": "endDate", "label": "end", "datatype": "date", "editable": true, "active": true }
+        ]
+
+        this.columns = _.keyBy(this._possibleColumns, "name");
     }
 
     getGridDataObject() {
         var gridDataObject = {
-            "metadata": [
-                { "name": "description", "label": "desc", "datatype": "string", "editable": true },
-                { "name": "priority", "label": "priority", "datatype": "integer", "editable": true },
-                { "name": "importance", "label": "importance", "datatype": "integer", "editable": true },
-                { "name": "startDate", "label": "start", "datatype": "date", "editable": true },
-                { "name": "endDate", "label": "end", "datatype": "date", "editable": true }
-            ],
+            "metadata": _.filter(this.columns, "active"),
             "data": (function (obj) {
 
                 //get a list of all tasks
@@ -87,11 +91,11 @@ module.exports = class TaskList {
 
     removeTask(ID) {
         //this will delete the task from the object
-        
+
         //check if the task has a parent, if so remove from there
         var taskToDelete = this.tasks[ID];
 
-        if(taskToDelete.parentTask != null){
+        if (taskToDelete.parentTask != null) {
             //assign children to current parent
             var parentTask = this.tasks[taskToDelete.parentTask];
 
@@ -108,7 +112,7 @@ module.exports = class TaskList {
 
         //update parent of children to current parent
         var obj = this;
-        _.each(taskToDelete.childTasks, function(taskId){
+        _.each(taskToDelete.childTasks, function (taskId) {
             obj.tasks[taskId].parentTask = taskToDelete.parentTask;
         })
 
@@ -117,6 +121,13 @@ module.exports = class TaskList {
 
 
         delete this.tasks[ID];
+    }
+
+    getListOfColumns() {
+        //this will return a list of all possible columns that could be visualized
+
+        //iterate through possible columns and return the name
+        return _.map(this._possibleColumns, "name");
     }
 
     save(callback) {

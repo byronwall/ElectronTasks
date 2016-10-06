@@ -1,7 +1,7 @@
 //these requires are needed in order to load objects on the Browser side of things
 var Task = require("./js/Task.js");
 var TaskList = require("./js/TaskList.js");
-var jQuery = require("jquery")
+
 var _ = require("lodash")
 
 //TODO clean this section up to hide these variables
@@ -62,6 +62,23 @@ function setupMainPageTasks() {
             };
 
             renderGrid();
+
+            //TODO extract this code to a new function call
+            //set up the column chooser
+            _.each(mainTaskList.getListOfColumns(), function(columnName){
+                //create the label and the actual input element
+                var label = $("<label/>").appendTo("#columnChooser").text(columnName).attr("class", "btn btn-primary active");
+                var inputEl = $("<input/>").attr("type", "checkbox").prop("checked", true).appendTo(label);
+
+                //set up a click event on the LABEL... does not work for the input
+                $(label).on("click", function(ev){
+
+                    //this seems to be opposite of the actual value
+                    var isActive = !$(this).hasClass("active")
+                    mainTaskList.columns[columnName].active = isActive;
+                    renderGrid();
+                })
+            });
         });
     });
 
@@ -291,7 +308,7 @@ function setupMainPageTasks() {
 
         if (e.target.tagName == "INPUT") {
 
-            
+
 
             //we have a text box
             console.log(e.target.parentElement.parentElement.id)
@@ -340,6 +357,8 @@ function setupMainPageTasks() {
         //create a new task, stick at the end, and engage the editor
         createNewTask();
     })
+
+
 
     function createNewTask(options = {}) {
         var newTask = mainTaskList.getNew();
