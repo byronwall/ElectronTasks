@@ -8,7 +8,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 15
+    "sortOrder": 18
   },
   {
     "description": "improve visuals so that each task is distinct",
@@ -19,7 +19,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 7
+    "sortOrder": 8
   },
   {
     "description": "allow for saving to a non-default location",
@@ -30,7 +30,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 8
+    "sortOrder": 9
   },
   {
     "description": "allow for loading from a non-default location",
@@ -41,7 +41,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 9
+    "sortOrder": 10
   },
   {
     "description": "integrate Google Drive for storing files so that it will work across different platforms",
@@ -52,7 +52,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 10
+    "sortOrder": 11
   },
   {
     "description": "add the ability for a calculated column (e.g. priority * importance)",
@@ -63,7 +63,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 16
+    "sortOrder": 19
   },
   {
     "description": "figure out how to archive or hide completed tasks",
@@ -74,7 +74,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 17
+    "sortOrder": 20
   },
   {
     "description": "create a settings page",
@@ -85,7 +85,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 22
+    "sortOrder": 25
   },
   {
     "description": "create a list of the features that need to be copied from Todoist (tags, notes, etc.)",
@@ -100,7 +100,7 @@
       201,
       427
     ],
-    "sortOrder": 11
+    "sortOrder": 12
   },
   {
     "description": "make the text box larger for new tasks.  \"g\" is going off the bottom",
@@ -111,10 +111,10 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 12
+    "sortOrder": 13
   },
   {
-    "description": "improve error checking with indentatiojn",
+    "description": "improve error checking with indentation",
     "ID": 97,
     "priority": 5,
     "importance": 5,
@@ -122,7 +122,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 13
+    "sortOrder": 14
   },
   {
     "description": "refine how the indenter chooses the level to go down to",
@@ -133,7 +133,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 14
+    "sortOrder": 15
   },
   {
     "description": "do not allow indenting to take place while sorted (at least while parent child relationships are not in order)",
@@ -144,7 +144,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 18
+    "sortOrder": 21
   },
   {
     "description": "select all text after calling for \"editCell\" so that it's the same as before",
@@ -155,7 +155,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 2
+    "sortOrder": 3
   },
   {
     "description": "support tags across tasks so they can be grouped later",
@@ -201,7 +201,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 3
+    "sortOrder": 4
   },
   {
     "description": "allow for dragging and dropping tasks/groups to a new location",
@@ -212,7 +212,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 4
+    "sortOrder": 5
   },
   {
     "description": "allow for collapsing and expanding tasks with children",
@@ -223,7 +223,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 19
+    "sortOrder": 22
   },
   {
     "description": "allow for navigating the tasks using some shortcut with arrows",
@@ -234,47 +234,35 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 5
+    "sortOrder": 6
   },
   {
     "description": "add ability to filter/search code to find tasks",
     "ID": 309,
-    "priority": 6,
-    "importance": 5,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 6
-  },
-  {
-    "description": "add a UI element to control sorting features",
-    "ID": 371,
     "priority": 7,
     "importance": 5,
     "startDate": null,
     "endDate": null,
     "parentTask": null,
-    "childTasks": [
-      373,
-      375
-    ],
+    "childTasks": [],
     "sortOrder": 1
+  },
+  {
+    "description": "add a UI element to control sorting features",
+    "ID": 371,
+    "priority": 8,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [
+      373
+    ],
+    "sortOrder": 0
   },
   {
     "description": "allow choosing the field to sort by",
     "ID": 373,
-    "priority": 5,
-    "importance": 5,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": 371,
-    "childTasks": [],
-    "sortOrder": 0
-  },
-  {
-    "description": "allow choosing if sorting is continuous",
-    "ID": 375,
     "priority": 5,
     "importance": 5,
     "startDate": null,
@@ -292,7 +280,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 20
+    "sortOrder": 23
   },
   {
     "description": "provide color on the columns to indicate value (make it easier to quickly spot things)",
@@ -303,7 +291,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 21
+    "sortOrder": 24
   },
   {
     "description": "support notes and other attachments",
@@ -315,5 +303,49 @@
     "parentTask": 93,
     "childTasks": [],
     "sortOrder": 2
+  },
+  {
+    "description": "store visible columns using localStorage",
+    "ID": 436,
+    "priority": 7,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [],
+    "sortOrder": 2
+  },
+  {
+    "description": "create a set of shortcuts (or saved views) to change which columns are displayed",
+    "ID": 439,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [],
+    "sortOrder": 16
+  },
+  {
+    "description": "add buttons to the task to complete a task (and do other actions in the future)",
+    "ID": 445,
+    "priority": 6,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [],
+    "sortOrder": 7
+  },
+  {
+    "description": "hitting load will show all of the column buttons again",
+    "ID": 453,
+    "priority": 5,
+    "importance": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [],
+    "sortOrder": 17
   }
 ]

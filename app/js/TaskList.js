@@ -4,12 +4,13 @@ module.exports = class TaskList {
         this.tasks = {};
         this.sortField = "priority";
         this.sortDir = "desc";
+        this.isSortEnabled = false;
 
         this._possibleColumns = [
             { "name": "description", "label": "desc", "datatype": "string", "editable": true, "active": true },
-            { "name": "priority", "label": "priority", "datatype": "integer", "editable": true , "active": true},
-            { "name": "importance", "label": "importance", "datatype": "integer", "editable": true , "active": true},
-            { "name": "startDate", "label": "start", "datatype": "date", "editable": true , "active": true},
+            { "name": "priority", "label": "priority", "datatype": "integer", "editable": true, "active": true },
+            { "name": "importance", "label": "importance", "datatype": "integer", "editable": true, "active": true },
+            { "name": "startDate", "label": "start", "datatype": "date", "editable": true, "active": true },
             { "name": "endDate", "label": "end", "datatype": "date", "editable": true, "active": true }
         ]
 
@@ -20,6 +21,7 @@ module.exports = class TaskList {
         var gridDataObject = {
             "metadata": _.filter(this.columns, "active"),
             "data": (function (obj) {
+                //TODO, really need to pull this function call out
 
                 //get a list of all tasks
                 //iterate through them
@@ -32,6 +34,10 @@ module.exports = class TaskList {
 
                 var tasksOut = []
 
+                //these checks set the sort column if used
+                var activeSortField = (obj.isSortEnabled) ? obj.sortField : "sortOrder";
+                var activeSortDir = (obj.isSortEnabled) ? obj.sortDir : "asc";
+
                 //process children
                 function recurseChildren(task, indentLevel) {
                     //skip if starting on the pseudo root
@@ -43,10 +49,10 @@ module.exports = class TaskList {
 
                     //determine subtask ordering
                     var subOrder = _.map(task.childTasks, function (childTaskId) {
-                        return { "sort": obj.tasks[childTaskId][obj.sortField], "id": childTaskId }
+                        return { "sort": obj.tasks[childTaskId][activeSortField], "id": childTaskId }
                     })
 
-                    subOrder = _.orderBy(subOrder, ["sort"], [obj.sortDir])
+                    subOrder = _.orderBy(subOrder, ["sort"], [activeSortDir])
 
                     _.each(subOrder, function (itemObj) {
                         var itemNo = itemObj.id;

@@ -65,13 +65,13 @@ function setupMainPageTasks() {
 
             //TODO extract this code to a new function call
             //set up the column chooser
-            _.each(mainTaskList.getListOfColumns(), function(columnName){
+            _.each(mainTaskList.getListOfColumns(), function (columnName) {
                 //create the label and the actual input element
                 var label = $("<label/>").appendTo("#columnChooser").text(columnName).attr("class", "btn btn-primary active");
                 var inputEl = $("<input/>").attr("type", "checkbox").prop("checked", true).appendTo(label);
 
                 //set up a click event on the LABEL... does not work for the input
-                $(label).on("click", function(ev){
+                $(label).on("click", function (ev) {
 
                     //this seems to be opposite of the actual value
                     var isActive = !$(this).hasClass("active")
@@ -358,7 +358,16 @@ function setupMainPageTasks() {
         createNewTask();
     })
 
+    //bind events for the sort button click
+    $("#isSortEnabled").on("click", function (ev) {
 
+        //TODO determine why bootstrap states are reversed in events... too early detection?
+        //the button states are reversed when coming through
+        var isSortEnabled = !($(this).attr("aria-pressed") === 'true');
+        mainTaskList.isSortEnabled = isSortEnabled;
+
+        renderGrid();
+    });
 
     function createNewTask(options = {}) {
         var newTask = mainTaskList.getNew();
