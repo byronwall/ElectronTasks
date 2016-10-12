@@ -78,8 +78,62 @@ function setupMainPageTasks() {
                     mainTaskList.columns[columnName].active = isActive;
                     renderGrid();
                 })
+
+                var label = $("<label/>").appendTo("#sortChooser").text(columnName).attr("class", "btn btn-primary");
+                var inputEl = $("<input/>").attr("type", "radio").appendTo(label);
+
+                //set up a click event on the LABEL... does not work for the input
+                $(label).on("click", function (ev) {
+
+                    //this seems to be opposite of the actual value
+
+                    mainTaskList.sortField = columnName;
+                    renderGrid();
+                })
+
+
+            });
+
+            //create the asc/desc buttons
+
+            var sortDirs = ["asc", "desc"];
+            _.each(sortDirs, function (sortDir) {
+                var label = $("<label/>").appendTo("#sortChooser").text(sortDir).attr("class", "btn btn-info");
+                var inputEl = $("<input/>").attr("type", "radio").appendTo(label);
+
+                //set up a click event on the LABEL... does not work for the input
+                $(label).on("click", function (ev) {
+                    //this seems to be opposite of the actual value
+                    mainTaskList.sortDir = sortDir;
+                    renderGrid();
+                })
             });
         });
+    });
+
+    var searchBox = $("#txtSearch")
+
+    //set up events for the search box
+    $("#btnClearSearch").on("click", function(ev){
+        //clear the search box
+        searchBox.val("");
+
+        //reset the search filter
+        mainTaskList.searchTerm = "";
+
+        //render again
+        renderGrid();
+    });
+
+    $("#txtSearch").on("input", function(ev){
+        //this needs to do the active search
+        //set a filter
+        mainTaskList.searchTerm = $(this).val();
+
+        //render again
+        renderGrid();
+
+        //possibly put in a delay so it doesnt rip around
     });
 
     Mousetrap.bind("alt+right", function (e) {

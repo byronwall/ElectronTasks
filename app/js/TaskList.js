@@ -6,6 +6,8 @@ module.exports = class TaskList {
         this.sortDir = "desc";
         this.isSortEnabled = false;
 
+        this.searchTerm = "";
+
         this._possibleColumns = [
             { "name": "description", "label": "desc", "datatype": "string", "editable": true, "active": true },
             { "name": "priority", "label": "priority", "datatype": "integer", "editable": true, "active": true },
@@ -42,7 +44,11 @@ module.exports = class TaskList {
                 function recurseChildren(task, indentLevel) {
                     //skip if starting on the pseudo root
                     if (indentLevel > -1) {
-                        tasksOut.push(task);
+
+                        //do a check on desc
+                        if (obj.searchTerm == "" || task.isResultForSearch(obj.searchTerm)) {
+                            tasksOut.push(task);
+                        }
                     }
                     task.indent = indentLevel;
                     var subProcessOrder = 0;

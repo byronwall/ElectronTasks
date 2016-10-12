@@ -21,6 +21,30 @@ module.exports = class Task {
         this.sortOrder = Number.MAX_SAFE_INTEGER;
     }
 
+    isResultForSearch(searchTerm) {
+        //check each part of the task to see if it appears
+
+        //return true if any
+        var hasNoMatch = _.every(this, function (item) {
+
+            var isMatch = false;
+
+            if (item == null) {
+                return true;
+            }
+
+            if (typeof item.indexOf === "function") {
+                isMatch = item.indexOf(searchTerm) != -1;
+            } else {
+                isMatch = (item == searchTerm);
+            }
+
+            return !isMatch;
+        })
+
+        return !hasNoMatch;
+    }
+
     static createFromData(data) {
         //this will create a task from a given JSON object
         var task = new Task();
@@ -55,7 +79,7 @@ module.exports = class Task {
             "endDate": this.endDate,
             "parentTask": this.parentTask,
             "childTasks": this.childTasks,
-            "sortOrder" : this.sortOrder
+            "sortOrder": this.sortOrder
         }
     }
 }
