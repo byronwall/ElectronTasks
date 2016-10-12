@@ -11,7 +11,6 @@ module.exports = class Task {
 
         //some new fields for testig
         this.priority = 5;
-        this.importance = 5;
 
         //these will be INTs that store the ID
         this.parentTask = null;
@@ -74,7 +73,7 @@ module.exports = class Task {
             "description": this.description,
             "ID": this.ID,
             "priority": this.priority,
-            "importance": this.importance,
+            "duration": this.duration,
             "startDate": this.startDate,
             "endDate": this.endDate,
             "parentTask": this.parentTask,

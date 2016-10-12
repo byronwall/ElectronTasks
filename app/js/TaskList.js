@@ -10,8 +10,8 @@ module.exports = class TaskList {
 
         this._possibleColumns = [
             { "name": "description", "label": "desc", "datatype": "string", "editable": true, "active": true },
+            { "name": "duration", "label": "duration (min)", "datatype": "double", "editable": true, "active": true },
             { "name": "priority", "label": "priority", "datatype": "integer", "editable": true, "active": true },
-            { "name": "importance", "label": "importance", "datatype": "integer", "editable": true, "active": true },
             { "name": "startDate", "label": "start", "datatype": "date", "editable": true, "active": true },
             { "name": "endDate", "label": "end", "datatype": "date", "editable": true, "active": true }
         ]
