@@ -125,9 +125,15 @@ function setupMainPageTasks() {
         renderGrid();
     });
 
-    $("#txtSearch").on("input", function(ev){
+    $("#txtSearch").on("keyup", function(ev){
         //this needs to do the active search
         //set a filter
+
+        //find the ESC key
+        if(ev.keyCode == 27){
+            $(this).val("");
+        }
+
         mainTaskList.searchTerm = $(this).val();
 
         //render again
@@ -421,6 +427,16 @@ function setupMainPageTasks() {
         mainTaskList.isSortEnabled = isSortEnabled;
 
         renderGrid();
+    });
+
+    //bind events for the sort button click
+    $("#btnSortNow").on("click", function (ev) {
+
+        //TODO determine why bootstrap states are reversed in events... too early detection?
+        var currentSetting = mainTaskList.isSortEnabled;
+        mainTaskList.isSortEnabled = true;
+        renderGrid();
+        mainTaskList.isSortEnabled = currentSetting;
     });
 
     function createNewTask(options = {}) {
