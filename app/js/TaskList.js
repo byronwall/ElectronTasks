@@ -8,6 +8,8 @@ module.exports = class TaskList {
 
         this.searchTerm = "";
 
+        this.path = "";
+
         this._possibleColumns = [
             { "name": "description", "label": "desc", "datatype": "string", "editable": true, "active": true },
             { "name": "duration", "label": "duration (min)", "datatype": "double", "editable": true, "active": true },
@@ -146,12 +148,17 @@ module.exports = class TaskList {
         var jsonfile = require("jsonfile");
         var _ = require("lodash");
 
+        if(this.path == ""){
+            console.log("no path set, will not save");
+            return false;
+        }
+
         //create new object with only the date to keep        
         var output = _.map(this.tasks, function (d) {
             return d.getObjectForSaving();
         })
 
-        jsonfile.writeFile("./output.json", output, { spaces: 2 }, function (err) {
+        jsonfile.writeFile(this.path, output, { spaces: 2 }, function (err) {
             if (err != null) {
                 console.error(err);
             }
@@ -164,15 +171,16 @@ module.exports = class TaskList {
         })
     }
 
-    static load(callback) {
+    static load(path, callback) {
         var jsonfile = require("jsonfile");
 
         //create new object with only the date to keep
         var _ = require("lodash");
 
         var taskList = new TaskList();
+        taskList.path = path;
 
-        jsonfile.readFile("./output.json", function (err, obj) {
+        jsonfile.readFile(taskList.path, function (err, obj) {
             console.log(obj);
 
             _.each(obj, function (item) {

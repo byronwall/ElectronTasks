@@ -2,6 +2,9 @@
 var Task = require("./js/Task.js");
 var TaskList = require("./js/TaskList.js");
 
+var app = require('electron').remote;
+var dialog = app.dialog;
+
 var _ = require("lodash")
 
 //TODO clean this section up to hide these variables
@@ -23,98 +26,130 @@ function renderGrid() {
 function setupMainPageTasks() {
     //this is currently a dumping ground to get events created
 
-    $ = require("jquery");
+    //create a blank task list to start
+    mainTaskList = new TaskList();
+
+    //set up the grid related events
+    grid = new EditableGrid("task-list");
+    grid.modelChanged = function (rowIndex, columnIndex, oldValue, newValue, row) {
+        //TODO update this call to handle validation
+        console.log("Value for '" + this.getColumnName(columnIndex) +
+            "' in row " + this.getRowId(rowIndex) +
+            " has changed from '" + oldValue +
+            "' to '" + newValue + "'");
+
+        //convert to rowId to get the correct ID in the task list
+        var rowId = grid.getRowId(rowIndex);
+
+        if (columnIndex == 0 && newValue == "") {
+            //delete the current item, it has been blanked
+            mainTaskList.removeTask(rowId);
+            grid.remove(rowIndex);
+        }
+        else {
+            //this will update the underlying data
+            mainTaskList.tasks[rowId][this.getColumnName(columnIndex)] = newValue
+        }
+
+        mainTaskList.save()
+        renderGrid();
+    };
+
 
     $("#loader").on("click", function () {
         //set the list object
-        TaskList.load(function (loadedTaskList) {
-            mainTaskList = loadedTaskList;
+        dialog.showOpenDialog(function (fileName) {
+            fileName = fileName[0];
+            console.log("folder", fileName);
 
-            //get the tasks from the main list and render here
-            console.log(mainTaskList.getGridDataObject());
+            TaskList.load(fileName, loadTaskListCallback);
 
-            //TODO pull this initialziation code out of this single event
-            grid = new EditableGrid("task-list");
-
-            grid.modelChanged = function (rowIndex, columnIndex, oldValue, newValue, row) {
-                //TODO update this call to handle validation
-                //TODO allow this to delete the task if the name is blank
-                console.log("Value for '" + this.getColumnName(columnIndex) +
-                    "' in row " + this.getRowId(rowIndex) +
-                    " has changed from '" + oldValue +
-                    "' to '" + newValue + "'");
-
-                //convert to rowId to get the correct ID in the task list
-                var rowId = grid.getRowId(rowIndex);
-
-                if (columnIndex == 0 && newValue == "") {
-                    //delete the current item, it has been blanked
-                    mainTaskList.removeTask(rowId);
-                    grid.remove(rowIndex);
-                }
-                else {
-                    //this will update the underlying data
-                    mainTaskList.tasks[rowId][this.getColumnName(columnIndex)] = newValue
-                }
-
-                mainTaskList.save()
-                renderGrid();
-            };
-
-            renderGrid();
-
-            //TODO extract this code to a new function call
-            //set up the column chooser
-            _.each(mainTaskList.getListOfColumns(), function (columnName) {
-                //create the label and the actual input element
-                var label = $("<label/>").appendTo("#columnChooser").text(columnName).attr("class", "btn btn-primary active");
-                var inputEl = $("<input/>").attr("type", "checkbox").prop("checked", true).appendTo(label);
-
-                //set up a click event on the LABEL... does not work for the input
-                $(label).on("click", function (ev) {
-
-                    //this seems to be opposite of the actual value
-                    var isActive = !$(this).hasClass("active")
-                    mainTaskList.columns[columnName].active = isActive;
-                    renderGrid();
-                })
-
-                var label = $("<label/>").appendTo("#sortChooser").text(columnName).attr("class", "btn btn-primary");
-                var inputEl = $("<input/>").attr("type", "radio").appendTo(label);
-
-                //set up a click event on the LABEL... does not work for the input
-                $(label).on("click", function (ev) {
-
-                    //this seems to be opposite of the actual value
-
-                    mainTaskList.sortField = columnName;
-                    renderGrid();
-                })
-
-
-            });
-
-            //create the asc/desc buttons
-
-            var sortDirs = ["asc", "desc"];
-            _.each(sortDirs, function (sortDir) {
-                var label = $("<label/>").appendTo("#sortChooser").text(sortDir).attr("class", "btn btn-info");
-                var inputEl = $("<input/>").attr("type", "radio").appendTo(label);
-
-                //set up a click event on the LABEL... does not work for the input
-                $(label).on("click", function (ev) {
-                    //this seems to be opposite of the actual value
-                    mainTaskList.sortDir = sortDir;
-                    renderGrid();
-                })
-            });
+            //TODO add a check to see if new to app, if so push to the front of recent files
+            //TODO if changing the recent files, reload the button
         });
+    });
+
+    function loadTaskListCallback(loadedTaskList) {
+        mainTaskList = loadedTaskList;
+        renderGrid();
+    }
+
+    //TODO extract this code to a new function call
+    //set up the column chooser
+    _.each(mainTaskList.getListOfColumns(), function (columnName) {
+        //create the label and the actual input element
+        var label = $("<label/>").appendTo("#columnChooser").text(columnName).attr("class", "btn btn-primary active");
+        var inputEl = $("<input/>").attr("type", "checkbox").prop("checked", true).appendTo(label);
+
+        //set up a click event on the LABEL... does not work for the input
+        $(label).on("click", function (ev) {
+
+            //this seems to be opposite of the actual value
+            var isActive = !$(this).hasClass("active")
+            mainTaskList.columns[columnName].active = isActive;
+            renderGrid();
+        })
+
+        var label = $("<label/>").appendTo("#sortChooser").text(columnName).attr("class", "btn btn-primary");
+        var inputEl = $("<input/>").attr("type", "radio").appendTo(label);
+
+        //set up a click event on the LABEL... does not work for the input
+        $(label).on("click", function (ev) {
+            //this seems to be opposite of the actual value
+            mainTaskList.sortField = columnName;
+            renderGrid();
+        })
+    });
+
+    //set up the buttons for the recent files
+    //testing the localStorage
+    files = ["./output.json"];
+    localStorage.setItem("recentFiles", JSON.stringify(files));
+
+    //this refers to the div for the group
+    //div -> ul = list of items
+    //item looks like <li><a href="#">No recent documents.</a></li>
+
+    recentFiles = JSON.parse(localStorage.getItem("recentFiles"));
+    console.log("recentFiles", recentFiles)
+
+    if (recentFiles.length > 0) {
+        $("#recentFileGroup ul").empty();
+    }
+
+    _.each(recentFiles, function (sortDir) {
+        console.log("sort dir", sortDir)
+        var label = $("<li/>").appendTo("#recentFileGroup ul")
+        var aDom = $("<a/>").attr("href", "#").text(sortDir).appendTo(label);
+
+        //set up a click event on the LABEL... does not work for the input
+        $(label).on("click", function (ev) {
+            //this seems to be opposite of the actual value
+            console.log("label was clicked", sortDir)
+            TaskList.load(sortDir, loadTaskListCallback);
+        })
+    });
+
+
+    //create the asc/desc buttons
+
+    var sortDirs = ["asc", "desc"];
+    _.each(sortDirs, function (sortDir) {
+        var label = $("<label/>").appendTo("#sortChooser").text(sortDir).attr("class", "btn btn-info");
+        var inputEl = $("<input/>").attr("type", "radio").appendTo(label);
+
+        //set up a click event on the LABEL... does not work for the input
+        $(label).on("click", function (ev) {
+            //this seems to be opposite of the actual value
+            mainTaskList.sortDir = sortDir;
+            renderGrid();
+        })
     });
 
     var searchBox = $("#txtSearch")
 
     //set up events for the search box
-    $("#btnClearSearch").on("click", function(ev){
+    $("#btnClearSearch").on("click", function (ev) {
         //clear the search box
         searchBox.val("");
 
@@ -125,12 +160,12 @@ function setupMainPageTasks() {
         renderGrid();
     });
 
-    $("#txtSearch").on("keyup", function(ev){
+    $("#txtSearch").on("keyup", function (ev) {
         //this needs to do the active search
         //set a filter
 
         //find the ESC key
-        if(ev.keyCode == 27){
+        if (ev.keyCode == 27) {
             $(this).val("");
         }
 
@@ -410,6 +445,16 @@ function setupMainPageTasks() {
 
     $("#saver").on("click", function () {
         //save the tasklist object
+        //TODO update the recent places with this new saved path
+        if (mainTaskList.path == "") {
+            dialog.showSaveDialog(function (filename) {
+                console.log(filename);
+                mainTaskList.path = filename;
+
+                mainTaskList.save();
+            })
+        }
+
         mainTaskList.save();
     })
 
