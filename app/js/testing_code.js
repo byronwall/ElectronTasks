@@ -32,6 +32,7 @@ function addFileToRecentFileList(fileName) {
     console.log(recentFiles);
     //if not, add to the top of the list
 
+    localStorage.setItem("recentFiles", recentFiles);
     updateRecentFileButton();
 }
 
