@@ -484,17 +484,6 @@
     "sortOrder": 34
   },
   {
-    "description": "search needs to be case insensitive",
-    "ID": 654,
-    "priority": 8,
-    "duration": 2,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 0
-  },
-  {
     "description": "create a keyboard shortcut for the SORT NOW button",
     "ID": 667,
     "priority": 7,

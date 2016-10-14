@@ -32,8 +32,8 @@ module.exports = class Task {
                 return true;
             }
 
-            if (typeof item.indexOf === "function") {
-                isMatch = item.indexOf(searchTerm) != -1;
+            if (typeof item === "string") {
+                isMatch = item.toUpperCase().indexOf(searchTerm.toUpperCase()) != -1;
             } else {
                 isMatch = (item == searchTerm);
             }
