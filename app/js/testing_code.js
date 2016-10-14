@@ -510,11 +510,8 @@ function setupMainPageTasks() {
         createNewTask();
     })
 
-    $("#newTasklist").on("click", function () {
-        //create a new task, stick at the end, and engage the editor
-        mainTaskList = new TaskList();
-        createNewTask();
-    })
+    $("#newTasklist").on("click", createNewTasklist);
+    //create a new task, stick at the end, and engage the editor
 
     //bind events for the sort button click
     $("#isSortEnabled").on("click", function (ev) {
@@ -552,5 +549,10 @@ function setupMainPageTasks() {
         grid.editCell(grid.getRowIndex(newTask.ID), 0)
     }
 
-    createNewTask();
+    function createNewTasklist() {
+        loadTaskListCallback(new TaskList());
+        createNewTask();
+    }
+
+    createNewTasklist();
 }
