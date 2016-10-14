@@ -23,6 +23,43 @@ function renderGrid() {
     grid.renderGrid("gridList", "testgrid");
 }
 
+//check if the filename is already in the list
+function addFileToRecentFileList(fileName) {
+    _.remove(recentFiles, function (item) {
+        return (item == fileName);
+    })
+    recentFiles.unshift(fileName);
+    console.log(recentFiles);
+    //if not, add to the top of the list
+
+    updateRecentFileButton();
+}
+
+function updateRecentFileButton() {
+
+    if (recentFiles.length > 0) {
+        $("#recentFileGroup ul").empty();
+    }
+
+    _.each(recentFiles, function (sortDir) {
+        console.log("sort dir", sortDir)
+        var label = $("<li/>").appendTo("#recentFileGroup ul")
+        var aDom = $("<a/>").attr("href", "#").text(sortDir).appendTo(label);
+
+        //set up a click event on the LABEL... does not work for the input
+        $(label).on("click", function (ev) {
+            //this seems to be opposite of the actual value
+            console.log("label was clicked", sortDir)
+            TaskList.load(sortDir, loadTaskListCallback);
+        })
+    });
+}
+
+function loadTaskListCallback(loadedTaskList) {
+    mainTaskList = loadedTaskList;
+    renderGrid();
+}
+
 function setupMainPageTasks() {
     //this is currently a dumping ground to get events created
 
@@ -59,25 +96,19 @@ function setupMainPageTasks() {
     $("#loader").on("click", function () {
         //set the list object
         dialog.showOpenDialog(function (fileName) {
-            if(fileName === undefined){
+            if (fileName === undefined) {
                 console.log("no file chosen")
                 return false;
             }
-            
+
             fileName = fileName[0];
             console.log("folder", fileName);
 
             TaskList.load(fileName, loadTaskListCallback);
 
-            //TODO add a check to see if new to app, if so push to the front of recent files
-            //TODO if changing the recent files, reload the button
+            addFileToRecentFileList(fileName);
         });
     });
-
-    function loadTaskListCallback(loadedTaskList) {
-        mainTaskList = loadedTaskList;
-        renderGrid();
-    }
 
     //TODO extract this code to a new function call
     //set up the column chooser
@@ -106,38 +137,12 @@ function setupMainPageTasks() {
         })
     });
 
-    //set up the buttons for the recent files
-    //testing the localStorage
-    files = ["./output.json"];
-    localStorage.setItem("recentFiles", JSON.stringify(files));
-
-    //this refers to the div for the group
-    //div -> ul = list of items
-    //item looks like <li><a href="#">No recent documents.</a></li>
-
+    //load the recentfile list from localStorage
     recentFiles = JSON.parse(localStorage.getItem("recentFiles"));
-    console.log("recentFiles", recentFiles)
-
-    if (recentFiles.length > 0) {
-        $("#recentFileGroup ul").empty();
-    }
-
-    _.each(recentFiles, function (sortDir) {
-        console.log("sort dir", sortDir)
-        var label = $("<li/>").appendTo("#recentFileGroup ul")
-        var aDom = $("<a/>").attr("href", "#").text(sortDir).appendTo(label);
-
-        //set up a click event on the LABEL... does not work for the input
-        $(label).on("click", function (ev) {
-            //this seems to be opposite of the actual value
-            console.log("label was clicked", sortDir)
-            TaskList.load(sortDir, loadTaskListCallback);
-        })
-    });
-
+    console.log("recentFiles", recentFiles);
+    updateRecentFileButton();
 
     //create the asc/desc buttons
-
     var sortDirs = ["asc", "desc"];
     _.each(sortDirs, function (sortDir) {
         var label = $("<label/>").appendTo("#sortChooser").text(sortDir).attr("class", "btn btn-info");
@@ -151,10 +156,9 @@ function setupMainPageTasks() {
         })
     });
 
-    var searchBox = $("#txtSearch")
-
     //set up events for the search box
     $("#btnClearSearch").on("click", function (ev) {
+        var searchBox = $("#txtSearch")
         //clear the search box
         searchBox.val("");
 
@@ -452,11 +456,19 @@ function setupMainPageTasks() {
         //save the tasklist object
         //TODO update the recent places with this new saved path
         if (mainTaskList.path == "") {
-            dialog.showSaveDialog(function (filename) {
-                console.log(filename);
-                mainTaskList.path = filename;
+            dialog.showSaveDialog(function (fileName) {
+
+                if (fileName === undefined) {
+                    console.log("dialog was cancelled");
+                    return false;
+                }
+
+                console.log(fileName);
+                mainTaskList.path = fileName;
 
                 mainTaskList.save();
+
+                addFileToRecentFileList(fileName);
             })
         }
 
