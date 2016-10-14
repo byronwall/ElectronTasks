@@ -96,7 +96,6 @@ function setupMainPageTasks() {
         renderGrid();
     };
 
-
     $("#loader").on("click", function () {
         //set the list object
         dialog.showOpenDialog(function (fileName) {
@@ -164,6 +163,10 @@ function setupMainPageTasks() {
         var label = $("<label/>").appendTo("#sortChooser").text(columnName).attr("class", "btn btn-primary");
         var inputEl = $("<input/>").attr("type", "radio").appendTo(label);
 
+        if(columnName == mainTaskList.sortField){
+            label.addClass("active");
+        }
+
         //set up a click event on the LABEL... does not work for the input
         $(label).on("click", function (ev) {
             //this seems to be opposite of the actual value
@@ -177,6 +180,10 @@ function setupMainPageTasks() {
     _.each(sortDirs, function (sortDir) {
         var label = $("<label/>").appendTo("#sortDirChooser").text(sortDir).attr("class", "btn btn-info");
         var inputEl = $("<input/>").attr("type", "radio").appendTo(label);
+
+        if(sortDir == mainTaskList.sortDir){
+            label.addClass("active");
+        }
 
         //set up a click event on the LABEL... does not work for the input
         $(label).on("click", function (ev) {
@@ -206,6 +213,7 @@ function setupMainPageTasks() {
         //find the ESC key
         if (ev.keyCode == 27) {
             $(this).val("");
+            $("#txtSearch").blur();
         }
 
         mainTaskList.searchTerm = $(this).val();
@@ -447,6 +455,21 @@ function setupMainPageTasks() {
         if (e.target.tagName != "INPUT") {
             console.log("focus on sort shortcut requested");
             $("#txtSearch").focus();
+            return false;
+        }
+    });
+
+    Mousetrap.bind("q", function (e) {
+        if (e.target.tagName != "INPUT") {
+            console.log("SORT NOW shortcut requested");
+            
+            var isSortEnabled = mainTaskList.isSortEnabled;
+            mainTaskList.isSortEnabled = true;
+
+            renderGrid();
+
+            mainTaskList.isSortEnabled = isSortEnabled;
+
             return false;
         }
     });
