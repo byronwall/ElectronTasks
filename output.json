@@ -8,7 +8,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 33
+    "sortOrder": 32
   },
   {
     "description": "improve visuals so that each task is distinct",
@@ -19,7 +19,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 15
+    "sortOrder": 14
   },
   {
     "description": "integrate Google Drive for storing files so that it will work across different platforms",
@@ -30,7 +30,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 16
+    "sortOrder": 15
   },
   {
     "description": "add the ability for a calculated column (e.g. priority * importance)",
@@ -41,7 +41,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 34
+    "sortOrder": 33
   },
   {
     "description": "figure out how to archive or hide completed tasks (instead of removing from file)",
@@ -52,7 +52,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 35
+    "sortOrder": 34
   },
   {
     "description": "create a settings page",
@@ -63,7 +63,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 41
+    "sortOrder": 40
   },
   {
     "description": "create a list of the features that need to be copied from Todoist (tags, notes, etc.)",
@@ -77,7 +77,7 @@
       201,
       427
     ],
-    "sortOrder": 17
+    "sortOrder": 16
   },
   {
     "description": "make the text box larger for new tasks.  \"g\" is going off the bottom",
@@ -91,7 +91,7 @@
       589,
       593
     ],
-    "sortOrder": 18
+    "sortOrder": 17
   },
   {
     "description": "improve error checking with indentation",
@@ -102,7 +102,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 19
+    "sortOrder": 18
   },
   {
     "description": "refine how the indenter chooses the level to go down to (need to go over one level at a time)",
@@ -124,7 +124,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 36
+    "sortOrder": 35
   },
   {
     "description": "support projects in the same data file",
@@ -170,7 +170,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 20
+    "sortOrder": 19
   },
   {
     "description": "allow for collapsing and expanding tasks with children",
@@ -181,7 +181,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 37
+    "sortOrder": 36
   },
   {
     "description": "allow for navigating the tasks using some shortcut with arrows",
@@ -203,7 +203,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 38
+    "sortOrder": 37
   },
   {
     "description": "provide color on the columns to indicate value (make it easier to quickly spot things)",
@@ -214,7 +214,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 39
+    "sortOrder": 38
   },
   {
     "description": "support notes and other attachments",
@@ -247,7 +247,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 21
+    "sortOrder": 20
   },
   {
     "description": "add buttons to the task to complete a task (and do other actions in the future)",
@@ -269,7 +269,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 22
+    "sortOrder": 21
   },
   {
     "description": "allow for using the column headers to change the sort field and direction (integrate with grid)",
@@ -280,7 +280,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 23
+    "sortOrder": 22
   },
   {
     "description": "use the A shortcut when not editing a task to create a new task (match Todoist)",
@@ -302,7 +302,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 24
+    "sortOrder": 23
   },
   {
     "description": "sort options needs to show the correct selections are startup",
@@ -313,7 +313,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 25
+    "sortOrder": 24
   },
   {
     "description": "add a duration column",
@@ -327,7 +327,7 @@
       527,
       530
     ],
-    "sortOrder": 40
+    "sortOrder": 39
   },
   {
     "description": "create a shortcut modifer so that the new task will be created as a child of the current task (this is espeically critical when sorting is enabled)",
@@ -338,7 +338,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 26
+    "sortOrder": 25
   },
   {
     "description": "limit the width of the columns to prevent runaway text",
@@ -349,7 +349,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 27
+    "sortOrder": 26
   },
   {
     "description": "when adding a new task, ideally the text input would be multi-line instead of disppearing when it gets too long",
@@ -360,7 +360,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 28
+    "sortOrder": 27
   },
   {
     "description": "create a new datatype of \"timespan\" so that these are formatted correctly",
@@ -429,17 +429,6 @@
     "sortOrder": 1
   },
   {
-    "description": "allow a new/blank task list to be created (right now everything is tied to loading)",
-    "ID": 596,
-    "priority": 6,
-    "duration": 10,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 12
-  },
-  {
     "description": "use a fixed width for the columns so that they do not resize while searching",
     "ID": 616,
     "priority": 5,
@@ -448,7 +437,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 29
+    "sortOrder": 28
   },
   {
     "description": "provide the ability to \"isolate\" a parent task so that it can be looked into without distraction",
@@ -459,7 +448,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 30
+    "sortOrder": 29
   },
   {
     "description": "add the ability to change the width of columns (resizable)",
@@ -470,7 +459,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 31
+    "sortOrder": 30
   },
   {
     "description": "need to scroll a new task into focus if it is not",
@@ -481,7 +470,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 32
+    "sortOrder": 31
   },
   {
     "description": "create a keyboard shortcut for the SORT NOW button",
@@ -503,7 +492,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 13
+    "sortOrder": 12
   },
   {
     "description": "keep a list of recently loaded files in the localStorage",
@@ -514,7 +503,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 14
+    "sortOrder": 13
   },
   {
     "description": "use a keyboard shortcut to focus on the search box",

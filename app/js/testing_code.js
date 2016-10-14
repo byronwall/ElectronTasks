@@ -481,6 +481,13 @@ function setupMainPageTasks() {
         createNewTask();
     })
 
+    $("#newTasklist").on("click", function () {
+        //create a new task, stick at the end, and engage the editor
+        mainTaskList = new TaskList();
+        createNewTask();
+
+    })
+
     //bind events for the sort button click
     $("#isSortEnabled").on("click", function (ev) {
 
