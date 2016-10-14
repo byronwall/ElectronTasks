@@ -32,7 +32,7 @@ function addFileToRecentFileList(fileName) {
     console.log(recentFiles);
     //if not, add to the top of the list
 
-    localStorage.setItem("recentFiles", recentFiles);
+    localStorage.setItem("recentFiles", JSON.stringify(recentFiles));
     updateRecentFileButton();
 }
 
@@ -58,6 +58,9 @@ function updateRecentFileButton() {
 
 function loadTaskListCallback(loadedTaskList) {
     mainTaskList = loadedTaskList;
+    _.each(visibleColumns, function (columnName) {
+        mainTaskList.columns[columnName].active = true;
+    })
     renderGrid();
 }
 
@@ -111,12 +114,29 @@ function setupMainPageTasks() {
         });
     });
 
+    //load the recentfile list from localStorage
+    recentFiles = JSON.parse(localStorage.getItem("recentFiles"));
+    console.log("recentFiles", recentFiles);
+    updateRecentFileButton();
+
+    visibleColumns = JSON.parse(localStorage.getItem("visibleColumns"));
+    if (visibleColumns == null) {
+        visibleColumns = ["description"];
+    }
+    console.log("visibleColumns", visibleColumns);
+
     //TODO extract this code to a new function call
     //set up the column chooser
     _.each(mainTaskList.getListOfColumns(), function (columnName) {
         //create the label and the actual input element
-        var label = $("<label/>").appendTo("#columnChooser").text(columnName).attr("class", "btn btn-primary active");
+        var label = $("<label/>").appendTo("#columnChooser").text(columnName).attr("class", "btn btn-primary");
         var inputEl = $("<input/>").attr("type", "checkbox").prop("checked", true).appendTo(label);
+
+        if (visibleColumns.indexOf(columnName) > -1) {
+            console.log("adding column, ", columnName);
+            label.addClass("active");
+            mainTaskList.columns[columnName].active = true;
+        }
 
         //set up a click event on the LABEL... does not work for the input
         $(label).on("click", function (ev) {
@@ -124,9 +144,23 @@ function setupMainPageTasks() {
             //this seems to be opposite of the actual value
             var isActive = !$(this).hasClass("active")
             mainTaskList.columns[columnName].active = isActive;
+
+            if (isActive) {
+                visibleColumns.push(columnName);
+            }
+            else {
+                _.remove(visibleColumns, function (item) {
+                    return item == columnName;
+                })
+            }
+
+            //update the local storage
+            localStorage.setItem("visibleColumns", JSON.stringify(visibleColumns));
+
             renderGrid();
         })
 
+        //this adds the column to the sort selection
         var label = $("<label/>").appendTo("#sortChooser").text(columnName).attr("class", "btn btn-primary");
         var inputEl = $("<input/>").attr("type", "radio").appendTo(label);
 
@@ -137,11 +171,6 @@ function setupMainPageTasks() {
             renderGrid();
         })
     });
-
-    //load the recentfile list from localStorage
-    recentFiles = JSON.parse(localStorage.getItem("recentFiles"));
-    console.log("recentFiles", recentFiles);
-    updateRecentFileButton();
 
     //create the asc/desc buttons
     var sortDirs = ["asc", "desc"];
@@ -485,7 +514,6 @@ function setupMainPageTasks() {
         //create a new task, stick at the end, and engage the editor
         mainTaskList = new TaskList();
         createNewTask();
-
     })
 
     //bind events for the sort button click
@@ -523,4 +551,6 @@ function setupMainPageTasks() {
         renderGrid();
         grid.editCell(grid.getRowIndex(newTask.ID), 0)
     }
+
+    createNewTask();
 }
