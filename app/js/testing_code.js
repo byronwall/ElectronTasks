@@ -175,7 +175,7 @@ function setupMainPageTasks() {
     //create the asc/desc buttons
     var sortDirs = ["asc", "desc"];
     _.each(sortDirs, function (sortDir) {
-        var label = $("<label/>").appendTo("#sortChooser").text(sortDir).attr("class", "btn btn-info");
+        var label = $("<label/>").appendTo("#sortDirChooser").text(sortDir).attr("class", "btn btn-info");
         var inputEl = $("<input/>").attr("type", "radio").appendTo(label);
 
         //set up a click event on the LABEL... does not work for the input
