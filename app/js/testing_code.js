@@ -59,6 +59,11 @@ function setupMainPageTasks() {
     $("#loader").on("click", function () {
         //set the list object
         dialog.showOpenDialog(function (fileName) {
+            if(fileName === undefined){
+                console.log("no file chosen")
+                return false;
+            }
+            
             fileName = fileName[0];
             console.log("folder", fileName);
 
