@@ -435,6 +435,14 @@ function setupMainPageTasks() {
         }
     })
 
+    Mousetrap.bind("a", function (e) {
+        if (e.target.tagName != "INPUT") {
+            console.log("new task requested from A");
+            createNewTask();
+            return false;
+        }
+    });
+
     Mousetrap.bind("alt+a", function (e) {
         console.log("new task requested");
 
