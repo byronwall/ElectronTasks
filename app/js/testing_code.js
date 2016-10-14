@@ -443,6 +443,14 @@ function setupMainPageTasks() {
         }
     });
 
+    Mousetrap.bind("s", function (e) {
+        if (e.target.tagName != "INPUT") {
+            console.log("focus on sort shortcut requested");
+            $("#txtSearch").focus();
+            return false;
+        }
+    });
+
     Mousetrap.bind("alt+a", function (e) {
         console.log("new task requested");
 
