@@ -12,6 +12,8 @@ module.exports = class Task {
         //some new fields for testig
         this.priority = 5;
 
+        this.tags = [];
+
         //these will be INTs that store the ID
         this.parentTask = null;
         this.childTasks = [];
@@ -23,25 +25,50 @@ module.exports = class Task {
     isResultForSearch(searchTerm) {
         //check each part of the task to see if it appears
 
-        //return true if any
-        var hasNoMatch = _.every(this, function (item) {
+        //do a check if the searchTerm is a string (wildcard) or object
+        if (typeof searchTerm === "string") {
 
-            var isMatch = false;
+            //return true if any
+            //TODO swap this for a "some" to avoid the negations
+            var hasNoMatch = _.every(this, function (item) {
 
-            if (item == null) {
-                return true;
-            }
+                var isMatch = false;
 
-            if (typeof item === "string") {
-                isMatch = item.toUpperCase().indexOf(searchTerm.toUpperCase()) != -1;
-            } else {
-                isMatch = (item == searchTerm);
-            }
+                if (item == null) {
+                    return true;
+                }
 
-            return !isMatch;
-        })
+                if (typeof item === "string") {
+                    isMatch = item.toUpperCase().indexOf(searchTerm.toUpperCase()) != -1;
+                } else {
+                    isMatch = (item == searchTerm);
+                }
 
-        return !hasNoMatch;
+                return !isMatch;
+            })
+
+            return !hasNoMatch;
+        }
+        else {
+            console.log("search is an object");
+
+            var task = this;
+
+            var allMatch = _.every(_.keys(searchTerm), function (key) {
+                //for each key need to check if that value is equal to value
+                console.log(task);
+
+                if (typeof task[key] === "object") {
+                    //this is an array
+                    return task[key].indexOf(searchTerm[key]) > -1;
+                } else {
+                    //this is a bare field
+                    return task[key] = searchTerm[key];
+                }
+            });
+
+            return allMatch;
+        }
     }
 
     static createFromData(data) {
@@ -78,7 +105,8 @@ module.exports = class Task {
             "endDate": this.endDate,
             "parentTask": this.parentTask,
             "childTasks": this.childTasks,
-            "sortOrder": this.sortOrder
+            "sortOrder": this.sortOrder,
+            "tags": this.tags
         }
     }
 }

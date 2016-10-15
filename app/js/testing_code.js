@@ -21,6 +21,38 @@ function entryPoint() {
 function renderGrid() {
     grid.load(mainTaskList.getGridDataObject());
     grid.renderGrid("gridList", "testgrid");
+
+    //add a call to update the "tag" bucket"
+    updateTagBucket();
+}
+
+function updateTagBucket() {
+    console.log("udpating the tag bucket...");
+
+    var tags = mainTaskList.getAllTags();
+    console.log("tags", tags);
+
+    //clear out the tag bucket
+
+    var tagBucket = $("#tagBucket")
+    tagBucket.empty();
+
+    //add a new span for each one
+
+    _.each(tags, function (tag) {
+        var span = $("<span/>").text(tag).appendTo(tagBucket).attr("class", "label label-primary");
+
+        span.on("click", function (ev) {
+            console.log("click on tag", tag);
+            $("#txtSearch").val("tags:" + tag).keyup();
+            //mainTaskList.searchTerm = { "tags": tag };
+
+            renderGrid();
+            $("#txtSearch").focus();
+        });
+    })
+
+    //wire up the onclick event
 }
 
 //check if the filename is already in the list
@@ -98,7 +130,27 @@ function setupMainPageTasks() {
         }
         else {
             //this will update the underlying data
-            mainTaskList.tasks[rowId][this.getColumnName(columnIndex)] = newValue
+            var columnName = this.getColumnName(columnIndex);
+            var currentTask = mainTaskList.tasks[rowId];
+
+            currentTask[columnName] = newValue;
+
+            //need to add a check here for hash tags
+            if (columnName === "description") {
+                //check for "#"
+                //split on space
+                var parts = newValue.split(" ");
+                var tags = [];
+                _.each(parts, function (part) {
+                    if (part[0] === "#") {
+                        var tag = part.substring(1);
+                        console.log("new tag", tag);
+                        tags.push(tag);
+                    }
+                })
+
+                currentTask.tags = tags;
+            }
         }
 
         mainTaskList.save()
@@ -218,7 +270,7 @@ function setupMainPageTasks() {
     $("#txtSearch").on("keyup", function (ev) {
         //this needs to do the active search
         //set a filter
-
+        console.log("search keyup");
         //find the ESC key
         if (ev.keyCode == 27) {
             $(this).val("");

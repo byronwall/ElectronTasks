@@ -8,7 +8,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 30
+    "sortOrder": 31,
+    "tags": []
   },
   {
     "description": "improve visuals so that each task is distinct",
@@ -19,7 +20,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 12
+    "sortOrder": 13,
+    "tags": []
   },
   {
     "description": "integrate Google Drive for storing files so that it will work across different platforms",
@@ -30,7 +32,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 13
+    "sortOrder": 14,
+    "tags": []
   },
   {
     "description": "add the ability for a calculated column (e.g. priority * importance)",
@@ -41,7 +44,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 31
+    "sortOrder": 32,
+    "tags": []
   },
   {
     "description": "figure out how to archive or hide completed tasks (instead of removing from file)",
@@ -52,7 +56,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 32
+    "sortOrder": 33,
+    "tags": []
   },
   {
     "description": "create a settings page",
@@ -63,7 +68,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 38
+    "sortOrder": 39,
+    "tags": []
   },
   {
     "description": "create a list of the features that need to be copied from Todoist (tags, notes, etc.)",
@@ -77,7 +83,8 @@
       201,
       427
     ],
-    "sortOrder": 14
+    "sortOrder": 15,
+    "tags": []
   },
   {
     "description": "make the text box larger for new tasks.  \"g\" is going off the bottom",
@@ -91,7 +98,8 @@
       589,
       593
     ],
-    "sortOrder": 15
+    "sortOrder": 16,
+    "tags": []
   },
   {
     "description": "improve error checking with indentation",
@@ -102,7 +110,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 16
+    "sortOrder": 17,
+    "tags": []
   },
   {
     "description": "refine how the indenter chooses the level to go down to (need to go over one level at a time)",
@@ -113,7 +122,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 2
+    "sortOrder": 3,
+    "tags": []
   },
   {
     "description": "do not allow indenting to take place while sorted (at least while parent child relationships are not in order)",
@@ -124,7 +134,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 33
+    "sortOrder": 34,
+    "tags": []
   },
   {
     "description": "support projects in the same data file",
@@ -137,7 +148,8 @@
     "childTasks": [
       202
     ],
-    "sortOrder": 0
+    "sortOrder": 0,
+    "tags": []
   },
   {
     "description": "these can be tasklists that are made up of other tasklists",
@@ -148,18 +160,8 @@
     "endDate": null,
     "parentTask": 201,
     "childTasks": [],
-    "sortOrder": 0
-  },
-  {
-    "description": "support tags across tasks so they can be grouped later",
-    "ID": 203,
-    "priority": 6,
-    "duration": 120,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 3
+    "sortOrder": 0,
+    "tags": []
   },
   {
     "description": "allow for dragging and dropping tasks/groups to a new location",
@@ -170,7 +172,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 17
+    "sortOrder": 18,
+    "tags": []
   },
   {
     "description": "allow for collapsing and expanding tasks with children",
@@ -181,10 +184,11 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 34
+    "sortOrder": 35,
+    "tags": []
   },
   {
-    "description": "allow for navigating the tasks using some shortcut with arrows",
+    "description": "allow for navigating the tasks using some shortcut with arrows #keyboard",
     "ID": 307,
     "priority": 6,
     "duration": 30,
@@ -192,7 +196,10 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 4
+    "sortOrder": 4,
+    "tags": [
+      "keyboard"
+    ]
   },
   {
     "description": "add a visual indicator to show that the tasklist was saved (a quick blip thing)",
@@ -203,7 +210,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 35
+    "sortOrder": 36,
+    "tags": []
   },
   {
     "description": "provide color on the columns to indicate value (make it easier to quickly spot things)",
@@ -214,7 +222,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 36
+    "sortOrder": 37,
+    "tags": []
   },
   {
     "description": "support notes and other attachments",
@@ -225,7 +234,8 @@
     "endDate": null,
     "parentTask": 93,
     "childTasks": [],
-    "sortOrder": 1
+    "sortOrder": 1,
+    "tags": []
   },
   {
     "description": "create a set of shortcuts (or saved views) to change which columns are displayed",
@@ -236,7 +246,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 18
+    "sortOrder": 19,
+    "tags": []
   },
   {
     "description": "add buttons to the task to complete a task (and do other actions in the future)",
@@ -247,7 +258,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 5
+    "sortOrder": 5,
+    "tags": []
   },
   {
     "description": "allow for using the column headers to change the sort field and direction (integrate with grid)",
@@ -258,7 +270,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 19
+    "sortOrder": 20,
+    "tags": []
   },
   {
     "description": "add a duration column",
@@ -272,7 +285,8 @@
       527,
       530
     ],
-    "sortOrder": 37
+    "sortOrder": 38,
+    "tags": []
   },
   {
     "description": "limit the width of the columns to prevent runaway text",
@@ -283,7 +297,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 20
+    "sortOrder": 21,
+    "tags": []
   },
   {
     "description": "when adding a new task, ideally the text input would be multi-line instead of disppearing when it gets too long",
@@ -294,7 +309,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 21
+    "sortOrder": 22,
+    "tags": []
   },
   {
     "description": "create a new datatype of \"timespan\" so that these are formatted correctly",
@@ -305,7 +321,8 @@
     "endDate": null,
     "parentTask": 507,
     "childTasks": [],
-    "sortOrder": 0
+    "sortOrder": 0,
+    "tags": []
   },
   {
     "description": "add some settings so that the timespan can be forced to a common unit or displayed as input",
@@ -316,7 +333,8 @@
     "endDate": null,
     "parentTask": 507,
     "childTasks": [],
-    "sortOrder": 1
+    "sortOrder": 1,
+    "tags": []
   },
   {
     "description": "allow SHIFT+TAB to go backwards in the grid display",
@@ -327,7 +345,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 6
+    "sortOrder": 6,
+    "tags": []
   },
   {
     "description": "allow for some properties on a parent task to be calculated from the children (priority, duration, etc.)",
@@ -338,7 +357,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 7
+    "sortOrder": 7,
+    "tags": []
   },
   {
     "description": "figure out where the styling is set",
@@ -349,7 +369,8 @@
     "endDate": null,
     "parentTask": 96,
     "childTasks": [],
-    "sortOrder": 0
+    "sortOrder": 0,
+    "tags": []
   },
   {
     "description": "make a change to correct this issue",
@@ -360,7 +381,8 @@
     "endDate": null,
     "parentTask": 96,
     "childTasks": [],
-    "sortOrder": 1
+    "sortOrder": 1,
+    "tags": []
   },
   {
     "description": "use a fixed width for the columns so that they do not resize while searching",
@@ -371,7 +393,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 22
+    "sortOrder": 23,
+    "tags": []
   },
   {
     "description": "provide the ability to \"isolate\" a parent task so that it can be looked into without distraction",
@@ -382,7 +405,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 23
+    "sortOrder": 24,
+    "tags": []
   },
   {
     "description": "add the ability to change the width of columns (resizable)",
@@ -393,7 +417,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 24
+    "sortOrder": 25,
+    "tags": []
   },
   {
     "description": "need to scroll a new task into focus if it is not",
@@ -404,7 +429,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 25
+    "sortOrder": 26,
+    "tags": []
   },
   {
     "description": "allow a tasklist to have a title (display this title)",
@@ -415,7 +441,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 8
+    "sortOrder": 8,
+    "tags": []
   },
   {
     "description": "add the ability to do a \"save as\" where the filename can be changed",
@@ -426,7 +453,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 26
+    "sortOrder": 27,
+    "tags": []
   },
   {
     "description": "provide some way to delete child tasks with the parent",
@@ -437,7 +465,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 9
+    "sortOrder": 9,
+    "tags": []
   },
   {
     "description": "figure out why first new task does not work correctly (fresh open only)",
@@ -448,7 +477,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 10
+    "sortOrder": 10,
+    "tags": []
   },
   {
     "description": "disable the sorting and filtering options for the grid on its own (until integrating with it)",
@@ -459,7 +489,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 11
+    "sortOrder": 11,
+    "tags": []
   },
   {
     "description": "create a \"debug\" panel for messages so that the dev tools are not required",
@@ -470,10 +501,11 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 27
+    "sortOrder": 28,
+    "tags": []
   },
   {
-    "description": "add a keyboard shortcut to show the keyboard shortcuts (pop out panel)",
+    "description": "add a keyboard shortcut to show the keyboard shortcuts (pop out panel) #keyboard",
     "ID": 811,
     "priority": 5,
     "duration": 10,
@@ -481,7 +513,10 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 28
+    "sortOrder": 29,
+    "tags": [
+      "keyboard"
+    ]
   },
   {
     "description": "new task shortcut does not work if a button has focus?",
@@ -492,10 +527,11 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 29
+    "sortOrder": 30,
+    "tags": []
   },
   {
-    "description": "add a shortcut to flip the sort order (from ASC to DESC)",
+    "description": "add a shortcut to flip the sort order (from ASC to DESC) #keyboard",
     "ID": 827,
     "priority": 7,
     "duration": 10,
@@ -503,6 +539,37 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 1
+    "sortOrder": 1,
+    "tags": [
+      "keyboard"
+    ]
+  },
+  {
+    "description": "add a keyboard shortcut for saving #keyboard",
+    "ID": 863,
+    "priority": 7,
+    "duration": 2,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [],
+    "sortOrder": 2,
+    "tags": [
+      "keyboard"
+    ]
+  },
+  {
+    "description": "provide a drop down when typing to search for tags (have it show with the '# #tags",
+    "ID": 887,
+    "priority": 6,
+    "duration": 20,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [],
+    "sortOrder": 12,
+    "tags": [
+      "tags"
+    ]
   }
 ]

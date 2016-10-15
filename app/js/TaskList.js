@@ -7,11 +7,12 @@ module.exports = class TaskList {
         this.isSortEnabled = false;
 
         this.searchTerm = "";
+        this.searchObj = {};
 
         this.path = "";
 
         this._possibleColumns = [
-            { "name": "description", "label": "desc", "datatype": "string", "editable": true, "active": false },
+            { "name": "description", "label": "desc", "datatype": "hashtag", "editable": true, "active": false },
             { "name": "duration", "label": "duration (min)", "datatype": "double", "editable": true, "active": false },
             { "name": "priority", "label": "priority", "datatype": "integer", "editable": true, "active": false },
             { "name": "startDate", "label": "start", "datatype": "date", "editable": true, "active": false },
@@ -19,6 +20,19 @@ module.exports = class TaskList {
         ]
 
         this.columns = _.keyBy(this._possibleColumns, "name");
+    }
+
+    getAllTags() {
+        var tags = [];
+        _.each(this.tasks, function (item) {
+            _.each(item.tags, function (tag) {
+                if (tags.indexOf(tag) == -1) {
+                    tags.push(tag);
+                }
+            })
+        })
+
+        return tags;
     }
 
     getGridDataObject() {
@@ -42,13 +56,30 @@ module.exports = class TaskList {
                 var activeSortField = (obj.isSortEnabled) ? obj.sortField : "sortOrder";
                 var activeSortDir = (obj.isSortEnabled) ? obj.sortDir : "asc";
 
+                //process the searchTerm
+                //split on spaces, split on colon, build object
+                console.log(obj.searchTerm)
+                obj.searchObj = obj.searchTerm;
+                var searchTextParts = obj.searchTerm.split(" ");
+
+                _.each(searchTextParts, function(spaces){
+                    if(spaces.indexOf(":")>-1){
+                        var parts = spaces.split(":");
+
+                        if(typeof obj.searchObj !== "object"){
+                            obj.searchObj = {};
+                        }
+                        obj.searchObj[parts[0]] = parts[1];
+                    }
+                })
+
                 //process children
                 function recurseChildren(task, indentLevel) {
                     //skip if starting on the pseudo root
                     if (indentLevel > -1) {
 
                         //do a check on desc
-                        if (obj.searchTerm == "" || task.isResultForSearch(obj.searchTerm)) {
+                        if (obj.searchTerm == "" || task.isResultForSearch(obj.searchObj)) {
                             tasksOut.push(task);
                         }
                     }
@@ -148,7 +179,7 @@ module.exports = class TaskList {
         var jsonfile = require("jsonfile");
         var _ = require("lodash");
 
-        if(this.path == ""){
+        if (this.path == "") {
             console.log("no path set, will not save");
             return false;
         }
