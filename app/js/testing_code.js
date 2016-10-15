@@ -64,6 +64,15 @@ function loadTaskListCallback(loadedTaskList) {
     renderGrid();
 }
 
+function sortNow() {
+    var isSortEnabled = mainTaskList.isSortEnabled;
+    mainTaskList.isSortEnabled = true;
+
+    renderGrid();
+
+    mainTaskList.isSortEnabled = isSortEnabled;
+}
+
 function setupMainPageTasks() {
     //this is currently a dumping ground to get events created
 
@@ -163,7 +172,7 @@ function setupMainPageTasks() {
         var label = $("<label/>").appendTo("#sortChooser").text(columnName).attr("class", "btn btn-primary");
         var inputEl = $("<input/>").attr("type", "radio").appendTo(label);
 
-        if(columnName == mainTaskList.sortField){
+        if (columnName == mainTaskList.sortField) {
             label.addClass("active");
         }
 
@@ -171,7 +180,7 @@ function setupMainPageTasks() {
         $(label).on("click", function (ev) {
             //this seems to be opposite of the actual value
             mainTaskList.sortField = columnName;
-            renderGrid();
+            sortNow();
         })
     });
 
@@ -181,7 +190,7 @@ function setupMainPageTasks() {
         var label = $("<label/>").appendTo("#sortDirChooser").text(sortDir).attr("class", "btn btn-info");
         var inputEl = $("<input/>").attr("type", "radio").appendTo(label);
 
-        if(sortDir == mainTaskList.sortDir){
+        if (sortDir == mainTaskList.sortDir) {
             label.addClass("active");
         }
 
@@ -462,13 +471,8 @@ function setupMainPageTasks() {
     Mousetrap.bind("q", function (e) {
         if (e.target.tagName != "INPUT") {
             console.log("SORT NOW shortcut requested");
-            
-            var isSortEnabled = mainTaskList.isSortEnabled;
-            mainTaskList.isSortEnabled = true;
 
-            renderGrid();
-
-            mainTaskList.isSortEnabled = isSortEnabled;
+            sortNow();
 
             return false;
         }

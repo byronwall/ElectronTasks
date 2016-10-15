@@ -495,17 +495,6 @@
     "sortOrder": 29
   },
   {
-    "description": "pressing a sort order button needs to do the SORT NOW",
-    "ID": 819,
-    "priority": 8,
-    "duration": 2,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 0
-  },
-  {
     "description": "add a shortcut to flip the sort order (from ASC to DESC)",
     "ID": 827,
     "priority": 7,
