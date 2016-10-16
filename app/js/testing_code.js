@@ -7,6 +7,8 @@ var dialog = app.dialog;
 
 var _ = require("lodash")
 
+var $ = require("jquery");
+
 //TODO clean this section up to hide these variables
 //delcare any local/global variables
 var grid;
@@ -105,6 +107,26 @@ function sortNow() {
     mainTaskList.isSortEnabled = isSortEnabled;
 }
 
+function createNewTask(options = {}) {
+    var newTask = mainTaskList.getNew();
+    newTask.description = "new task";
+
+    _.assign(newTask, options);
+
+    //assign child for the parent
+    if (newTask.parentTask != null) {
+        mainTaskList.tasks[newTask.parentTask].childTasks.push(newTask.ID);
+    }
+
+    renderGrid();
+    grid.editCell(grid.getRowIndex(newTask.ID), 0)
+}
+
+function createNewTasklist() {
+    loadTaskListCallback(new TaskList());
+    createNewTask();
+}
+
 function setupMainPageTasks() {
     //this is currently a dumping ground to get events created
 
@@ -176,6 +198,9 @@ function setupMainPageTasks() {
 
     //load the recentfile list from localStorage
     recentFiles = JSON.parse(localStorage.getItem("recentFiles"));
+    if (recentFiles == null) {
+        recentFiles = [];
+    }
     console.log("recentFiles", recentFiles);
     updateRecentFileButton();
 
@@ -629,25 +654,7 @@ function setupMainPageTasks() {
         mainTaskList.isSortEnabled = currentSetting;
     });
 
-    function createNewTask(options = {}) {
-        var newTask = mainTaskList.getNew();
-        newTask.description = "new task";
-
-        _.assign(newTask, options);
-
-        //assign child for the parent
-        if (newTask.parentTask != null) {
-            mainTaskList.tasks[newTask.parentTask].childTasks.push(newTask.ID);
-        }
-
-        renderGrid();
-        grid.editCell(grid.getRowIndex(newTask.ID), 0)
-    }
-
-    function createNewTasklist() {
-        loadTaskListCallback(new TaskList());
-        createNewTask();
-    }
-
     createNewTasklist();
 }
+
+$(document).ready(setupMainPageTasks);

@@ -8,7 +8,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 37,
+    "sortOrder": 35,
     "tags": [
       "visuals"
     ]
@@ -22,7 +22,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 18,
+    "sortOrder": 16,
     "tags": [
       "visuals"
     ]
@@ -36,7 +36,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 19,
+    "sortOrder": 17,
     "tags": []
   },
   {
@@ -48,7 +48,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 38,
+    "sortOrder": 36,
     "tags": []
   },
   {
@@ -60,7 +60,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 39,
+    "sortOrder": 37,
     "tags": []
   },
   {
@@ -72,7 +72,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 45,
+    "sortOrder": 43,
     "tags": []
   },
   {
@@ -87,7 +87,7 @@
       201,
       427
     ],
-    "sortOrder": 20,
+    "sortOrder": 18,
     "tags": []
   },
   {
@@ -102,7 +102,7 @@
       589,
       593
     ],
-    "sortOrder": 21,
+    "sortOrder": 19,
     "tags": []
   },
   {
@@ -114,7 +114,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 22,
+    "sortOrder": 20,
     "tags": [
       "indent"
     ]
@@ -128,7 +128,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 5,
+    "sortOrder": 3,
     "tags": [
       "indent"
     ]
@@ -142,7 +142,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 40,
+    "sortOrder": 38,
     "tags": [
       "indent"
     ]
@@ -182,7 +182,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 23,
+    "sortOrder": 21,
     "tags": []
   },
   {
@@ -194,7 +194,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 41,
+    "sortOrder": 39,
     "tags": []
   },
   {
@@ -206,7 +206,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 6,
+    "sortOrder": 4,
     "tags": [
       "keyboard"
     ]
@@ -220,7 +220,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 42,
+    "sortOrder": 40,
     "tags": [
       "visuals"
     ]
@@ -234,7 +234,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 43,
+    "sortOrder": 41,
     "tags": []
   },
   {
@@ -258,7 +258,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 24,
+    "sortOrder": 22,
     "tags": []
   },
   {
@@ -270,7 +270,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 7,
+    "sortOrder": 5,
     "tags": []
   },
   {
@@ -282,7 +282,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 25,
+    "sortOrder": 23,
     "tags": []
   },
   {
@@ -297,7 +297,7 @@
       527,
       530
     ],
-    "sortOrder": 44,
+    "sortOrder": 42,
     "tags": []
   },
   {
@@ -309,7 +309,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 26,
+    "sortOrder": 24,
     "tags": []
   },
   {
@@ -321,7 +321,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 27,
+    "sortOrder": 25,
     "tags": []
   },
   {
@@ -357,7 +357,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 8,
+    "sortOrder": 6,
     "tags": [
       "keyboard"
     ]
@@ -371,7 +371,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 9,
+    "sortOrder": 7,
     "tags": []
   },
   {
@@ -407,7 +407,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 28,
+    "sortOrder": 26,
     "tags": []
   },
   {
@@ -419,7 +419,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 29,
+    "sortOrder": 27,
     "tags": []
   },
   {
@@ -431,7 +431,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 30,
+    "sortOrder": 28,
     "tags": []
   },
   {
@@ -443,7 +443,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 31,
+    "sortOrder": 29,
     "tags": []
   },
   {
@@ -455,7 +455,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 10,
+    "sortOrder": 8,
     "tags": []
   },
   {
@@ -467,7 +467,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 32,
+    "sortOrder": 30,
     "tags": []
   },
   {
@@ -479,22 +479,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 11,
+    "sortOrder": 9,
     "tags": []
-  },
-  {
-    "description": "figure out why first new task does not work correctly (fresh open only) #bug",
-    "ID": 801,
-    "priority": 8,
-    "duration": 5,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 1,
-    "tags": [
-      "bug"
-    ]
   },
   {
     "description": "disable the sorting and filtering options for the grid on its own (until integrating with it)",
@@ -505,7 +491,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 12,
+    "sortOrder": 10,
     "tags": []
   },
   {
@@ -517,7 +503,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 33,
+    "sortOrder": 31,
     "tags": []
   },
   {
@@ -529,7 +515,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 34,
+    "sortOrder": 32,
     "tags": [
       "keyboard"
     ]
@@ -543,7 +529,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 35,
+    "sortOrder": 33,
     "tags": []
   },
   {
@@ -555,7 +541,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 3,
+    "sortOrder": 1,
     "tags": [
       "keyboard"
     ]
@@ -569,7 +555,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 4,
+    "sortOrder": 2,
     "tags": [
       "keyboard"
     ]
@@ -583,7 +569,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 13,
+    "sortOrder": 11,
     "tags": [
       "tags"
     ]
@@ -597,22 +583,8 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 14,
+    "sortOrder": 12,
     "tags": []
-  },
-  {
-    "description": "make a tagBucket labels larger than default #visuals",
-    "ID": 912,
-    "priority": 8,
-    "duration": 5,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 2,
-    "tags": [
-      "visuals"
-    ]
   },
   {
     "description": "find some way to gives tags distinct colors #tags #visuals",
@@ -623,7 +595,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 36,
+    "sortOrder": 34,
     "tags": [
       "tags",
       "visuals"
@@ -638,7 +610,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 15,
+    "sortOrder": 13,
     "tags": []
   },
   {
@@ -650,7 +622,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 16,
+    "sortOrder": 14,
     "tags": []
   },
   {
@@ -662,7 +634,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 17,
+    "sortOrder": 15,
     "tags": [
       "visuals"
     ]
