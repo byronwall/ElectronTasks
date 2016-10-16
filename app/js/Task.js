@@ -63,7 +63,7 @@ module.exports = class Task {
                     return task[key].indexOf(searchTerm[key]) > -1;
                 } else {
                     //this is a bare field
-                    return task[key] = searchTerm[key];
+                    return task[key] == searchTerm[key];
                 }
             });
 

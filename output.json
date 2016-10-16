@@ -8,7 +8,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 34,
+    "sortOrder": 37,
     "tags": [
       "visuals"
     ]
@@ -22,7 +22,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 15,
+    "sortOrder": 18,
     "tags": [
       "visuals"
     ]
@@ -36,7 +36,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 16,
+    "sortOrder": 19,
     "tags": []
   },
   {
@@ -48,7 +48,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 35,
+    "sortOrder": 38,
     "tags": []
   },
   {
@@ -60,7 +60,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 36,
+    "sortOrder": 39,
     "tags": []
   },
   {
@@ -72,7 +72,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 42,
+    "sortOrder": 45,
     "tags": []
   },
   {
@@ -87,7 +87,7 @@
       201,
       427
     ],
-    "sortOrder": 17,
+    "sortOrder": 20,
     "tags": []
   },
   {
@@ -102,7 +102,7 @@
       589,
       593
     ],
-    "sortOrder": 18,
+    "sortOrder": 21,
     "tags": []
   },
   {
@@ -114,7 +114,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 19,
+    "sortOrder": 22,
     "tags": [
       "indent"
     ]
@@ -142,7 +142,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 37,
+    "sortOrder": 40,
     "tags": [
       "indent"
     ]
@@ -182,7 +182,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 20,
+    "sortOrder": 23,
     "tags": []
   },
   {
@@ -194,7 +194,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 38,
+    "sortOrder": 41,
     "tags": []
   },
   {
@@ -220,7 +220,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 39,
+    "sortOrder": 42,
     "tags": [
       "visuals"
     ]
@@ -234,7 +234,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 40,
+    "sortOrder": 43,
     "tags": []
   },
   {
@@ -258,7 +258,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 21,
+    "sortOrder": 24,
     "tags": []
   },
   {
@@ -282,7 +282,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 22,
+    "sortOrder": 25,
     "tags": []
   },
   {
@@ -297,7 +297,7 @@
       527,
       530
     ],
-    "sortOrder": 41,
+    "sortOrder": 44,
     "tags": []
   },
   {
@@ -309,7 +309,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 23,
+    "sortOrder": 26,
     "tags": []
   },
   {
@@ -321,7 +321,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 24,
+    "sortOrder": 27,
     "tags": []
   },
   {
@@ -407,7 +407,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 25,
+    "sortOrder": 28,
     "tags": []
   },
   {
@@ -419,7 +419,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 26,
+    "sortOrder": 29,
     "tags": []
   },
   {
@@ -431,7 +431,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 27,
+    "sortOrder": 30,
     "tags": []
   },
   {
@@ -443,7 +443,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 28,
+    "sortOrder": 31,
     "tags": []
   },
   {
@@ -467,7 +467,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 29,
+    "sortOrder": 32,
     "tags": []
   },
   {
@@ -517,7 +517,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 30,
+    "sortOrder": 33,
     "tags": []
   },
   {
@@ -529,7 +529,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 31,
+    "sortOrder": 34,
     "tags": [
       "keyboard"
     ]
@@ -543,7 +543,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 32,
+    "sortOrder": 35,
     "tags": []
   },
   {
@@ -623,24 +623,48 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 33,
+    "sortOrder": 36,
     "tags": [
       "tags",
       "visuals"
     ]
   },
   {
-    "description": "search on duration seems to change all the values (not search) #bug",
-    "ID": 930,
-    "priority": 10,
-    "duration": 5,
+    "description": "use the technique of the tags to allow for generic grouping/display in the desc field (like project)",
+    "ID": 934,
+    "priority": 6,
+    "duration": 20,
     "startDate": null,
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 0,
+    "sortOrder": 15,
+    "tags": []
+  },
+  {
+    "description": "do some profiling to see where the slow spots are (nothing is optimized right now)",
+    "ID": 940,
+    "priority": 6,
+    "duration": 15,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [],
+    "sortOrder": 16,
+    "tags": []
+  },
+  {
+    "description": "make the search box smaller and start grouping it with other elements #visuals",
+    "ID": 945,
+    "priority": 6,
+    "duration": 10,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [],
+    "sortOrder": 17,
     "tags": [
-      "bug"
+      "visuals"
     ]
   }
 ]
