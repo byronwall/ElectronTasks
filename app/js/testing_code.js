@@ -26,6 +26,29 @@ function renderGrid() {
 
     //add a call to update the "tag" bucket"
     updateTagBucket();
+    updateProjectBucket();
+}
+
+function updateProjectBucket() {
+    console.log("udpating the project bucket...");
+
+    var projects = mainTaskList.getProjectsInList();
+    console.log("projects", projects);
+
+    //clear out the tag bucket
+    var projectBucket = $("#projectBucket")
+    projectBucket.empty();
+
+    //add a new span for each one
+    _.each(projects, function (project) {
+        var span = $("<span/>").text(project.description).appendTo(projectBucket).attr("class", "label label-info");
+
+        span.on("click", function (ev) {
+            console.log("click on project", project.description);
+            mainTaskList.idForIsolatedTask = project.ID;
+            renderGrid();
+        });
+    })
 }
 
 function updateTagBucket() {
@@ -124,6 +147,32 @@ function createNewTask(options = {}) {
 
 function createNewTasklist() {
     loadTaskListCallback(new TaskList());
+    createNewTask();
+}
+
+function createNewTask(options = {}) {
+    var newTask = mainTaskList.getNew();
+    newTask.description = "new task";
+
+    _.assign(newTask, options);
+
+    //assign child for the parent
+    if (newTask.parentTask == null) {
+        console.log("need to drop a level");
+        newTask.parentTask = mainTaskList.idForIsolatedTask;
+    }
+
+    if (newTask.parentTask != null) {
+        mainTaskList.tasks[newTask.parentTask].childTasks.push(newTask.ID);
+    }
+
+    renderGrid();
+    grid.editCell(grid.getRowIndex(newTask.ID), 0)
+}
+
+function createNewTasklist() {
+    var newList = TaskList.createNewTaskList();
+    loadTaskListCallback(newList);
     createNewTask();
 }
 
@@ -595,7 +644,7 @@ function setupMainPageTasks() {
         return false;
     });
 
-    
+
 
     $("#saver").on("click", function () {
         //save the tasklist object
@@ -685,7 +734,7 @@ function setupMainPageTasks() {
             renderGrid();
         }
 
-        console.log("done with isolatiojn event")
+        console.log("done with isolation event")
 
         return false;
     });
@@ -696,31 +745,40 @@ function setupMainPageTasks() {
     }
 
     $("#btnClearIsolation").on("click", function (ev) {
-
-        //TODO determine why bootstrap states are reversed in events... too early detection?
+        //this will remove the isolation
         mainTaskList.idForIsolatedTask = null;
         renderGrid();
     });
 
-    function createNewTask(options = {}) {
-        var newTask = mainTaskList.getNew();
-        newTask.description = "new task";
+    $("#btnCreateProject").on("click", function (ev) {
+        //this will remove the isolation
+        console.log("add new project");
 
-        _.assign(newTask, options);
+        var newProjectTask = mainTaskList.getNew();
 
-        //assign child for the parent
-        if (newTask.parentTask != null) {
-            mainTaskList.tasks[newTask.parentTask].childTasks.push(newTask.ID);
-        }
+        newProjectTask.isProjectRoot = true;
+        newProjectTask.description = "new project";
+
+        mainTaskList.idForIsolatedTask = newProjectTask.ID;
 
         renderGrid();
-        grid.editCell(grid.getRowIndex(newTask.ID), 0)
-    }
 
-    function createNewTasklist() {
-        loadTaskListCallback(new TaskList());
-        createNewTask();
-    }
+        grid.editCell(grid.getRowIndex(newProjectTask.ID), 0)
+    });
+
+    $("#btnMoveStranded").on("click", function (ev) {
+        //this will remove the isolation
+        console.log("reassigned stranded tasks");
+
+        //find the stranded tasks (those without a parent task)
+
+        //get the current isolation level
+        //assign those stranded ones to the current isolation
+
+        mainTaskList.assignStrandedTasksToCurrentIsolationLevel();
+
+        renderGrid();
+    });
 
     createNewTasklist();
 }

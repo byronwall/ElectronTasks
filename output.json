@@ -6,9 +6,10 @@
     "duration": 20,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 35,
+    "sortOrder": 38,
+    "isProjectRoot": false,
     "tags": [
       "visuals"
     ]
@@ -20,9 +21,10 @@
     "duration": 30,
     "startDate": "",
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 16,
+    "sortOrder": 18,
+    "isProjectRoot": false,
     "tags": [
       "visuals"
     ]
@@ -34,9 +36,10 @@
     "duration": 60,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 15,
+    "sortOrder": 19,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -46,9 +49,10 @@
     "duration": 60,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 34,
+    "sortOrder": 39,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -58,22 +62,26 @@
     "duration": 30,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 35,
+    "sortOrder": 40,
+    "isProjectRoot": false,
     "tags": []
   },
   {
-    "description": "create a settings page",
+    "description": "create a settings page #settings",
     "ID": 78,
     "priority": 3,
     "duration": 60,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 41,
-    "tags": []
+    "sortOrder": 46,
+    "isProjectRoot": false,
+    "tags": [
+      "settings"
+    ]
   },
   {
     "description": "make the text box larger for new tasks.  \"g\" is going off the bottom",
@@ -82,12 +90,13 @@
     "duration": 20,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [
       589,
       593
     ],
-    "sortOrder": 19,
+    "sortOrder": 20,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -97,9 +106,10 @@
     "duration": 10,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 20,
+    "sortOrder": 21,
+    "isProjectRoot": false,
     "tags": [
       "indent"
     ]
@@ -111,9 +121,10 @@
     "duration": 10,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 3,
+    "sortOrder": 4,
+    "isProjectRoot": false,
     "tags": [
       "indent"
     ]
@@ -125,46 +136,13 @@
     "duration": 10,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 38,
+    "sortOrder": 41,
+    "isProjectRoot": false,
     "tags": [
       "indent"
     ]
-  },
-  {
-    "description": "support projects in the same data file #projects",
-    "ID": 201,
-    "priority": 8,
-    "duration": 60,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [
-      202,
-      909,
-      921,
-      961,
-      962,
-      964,
-      968
-    ],
-    "sortOrder": 0,
-    "tags": [
-      "projects"
-    ]
-  },
-  {
-    "description": "create a single task root which is the project summary",
-    "ID": 202,
-    "priority": 5,
-    "duration": 0,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": 201,
-    "childTasks": [],
-    "sortOrder": 0,
-    "tags": []
   },
   {
     "description": "allow for dragging and dropping tasks/groups to a new location",
@@ -173,9 +151,10 @@
     "duration": 60,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 21,
+    "sortOrder": 22,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -185,9 +164,10 @@
     "duration": 30,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 37,
+    "sortOrder": 42,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -197,9 +177,10 @@
     "duration": 30,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 4,
+    "sortOrder": 5,
+    "isProjectRoot": false,
     "tags": [
       "keyboard"
     ]
@@ -211,9 +192,10 @@
     "duration": 5,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 40,
+    "sortOrder": 43,
+    "isProjectRoot": false,
     "tags": [
       "visuals"
     ]
@@ -225,9 +207,10 @@
     "duration": 30,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 39,
+    "sortOrder": 44,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -237,9 +220,10 @@
     "duration": 30,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 19,
+    "sortOrder": 23,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -249,9 +233,10 @@
     "duration": 20,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 20,
+    "sortOrder": 24,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -261,9 +246,10 @@
     "duration": 30,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 5,
+    "sortOrder": 6,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -273,9 +259,10 @@
     "duration": 20,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 21,
+    "sortOrder": 25,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -285,12 +272,13 @@
     "duration": 60,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [
       527,
       530
     ],
-    "sortOrder": 40,
+    "sortOrder": 45,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -300,9 +288,10 @@
     "duration": 10,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 22,
+    "sortOrder": 26,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -312,9 +301,10 @@
     "duration": 30,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 23,
+    "sortOrder": 27,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -327,6 +317,7 @@
     "parentTask": 507,
     "childTasks": [],
     "sortOrder": 0,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -339,20 +330,23 @@
     "parentTask": 507,
     "childTasks": [],
     "sortOrder": 1,
+    "isProjectRoot": false,
     "tags": []
   },
   {
-    "description": "allow SHIFT+TAB to go backwards in the grid display #keyboard",
+    "description": "allow SHIFT+TAB to go backwards in the grid display #keyboard #bug",
     "ID": 533,
-    "priority": 6,
+    "priority": 8,
     "duration": 10,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 6,
+    "sortOrder": 0,
+    "isProjectRoot": false,
     "tags": [
-      "keyboard"
+      "keyboard",
+      "bug"
     ]
   },
   {
@@ -362,9 +356,10 @@
     "duration": 60,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
     "sortOrder": 7,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -377,6 +372,7 @@
     "parentTask": 96,
     "childTasks": [],
     "sortOrder": 0,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -389,6 +385,7 @@
     "parentTask": 96,
     "childTasks": [],
     "sortOrder": 1,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -398,9 +395,10 @@
     "duration": 20,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 24,
+    "sortOrder": 28,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -410,9 +408,10 @@
     "duration": 30,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 26,
+    "sortOrder": 29,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -422,9 +421,10 @@
     "duration": 10,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 27,
+    "sortOrder": 30,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -434,9 +434,10 @@
     "duration": 10,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
     "sortOrder": 8,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -446,9 +447,10 @@
     "duration": 5,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 28,
+    "sortOrder": 31,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -458,9 +460,10 @@
     "duration": 10,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
     "sortOrder": 9,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -470,9 +473,10 @@
     "duration": 10,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
     "sortOrder": 10,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -482,9 +486,10 @@
     "duration": 10,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 29,
+    "sortOrder": 32,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -494,9 +499,10 @@
     "duration": 10,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 30,
+    "sortOrder": 33,
+    "isProjectRoot": false,
     "tags": [
       "keyboard"
     ]
@@ -508,9 +514,10 @@
     "duration": 5,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 31,
+    "sortOrder": 34,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -520,23 +527,25 @@
     "duration": 10,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 1,
+    "sortOrder": 2,
+    "isProjectRoot": false,
     "tags": [
       "keyboard"
     ]
   },
   {
-    "description": "add a keyboard shortcut for saving #keyboard",
+    "description": "add a keyboard shortcut for saving using CTRL+S #keyboard",
     "ID": 863,
-    "priority": 7,
+    "priority": 8,
     "duration": 2,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 2,
+    "sortOrder": 3,
+    "isProjectRoot": false,
     "tags": [
       "keyboard"
     ]
@@ -548,124 +557,13 @@
     "duration": 20,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
     "sortOrder": 11,
+    "isProjectRoot": false,
     "tags": [
       "tags"
     ]
-  },
-  {
-    "description": "add a field isProjectSummary for those tasks",
-    "ID": 909,
-    "priority": 5,
-    "duration": 0,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": 201,
-    "childTasks": [],
-    "sortOrder": 2,
-    "tags": []
-  },
-  {
-    "description": "this would allow all the same things to work when filtered by project",
-    "ID": 921,
-    "priority": 5,
-    "duration": 0,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": 201,
-    "childTasks": [],
-    "sortOrder": 1,
-    "tags": []
-  },
-  {
-    "description": "add the ability to read through code files and find TODO references #feature",
-    "ID": 932,
-    "priority": 5,
-    "duration": 20,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 32,
-    "tags": [
-      "feature"
-    ]
-  },
-  {
-    "description": "prevent the error in grid when tabbing off the bottom of the list #bug",
-    "ID": 935,
-    "priority": 6,
-    "duration": 5,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 13,
-    "tags": [
-      "bug"
-    ]
-  },
-  {
-    "description": "improve the electron menu options to make it more like a \"real\" app",
-    "ID": 945,
-    "priority": 5,
-    "duration": 10,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 42,
-    "tags": []
-  },
-  {
-    "description": "new task list needs to define the root node",
-    "ID": 961,
-    "priority": 5,
-    "duration": 0,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": 201,
-    "childTasks": [],
-    "sortOrder": 3,
-    "tags": []
-  },
-  {
-    "description": "creating new tasks needs to default to that root node",
-    "ID": 962,
-    "priority": 5,
-    "duration": 0,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": 201,
-    "childTasks": [],
-    "sortOrder": 4,
-    "tags": []
-  },
-  {
-    "description": "if no isolation is in place, a new node = new project",
-    "ID": 964,
-    "priority": 5,
-    "duration": 0,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": 201,
-    "childTasks": [],
-    "sortOrder": 5,
-    "tags": []
-  },
-  {
-    "description": "need a setting to decide if the root node is visible (similar to Project)",
-    "ID": 968,
-    "priority": 5,
-    "duration": 0,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": 201,
-    "childTasks": [],
-    "sortOrder": 6,
-    "tags": []
   },
   {
     "description": "clicking on a tag in a title should filter by the tag also",
@@ -674,9 +572,10 @@
     "duration": 5,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
     "sortOrder": 12,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -686,12 +585,28 @@
     "duration": 15,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 34,
+    "sortOrder": 35,
+    "isProjectRoot": false,
     "tags": [
       "tags",
       "visuals"
+    ]
+  },
+  {
+    "description": "add the ability to read through code files and find TODO references #feature",
+    "ID": 932,
+    "priority": 5,
+    "duration": 20,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 975,
+    "childTasks": [],
+    "sortOrder": 36,
+    "isProjectRoot": false,
+    "tags": [
+      "feature"
     ]
   },
   {
@@ -701,10 +616,26 @@
     "duration": 20,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
     "sortOrder": 13,
+    "isProjectRoot": false,
     "tags": []
+  },
+  {
+    "description": "prevent the error in grid when tabbing off the bottom of the list #bug",
+    "ID": 935,
+    "priority": 6,
+    "duration": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 975,
+    "childTasks": [],
+    "sortOrder": 14,
+    "isProjectRoot": false,
+    "tags": [
+      "bug"
+    ]
   },
   {
     "description": "do some profiling to see where the slow spots are (nothing is optimized right now)",
@@ -713,9 +644,10 @@
     "duration": 15,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 14,
+    "sortOrder": 15,
+    "isProjectRoot": false,
     "tags": []
   },
   {
@@ -725,11 +657,131 @@
     "duration": 10,
     "startDate": null,
     "endDate": null,
-    "parentTask": null,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 15,
+    "sortOrder": 16,
+    "isProjectRoot": false,
     "tags": [
       "visuals"
+    ]
+  },
+  {
+    "description": "need a setting to decide if the root node is visible (similar to Project) #settings",
+    "ID": 968,
+    "priority": 5,
+    "duration": 0,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 975,
+    "childTasks": [],
+    "sortOrder": 37,
+    "isProjectRoot": false,
+    "tags": [
+      "settings"
+    ]
+  },
+  {
+    "description": "major tasks",
+    "ID": 975,
+    "priority": 5,
+    "duration": 0,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [
+      13,
+      26,
+      32,
+      33,
+      34,
+      78,
+      96,
+      97,
+      121,
+      122,
+      204,
+      207,
+      307,
+      380,
+      382,
+      427,
+      439,
+      445,
+      478,
+      507,
+      515,
+      518,
+      533,
+      555,
+      616,
+      626,
+      629,
+      685,
+      722,
+      799,
+      802,
+      807,
+      811,
+      816,
+      827,
+      863,
+      887,
+      896,
+      928,
+      932,
+      934,
+      935,
+      940,
+      945,
+      968,
+      977,
+      979
+    ],
+    "sortOrder": 0,
+    "isProjectRoot": true,
+    "tags": []
+  },
+  {
+    "description": "indicate which project is currently being displayed",
+    "ID": 977,
+    "priority": 8,
+    "duration": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 975,
+    "childTasks": [
+      978
+    ],
+    "sortOrder": 1,
+    "isProjectRoot": false,
+    "tags": []
+  },
+  {
+    "description": "also need to indicate the isolation level when isolated (like breadcrumbs)",
+    "ID": 978,
+    "priority": 5,
+    "duration": 0,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 977,
+    "childTasks": [],
+    "sortOrder": 0,
+    "isProjectRoot": false,
+    "tags": []
+  },
+  {
+    "description": "move all tags to the end of the text regardless of how they're typed #tags",
+    "ID": 979,
+    "priority": 6,
+    "duration": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 975,
+    "childTasks": [],
+    "sortOrder": 17,
+    "isProjectRoot": false,
+    "tags": [
+      "tags"
     ]
   }
 ]

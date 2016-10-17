@@ -14,6 +14,8 @@ module.exports = class Task {
 
         this.tags = [];
 
+        this.isProjectRoot = false;
+
         //these will be INTs that store the ID
         this.parentTask = null;
         this.childTasks = [];
@@ -106,6 +108,7 @@ module.exports = class Task {
             "parentTask": this.parentTask,
             "childTasks": this.childTasks,
             "sortOrder": this.sortOrder,
+            "isProjectRoot": this.isProjectRoot,
             "tags": this.tags
         }
     }

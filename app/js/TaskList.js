@@ -37,6 +37,28 @@ class TaskList {
         return tags;
     }
 
+    assignStrandedTasksToCurrentIsolationLevel() {
+        var self = this;
+        _.each(this.tasks, function (task) {
+            if (task.parentTask == null && !task.isProjectRoot) {
+                task.parentTask = self.idForIsolatedTask;
+                self.tasks[self.idForIsolatedTask].childTasks.push(task.ID);
+                console.log(task);
+            }
+        })
+    }
+
+    getProjectsInList() {
+        var projects = [];
+        _.each(this.tasks, function (task) {
+            if (task.isProjectRoot) {
+                projects.push(task);
+            }
+        })
+
+        return projects;
+    }
+
     getGridDataObject() {
         var gridDataObject = {
             "metadata": _.filter(this.columns, "active"),
@@ -209,6 +231,21 @@ class TaskList {
                 callback();
             }
         })
+    }
+
+    static createNewTaskList() {
+        //create the new task list
+        var list = new TaskList();
+
+        //create a root task
+        var rootTask = list.getNew();
+        rootTask.isProjectRoot = true;
+        rootTask.description = "new project";
+
+        //isolate to the root task
+        list.idForIsolatedTask = rootTask.ID;
+
+        return list;
     }
 
     static load(path, callback) {
