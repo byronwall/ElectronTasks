@@ -36,7 +36,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 17,
+    "sortOrder": 15,
     "tags": []
   },
   {
@@ -48,7 +48,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 36,
+    "sortOrder": 34,
     "tags": []
   },
   {
@@ -60,7 +60,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 37,
+    "sortOrder": 35,
     "tags": []
   },
   {
@@ -72,22 +72,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 43,
-    "tags": []
-  },
-  {
-    "description": "create a list of the features that need to be copied from Todoist (tags, notes, etc.)",
-    "ID": 93,
-    "priority": 5,
-    "duration": 90,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [
-      201,
-      427
-    ],
-    "sortOrder": 18,
+    "sortOrder": 41,
     "tags": []
   },
   {
@@ -148,21 +133,29 @@
     ]
   },
   {
-    "description": "support projects in the same data file",
+    "description": "support projects in the same data file #projects",
     "ID": 201,
-    "priority": 5,
+    "priority": 8,
     "duration": 60,
     "startDate": null,
     "endDate": null,
-    "parentTask": 93,
+    "parentTask": null,
     "childTasks": [
-      202
+      202,
+      909,
+      921,
+      961,
+      962,
+      964,
+      968
     ],
     "sortOrder": 0,
-    "tags": []
+    "tags": [
+      "projects"
+    ]
   },
   {
-    "description": "these can be tasklists that are made up of other tasklists",
+    "description": "create a single task root which is the project summary",
     "ID": 202,
     "priority": 5,
     "duration": 0,
@@ -194,7 +187,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 39,
+    "sortOrder": 37,
     "tags": []
   },
   {
@@ -234,7 +227,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 41,
+    "sortOrder": 39,
     "tags": []
   },
   {
@@ -244,9 +237,9 @@
     "duration": 30,
     "startDate": null,
     "endDate": null,
-    "parentTask": 93,
+    "parentTask": null,
     "childTasks": [],
-    "sortOrder": 1,
+    "sortOrder": 19,
     "tags": []
   },
   {
@@ -258,7 +251,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 22,
+    "sortOrder": 20,
     "tags": []
   },
   {
@@ -282,7 +275,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 23,
+    "sortOrder": 21,
     "tags": []
   },
   {
@@ -297,7 +290,7 @@
       527,
       530
     ],
-    "sortOrder": 42,
+    "sortOrder": 40,
     "tags": []
   },
   {
@@ -309,7 +302,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 24,
+    "sortOrder": 22,
     "tags": []
   },
   {
@@ -321,7 +314,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 25,
+    "sortOrder": 23,
     "tags": []
   },
   {
@@ -407,19 +400,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 26,
-    "tags": []
-  },
-  {
-    "description": "provide the ability to \"isolate\" a parent task so that it can be looked into without distraction",
-    "ID": 623,
-    "priority": 5,
-    "duration": 20,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": null,
-    "childTasks": [],
-    "sortOrder": 27,
+    "sortOrder": 24,
     "tags": []
   },
   {
@@ -431,7 +412,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 28,
+    "sortOrder": 26,
     "tags": []
   },
   {
@@ -443,7 +424,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 29,
+    "sortOrder": 27,
     "tags": []
   },
   {
@@ -467,7 +448,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 30,
+    "sortOrder": 28,
     "tags": []
   },
   {
@@ -503,7 +484,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 31,
+    "sortOrder": 29,
     "tags": []
   },
   {
@@ -515,7 +496,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 32,
+    "sortOrder": 30,
     "tags": [
       "keyboard"
     ]
@@ -529,7 +510,7 @@
     "endDate": null,
     "parentTask": null,
     "childTasks": [],
-    "sortOrder": 33,
+    "sortOrder": 31,
     "tags": []
   },
   {
@@ -573,6 +554,118 @@
     "tags": [
       "tags"
     ]
+  },
+  {
+    "description": "add a field isProjectSummary for those tasks",
+    "ID": 909,
+    "priority": 5,
+    "duration": 0,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 201,
+    "childTasks": [],
+    "sortOrder": 2,
+    "tags": []
+  },
+  {
+    "description": "this would allow all the same things to work when filtered by project",
+    "ID": 921,
+    "priority": 5,
+    "duration": 0,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 201,
+    "childTasks": [],
+    "sortOrder": 1,
+    "tags": []
+  },
+  {
+    "description": "add the ability to read through code files and find TODO references #feature",
+    "ID": 932,
+    "priority": 5,
+    "duration": 20,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [],
+    "sortOrder": 32,
+    "tags": [
+      "feature"
+    ]
+  },
+  {
+    "description": "prevent the error in grid when tabbing off the bottom of the list #bug",
+    "ID": 935,
+    "priority": 6,
+    "duration": 5,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [],
+    "sortOrder": 13,
+    "tags": [
+      "bug"
+    ]
+  },
+  {
+    "description": "improve the electron menu options to make it more like a \"real\" app",
+    "ID": 945,
+    "priority": 5,
+    "duration": 10,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": null,
+    "childTasks": [],
+    "sortOrder": 42,
+    "tags": []
+  },
+  {
+    "description": "new task list needs to define the root node",
+    "ID": 961,
+    "priority": 5,
+    "duration": 0,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 201,
+    "childTasks": [],
+    "sortOrder": 3,
+    "tags": []
+  },
+  {
+    "description": "creating new tasks needs to default to that root node",
+    "ID": 962,
+    "priority": 5,
+    "duration": 0,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 201,
+    "childTasks": [],
+    "sortOrder": 4,
+    "tags": []
+  },
+  {
+    "description": "if no isolation is in place, a new node = new project",
+    "ID": 964,
+    "priority": 5,
+    "duration": 0,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 201,
+    "childTasks": [],
+    "sortOrder": 5,
+    "tags": []
+  },
+  {
+    "description": "need a setting to decide if the root node is visible (similar to Project)",
+    "ID": 968,
+    "priority": 5,
+    "duration": 0,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 201,
+    "childTasks": [],
+    "sortOrder": 6,
+    "tags": []
   },
   {
     "description": "clicking on a tag in a title should filter by the tag also",

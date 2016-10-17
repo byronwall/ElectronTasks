@@ -1,4 +1,4 @@
-module.exports = class TaskList {
+class TaskList {
 
     constructor() {
         this.tasks = {};
@@ -10,6 +10,8 @@ module.exports = class TaskList {
         this.searchObj = {};
 
         this.path = "";
+
+        this.idForIsolatedTask = undefined;
 
         this._possibleColumns = [
             { "name": "description", "label": "desc", "datatype": "hashtag", "editable": true, "active": false },
@@ -62,11 +64,11 @@ module.exports = class TaskList {
                 obj.searchObj = obj.searchTerm;
                 var searchTextParts = obj.searchTerm.split(" ");
 
-                _.each(searchTextParts, function(spaces){
-                    if(spaces.indexOf(":")>-1){
+                _.each(searchTextParts, function (spaces) {
+                    if (spaces.indexOf(":") > -1) {
                         var parts = spaces.split(":");
 
-                        if(typeof obj.searchObj !== "object"){
+                        if (typeof obj.searchObj !== "object") {
                             obj.searchObj = {};
                         }
                         obj.searchObj[parts[0]] = parts[1];
@@ -101,8 +103,15 @@ module.exports = class TaskList {
                         recurseChildren(childTask, indentLevel + 1)
                     });
                 }
-
-                recurseChildren(obj.getPseudoRootNode(), -1)
+                console.log("idForIsolatedTask", obj.idForIsolatedTask);
+                if (obj.idForIsolatedTask == undefined) {
+                    recurseChildren(obj.getPseudoRootNode(), -1)
+                } else {
+                    //do the recursion only on the selected task
+                    var isolatedTask = obj.tasks[obj.idForIsolatedTask];
+                    console.log("isolatedTask", isolatedTask);
+                    recurseChildren(isolatedTask, 0);
+                }
 
                 return _.map(tasksOut, function (item) {
                     return { "id": item.ID, "values": item }
@@ -231,3 +240,5 @@ module.exports = class TaskList {
         })
     }
 }
+
+module.exports = TaskList;

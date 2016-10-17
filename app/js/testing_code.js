@@ -562,8 +562,6 @@ function setupMainPageTasks() {
 
         if (e.target.tagName == "INPUT") {
 
-
-
             //we have a text box
             console.log(e.target.parentElement.parentElement.id)
             //this contains "task-list_13"
@@ -597,10 +595,7 @@ function setupMainPageTasks() {
         return false;
     });
 
-    Mousetrap.prototype.stopCallback = function (a, b, c) {
-        //this lets the shortcuts go through whenever
-        return false;
-    }
+    
 
     $("#saver").on("click", function () {
         //save the tasklist object
@@ -653,6 +648,79 @@ function setupMainPageTasks() {
         renderGrid();
         mainTaskList.isSortEnabled = currentSetting;
     });
+
+    //these events handle the task isolation business
+
+    Mousetrap.bind("alt+q", function (e, combo) {
+        console.log("task isolation requested");
+        console.log(combo);
+
+        if (e.target.tagName == "INPUT") {
+            //we have a text box
+            console.log("is input")
+            console.log("id", e.target.parentElement.parentElement.id)
+            //this contains "task-list_13"
+
+
+            var currentID = e.target.parentElement.parentElement.id;
+            currentID = currentID.split("task-list_")[1];
+            currentID = parseInt(currentID);
+
+            var editor = e.target.celleditor;
+            //if editing or a change was made, apply that change
+            // backup onblur then remove it: it will be restored if editing could not be applied
+            e.target.onblur_backup = e.target.onblur;
+            e.target.onblur = null;
+            if (editor.applyEditing(e.target.element, editor.getEditorValue(e.target)) === false) {
+                e.target.onblur = e.target.onblur_backup;
+            }
+
+            mainTaskList.idForIsolatedTask = currentID;
+            renderGrid();
+        }
+        else {
+            //cancel the isolation if nothing is selected
+            console.log("no input, clear isolation")
+            mainTaskList.idForIsolatedTask = undefined;
+            renderGrid();
+        }
+
+        console.log("done with isolatiojn event")
+
+        return false;
+    });
+
+    Mousetrap.prototype.stopCallback = function (a, b, c) {
+        //this lets the shortcuts go through whenever
+        return false;
+    }
+
+    $("#btnClearIsolation").on("click", function (ev) {
+
+        //TODO determine why bootstrap states are reversed in events... too early detection?
+        mainTaskList.idForIsolatedTask = null;
+        renderGrid();
+    });
+
+    function createNewTask(options = {}) {
+        var newTask = mainTaskList.getNew();
+        newTask.description = "new task";
+
+        _.assign(newTask, options);
+
+        //assign child for the parent
+        if (newTask.parentTask != null) {
+            mainTaskList.tasks[newTask.parentTask].childTasks.push(newTask.ID);
+        }
+
+        renderGrid();
+        grid.editCell(grid.getRowIndex(newTask.ID), 0)
+    }
+
+    function createNewTasklist() {
+        loadTaskListCallback(new TaskList());
+        createNewTask();
+    }
 
     createNewTasklist();
 }
