@@ -52,14 +52,10 @@ module.exports = class Task {
             return !hasNoMatch;
         }
         else {
-            console.log("search is an object");
-
             var task = this;
 
             var allMatch = _.every(_.keys(searchTerm), function (key) {
                 //for each key need to check if that value is equal to value
-                console.log(task);
-
                 if (typeof task[key] === "object") {
                     //this is an array
                     return task[key].indexOf(searchTerm[key]) > -1;

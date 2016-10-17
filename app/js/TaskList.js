@@ -43,7 +43,6 @@ class TaskList {
             if (task.parentTask == null && !task.isProjectRoot) {
                 task.parentTask = self.idForIsolatedTask;
                 self.tasks[self.idForIsolatedTask].childTasks.push(task.ID);
-                console.log(task);
             }
         })
     }
@@ -82,7 +81,6 @@ class TaskList {
 
                 //process the searchTerm
                 //split on spaces, split on colon, build object
-                console.log(obj.searchTerm)
                 obj.searchObj = obj.searchTerm;
                 var searchTextParts = obj.searchTerm.split(" ");
 
@@ -125,13 +123,12 @@ class TaskList {
                         recurseChildren(childTask, indentLevel + 1)
                     });
                 }
-                console.log("idForIsolatedTask", obj.idForIsolatedTask);
+
                 if (obj.idForIsolatedTask == undefined) {
                     recurseChildren(obj.getPseudoRootNode(), -1)
                 } else {
                     //do the recursion only on the selected task
                     var isolatedTask = obj.tasks[obj.idForIsolatedTask];
-                    console.log("isolatedTask", isolatedTask);
                     recurseChildren(isolatedTask, 0);
                 }
 
@@ -174,16 +171,11 @@ class TaskList {
         if (taskToDelete.parentTask != null) {
             //assign children to current parent
             var parentTask = this.tasks[taskToDelete.parentTask];
-
             parentTask.childTasks = parentTask.childTasks.concat(taskToDelete.childTasks);
 
             //find the index of the current task and splice it out
-            console.log("childTasks before", parentTask.childTasks)
-            console.log("id to remove", ID);
-            var index = parentTask.childTasks.indexOf(ID);
-            console.log("index", index)
+            var index = parentTask.childTasks.indexOf(ID);            
             parentTask.childTasks.splice(index, 1);
-            console.log("childTasks after", parentTask.childTasks)
         }
 
         //update parent of children to current parent
@@ -211,6 +203,7 @@ class TaskList {
         var _ = require("lodash");
 
         if (this.path == "") {
+            //TODO put this prompt into a actual message bar
             console.log("no path set, will not save");
             return false;
         }
@@ -258,19 +251,11 @@ class TaskList {
         taskList.path = path;
 
         jsonfile.readFile(taskList.path, function (err, obj) {
-            console.log(obj);
-
             _.each(obj, function (item) {
                 var task = Task.createFromData(item);
 
                 taskList.tasks[task.ID] = task;
             })
-
-            //obj contains all of the data that is needed
-            //TODO spin this up into a new TaskList object and generate the tasks correctly
-
-            //iterate through tasks to create the main list
-            //go through tasks in some order to generate links and such
 
             //work is done, call the callback
             callback(taskList);

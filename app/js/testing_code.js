@@ -5,8 +5,7 @@ var TaskList = require("./js/TaskList.js");
 var app = require('electron').remote;
 var dialog = app.dialog;
 
-var _ = require("lodash")
-
+var _ = require("lodash");
 var $ = require("jquery");
 
 //TODO clean this section up to hide these variables
@@ -30,10 +29,7 @@ function renderGrid() {
 }
 
 function updateProjectBucket() {
-    console.log("udpating the project bucket...");
-
     var projects = mainTaskList.getProjectsInList();
-    console.log("projects", projects);
 
     //clear out the tag bucket
     var projectBucket = $("#projectBucket")
@@ -44,7 +40,6 @@ function updateProjectBucket() {
         var span = $("<span/>").text(project.description).appendTo(projectBucket).attr("class", "label label-info");
 
         span.on("click", function (ev) {
-            console.log("click on project", project.description);
             mainTaskList.idForIsolatedTask = project.ID;
             renderGrid();
         });
@@ -52,32 +47,24 @@ function updateProjectBucket() {
 }
 
 function updateTagBucket() {
-    console.log("udpating the tag bucket...");
-
     var tags = mainTaskList.getAllTags();
-    console.log("tags", tags);
 
     //clear out the tag bucket
-
     var tagBucket = $("#tagBucket")
     tagBucket.empty();
 
     //add a new span for each one
-
     _.each(tags, function (tag) {
         var span = $("<span/>").text(tag).appendTo(tagBucket).attr("class", "label label-primary");
 
         span.on("click", function (ev) {
-            console.log("click on tag", tag);
+            //set the search box and call its event handler
             $("#txtSearch").val("tags:" + tag).keyup();
-            //mainTaskList.searchTerm = { "tags": tag };
 
             renderGrid();
             $("#txtSearch").focus();
         });
     })
-
-    //wire up the onclick event
 }
 
 //check if the filename is already in the list
@@ -86,7 +73,6 @@ function addFileToRecentFileList(fileName) {
         return (item == fileName);
     })
     recentFiles.unshift(fileName);
-    console.log(recentFiles);
     //if not, add to the top of the list
 
     localStorage.setItem("recentFiles", JSON.stringify(recentFiles));
@@ -100,14 +86,12 @@ function updateRecentFileButton() {
     }
 
     _.each(recentFiles, function (sortDir) {
-        console.log("sort dir", sortDir)
         var label = $("<li/>").appendTo("#recentFileGroup ul")
         var aDom = $("<a/>").attr("href", "#").text(sortDir).appendTo(label);
 
         //set up a click event on the LABEL... does not work for the input
         $(label).on("click", function (ev) {
             //this seems to be opposite of the actual value
-            console.log("label was clicked", sortDir)
             TaskList.load(sortDir, loadTaskListCallback);
         })
     });
@@ -123,10 +107,9 @@ function loadTaskListCallback(loadedTaskList) {
 
 function sortNow() {
     var isSortEnabled = mainTaskList.isSortEnabled;
+
     mainTaskList.isSortEnabled = true;
-
     renderGrid();
-
     mainTaskList.isSortEnabled = isSortEnabled;
 }
 
@@ -158,7 +141,6 @@ function createNewTask(options = {}) {
 
     //assign child for the parent
     if (newTask.parentTask == null) {
-        console.log("need to drop a level");
         newTask.parentTask = mainTaskList.idForIsolatedTask;
     }
 
@@ -186,10 +168,6 @@ function setupMainPageTasks() {
     grid = new EditableGrid("task-list");
     grid.modelChanged = function (rowIndex, columnIndex, oldValue, newValue, row) {
         //TODO update this call to handle validation
-        console.log("Value for '" + this.getColumnName(columnIndex) +
-            "' in row " + this.getRowId(rowIndex) +
-            " has changed from '" + oldValue +
-            "' to '" + newValue + "'");
 
         //convert to rowId to get the correct ID in the task list
         var rowId = grid.getRowId(rowIndex);
@@ -215,7 +193,6 @@ function setupMainPageTasks() {
                 _.each(parts, function (part) {
                     if (part[0] === "#") {
                         var tag = part.substring(1);
-                        console.log("new tag", tag);
                         tags.push(tag);
                     }
                 })
@@ -232,12 +209,12 @@ function setupMainPageTasks() {
         //set the list object
         dialog.showOpenDialog(function (fileName) {
             if (fileName === undefined) {
+                //TODO use an actual output box for this
                 console.log("no file chosen")
                 return false;
             }
 
             fileName = fileName[0];
-            console.log("folder", fileName);
 
             TaskList.load(fileName, loadTaskListCallback);
 
@@ -250,14 +227,12 @@ function setupMainPageTasks() {
     if (recentFiles == null) {
         recentFiles = [];
     }
-    console.log("recentFiles", recentFiles);
     updateRecentFileButton();
 
     visibleColumns = JSON.parse(localStorage.getItem("visibleColumns"));
     if (visibleColumns == null) {
         visibleColumns = ["description"];
     }
-    console.log("visibleColumns", visibleColumns);
 
     //TODO extract this code to a new function call
     //set up the column chooser
@@ -267,7 +242,6 @@ function setupMainPageTasks() {
         var inputEl = $("<input/>").attr("type", "checkbox").prop("checked", true).appendTo(label);
 
         if (visibleColumns.indexOf(columnName) > -1) {
-            console.log("adding column, ", columnName);
             label.addClass("active");
             mainTaskList.columns[columnName].active = true;
         }
@@ -344,7 +318,6 @@ function setupMainPageTasks() {
     $("#txtSearch").on("keyup", function (ev) {
         //this needs to do the active search
         //set a filter
-        console.log("search keyup");
         //find the ESC key
         if (ev.keyCode == 27) {
             $(this).val("");
@@ -360,14 +333,10 @@ function setupMainPageTasks() {
     });
 
     Mousetrap.bind("alt+right", function (e) {
-        console.log("indent right requested");
-        console.log(e)
-
         if (e.target.tagName == "INPUT") {
             //we have a text box
             console.log(e.target.parentElement.parentElement.id)
             //this contains "task-list_13"
-
 
             var currentID = e.target.parentElement.parentElement.id;
             currentID = currentID.split("task-list_")[1];
@@ -588,7 +557,6 @@ function setupMainPageTasks() {
 
     Mousetrap.bind("s", function (e) {
         if (e.target.tagName != "INPUT") {
-            console.log("focus on sort shortcut requested");
             $("#txtSearch").focus();
             return false;
         }
@@ -596,35 +564,20 @@ function setupMainPageTasks() {
 
     Mousetrap.bind("q", function (e) {
         if (e.target.tagName != "INPUT") {
-            console.log("SORT NOW shortcut requested");
-
             sortNow();
-
             return false;
         }
     });
 
     Mousetrap.bind("alt+a", function (e) {
-        console.log("new task requested");
-
-        var options = {};
-
         if (e.target.tagName == "INPUT") {
-
-            //we have a text box
-            console.log(e.target.parentElement.parentElement.id)
             //this contains "task-list_13"
-
-
             var currentID = e.target.parentElement.parentElement.id;
             currentID = currentID.split("task-list_")[1];
             currentID = parseInt(currentID);
 
             //now holds the current ID
             var currentTask = mainTaskList.tasks[currentID];
-
-            console.log(currentID);
-            console.log(currentTask);
 
             //have the task be below the current one
             options.sortOrder = currentTask.sortOrder + 0.5;
@@ -644,8 +597,6 @@ function setupMainPageTasks() {
         return false;
     });
 
-
-
     $("#saver").on("click", function () {
         //save the tasklist object
         //TODO update the recent places with this new saved path
@@ -653,15 +604,14 @@ function setupMainPageTasks() {
             dialog.showSaveDialog(function (fileName) {
 
                 if (fileName === undefined) {
+                    //TODO put this in a real output box
                     console.log("dialog was cancelled");
                     return false;
                 }
 
-                console.log(fileName);
                 mainTaskList.path = fileName;
-
+                //TODO this is a duplicate piece of code
                 mainTaskList.save();
-
                 addFileToRecentFileList(fileName);
             })
         }
@@ -669,13 +619,8 @@ function setupMainPageTasks() {
         mainTaskList.save();
     })
 
-    $("#newTask").on("click", function () {
-        //create a new task, stick at the end, and engage the editor
-        createNewTask();
-    })
-
+    $("#newTask").on("click", createNewTask)
     $("#newTasklist").on("click", createNewTasklist);
-    //create a new task, stick at the end, and engage the editor
 
     //bind events for the sort button click
     $("#isSortEnabled").on("click", function (ev) {
@@ -689,17 +634,10 @@ function setupMainPageTasks() {
     });
 
     //bind events for the sort button click
-    $("#btnSortNow").on("click", function (ev) {
-
-        //TODO determine why bootstrap states are reversed in events... too early detection?
-        var currentSetting = mainTaskList.isSortEnabled;
-        mainTaskList.isSortEnabled = true;
-        renderGrid();
-        mainTaskList.isSortEnabled = currentSetting;
-    });
+    $("#btnSortNow").on("click", sortNow);
 
     //these events handle the task isolation business
-
+    //TODO figure out why ALT+I does not work on Mac
     Mousetrap.bind("alt+q", function (e, combo) {
         console.log("task isolation requested");
         console.log(combo);
@@ -752,13 +690,10 @@ function setupMainPageTasks() {
 
     $("#btnCreateProject").on("click", function (ev) {
         //this will remove the isolation
-        console.log("add new project");
 
         var newProjectTask = mainTaskList.getNew();
-
         newProjectTask.isProjectRoot = true;
         newProjectTask.description = "new project";
-
         mainTaskList.idForIsolatedTask = newProjectTask.ID;
 
         renderGrid();
@@ -767,16 +702,7 @@ function setupMainPageTasks() {
     });
 
     $("#btnMoveStranded").on("click", function (ev) {
-        //this will remove the isolation
-        console.log("reassigned stranded tasks");
-
-        //find the stranded tasks (those without a parent task)
-
-        //get the current isolation level
-        //assign those stranded ones to the current isolation
-
         mainTaskList.assignStrandedTasksToCurrentIsolationLevel();
-
         renderGrid();
     });
 
