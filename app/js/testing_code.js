@@ -708,6 +708,12 @@ function setupMainPageTasks() {
         renderGrid();
     });
 
+    $("#shouldHideRoot").on("click", function (ev) {
+        //flip the current value
+        mainTaskList.hideRootIfIsolated = !mainTaskList.hideRootIfIsolated
+        renderGrid();
+    });
+
     createNewTasklist();
 }
 

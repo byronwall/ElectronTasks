@@ -9,7 +9,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 47,
+    "sortOrder": 48,
     "isProjectRoot": false,
     "tags": [
       "visuals"
@@ -25,7 +25,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 21,
+    "sortOrder": 22,
     "isProjectRoot": false,
     "tags": [
       "visuals"
@@ -41,7 +41,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 22,
+    "sortOrder": 23,
     "isProjectRoot": false,
     "tags": []
   },
@@ -55,7 +55,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 48,
+    "sortOrder": 49,
     "isProjectRoot": false,
     "tags": []
   },
@@ -69,7 +69,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 49,
+    "sortOrder": 50,
     "isProjectRoot": false,
     "tags": []
   },
@@ -83,7 +83,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 55,
+    "sortOrder": 56,
     "isProjectRoot": false,
     "tags": [
       "settings"
@@ -102,7 +102,7 @@
       589,
       593
     ],
-    "sortOrder": 23,
+    "sortOrder": 24,
     "isProjectRoot": false,
     "tags": []
   },
@@ -116,7 +116,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 24,
+    "sortOrder": 25,
     "isProjectRoot": false,
     "tags": [
       "indent"
@@ -132,7 +132,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 5,
+    "sortOrder": 7,
     "isProjectRoot": false,
     "tags": [
       "indent"
@@ -148,7 +148,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 50,
+    "sortOrder": 51,
     "isProjectRoot": false,
     "tags": [
       "indent"
@@ -164,7 +164,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 25,
+    "sortOrder": 26,
     "isProjectRoot": false,
     "tags": []
   },
@@ -178,7 +178,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 51,
+    "sortOrder": 52,
     "isProjectRoot": false,
     "tags": []
   },
@@ -192,7 +192,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 6,
+    "sortOrder": 8,
     "isProjectRoot": false,
     "tags": [
       "keyboard"
@@ -208,25 +208,27 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 52,
+    "sortOrder": 53,
     "isProjectRoot": false,
     "tags": [
       "visuals"
     ]
   },
   {
-    "description": "provide color on the columns to indicate value (make it easier to quickly spot things)",
+    "description": "provide color on the columns to indicate value (make it easier to quickly spot things) #visuals",
     "ID": 382,
-    "priority": 4,
+    "priority": 7,
     "duration": 30,
     "startDate": null,
     "endDate": null,
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 53,
+    "sortOrder": 54,
     "isProjectRoot": false,
-    "tags": []
+    "tags": [
+      "visuals"
+    ]
   },
   {
     "description": "support notes and other attachments",
@@ -238,7 +240,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 26,
+    "sortOrder": 27,
     "isProjectRoot": false,
     "tags": []
   },
@@ -252,7 +254,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 27,
+    "sortOrder": 28,
     "isProjectRoot": false,
     "tags": []
   },
@@ -266,7 +268,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 7,
+    "sortOrder": 9,
     "isProjectRoot": false,
     "tags": []
   },
@@ -280,7 +282,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 28,
+    "sortOrder": 29,
     "isProjectRoot": false,
     "tags": []
   },
@@ -297,7 +299,7 @@
       527,
       530
     ],
-    "sortOrder": 54,
+    "sortOrder": 55,
     "isProjectRoot": false,
     "tags": []
   },
@@ -311,7 +313,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 29,
+    "sortOrder": 30,
     "isProjectRoot": false,
     "tags": []
   },
@@ -325,7 +327,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 30,
+    "sortOrder": 31,
     "isProjectRoot": false,
     "tags": []
   },
@@ -409,7 +411,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 31,
+    "sortOrder": 32,
     "isProjectRoot": false,
     "tags": []
   },
@@ -423,7 +425,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 32,
+    "sortOrder": 33,
     "isProjectRoot": false,
     "tags": []
   },
@@ -437,7 +439,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 33,
+    "sortOrder": 34,
     "isProjectRoot": false,
     "tags": []
   },
@@ -451,7 +453,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 8,
+    "sortOrder": 10,
     "isProjectRoot": false,
     "tags": []
   },
@@ -465,7 +467,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 34,
+    "sortOrder": 35,
     "isProjectRoot": false,
     "tags": []
   },
@@ -479,7 +481,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 9,
+    "sortOrder": 11,
     "isProjectRoot": false,
     "tags": []
   },
@@ -493,7 +495,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 10,
+    "sortOrder": 12,
     "isProjectRoot": false,
     "tags": []
   },
@@ -507,7 +509,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 35,
+    "sortOrder": 36,
     "isProjectRoot": false,
     "tags": []
   },
@@ -521,7 +523,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 36,
+    "sortOrder": 37,
     "isProjectRoot": false,
     "tags": [
       "keyboard"
@@ -537,7 +539,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 37,
+    "sortOrder": 38,
     "isProjectRoot": false,
     "tags": []
   },
@@ -551,7 +553,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 4,
+    "sortOrder": 6,
     "isProjectRoot": false,
     "tags": [
       "keyboard"
@@ -560,21 +562,21 @@
   {
     "description": "provide a drop down when typing to search for tags (have it show with the '#) #tags",
     "ID": 887,
-    "priority": 6,
+    "priority": 8,
     "duration": 20,
     "startDate": null,
     "endDate": null,
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 11,
+    "sortOrder": 1,
     "isProjectRoot": false,
     "tags": [
       "tags"
     ]
   },
   {
-    "description": "clicking on a tag in a title should filter by the tag also",
+    "description": "clicking on a tag in a title should filter by the tag also #tags",
     "ID": 896,
     "priority": 6,
     "duration": 5,
@@ -583,9 +585,11 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 12,
+    "sortOrder": 13,
     "isProjectRoot": false,
-    "tags": []
+    "tags": [
+      "tags"
+    ]
   },
   {
     "description": "find some way to gives tags distinct colors #tags #visuals",
@@ -597,7 +601,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 38,
+    "sortOrder": 39,
     "isProjectRoot": false,
     "tags": [
       "tags",
@@ -614,7 +618,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 39,
+    "sortOrder": 40,
     "isProjectRoot": false,
     "tags": [
       "feature"
@@ -630,7 +634,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 13,
+    "sortOrder": 14,
     "isProjectRoot": false,
     "tags": []
   },
@@ -644,7 +648,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 14,
+    "sortOrder": 15,
     "isProjectRoot": false,
     "tags": [
       "bug"
@@ -660,7 +664,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 15,
+    "sortOrder": 16,
     "isProjectRoot": false,
     "tags": []
   },
@@ -674,26 +678,10 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 16,
+    "sortOrder": 17,
     "isProjectRoot": false,
     "tags": [
       "visuals"
-    ]
-  },
-  {
-    "description": "need a setting to decide if the root node is visible (similar to Project) #settings",
-    "ID": 968,
-    "priority": 8,
-    "duration": 10,
-    "startDate": null,
-    "endDate": null,
-    "dateAdded": "10/17/2016, 10:42:00 PM",
-    "parentTask": 975,
-    "childTasks": [],
-    "sortOrder": 1,
-    "isProjectRoot": false,
-    "tags": [
-      "settings"
     ]
   },
   {
@@ -748,7 +736,6 @@
       935,
       940,
       945,
-      968,
       977,
       979,
       981,
@@ -761,7 +748,9 @@
       1004,
       1005,
       1007,
-      1013
+      1013,
+      1022,
+      1023
     ],
     "sortOrder": 0,
     "isProjectRoot": true,
@@ -807,7 +796,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 17,
+    "sortOrder": 18,
     "isProjectRoot": false,
     "tags": [
       "tags"
@@ -826,7 +815,7 @@
       984,
       988
     ],
-    "sortOrder": 40,
+    "sortOrder": 41,
     "isProjectRoot": false,
     "tags": []
   },
@@ -868,7 +857,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 41,
+    "sortOrder": 42,
     "isProjectRoot": false,
     "tags": []
   },
@@ -882,7 +871,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 42,
+    "sortOrder": 43,
     "isProjectRoot": false,
     "tags": []
   },
@@ -896,7 +885,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 43,
+    "sortOrder": 44,
     "isProjectRoot": false,
     "tags": []
   },
@@ -910,7 +899,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 44,
+    "sortOrder": 45,
     "isProjectRoot": false,
     "tags": []
   },
@@ -924,12 +913,12 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 45,
+    "sortOrder": 46,
     "isProjectRoot": false,
     "tags": []
   },
   {
-    "description": "change the mouse hover for elements that act like buttons",
+    "description": "change the mouse hover for elements that act like buttons #visuals",
     "ID": 1003,
     "priority": 6,
     "duration": 10,
@@ -938,9 +927,11 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 18,
+    "sortOrder": 19,
     "isProjectRoot": false,
-    "tags": []
+    "tags": [
+      "visuals"
+    ]
   },
   {
     "description": "handle the case where loading a blank file does nothing #bug",
@@ -952,7 +943,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 46,
+    "sortOrder": 47,
     "isProjectRoot": false,
     "tags": [
       "bug"
@@ -984,7 +975,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 19,
+    "sortOrder": 20,
     "isProjectRoot": false,
     "tags": []
   },
@@ -998,7 +989,35 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 20,
+    "sortOrder": 21,
+    "isProjectRoot": false,
+    "tags": []
+  },
+  {
+    "description": "change all the ALT shortcuts to use CTRL/CMD instead",
+    "ID": 1022,
+    "priority": 8,
+    "duration": 5,
+    "startDate": null,
+    "endDate": null,
+    "dateAdded": "10/17/2016, 10:43:50 PM",
+    "parentTask": 975,
+    "childTasks": [],
+    "sortOrder": 4,
+    "isProjectRoot": false,
+    "tags": []
+  },
+  {
+    "description": "hitting the ASC/DESC buttons need to do an immediate sort",
+    "ID": 1023,
+    "priority": 8,
+    "duration": 2,
+    "startDate": null,
+    "endDate": null,
+    "dateAdded": "10/17/2016, 10:45:46 PM",
+    "parentTask": 975,
+    "childTasks": [],
+    "sortOrder": 5,
     "isProjectRoot": false,
     "tags": []
   }

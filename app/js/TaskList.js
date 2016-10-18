@@ -12,6 +12,7 @@ class TaskList {
         this.path = "";
 
         this.idForIsolatedTask = undefined;
+        this.hideRootIfIsolated = true;
 
         this._possibleColumns = [
             { "name": "description", "label": "desc", "datatype": "hashtag", "editable": true, "active": false },
@@ -130,7 +131,9 @@ class TaskList {
                 } else {
                     //do the recursion only on the selected task
                     var isolatedTask = obj.tasks[obj.idForIsolatedTask];
-                    recurseChildren(isolatedTask, 0);
+                    //this will start at -1 (ignored) or 0 depending on flag.
+                    var startLevel = (obj.hideRootIfIsolated) ? -1 : 0;
+                    recurseChildren(isolatedTask, startLevel);
                 }
 
                 return _.map(tasksOut, function (item) {
