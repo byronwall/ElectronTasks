@@ -128,6 +128,26 @@ function createNewTask(options = {}) {
     grid.editCell(grid.getRowIndex(newTask.ID), 0)
 }
 
+function saveTaskList() {
+    if (mainTaskList.path == "") {
+        dialog.showSaveDialog(function (fileName) {
+
+            if (fileName === undefined) {
+                //TODO put this in a real output box
+                console.log("dialog was cancelled");
+                return false;
+            }
+
+            mainTaskList.path = fileName;
+            //TODO this is a duplicate piece of code
+            mainTaskList.save();
+            addFileToRecentFileList(fileName);
+        })
+    }
+
+    mainTaskList.save();
+}
+
 function createNewTasklist() {
     loadTaskListCallback(new TaskList());
     createNewTask();
@@ -597,27 +617,7 @@ function setupMainPageTasks() {
         return false;
     });
 
-    $("#saver").on("click", function () {
-        //save the tasklist object
-        //TODO update the recent places with this new saved path
-        if (mainTaskList.path == "") {
-            dialog.showSaveDialog(function (fileName) {
-
-                if (fileName === undefined) {
-                    //TODO put this in a real output box
-                    console.log("dialog was cancelled");
-                    return false;
-                }
-
-                mainTaskList.path = fileName;
-                //TODO this is a duplicate piece of code
-                mainTaskList.save();
-                addFileToRecentFileList(fileName);
-            })
-        }
-
-        mainTaskList.save();
-    })
+    $("#saver").on("click", saveTaskList);
 
     $("#newTask").on("click", createNewTask)
     $("#newTasklist").on("click", createNewTasklist);
@@ -676,6 +676,8 @@ function setupMainPageTasks() {
 
         return false;
     });
+
+    Mousetrap.bind("ctrl+s", saveTaskList);
 
     Mousetrap.prototype.stopCallback = function (a, b, c) {
         //this lets the shortcuts go through whenever

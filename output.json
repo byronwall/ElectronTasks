@@ -8,7 +8,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 48,
+    "sortOrder": 49,
     "isProjectRoot": false,
     "tags": [
       "visuals"
@@ -23,7 +23,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 22,
+    "sortOrder": 23,
     "isProjectRoot": false,
     "tags": [
       "visuals"
@@ -38,7 +38,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 23,
+    "sortOrder": 24,
     "isProjectRoot": false,
     "tags": []
   },
@@ -51,7 +51,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 49,
+    "sortOrder": 50,
     "isProjectRoot": false,
     "tags": []
   },
@@ -64,7 +64,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 50,
+    "sortOrder": 51,
     "isProjectRoot": false,
     "tags": []
   },
@@ -77,7 +77,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 56,
+    "sortOrder": 57,
     "isProjectRoot": false,
     "tags": [
       "settings"
@@ -95,7 +95,7 @@
       589,
       593
     ],
-    "sortOrder": 24,
+    "sortOrder": 25,
     "isProjectRoot": false,
     "tags": []
   },
@@ -108,7 +108,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 25,
+    "sortOrder": 26,
     "isProjectRoot": false,
     "tags": [
       "indent"
@@ -123,7 +123,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 7,
+    "sortOrder": 6,
     "isProjectRoot": false,
     "tags": [
       "indent"
@@ -138,7 +138,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 51,
+    "sortOrder": 52,
     "isProjectRoot": false,
     "tags": [
       "indent"
@@ -153,7 +153,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 26,
+    "sortOrder": 27,
     "isProjectRoot": false,
     "tags": []
   },
@@ -166,7 +166,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 52,
+    "sortOrder": 53,
     "isProjectRoot": false,
     "tags": []
   },
@@ -179,7 +179,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 8,
+    "sortOrder": 7,
     "isProjectRoot": false,
     "tags": [
       "keyboard"
@@ -194,7 +194,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 53,
+    "sortOrder": 54,
     "isProjectRoot": false,
     "tags": [
       "visuals"
@@ -209,7 +209,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 54,
+    "sortOrder": 55,
     "isProjectRoot": false,
     "tags": []
   },
@@ -222,7 +222,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 27,
+    "sortOrder": 28,
     "isProjectRoot": false,
     "tags": []
   },
@@ -235,7 +235,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 28,
+    "sortOrder": 29,
     "isProjectRoot": false,
     "tags": []
   },
@@ -248,7 +248,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 9,
+    "sortOrder": 8,
     "isProjectRoot": false,
     "tags": []
   },
@@ -261,7 +261,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 29,
+    "sortOrder": 30,
     "isProjectRoot": false,
     "tags": []
   },
@@ -277,7 +277,7 @@
       527,
       530
     ],
-    "sortOrder": 55,
+    "sortOrder": 56,
     "isProjectRoot": false,
     "tags": []
   },
@@ -290,7 +290,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 30,
+    "sortOrder": 31,
     "isProjectRoot": false,
     "tags": []
   },
@@ -303,7 +303,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 31,
+    "sortOrder": 32,
     "isProjectRoot": false,
     "tags": []
   },
@@ -334,22 +334,6 @@
     "tags": []
   },
   {
-    "description": "allow SHIFT+TAB to go backwards in the grid display #keyboard #bug",
-    "ID": 533,
-    "priority": 8,
-    "duration": 10,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": 975,
-    "childTasks": [],
-    "sortOrder": 0,
-    "isProjectRoot": false,
-    "tags": [
-      "keyboard",
-      "bug"
-    ]
-  },
-  {
     "description": "allow for some properties on a parent task to be calculated from the children (priority, duration, etc.)",
     "ID": 555,
     "priority": 6,
@@ -358,7 +342,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 10,
+    "sortOrder": 9,
     "isProjectRoot": false,
     "tags": []
   },
@@ -397,7 +381,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 32,
+    "sortOrder": 33,
     "isProjectRoot": false,
     "tags": []
   },
@@ -410,7 +394,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 33,
+    "sortOrder": 34,
     "isProjectRoot": false,
     "tags": []
   },
@@ -423,7 +407,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 34,
+    "sortOrder": 35,
     "isProjectRoot": false,
     "tags": []
   },
@@ -436,7 +420,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 11,
+    "sortOrder": 10,
     "isProjectRoot": false,
     "tags": []
   },
@@ -449,7 +433,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 35,
+    "sortOrder": 36,
     "isProjectRoot": false,
     "tags": []
   },
@@ -462,7 +446,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 12,
+    "sortOrder": 11,
     "isProjectRoot": false,
     "tags": []
   },
@@ -475,7 +459,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 13,
+    "sortOrder": 12,
     "isProjectRoot": false,
     "tags": []
   },
@@ -488,7 +472,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 36,
+    "sortOrder": 37,
     "isProjectRoot": false,
     "tags": []
   },
@@ -501,7 +485,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 37,
+    "sortOrder": 38,
     "isProjectRoot": false,
     "tags": [
       "keyboard"
@@ -516,7 +500,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 38,
+    "sortOrder": 39,
     "isProjectRoot": false,
     "tags": []
   },
@@ -529,22 +513,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 5,
-    "isProjectRoot": false,
-    "tags": [
-      "keyboard"
-    ]
-  },
-  {
-    "description": "add a keyboard shortcut for saving using CTRL+S #keyboard",
-    "ID": 863,
-    "priority": 8,
-    "duration": 2,
-    "startDate": null,
-    "endDate": null,
-    "parentTask": 975,
-    "childTasks": [],
-    "sortOrder": 1,
+    "sortOrder": 4,
     "isProjectRoot": false,
     "tags": [
       "keyboard"
@@ -559,7 +528,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 14,
+    "sortOrder": 13,
     "isProjectRoot": false,
     "tags": [
       "tags"
@@ -574,7 +543,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 15,
+    "sortOrder": 14,
     "isProjectRoot": false,
     "tags": []
   },
@@ -587,7 +556,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 39,
+    "sortOrder": 40,
     "isProjectRoot": false,
     "tags": [
       "tags",
@@ -603,7 +572,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 40,
+    "sortOrder": 41,
     "isProjectRoot": false,
     "tags": [
       "feature"
@@ -618,7 +587,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 16,
+    "sortOrder": 15,
     "isProjectRoot": false,
     "tags": []
   },
@@ -631,7 +600,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 17,
+    "sortOrder": 16,
     "isProjectRoot": false,
     "tags": [
       "bug"
@@ -646,7 +615,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 18,
+    "sortOrder": 17,
     "isProjectRoot": false,
     "tags": []
   },
@@ -659,7 +628,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 19,
+    "sortOrder": 18,
     "isProjectRoot": false,
     "tags": [
       "visuals"
@@ -674,7 +643,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 2,
+    "sortOrder": 1,
     "isProjectRoot": false,
     "tags": [
       "settings"
@@ -711,7 +680,6 @@
       507,
       515,
       518,
-      533,
       555,
       616,
       626,
@@ -724,7 +692,6 @@
       811,
       816,
       827,
-      863,
       887,
       896,
       928,
@@ -745,9 +712,11 @@
       1002,
       1003,
       1004,
-      1005
+      1005,
+      1007,
+      1013
     ],
-    "sortOrder": 1,
+    "sortOrder": 0,
     "isProjectRoot": true,
     "tags": []
   },
@@ -762,7 +731,7 @@
     "childTasks": [
       978
     ],
-    "sortOrder": 3,
+    "sortOrder": 2,
     "isProjectRoot": false,
     "tags": []
   },
@@ -788,7 +757,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 20,
+    "sortOrder": 19,
     "isProjectRoot": false,
     "tags": [
       "tags"
@@ -806,7 +775,7 @@
       984,
       988
     ],
-    "sortOrder": 41,
+    "sortOrder": 42,
     "isProjectRoot": false,
     "tags": []
   },
@@ -845,7 +814,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 6,
+    "sortOrder": 5,
     "isProjectRoot": false,
     "tags": [
       "data"
@@ -860,7 +829,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 42,
+    "sortOrder": 43,
     "isProjectRoot": false,
     "tags": []
   },
@@ -873,7 +842,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 43,
+    "sortOrder": 44,
     "isProjectRoot": false,
     "tags": []
   },
@@ -886,7 +855,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 44,
+    "sortOrder": 45,
     "isProjectRoot": false,
     "tags": []
   },
@@ -899,7 +868,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 45,
+    "sortOrder": 46,
     "isProjectRoot": false,
     "tags": []
   },
@@ -912,7 +881,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 46,
+    "sortOrder": 47,
     "isProjectRoot": false,
     "tags": []
   },
@@ -925,7 +894,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 21,
+    "sortOrder": 20,
     "isProjectRoot": false,
     "tags": []
   },
@@ -938,7 +907,7 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 47,
+    "sortOrder": 48,
     "isProjectRoot": false,
     "tags": [
       "bug"
@@ -953,10 +922,36 @@
     "endDate": null,
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 4,
+    "sortOrder": 3,
     "isProjectRoot": false,
     "tags": [
       "code"
     ]
+  },
+  {
+    "description": "provide a way to time a task and build \"time elapsed\"",
+    "ID": 1007,
+    "priority": 6,
+    "duration": 20,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 975,
+    "childTasks": [],
+    "sortOrder": 21,
+    "isProjectRoot": false,
+    "tags": []
+  },
+  {
+    "description": "provide some help when searching on a field (autocomplete style)",
+    "ID": 1013,
+    "priority": 6,
+    "duration": 20,
+    "startDate": null,
+    "endDate": null,
+    "parentTask": 975,
+    "childTasks": [],
+    "sortOrder": 22,
+    "isProjectRoot": false,
+    "tags": []
   }
 ]
