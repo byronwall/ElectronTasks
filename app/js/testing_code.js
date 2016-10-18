@@ -590,6 +590,9 @@ function setupMainPageTasks() {
     });
 
     Mousetrap.bind("alt+a", function (e) {
+
+        var options = {}
+
         if (e.target.tagName == "INPUT") {
             //this contains "task-list_13"
             var currentID = e.target.parentElement.parentElement.id;
