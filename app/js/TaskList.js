@@ -17,6 +17,7 @@ class TaskList {
             { "name": "description", "label": "desc", "datatype": "hashtag", "editable": true, "active": false },
             { "name": "duration", "label": "duration (min)", "datatype": "double", "editable": true, "active": false },
             { "name": "priority", "label": "priority", "datatype": "integer", "editable": true, "active": false },
+            { "name": "dateAdded", "label": "added", "datatype": "date", "editable": true, "active": false },
             { "name": "startDate", "label": "start", "datatype": "date", "editable": true, "active": false },
             { "name": "endDate", "label": "end", "datatype": "date", "editable": true, "active": false }
         ]
@@ -174,7 +175,7 @@ class TaskList {
             parentTask.childTasks = parentTask.childTasks.concat(taskToDelete.childTasks);
 
             //find the index of the current task and splice it out
-            var index = parentTask.childTasks.indexOf(ID);            
+            var index = parentTask.childTasks.indexOf(ID);
             parentTask.childTasks.splice(index, 1);
         }
 

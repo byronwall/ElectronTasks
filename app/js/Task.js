@@ -9,6 +9,8 @@ module.exports = class Task {
         this.endDate = null;
         this.ID = Task.getUnique;
 
+        this.dateAdded = (new Date()).toLocaleString();
+
         //some new fields for testig
         this.priority = 5;
 
@@ -101,6 +103,7 @@ module.exports = class Task {
             "duration": this.duration,
             "startDate": this.startDate,
             "endDate": this.endDate,
+            "dateAdded" : this.dateAdded,
             "parentTask": this.parentTask,
             "childTasks": this.childTasks,
             "sortOrder": this.sortOrder,
