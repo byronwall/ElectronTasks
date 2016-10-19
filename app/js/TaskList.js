@@ -63,87 +63,88 @@ class TaskList {
     getGridDataObject() {
         var gridDataObject = {
             "metadata": _.filter(this.columns, "active"),
-            "data": (function (obj) {
-                //TODO, really need to pull this function call out
-
-                //get a list of all tasks
-                //iterate through them
-                //if they have a child... process the child next... same for that child
-                //if they have a parent... skip and let the parent find them first
-
-                //all tasks with either be at the root or have a parent
-                //if at the root, add to the root, and process the child tasks, just push them on
-                //do a depth first seach and all will get added
-
-                var tasksOut = []
-
-                //these checks set the sort column if used
-                var activeSortField = (obj.isSortEnabled) ? obj.sortField : "sortOrder";
-                var activeSortDir = (obj.isSortEnabled) ? obj.sortDir : "asc";
-
-                //process the searchTerm
-                //split on spaces, split on colon, build object
-                obj.searchObj = obj.searchTerm;
-                var searchTextParts = obj.searchTerm.split(" ");
-
-                _.each(searchTextParts, function (spaces) {
-                    if (spaces.indexOf(":") > -1) {
-                        var parts = spaces.split(":");
-
-                        if (typeof obj.searchObj !== "object") {
-                            obj.searchObj = {};
-                        }
-                        obj.searchObj[parts[0]] = parts[1];
-                    }
-                })
-
-                //process children
-                function recurseChildren(task, indentLevel) {
-                    //skip if starting on the pseudo root
-                    if (indentLevel > -1) {
-
-                        //do a check on desc
-                        if (obj.searchTerm == "" || task.isResultForSearch(obj.searchObj)) {
-                            tasksOut.push(task);
-                        }
-                    }
-                    task.indent = indentLevel;
-                    var subProcessOrder = 0;
-
-                    //determine subtask ordering
-                    var subOrder = _.map(task.childTasks, function (childTaskId) {
-                        return { "sort": obj.tasks[childTaskId][activeSortField], "id": childTaskId }
-                    })
-
-                    subOrder = _.orderBy(subOrder, ["sort"], [activeSortDir])
-
-                    _.each(subOrder, function (itemObj) {
-                        var itemNo = itemObj.id;
-                        //TODO apply sort order to the children here
-                        var childTask = obj.tasks[itemNo];
-                        childTask.sortOrder = subProcessOrder++;
-                        recurseChildren(childTask, indentLevel + 1)
-                    });
-                }
-
-                if (obj.idForIsolatedTask == undefined) {
-                    recurseChildren(obj.getPseudoRootNode(), -1)
-                } else {
-                    //do the recursion only on the selected task
-                    var isolatedTask = obj.tasks[obj.idForIsolatedTask];
-                    //this will start at -1 (ignored) or 0 depending on flag.
-                    var startLevel = (obj.hideRootIfIsolated) ? -1 : 0;
-                    recurseChildren(isolatedTask, startLevel);
-                }
-
-                return _.map(tasksOut, function (item) {
-                    return { "id": item.ID, "values": item }
-                })
-            })(this)
+            "data": this._processGridData()
         };
 
         return gridDataObject;
     };
+
+    _processGridData() {
+        //get a list of all tasks
+        //iterate through them
+        //if they have a child... process the child next... same for that child
+        //if they have a parent... skip and let the parent find them first
+
+        //all tasks with either be at the root or have a parent
+        //if at the root, add to the root, and process the child tasks, just push them on
+        //do a depth first seach and all will get added
+
+        var tasksOut = []
+
+        //these checks set the sort column if used
+        this.activeSortField = (this.isSortEnabled) ? this.sortField : "sortOrder";
+        this.activeSortDir = (this.isSortEnabled) ? this.sortDir : "asc";
+
+        //process the searchTerm
+        //split on spaces, split on colon, build object
+        this.searchObj = this.searchTerm;
+        var searchTextParts = this.searchTerm.split(" ");
+
+        _.each(searchTextParts, function (spaces) {
+            if (spaces.indexOf(":") > -1) {
+                var parts = spaces.split(":");
+
+                if (typeof this.searchObj !== "object") {
+                    this.searchObj = {};
+                }
+                this.searchObj[parts[0]] = parts[1];
+            }
+        })
+
+        //process children
+        if (this.idForIsolatedTask == undefined) {
+            this.recurseChildren(this.getPseudoRootNode(), -1, tasksOut)
+        } else {
+            //do the recursion only on the selected task
+            var isolatedTask = this.tasks[this.idForIsolatedTask];
+            //this will start at -1 (ignored) or 0 depending on flag.
+            var startLevel = (this.hideRootIfIsolated) ? -1 : 0;
+            this.recurseChildren(isolatedTask, startLevel, tasksOut);
+        }
+
+        return _.map(tasksOut, function (item) {
+            return { "id": item.ID, "values": item }
+        })
+    }
+
+    recurseChildren(task, indentLevel, tasksOut) {
+        //skip if starting on the pseudo root
+        if (indentLevel > -1) {
+
+            //do a check on desc
+            if (this.searchTerm == "" || task.isResultForSearch(this.searchObj)) {
+                tasksOut.push(task);
+            }
+        }
+        task.indent = indentLevel;
+        var subProcessOrder = 0;
+
+        //determine subtask ordering
+        var self = this;
+        var subOrder = _.map(task.childTasks, function (childTaskId) {
+            return { "sort": self.tasks[childTaskId][self.activeSortField], "id": childTaskId }
+        })
+
+        subOrder = _.orderBy(subOrder, ["sort"], [this.activeSortDir])
+
+        _.each(subOrder, function (itemObj) {
+            var itemNo = itemObj.id;
+            //TODO apply sort order to the children here
+            var childTask = self.tasks[itemNo];
+            childTask.sortOrder = subProcessOrder++;
+            self.recurseChildren(childTask, indentLevel + 1, tasksOut)
+        });
+    }
 
     getPseudoRootNode() {
         //need to return a "task" that has the parentless nodes as its children

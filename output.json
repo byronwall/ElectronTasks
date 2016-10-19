@@ -758,7 +758,6 @@
       1031,
       1032,
       1035,
-      1205,
       1619,
       1620,
       1788,
@@ -1271,20 +1270,6 @@
     "parentTask": 1042,
     "childTasks": [],
     "sortOrder": 2,
-    "isProjectRoot": false,
-    "tags": []
-  },
-  {
-    "description": "change the default for the project root to be visible (ensure it matches the button state)",
-    "ID": 1205,
-    "priority": 9,
-    "duration": 2,
-    "startDate": null,
-    "endDate": null,
-    "dateAdded": "10/18/2016, 1:23:02 PM",
-    "parentTask": 975,
-    "childTasks": [],
-    "sortOrder": 0,
     "isProjectRoot": false,
     "tags": []
   },
