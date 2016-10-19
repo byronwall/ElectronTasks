@@ -12,7 +12,7 @@ class TaskList {
         this.path = "";
 
         this.idForIsolatedTask = undefined;
-        this.hideRootIfIsolated = true;
+        this.hideRootIfIsolated = false;
 
         this._possibleColumns = [
             { "name": "description", "label": "desc", "datatype": "hashtag", "editable": true, "active": false },
