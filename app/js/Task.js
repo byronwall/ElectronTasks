@@ -1,7 +1,10 @@
 //create a Task object
 
 module.exports = class Task {
-    constructor() {
+    constructor(taskList) {
+
+        this.taskList = taskList;
+
         //TODO change this out to use a data object instead of fields
         this.description = "";
         this.duration = 0;
@@ -71,9 +74,9 @@ module.exports = class Task {
         }
     }
 
-    static createFromData(data) {
+    static createFromData(data, taskList) {
         //this will create a task from a given JSON object
-        var task = new Task();
+        var task = new Task(taskList);
 
         var _ = require("lodash");
         _.map(data, function (value, index) {
@@ -94,6 +97,45 @@ module.exports = class Task {
         return Task._id++;
     }
 
+    updateDependentProperties() {
+        //need to take an array of fields and run through them
+        if (this.childTasks.length == 0) {
+            //nothing to do without children
+            return;
+        }
+
+        //TODO move this object out of this function call, waste of resources
+        var transForms = {
+            "duration": "sum",
+            "priority": "max"
+        };
+
+        var self = this;
+        
+        //values will hold an array of values for each field that is being tracked in transForms
+        var values = {};
+        _.each(this.childTasks, function (childTaskIndex) {
+            var childTask = self.taskList.tasks[childTaskIndex];
+            childTask.updateDependentProperties();
+
+            //stick each set of values into an array
+            _.each(transForms, function (value, key) {
+                if (values[key] == undefined) {
+                    values[key] = [];
+                }
+                values[key].push(childTask[key]);
+            });
+        })
+
+        //iteate the array of values and update the values for this task
+        _.each(transForms, function (value, key) {
+            //this is a very magic way to get the function
+            //lodash has sum/min/max as functions
+            //this pulls the correct function and applies it to the current transForms field
+            self[key] = _[value](values[key])
+        });
+    }
+
     getObjectForSaving() {
         //this will be used up above, ideally they match
         return {
@@ -103,7 +145,7 @@ module.exports = class Task {
             "duration": this.duration,
             "startDate": this.startDate,
             "endDate": this.endDate,
-            "dateAdded" : this.dateAdded,
+            "dateAdded": this.dateAdded,
             "parentTask": this.parentTask,
             "childTasks": this.childTasks,
             "sortOrder": this.sortOrder,

@@ -87,6 +87,7 @@ class TaskList {
 
         //process the searchTerm
         //split on spaces, split on colon, build object
+        //TODO split this out to get the search in a single place
         this.searchObj = this.searchTerm;
         var searchTextParts = this.searchTerm.split(" ");
 
@@ -100,6 +101,9 @@ class TaskList {
                 this.searchObj[parts[0]] = parts[1];
             }
         })
+
+        //run through children to update any dependent properties
+        this.getPseudoRootNode().updateDependentProperties();
 
         //process children
         if (this.idForIsolatedTask == undefined) {
@@ -120,7 +124,6 @@ class TaskList {
     recurseChildren(task, indentLevel, tasksOut) {
         //skip if starting on the pseudo root
         if (indentLevel > -1) {
-
             //do a check on desc
             if (this.searchTerm == "" || task.isResultForSearch(this.searchObj)) {
                 tasksOut.push(task);
@@ -149,7 +152,7 @@ class TaskList {
     getPseudoRootNode() {
         //need to return a "task" that has the parentless nodes as its children
 
-        var newTask = new Task();
+        var newTask = new Task(this);
 
         _.each(this.tasks, function (task) {
             if (task.parentTask == null) {
@@ -161,7 +164,7 @@ class TaskList {
     }
 
     getNew() {
-        var task = new Task();
+        var task = new Task(this);
         this.tasks[task.ID] = task;
 
         return task;
@@ -257,7 +260,7 @@ class TaskList {
 
         jsonfile.readFile(taskList.path, function (err, obj) {
             _.each(obj, function (item) {
-                var task = Task.createFromData(item);
+                var task = Task.createFromData(item, taskList);
 
                 taskList.tasks[task.ID] = task;
             })
