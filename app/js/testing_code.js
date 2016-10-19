@@ -47,7 +47,7 @@ function updateProjectBucket() {
 }
 
 function updateTagBucket() {
-    var tags = mainTaskList.getAllTags();
+    var tags = mainTaskList.getAllTags().sort();
 
     //clear out the tag bucket
     var tagBucket = $("#tagBucket")
@@ -402,6 +402,8 @@ function setupMainPageTasks() {
             mainTaskList.save()
             renderGrid();
             grid.editCell(currentRow, 0)
+
+            return false;
         }
     })
     Mousetrap.bind("mod+left", function (e) {

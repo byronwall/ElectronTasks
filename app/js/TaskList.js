@@ -91,14 +91,16 @@ class TaskList {
         this.searchObj = this.searchTerm;
         var searchTextParts = this.searchTerm.split(" ");
 
+        var self = this;
+
         _.each(searchTextParts, function (spaces) {
             if (spaces.indexOf(":") > -1) {
                 var parts = spaces.split(":");
 
-                if (typeof this.searchObj !== "object") {
-                    this.searchObj = {};
+                if (typeof self.searchObj !== "object") {
+                    self.searchObj = {};
                 }
-                this.searchObj[parts[0]] = parts[1];
+                self.searchObj[parts[0]] = parts[1];
             }
         })
 
