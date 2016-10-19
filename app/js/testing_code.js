@@ -85,14 +85,13 @@ function updateRecentFileButton() {
         $("#recentFileGroup ul").empty();
     }
 
-    _.each(recentFiles, function (sortDir) {
+    _.each(recentFiles, function (fileName) {
         var label = $("<li/>").appendTo("#recentFileGroup ul")
-        var aDom = $("<a/>").attr("href", "#").text(sortDir).appendTo(label);
+        var aDom = $("<a/>").attr("href", "#").text(fileName).appendTo(label);
 
         //set up a click event on the LABEL... does not work for the input
         $(label).on("click", function (ev) {
-            //this seems to be opposite of the actual value
-            TaskList.load(sortDir, loadTaskListCallback);
+            TaskList.load(fileName, loadTaskListCallback);
         })
     });
 }
@@ -318,7 +317,7 @@ function setupMainPageTasks() {
         $(label).on("click", function (ev) {
             //this seems to be opposite of the actual value
             mainTaskList.sortDir = sortDir;
-            renderGrid();
+            sortNow();
         })
     });
 
