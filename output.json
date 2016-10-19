@@ -727,7 +727,6 @@
       1005,
       1007,
       1013,
-      1022,
       1023,
       1025,
       1026,
@@ -985,20 +984,6 @@
     "parentTask": 975,
     "childTasks": [],
     "sortOrder": 26,
-    "isProjectRoot": false,
-    "tags": []
-  },
-  {
-    "description": "change all the ALT shortcuts to use CTRL/CMD instead",
-    "ID": 1022,
-    "priority": 8,
-    "duration": 5,
-    "startDate": null,
-    "endDate": null,
-    "dateAdded": "10/17/2016, 10:43:50 PM",
-    "parentTask": 975,
-    "childTasks": [],
-    "sortOrder": 2,
     "isProjectRoot": false,
     "tags": []
   },

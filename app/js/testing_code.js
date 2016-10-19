@@ -352,7 +352,7 @@ function setupMainPageTasks() {
         //possibly put in a delay so it doesnt rip around
     });
 
-    Mousetrap.bind("alt+right", function (e) {
+    Mousetrap.bind("mod+right", function (e) {
         if (e.target.tagName == "INPUT") {
             //we have a text box
             console.log(e.target.parentElement.parentElement.id)
@@ -405,7 +405,7 @@ function setupMainPageTasks() {
             grid.editCell(currentRow, 0)
         }
     })
-    Mousetrap.bind("alt+left", function (e) {
+    Mousetrap.bind("mod+left", function (e) {
         console.log("indent left requested");
         console.log(e)
 
@@ -489,7 +489,7 @@ function setupMainPageTasks() {
         }
     })
 
-    Mousetrap.bind("alt+up", function (e) {
+    Mousetrap.bind("mod+up", function (e) {
         console.log("move up requested");
         console.log(e)
 
@@ -527,7 +527,7 @@ function setupMainPageTasks() {
         }
     })
 
-    Mousetrap.bind("alt+down", function (e) {
+    Mousetrap.bind("mod+down", function (e) {
         console.log("move down requested");
         console.log(e)
 
@@ -589,7 +589,7 @@ function setupMainPageTasks() {
         }
     });
 
-    Mousetrap.bind("alt+a", function (e) {
+    Mousetrap.bind("mod+a", function (e) {
 
         var options = {}
 
@@ -641,7 +641,7 @@ function setupMainPageTasks() {
 
     //these events handle the task isolation business
     //TODO figure out why ALT+I does not work on Mac
-    Mousetrap.bind("alt+q", function (e, combo) {
+    Mousetrap.bind("mod+q", function (e, combo) {
         console.log("task isolation requested");
         console.log(combo);
 
@@ -680,7 +680,7 @@ function setupMainPageTasks() {
         return false;
     });
 
-    Mousetrap.bind("ctrl+s", saveTaskList);
+    Mousetrap.bind("mod+s", saveTaskList);
 
     Mousetrap.prototype.stopCallback = function (a, b, c) {
         //this lets the shortcuts go through whenever
