@@ -26,6 +26,7 @@ function renderGrid() {
     //add a call to update the "tag" bucket"
     updateTagBucket();
     updateProjectBucket();
+    updateStatusBucket();
 }
 
 function updateProjectBucket() {
@@ -60,6 +61,27 @@ function updateTagBucket() {
         span.on("click", function (ev) {
             //set the search box and call its event handler
             $("#txtSearch").val("tags:" + tag).keyup();
+
+            renderGrid();
+            $("#txtSearch").focus();
+        });
+    })
+}
+
+function updateStatusBucket() {
+    var tags = mainTaskList.getAllStatus().sort();
+
+    //clear out the tag bucket
+    var tagBucket = $("#statusBucket")
+    tagBucket.empty();
+
+    //add a new span for each one
+    _.each(tags, function (tag) {
+        var span = $("<span/>").text(tag).appendTo(tagBucket).attr("class", "label label-info");
+
+        span.on("click", function (ev) {
+            //set the search box and call its event handler
+            $("#txtSearch").val("status:" + tag).keyup();
 
             renderGrid();
             $("#txtSearch").focus();
@@ -210,11 +232,16 @@ function setupMainPageTasks() {
                 var parts = newValue.split(" ");
                 var tags = [];
                 _.each(parts, function (part) {
-                    if (part[0] === "#") {
-                        var tag = part.substring(1);
-                        tags.push(tag);
+                    switch (part[0]) {
+                        case "#":
+                            var tag = part.substring(1);
+                            tags.push(tag);
+                            break;
+                        case "@":
+                            currentTask.status = part.substring(1);
+                            break;
                     }
-                })
+                });
 
                 currentTask.tags = tags;
             }

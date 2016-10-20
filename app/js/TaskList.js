@@ -18,6 +18,7 @@ class TaskList {
             { "name": "description", "label": "desc", "datatype": "hashtag", "editable": true, "active": false },
             { "name": "duration", "label": "duration (min)", "datatype": "double", "editable": true, "active": false },
             { "name": "priority", "label": "priority", "datatype": "integer", "editable": true, "active": false },
+            { "name": "status", "label": "status", "datatype": "string", "editable": true, "active": false },
             { "name": "dateAdded", "label": "added", "datatype": "date", "editable": true, "active": false },
             { "name": "startDate", "label": "start", "datatype": "date", "editable": true, "active": false },
             { "name": "endDate", "label": "end", "datatype": "date", "editable": true, "active": false }
@@ -37,6 +38,17 @@ class TaskList {
         })
 
         return tags;
+    }
+
+    getAllStatus() {
+        var status = [];
+        _.each(this.tasks, function (task) {
+            if (status.indexOf(task.status) == -1) {
+                status.push(task.status);
+            }
+        })
+
+        return status;
     }
 
     assignStrandedTasksToCurrentIsolationLevel() {
