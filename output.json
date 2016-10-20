@@ -9,7 +9,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 67,
+    "sortOrder": 69,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -26,7 +26,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 37,
+    "sortOrder": 40,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -34,22 +34,22 @@
     ]
   },
   {
-    "description": "integrate Google Drive for storing files so that it will work across different platforms",
+    "description": "integrate Google Drive for storing files so that it will work across different platforms @workup",
     "ID": 32,
-    "priority": 5,
+    "priority": 7,
     "duration": 60,
     "startDate": null,
     "endDate": null,
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 38,
-    "status": "",
+    "sortOrder": 9,
+    "status": "workup",
     "isProjectRoot": false,
     "tags": []
   },
   {
-    "description": "add the ability for a calculated column (e.g. priority * importance)",
+    "description": "add the ability for a calculated column (e.g. priority * importance) @workup",
     "ID": 33,
     "priority": 4,
     "duration": 60,
@@ -58,13 +58,13 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 68,
-    "status": "",
+    "sortOrder": 70,
+    "status": "workup",
     "isProjectRoot": false,
     "tags": []
   },
   {
-    "description": "figure out how to archive or hide completed tasks (instead of removing from file)",
+    "description": "figure out how to archive or hide completed tasks (instead of removing from file) @workup",
     "ID": 34,
     "priority": 4,
     "duration": 30,
@@ -73,8 +73,8 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 69,
-    "status": "",
+    "sortOrder": 71,
+    "status": "workup",
     "isProjectRoot": false,
     "tags": []
   },
@@ -88,7 +88,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 76,
+    "sortOrder": 79,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -108,7 +108,7 @@
       589,
       593
     ],
-    "sortOrder": 39,
+    "sortOrder": 41,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -123,7 +123,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 40,
+    "sortOrder": 42,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -140,7 +140,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 13,
+    "sortOrder": 16,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -157,7 +157,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 70,
+    "sortOrder": 72,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -165,7 +165,7 @@
     ]
   },
   {
-    "description": "allow for dragging and dropping tasks/groups to a new location",
+    "description": "allow for dragging and dropping tasks/groups to a new location @workup",
     "ID": 204,
     "priority": 5,
     "duration": 60,
@@ -174,13 +174,13 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 41,
-    "status": "",
+    "sortOrder": 43,
+    "status": "workup",
     "isProjectRoot": false,
     "tags": []
   },
   {
-    "description": "allow for collapsing and expanding tasks with children",
+    "description": "allow for collapsing and expanding tasks with children @workup",
     "ID": 207,
     "priority": 4,
     "duration": 30,
@@ -189,8 +189,8 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 71,
-    "status": "",
+    "sortOrder": 73,
+    "status": "workup",
     "isProjectRoot": false,
     "tags": []
   },
@@ -204,7 +204,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 14,
+    "sortOrder": 17,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -221,7 +221,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 72,
+    "sortOrder": 74,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -238,7 +238,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 8,
+    "sortOrder": 10,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -255,7 +255,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 42,
+    "sortOrder": 44,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -272,13 +272,13 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 43,
+    "sortOrder": 45,
     "status": "",
     "isProjectRoot": false,
     "tags": []
   },
   {
-    "description": "add buttons to the task to complete a task (and do other actions in the future)",
+    "description": "add buttons to the task to complete a task (and do other actions in the future) @workup",
     "ID": 445,
     "priority": 6,
     "duration": 30,
@@ -287,8 +287,8 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 15,
-    "status": "",
+    "sortOrder": 18,
+    "status": "workup",
     "isProjectRoot": false,
     "tags": []
   },
@@ -302,30 +302,12 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 44,
+    "sortOrder": 46,
     "status": "",
     "isProjectRoot": false,
     "tags": [
       "sort"
     ]
-  },
-  {
-    "description": "add a duration column",
-    "ID": 507,
-    "priority": 4,
-    "duration": 60,
-    "startDate": null,
-    "endDate": null,
-    "dateAdded": "10/17/2016, 10:42:00 PM",
-    "parentTask": 975,
-    "childTasks": [
-      527,
-      530
-    ],
-    "sortOrder": 73,
-    "status": "",
-    "isProjectRoot": false,
-    "tags": []
   },
   {
     "description": "limit the width of the columns to prevent runaway text #visuals",
@@ -337,7 +319,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 45,
+    "sortOrder": 47,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -354,7 +336,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 46,
+    "sortOrder": 48,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -367,9 +349,9 @@
     "startDate": null,
     "endDate": null,
     "dateAdded": "10/17/2016, 10:42:00 PM",
-    "parentTask": 507,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 0,
+    "sortOrder": 77,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -382,9 +364,9 @@
     "startDate": null,
     "endDate": null,
     "dateAdded": "10/17/2016, 10:42:00 PM",
-    "parentTask": 507,
+    "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 1,
+    "sortOrder": 78,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -429,7 +411,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 47,
+    "sortOrder": 49,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -444,7 +426,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 48,
+    "sortOrder": 50,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -459,7 +441,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 16,
+    "sortOrder": 19,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -476,7 +458,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 17,
+    "sortOrder": 20,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -491,7 +473,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 49,
+    "sortOrder": 51,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -506,7 +488,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 18,
+    "sortOrder": 21,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -521,7 +503,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 19,
+    "sortOrder": 22,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -536,7 +518,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 50,
+    "sortOrder": 52,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -551,7 +533,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 51,
+    "sortOrder": 53,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -568,7 +550,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 52,
+    "sortOrder": 54,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -585,7 +567,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 9,
+    "sortOrder": 11,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -593,7 +575,7 @@
     ]
   },
   {
-    "description": "provide a drop down when typing to search for tags (have it show with the '#) #tags",
+    "description": "provide a drop down when typing to search for tags (have it show with the '#) #tags @workup",
     "ID": 887,
     "priority": 8,
     "duration": 20,
@@ -603,7 +585,7 @@
     "parentTask": 975,
     "childTasks": [],
     "sortOrder": 1,
-    "status": "",
+    "status": "workup",
     "isProjectRoot": false,
     "tags": [
       "tags"
@@ -619,7 +601,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 20,
+    "sortOrder": 23,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -636,7 +618,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 53,
+    "sortOrder": 55,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -654,7 +636,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 54,
+    "sortOrder": 56,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -662,7 +644,7 @@
     ]
   },
   {
-    "description": "use the technique of the tags to allow for generic grouping/display in the desc field (like project)",
+    "description": "use the technique of the tags to allow for generic grouping/display in the desc field (like project) @workup",
     "ID": 934,
     "priority": 6,
     "duration": 20,
@@ -671,8 +653,8 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 21,
-    "status": "",
+    "sortOrder": 24,
+    "status": "workup",
     "isProjectRoot": false,
     "tags": []
   },
@@ -686,7 +668,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 22,
+    "sortOrder": 25,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -701,7 +683,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 23,
+    "sortOrder": 26,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -712,7 +694,7 @@
     "description": "major tasks",
     "ID": 975,
     "priority": 9,
-    "duration": 1178,
+    "duration": 1193,
     "startDate": null,
     "endDate": null,
     "dateAdded": "10/17/2016, 10:42:00 PM",
@@ -737,7 +719,6 @@
       439,
       445,
       478,
-      507,
       515,
       518,
       616,
@@ -794,7 +775,11 @@
       2001,
       2004,
       2010,
-      2016
+      2016,
+      527,
+      530,
+      2048,
+      2053
     ],
     "sortOrder": 0,
     "status": "",
@@ -841,7 +826,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 24,
+    "sortOrder": 27,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -861,7 +846,7 @@
       984,
       988
     ],
-    "sortOrder": 55,
+    "sortOrder": 57,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -921,7 +906,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 56,
+    "sortOrder": 58,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -936,7 +921,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 57,
+    "sortOrder": 59,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -951,7 +936,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 58,
+    "sortOrder": 60,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -966,7 +951,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 74,
+    "sortOrder": 75,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -981,7 +966,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 25,
+    "sortOrder": 28,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -998,7 +983,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 59,
+    "sortOrder": 61,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -1023,7 +1008,7 @@
     ]
   },
   {
-    "description": "provide a way to time a task and build \"time elapsed\"",
+    "description": "provide a way to time a task and build \"time elapsed\" @workup",
     "ID": 1007,
     "priority": 6,
     "duration": 20,
@@ -1032,8 +1017,8 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 26,
-    "status": "",
+    "sortOrder": 29,
+    "status": "workup",
     "isProjectRoot": false,
     "tags": []
   },
@@ -1047,13 +1032,13 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 27,
+    "sortOrder": 30,
     "status": "",
     "isProjectRoot": false,
     "tags": []
   },
   {
-    "description": "allow a task to be \"completed\" without being deleted #feature",
+    "description": "allow a task to be \"completed\" without being deleted #feature @workup",
     "ID": 1025,
     "priority": 7,
     "duration": 10,
@@ -1062,15 +1047,15 @@
     "dateAdded": "10/17/2016, 10:53:46 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 10,
-    "status": "",
+    "sortOrder": 12,
+    "status": "workup",
     "isProjectRoot": false,
     "tags": [
       "feature"
     ]
   },
   {
-    "description": "allow for tasks to be moved between projects",
+    "description": "allow for tasks to be moved between projects @workup",
     "ID": 1026,
     "priority": 6,
     "duration": 20,
@@ -1079,13 +1064,13 @@
     "dateAdded": "10/17/2016, 10:54:09 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 28,
-    "status": "",
+    "sortOrder": 31,
+    "status": "workup",
     "isProjectRoot": false,
     "tags": []
   },
   {
-    "description": "allow for a bulk editing feature to change multiple tasks at once #feature",
+    "description": "allow for a bulk editing feature to change multiple tasks at once #feature @workup",
     "ID": 1027,
     "priority": 5,
     "duration": 20,
@@ -1094,15 +1079,15 @@
     "dateAdded": "10/17/2016, 10:54:15 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 60,
-    "status": "",
+    "sortOrder": 62,
+    "status": "workup",
     "isProjectRoot": false,
     "tags": [
       "feature"
     ]
   },
   {
-    "description": "allow for importing and exporting tasks to/from CSV/TSV/JSON? #feature",
+    "description": "allow for importing and exporting tasks to/from CSV/TSV/JSON? #feature @workup",
     "ID": 1028,
     "priority": 5,
     "duration": 20,
@@ -1111,8 +1096,8 @@
     "dateAdded": "10/17/2016, 10:54:23 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 61,
-    "status": "",
+    "sortOrder": 63,
+    "status": "workup",
     "isProjectRoot": false,
     "tags": [
       "feature"
@@ -1128,7 +1113,7 @@
     "dateAdded": "10/17/2016, 10:55:28 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 29,
+    "sortOrder": 32,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -1145,7 +1130,7 @@
     "dateAdded": "10/17/2016, 10:58:12 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 62,
+    "sortOrder": 64,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -1162,7 +1147,7 @@
     "dateAdded": "10/17/2016, 10:58:50 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 63,
+    "sortOrder": 65,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -1180,7 +1165,7 @@
     "dateAdded": "10/17/2016, 11:01:21 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 11,
+    "sortOrder": 13,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -1197,7 +1182,7 @@
     "dateAdded": "10/17/2016, 11:04:19 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 33,
+    "sortOrder": 36,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -1212,7 +1197,7 @@
     "dateAdded": "10/18/2016, 4:10:45 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 30,
+    "sortOrder": 33,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -1227,7 +1212,7 @@
     "dateAdded": "10/18/2016, 4:11:34 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 31,
+    "sortOrder": 34,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -1272,7 +1257,7 @@
     "dateAdded": "10/18/2016, 7:21:30 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 32,
+    "sortOrder": 35,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -1287,7 +1272,7 @@
     "dateAdded": "10/18/2016, 9:42:33 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 12,
+    "sortOrder": 14,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -1302,7 +1287,7 @@
     "dateAdded": "10/18/2016, 10:16:56 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 34,
+    "sortOrder": 37,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -1317,7 +1302,7 @@
     "dateAdded": "10/18/2016, 10:31:14 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 35,
+    "sortOrder": 38,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -1332,7 +1317,7 @@
     "dateAdded": "10/18/2016, 10:33:17 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 64,
+    "sortOrder": 66,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -1349,7 +1334,7 @@
     "dateAdded": "10/19/2016, 10:37:49 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 65,
+    "sortOrder": 67,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -1364,7 +1349,7 @@
     "dateAdded": "10/19/2016, 10:51:20 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 66,
+    "sortOrder": 68,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -1379,7 +1364,7 @@
     "dateAdded": "10/19/2016, 10:51:48 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 36,
+    "sortOrder": 39,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -1396,7 +1381,7 @@
     "dateAdded": "10/19/2016, 10:56:01 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 75,
+    "sortOrder": 76,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -1416,6 +1401,38 @@
     "isProjectRoot": false,
     "tags": [
       "bug"
+    ]
+  },
+  {
+    "description": "provide some way to \"override\" the calculated group value (e.g. force priority)",
+    "ID": 2048,
+    "priority": 7,
+    "duration": 10,
+    "startDate": null,
+    "endDate": null,
+    "dateAdded": "10/19/2016, 11:27:44 PM",
+    "parentTask": 975,
+    "childTasks": [],
+    "sortOrder": 15,
+    "status": "",
+    "isProjectRoot": false,
+    "tags": []
+  },
+  {
+    "description": "change the Mac shortcut for indentation to use something other than CMD since that ruins jumping through text #keyboard",
+    "ID": 2053,
+    "priority": 8,
+    "duration": 5,
+    "startDate": null,
+    "endDate": null,
+    "dateAdded": "10/19/2016, 11:28:09 PM",
+    "parentTask": 975,
+    "childTasks": [],
+    "sortOrder": 8,
+    "status": "",
+    "isProjectRoot": false,
+    "tags": [
+      "keyboard"
     ]
   }
 ]
