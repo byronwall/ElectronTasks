@@ -246,7 +246,13 @@ class TaskList {
             return d.getObjectForSaving();
         })
 
-        jsonfile.writeFile(this.path, output, { spaces: 2 }, function (err) {
+        var objectToSave = {
+            title: this.title,
+            googleDriveId: this.googleDriveId,
+            tasks: output
+        };
+
+        jsonfile.writeFile(this.path, objectToSave, { spaces: 2 }, function (err) {
             if (err != null) {
                 console.error(err);
             }
@@ -284,13 +290,37 @@ class TaskList {
         taskList.path = path;
 
         jsonfile.readFile(taskList.path, function (err, obj) {
-            _.each(obj, function (item) {
+
+            console.log(typeof obj);
+            console.log(obj);
+
+            var dataObj = {};
+
+            if(obj.length > 0){
+                console.log("old format")
+                dataObj.tasks = obj;
+            }else{
+                console.log("new format")
+                dataObj = obj;
+            }
+
+            //obj contains title, googleDriveId, and tasks
+            taskList.title = dataObj.title;
+            if (fileId == undefined) {
+                //try to get the data from the file
+                taskList.googleDriveId = dataObj.googleDriveId;
+            } else {
+                //grab the fileId from Google
+                taskList.googleDriveId = fileId;
+            }
+
+            _.each(dataObj.tasks, function (item) {
                 var task = Task.createFromData(item, taskList);
 
                 taskList.tasks[task.ID] = task;
             })
 
-            taskList.googleDriveId = fileId;
+
 
             //work is done, call the callback
             callback(taskList);

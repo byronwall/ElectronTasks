@@ -28,6 +28,9 @@ function renderGrid() {
     updateTagBucket();
     updateProjectBucket();
     updateStatusBucket();
+
+    //update the project title
+    $("#projectTitle").text(mainTaskList.title);
 }
 
 function updateProjectBucket() {
