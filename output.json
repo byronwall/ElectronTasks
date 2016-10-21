@@ -34,21 +34,6 @@
     ]
   },
   {
-    "description": "integrate Google Drive for storing files so that it will work across different platforms @workup",
-    "ID": 32,
-    "priority": 7,
-    "duration": 60,
-    "startDate": null,
-    "endDate": null,
-    "dateAdded": "10/17/2016, 10:42:00 PM",
-    "parentTask": 975,
-    "childTasks": [],
-    "sortOrder": 9,
-    "status": "workup",
-    "isProjectRoot": false,
-    "tags": []
-  },
-  {
     "description": "add the ability for a calculated column (e.g. priority * importance) @workup",
     "ID": 33,
     "priority": 4,
@@ -584,7 +569,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 1,
+    "sortOrder": 2,
     "status": "workup",
     "isProjectRoot": false,
     "tags": [
@@ -694,7 +679,7 @@
     "description": "major tasks",
     "ID": 975,
     "priority": 9,
-    "duration": 1193,
+    "duration": 1138,
     "startDate": null,
     "endDate": null,
     "dateAdded": "10/17/2016, 10:42:00 PM",
@@ -702,7 +687,6 @@
     "childTasks": [
       13,
       26,
-      32,
       33,
       34,
       78,
@@ -779,7 +763,8 @@
       527,
       530,
       2048,
-      2053
+      2053,
+      2073
     ],
     "sortOrder": 0,
     "status": "",
@@ -796,7 +781,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 2,
+    "sortOrder": 3,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -811,7 +796,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 6,
+    "sortOrder": 7,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -1000,7 +985,7 @@
     "dateAdded": "10/17/2016, 10:42:00 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 3,
+    "sortOrder": 4,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -1227,7 +1212,7 @@
     "dateAdded": "10/18/2016, 4:19:11 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 4,
+    "sortOrder": 5,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -1242,7 +1227,7 @@
     "dateAdded": "10/18/2016, 4:19:23 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 5,
+    "sortOrder": 6,
     "status": "",
     "isProjectRoot": false,
     "tags": []
@@ -1396,7 +1381,7 @@
     "dateAdded": "10/19/2016, 10:57:12 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 7,
+    "sortOrder": 8,
     "status": "",
     "isProjectRoot": false,
     "tags": [
@@ -1428,11 +1413,28 @@
     "dateAdded": "10/19/2016, 11:28:09 PM",
     "parentTask": 975,
     "childTasks": [],
-    "sortOrder": 8,
+    "sortOrder": 9,
     "status": "",
     "isProjectRoot": false,
     "tags": [
       "keyboard"
+    ]
+  },
+  {
+    "description": "figure out how to save that file back to Drive (interval or on command?) #drive",
+    "ID": 2073,
+    "priority": 8,
+    "duration": 5,
+    "startDate": null,
+    "endDate": null,
+    "dateAdded": "10/20/2016, 8:24:19 PM",
+    "parentTask": 975,
+    "childTasks": [],
+    "sortOrder": 1,
+    "status": "",
+    "isProjectRoot": false,
+    "tags": [
+      "drive"
     ]
   }
 ]

@@ -1,6 +1,7 @@
 //these requires are needed in order to load objects on the Browser side of things
 var Task = require("./js/Task.js");
 var TaskList = require("./js/TaskList.js");
+var DriveStorage = require("./js/DriveStorage.js");
 
 var app = require('electron').remote;
 var dialog = app.dialog;
@@ -744,6 +745,50 @@ function setupMainPageTasks() {
         mainTaskList.hideRootIfIsolated = !mainTaskList.hideRootIfIsolated
         renderGrid();
     });
+
+    $("#btnAuthDrive").on("click", function () {
+        console.log("auth click")
+        localDrive = new DriveStorage()
+        localDrive.startAuth(function () {
+            //when authorized, get the file list
+            localDrive.listFiles(function (files) {
+                //once the files are here, update the button
+                updateDriveFileButton(files);
+            });
+        });
+
+        //load the files
+        function updateDriveFileButton(fileList) {
+            console.log("files inside func", fileList)
+
+            var driveGroup = $("#driveFileGroup ul");
+
+            if (fileList.length > 0) {
+                driveGroup.empty();
+            }
+
+            _.each(fileList, function (driveFile) {
+                var label = $("<li/>").appendTo(driveGroup)
+                var aDom = $("<a/>").attr("href", "#").text(driveFile.name).appendTo(label);
+
+                //set up a click event on the LABEL... does not work for the input
+                $(label).on("click", function (ev) {
+                    //TODO need to wire this up
+                    console.log("load the file from drive", driveFile.id)
+                    localDrive.downloadFile(driveFile.id, function (path) {
+                        console.log("downloaded file to ", path)
+                    })
+                })
+            });
+        }
+    })
+
+    $("#btnDriveStore").on("click", function () {
+        console.log("drive sotre click")
+        localDrive.storeFile(mainTaskList.getJSONString(), function(){
+            console.log("saved tasklist to Drive");
+        });
+    })
 
     createNewTasklist();
 }

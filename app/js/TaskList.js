@@ -220,6 +220,14 @@ class TaskList {
         return _.map(this._possibleColumns, "name");
     }
 
+    getJSONString() {
+        var output = _.map(this.tasks, function (d) {
+            return d.getObjectForSaving();
+        })
+
+        return JSON.stringify(output);
+    }
+
     save(callback) {
         var jsonfile = require("jsonfile");
         var _ = require("lodash");

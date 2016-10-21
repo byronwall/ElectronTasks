@@ -28,6 +28,22 @@
 			<button id="btnClearIsolation" class="btn">clear isolation</button>
 			<button id="btnCreateProject" class="btn">add project</button>
 			<button id="btnMoveStranded" class="btn">move stranded</button>
+
+			<div class="btn-group">
+				<button id="btnAuthDrive" class="btn">auth Drive</button>
+				<button id="btnDriveStore" class="btn">store file</button>
+
+				<div class="btn-group" id="driveFileGroup">
+					<button type="button" class="btn btn-primary" id="loader">Load Drive</button>
+					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<span class="caret"></span>
+						<span class="sr-only">Toggle Dropdown</span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a href="#">No recent documents.</a></li>
+					</ul>
+				</div>
+			</div>
 		</div>
 		<div class="row">
 			<span>columns to show</span>
