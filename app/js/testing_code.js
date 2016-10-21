@@ -746,6 +746,14 @@ function setupMainPageTasks() {
         renderGrid();
     });
 
+    $('#projectTitle').editable({
+        type: 'text',
+        title: 'Enter title',
+        success: function (response, newValue) {
+            mainTaskList.title = newValue;
+        }
+    });
+
     $("#btnAuthDrive").on("click", function () {
         console.log("auth click")
         localDrive = new DriveStorage()
@@ -775,8 +783,9 @@ function setupMainPageTasks() {
                 $(label).on("click", function (ev) {
                     //TODO need to wire this up
                     console.log("load the file from drive", driveFile.id)
-                    localDrive.downloadFile(driveFile.id, function (path) {
+                    localDrive.downloadFile(driveFile, function (path) {
                         console.log("downloaded file to ", path)
+                        TaskList.load(path, loadTaskListCallback, driveFile.id);
                     })
                 })
             });
@@ -785,8 +794,10 @@ function setupMainPageTasks() {
 
     $("#btnDriveStore").on("click", function () {
         console.log("drive sotre click")
-        localDrive.storeFile(mainTaskList.getJSONString(), function(){
-            console.log("saved tasklist to Drive");
+        //function (contents, fileName, fileId, callback) {
+        localDrive.storeFile(mainTaskList.getJSONString(), mainTaskList.title, mainTaskList.googleDriveId, function (fileId) {
+            console.log("saved/updated tasklist to Drive");
+            mainTaskList.googleDriveId = fileId;
         });
     })
 

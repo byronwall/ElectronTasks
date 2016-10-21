@@ -152,31 +152,60 @@ DriveStorage.prototype.listFiles = function (callback) {
     });
 }
 
-DriveStorage.prototype.storeFile = function (contents) {
+DriveStorage.prototype.storeFile = function (contents, fileName, fileId, callback) {
     var self = this;
     var drive = google.drive({ version: 'v3', auth: self.auth });
 
-    drive.files.create({
-        resource: {
-            name: 'Test.json',
-            mimeType: 'text/tasklist'
-        },
-        media: {
-            mimeType: 'text/plain',
-            body: contents
-        }
-    }, function (err, file) {
-        if (err) {
-            // Handle error
-            console.log(err);
-        } else {
-            console.log('File Id:', file.id);
-        }
-    });
+    if (fileId == undefined) {
+        //new file to create
+        drive.files.create({
+            resource: {
+                name: fileName,
+                mimeType: 'text/tasklist'
+            },
+            media: {
+                mimeType: 'text/plain',
+                body: contents
+            }
+        }, function (err, file) {
+            if (err) {
+                // Handle error
+                console.log(err);
+            } else {
+                console.log('File Id:', file.id);
+                callback(file.id)
+                //TODO need to return this back to the TaskList
+            }
+        });
+    } else {
+        drive.files.update({
+            resource: {
+                name: fileName,
+                mimeType: 'text/tasklist'
+            },
+            fileId: fileId,
+            media: {
+                mimeType: 'text/plain',
+                body: contents
+            }
+        }, function (err, file) {
+            if (err) {
+                // Handle error
+                console.log(err);
+            } else {
+                console.log('File Id:', file.id);
+                callback(fileId);
+                //TODO need to return this back to the TaskList
+            }
+        });
+    }
 }
 
-DriveStorage.prototype.downloadFile = function (fileId, callback) {
-    var path = './tmp/download.json';
+DriveStorage.prototype.downloadFile = function (file, callback) {
+    var fileId = file.id;
+    var fileName = file.name;
+
+    var path = './tmp/' + fileName;
     var self = this;
 
     console.log("try to download", fileId)

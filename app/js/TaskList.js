@@ -10,6 +10,9 @@ class TaskList {
         this.searchObj = {};
 
         this.path = "";
+        this.googleDriveId = undefined;
+
+        this.title = "TaskList";
 
         this.idForIsolatedTask = undefined;
         this.hideRootIfIsolated = false;
@@ -271,7 +274,7 @@ class TaskList {
         return list;
     }
 
-    static load(path, callback) {
+    static load(path, callback, fileId) {
         var jsonfile = require("jsonfile");
 
         //create new object with only the date to keep
@@ -286,6 +289,8 @@ class TaskList {
 
                 taskList.tasks[task.ID] = task;
             })
+
+            taskList.googleDriveId = fileId;
 
             //work is done, call the callback
             callback(taskList);
