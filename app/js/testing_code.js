@@ -127,6 +127,12 @@ function loadTaskListCallback(loadedTaskList) {
     _.each(visibleColumns, function (columnName) {
         mainTaskList.columns[columnName].active = true;
     })
+
+    //get first project in file and isolate on it
+    var projects = mainTaskList.getProjectsInList();
+    console.log("loader proj" , projects)
+    mainTaskList.idForIsolatedTask = projects[0].ID;
+
     renderGrid();
 }
 
