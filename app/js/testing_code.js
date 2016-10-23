@@ -42,9 +42,17 @@ function updateProjectBucket() {
 
     //add a new span for each one
     _.each(projects, function (project) {
-        var span = $("<span/>").text(project.description).appendTo(projectBucket).attr("class", "label label-info");
 
-        span.on("click", function (ev) {
+
+        var label = $("<li/>").appendTo(projectBucket)
+        var aDom = $("<a/>").attr("href", "#").text(project.description).appendTo(label);
+
+        if (project.ID == mainTaskList.idForIsolatedTask) {
+            label.addClass("active");
+        }
+
+        //set up a click event on the LABEL... does not work for the input
+        $(label).on("click", function (ev) {
             mainTaskList.idForIsolatedTask = project.ID;
             renderGrid();
         });
@@ -130,7 +138,7 @@ function loadTaskListCallback(loadedTaskList) {
 
     //get first project in file and isolate on it
     var projects = mainTaskList.getProjectsInList();
-    console.log("loader proj" , projects)
+    console.log("loader proj", projects)
     mainTaskList.idForIsolatedTask = projects[0].ID;
 
     renderGrid();

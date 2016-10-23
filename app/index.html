@@ -1,122 +1,122 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-		<link rel="stylesheet" href="../lib/editablegrid/editablegrid.css">
-		<link href="../lib/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
-	</head>
+<head>
+	<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../lib/editablegrid/editablegrid.css">
+	<link href="../lib/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+</head>
 
-	<body>
-		<div class="container-fluid">
-			<div class="row">
+<body>
+	<div class="container-fluid">
+		<div class="row">
 
-				<div class="btn-group" id="recentFileGroup">
-					<button type="button" class="btn btn-primary" id="loader">Load</button>
-					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<div class="btn-group" id="recentFileGroup">
+				<button type="button" class="btn btn-primary" id="loader">Load</button>
+				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<span class="caret"></span>
 					<span class="sr-only">Toggle Dropdown</span>
 				</button>
+				<ul class="dropdown-menu">
+					<li><a href="#">No recent documents.</a></li>
+				</ul>
+			</div>
+
+			<button id="saver" class="btn">save</button>
+			<button id="newTask" class="btn">new task</button>
+			<button id="newTasklist" class="btn">new tasklist</button>
+
+			<button id="btnClearIsolation" class="btn">clear isolation</button>
+			<button id="btnCreateProject" class="btn">add project</button>
+			<button id="btnMoveStranded" class="btn">move stranded</button>
+
+			<div class="btn-group">
+				<button id="btnAuthDrive" class="btn">auth Drive</button>
+				<button id="btnDriveStore" class="btn">store file</button>
+
+				<div class="btn-group" id="driveFileGroup">
+					<button type="button" class="btn btn-primary" id="loader">Load Drive</button>
+					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<span class="caret"></span>
+						<span class="sr-only">Toggle Dropdown</span>
+					</button>
 					<ul class="dropdown-menu">
 						<li><a href="#">No recent documents.</a></li>
 					</ul>
 				</div>
-
-				<button id="saver" class="btn">save</button>
-				<button id="newTask" class="btn">new task</button>
-				<button id="newTasklist" class="btn">new tasklist</button>
-
-				<button id="btnClearIsolation" class="btn">clear isolation</button>
-				<button id="btnCreateProject" class="btn">add project</button>
-				<button id="btnMoveStranded" class="btn">move stranded</button>
-
-				<div class="btn-group">
-					<button id="btnAuthDrive" class="btn">auth Drive</button>
-					<button id="btnDriveStore" class="btn">store file</button>
-
-					<div class="btn-group" id="driveFileGroup">
-						<button type="button" class="btn btn-primary" id="loader">Load Drive</button>
-						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<span class="caret"></span>
-						<span class="sr-only">Toggle Dropdown</span>
-					</button>
-						<ul class="dropdown-menu">
-							<li><a href="#">No recent documents.</a></li>
-						</ul>
-					</div>
-				</div>
 			</div>
-			<div class="row">
-				<span>columns to show</span>
-				<div class="btn-group" data-toggle="buttons" id="columnChooser"></div>
-			</div>
-			<div class="row">
-				<span>sort options</span>
-				<div class="btn-group" data-toggle="buttons" id="sortChooser"></div>
-				<div class="btn-group" data-toggle="buttons" id="sortDirChooser"></div>
+		</div>
+		<div class="row">
+			<span>columns to show</span>
+			<div class="btn-group" data-toggle="buttons" id="columnChooser"></div>
+		</div>
+		<div class="row">
+			<span>sort options</span>
+			<div class="btn-group" data-toggle="buttons" id="sortChooser"></div>
+			<div class="btn-group" data-toggle="buttons" id="sortDirChooser"></div>
 
-				<div class="btn-group" id="sortOptions">
-					<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="isSortEnabled">
+			<div class="btn-group" id="sortOptions">
+				<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="isSortEnabled">
 					Active Sort?
 				</button>
 
-					<button type="button" class="btn btn-warning" id="btnSortNow">
+				<button type="button" class="btn btn-warning" id="btnSortNow">
 					Sort Now
 				</button>
 
-					<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldHideRoot">
+				<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldHideRoot">
 					Hide Root?
 				</button>
-				</div>
 			</div>
+		</div>
 
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="input-group">
-						<input type="text" class="form-control" id="txtSearch" placeholder="Search for...">
-						<span class="input-group-btn">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="input-group">
+					<input type="text" class="form-control" id="txtSearch" placeholder="Search for...">
+					<span class="input-group-btn">
 						<button class="btn btn-default" type="button" id="btnClearSearch">Clear</button>
 					</span>
-					</div>
 				</div>
 			</div>
+		</div>
 
-			<div class="row">
-				<h4 id="tagBucket"></h4>
-			</div>
+		<div class="row">
+			<h4 id="tagBucket"></h4>
+		</div>
 
-			<div class="row">
-				<h4 id="statusBucket"></h4>
-			</div>
-
-
-			<div class="row">
-				<h3 id="projectBucket">this will hold the list of projects</h3>
-			</div>
-
-			<div class="row">
-				<h1 id="projectTitle">Project Title</h1>
-			</div>
-
-			<div id="gridList"></div>
+		<div class="row">
+			<h4 id="statusBucket"></h4>
 		</div>
 
 
-		<script src="js/testing_code.js" type="text/javascript"> </script>
-		<script src="../node_modules/mousetrap/mousetrap.js" type="text/javascript"></script>
+		<div class="row">
+			<ul id="projectBucket" class="nav nav-pills"></ul>
+		</div>
 
-		<script src="../lib/editablegrid/editablegrid.js" type="text/javascript"> </script>
-		<script src="../lib/editablegrid/editablegrid_validators.js" type="text/javascript"> </script>
-		<script src="../lib/editablegrid/editablegrid_renderers.js" type="text/javascript"> </script>
-		<script src="../lib/editablegrid/editablegrid_editors.js" type="text/javascript"> </script>
-		<script src="../lib/editablegrid/editablegrid_utils.js" type="text/javascript"> </script>
+		<div class="row">
+			<h1 id="projectTitle">Project Title</h1>
+		</div>
 
-		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-		<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+		<div id="gridList"></div>
+	</div>
 
-		<script src="../node_modules/bootstrap/dist/js/bootstrap.js" type="text/javascript"></script>
 
-		<script src="../lib/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
-	</body>
+	<script src="js/testing_code.js" type="text/javascript"> </script>
+	<script src="../node_modules/mousetrap/mousetrap.js" type="text/javascript"></script>
+
+	<script src="../lib/editablegrid/editablegrid.js" type="text/javascript"> </script>
+	<script src="../lib/editablegrid/editablegrid_validators.js" type="text/javascript"> </script>
+	<script src="../lib/editablegrid/editablegrid_renderers.js" type="text/javascript"> </script>
+	<script src="../lib/editablegrid/editablegrid_editors.js" type="text/javascript"> </script>
+	<script src="../lib/editablegrid/editablegrid_utils.js" type="text/javascript"> </script>
+
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+	<script src="../node_modules/bootstrap/dist/js/bootstrap.js" type="text/javascript"></script>
+
+	<script src="../lib/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+</body>
 
 </html>
