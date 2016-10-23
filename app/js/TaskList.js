@@ -224,11 +224,18 @@ class TaskList {
     }
 
     getJSONString() {
+        //TODO use this method for the normal save() call too
         var output = _.map(this.tasks, function (d) {
             return d.getObjectForSaving();
         })
 
-        return JSON.stringify(output);
+        var objectToSave = {
+            title: this.title,
+            googleDriveId: this.googleDriveId,
+            tasks: output
+        };
+
+        return JSON.stringify(objectToSave);
     }
 
     save(callback) {
@@ -296,10 +303,10 @@ class TaskList {
 
             var dataObj = {};
 
-            if(obj.length > 0){
+            if (obj.length > 0) {
                 console.log("old format")
                 dataObj.tasks = obj;
-            }else{
+            } else {
                 console.log("new format")
                 dataObj = obj;
             }
