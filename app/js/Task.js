@@ -108,8 +108,7 @@ module.exports = class Task {
 
         //TODO move this object out of this function call, waste of resources
         var transForms = {
-            "duration": "sum",
-            "priority": "max"
+            "duration": "sum"
         };
 
         var self = this;
