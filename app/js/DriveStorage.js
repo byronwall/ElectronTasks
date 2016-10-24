@@ -156,7 +156,7 @@ DriveStorage.prototype.storeFile = function (contents, fileName, fileId, callbac
     var self = this;
     var drive = google.drive({ version: 'v3', auth: self.auth });
 
-    fileName = fileName & ".json";
+    fileName = fileName + ".json";
 
     if (fileId == undefined) {
         //new file to create
