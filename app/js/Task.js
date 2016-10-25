@@ -114,6 +114,19 @@ module.exports = class Task {
         })
     }
 
+    removeTask() {
+        //delete the children task
+        var self = this;
+        _.each(this.childTasks, function (childTaskIndex) {
+            var childTask = self.taskList.tasks[childTaskIndex];
+            childTask.removeTask();
+        })
+
+        self.taskList.removeTask(self.ID);
+
+        //delete the current task from the task list
+    }
+
     updateDependentProperties() {
         //need to take an array of fields and run through them
         if (this.childTasks.length == 0) {

@@ -50,6 +50,24 @@ function renderGrid() {
         //complete the task and update the display
         currentTask.completeTask();
         renderGrid();
+    });
+
+    $(".btnDelete").on("click", function (ev) {
+        console.log("task delete button hit");
+
+        //this gets the TR which has the ID in it
+        var trElement = $(this).parents("tr")[0];
+        //this gets the element, now need to process the button
+
+        var currentID = trElement.id;
+        currentID = currentID.split("task-list_")[1];
+        currentID = parseInt(currentID);
+
+        //now holds the current ID
+        var currentTask = mainTaskList.tasks[currentID];
+        currentTask.removeTask()
+        renderGrid();
+        //delete the task and rerender
     })
 }
 
@@ -251,10 +269,12 @@ function setupMainPageTasks() {
         //convert to rowId to get the correct ID in the task list
         var rowId = grid.getRowId(rowIndex);
 
-        if (columnIndex == grid.getColumnIndex("description") && newValue == "") {
+        //TODO add this code back in at some point if desired
+        if (false && columnIndex == grid.getColumnIndex("description") && newValue == "") {
             //delete the current item, it has been blanked
-            mainTaskList.removeTask(rowId);
-            grid.remove(rowIndex);
+
+            //mainTaskList.removeTask(rowId);
+            //grid.remove(rowIndex);
         }
         else {
             //this will update the underlying data
