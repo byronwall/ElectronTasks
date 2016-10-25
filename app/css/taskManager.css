@@ -1,3 +1,6 @@
 .trComplete{
     text-decoration: line-through;
 }
+.testgrid td{
+    min-width: 50px;
+}
