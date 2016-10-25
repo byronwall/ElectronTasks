@@ -28,6 +28,7 @@ function renderGrid() {
     updateTagBucket();
     updateProjectBucket();
     updateStatusBucket();
+    updateBreadcrumbs();
 
     //update the project title
     $("#projectTitle").text(mainTaskList.title);
@@ -68,6 +69,31 @@ function renderGrid() {
         currentTask.removeTask()
         renderGrid();
         //delete the task and rerender
+    })
+}
+
+function updateBreadcrumbs() {
+    var projects = mainTaskList.getCrumbs();
+    console.log("crumbs", projects);
+    
+    //TODO need to fix variable names
+
+    //clear out the tag bucket
+    var projectBucket = $("#breadcumbs")
+    projectBucket.empty();
+
+    //add a new span for each one
+    _.each(projects, function (project) {
+
+
+        var label = $("<li/>").appendTo(projectBucket)
+        var aDom = $("<a/>").attr("href", "#").text(project.description).appendTo(label);
+
+        //set up a click event on the LABEL... does not work for the input
+        $(label).on("click", function (ev) {
+            mainTaskList.idForIsolatedTask = project.ID;
+            renderGrid();
+        });
     })
 }
 

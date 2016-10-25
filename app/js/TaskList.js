@@ -78,6 +78,28 @@ class TaskList {
         return projects;
     }
 
+    getCrumbs(){
+        //need to return these in top down order
+
+        //get the isolation level, and work up through parents until there is none
+        var crumbsOut = [];
+
+        //return an array of tasks
+        var bottomTask = this.tasks[this.idForIsolatedTask];
+
+        while(bottomTask != null){
+            crumbsOut.unshift(bottomTask);
+
+            if(bottomTask.parentTask == null){
+                bottomTask = null;
+            }else{
+                bottomTask = this.tasks[bottomTask.parentTask]
+            }
+        }
+
+        return crumbsOut;
+    }
+
     getGridDataObject() {
         var gridDataObject = {
             "metadata": _.filter(this.columns, "active"),
