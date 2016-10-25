@@ -184,7 +184,7 @@ function createNewTask(options = {}) {
     }
 
     renderGrid();
-    grid.editCell(grid.getRowIndex(newTask.ID), 0)
+    grid.editCell(grid.getRowIndex(newTask.ID), grid.getColumnIndex("description"))
 }
 
 function saveTaskList() {
@@ -228,7 +228,7 @@ function createNewTask(options = {}) {
     }
 
     renderGrid();
-    grid.editCell(grid.getRowIndex(newTask.ID), 0)
+    grid.editCell(grid.getRowIndex(newTask.ID), grid.getColumnIndex("description"))
 }
 
 function createNewTasklist() {
@@ -466,7 +466,7 @@ function setupMainPageTasks() {
             //the relationship is known... rerender?
             mainTaskList.save()
             renderGrid();
-            grid.editCell(currentRow, 0)
+            grid.editCell(currentRow, grid.getColumnIndex("description"))
 
             return false;
         }
@@ -551,7 +551,7 @@ function setupMainPageTasks() {
             //the relationship is known... rerender?
             mainTaskList.save()
             renderGrid();
-            grid.editCell(currentRow, 0)
+            grid.editCell(currentRow, grid.getColumnIndex("description"))
         }
     })
 
@@ -589,7 +589,7 @@ function setupMainPageTasks() {
 
             mainTaskList.save()
             renderGrid();
-            grid.editCell(grid.getRowIndex(currentID), 0)
+            grid.editCell(grid.getRowIndex(currentID), grid.getColumnIndex("description"))
         }
     })
 
@@ -629,7 +629,7 @@ function setupMainPageTasks() {
 
             mainTaskList.save()
             renderGrid();
-            grid.editCell(grid.getRowIndex(currentID), 0)
+            grid.editCell(grid.getRowIndex(currentID), grid.getColumnIndex("description"))
         }
     })
 
@@ -769,7 +769,7 @@ function setupMainPageTasks() {
 
         renderGrid();
 
-        grid.editCell(grid.getRowIndex(newProjectTask.ID), 0)
+        grid.editCell(grid.getRowIndex(newProjectTask.ID), grid.getColumnIndex("description"))
     });
 
     $("#btnMoveStranded").on("click", function (ev) {
