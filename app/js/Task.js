@@ -14,6 +14,8 @@ module.exports = class Task {
 
         this.dateAdded = (new Date()).toLocaleString();
 
+        this.isComplete = false;
+
         //some new fields for testig
         this.priority = 5;
 
@@ -99,6 +101,19 @@ module.exports = class Task {
         return Task._id++;
     }
 
+    completeTask(isComplete) {
+        //this will flip completion on the current task
+        this.isComplete = (isComplete == undefined) ? !this.isComplete : isComplete;
+
+        //check if there are any children, if so, complete those also
+        var self = this;
+        _.each(this.childTasks, function (childTaskIndex) {
+            var childTask = self.taskList.tasks[childTaskIndex];
+            console.log(childTaskIndex, childTask);
+            childTask.completeTask(self.isComplete);
+        })
+    }
+
     updateDependentProperties() {
         //need to take an array of fields and run through them
         if (this.childTasks.length == 0) {
@@ -112,7 +127,7 @@ module.exports = class Task {
         };
 
         var self = this;
-        
+
         //values will hold an array of values for each field that is being tracked in transForms
         var values = {};
         _.each(this.childTasks, function (childTaskIndex) {
@@ -124,7 +139,11 @@ module.exports = class Task {
                 if (values[key] == undefined) {
                     values[key] = [];
                 }
-                values[key].push(childTask[key]);
+
+                //TODO this needs to become a more general calculation
+                if (!childTask.isComplete) {
+                    values[key].push(childTask[key]);
+                }
             });
         })
 
@@ -150,7 +169,8 @@ module.exports = class Task {
             "parentTask": this.parentTask,
             "childTasks": this.childTasks,
             "sortOrder": this.sortOrder,
-            "status" : this.status,
+            "status": this.status,
+            "isComplete": this.isComplete,
             "isProjectRoot": this.isProjectRoot,
             "tags": this.tags
         }

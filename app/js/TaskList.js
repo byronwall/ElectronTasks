@@ -17,7 +17,10 @@ class TaskList {
         this.idForIsolatedTask = undefined;
         this.hideRootIfIsolated = false;
 
+        this.shouldHideComplete = true;
+
         this._possibleColumns = [
+            { "name": "action", "label": "", "datatype": "action", "editable": false, "active": true },
             { "name": "description", "label": "desc", "datatype": "hashtag", "editable": true, "active": false },
             { "name": "duration", "label": "duration (min)", "datatype": "double", "editable": true, "active": false },
             { "name": "priority", "label": "priority", "datatype": "integer", "editable": true, "active": false },
@@ -142,7 +145,9 @@ class TaskList {
         //skip if starting on the pseudo root
         if (indentLevel > -1) {
             //do a check on desc
-            if (this.searchTerm == "" || task.isResultForSearch(this.searchObj)) {
+            var searchResult = this.searchTerm == "" || task.isResultForSearch(this.searchObj)
+            var showBecauseComplete = (this.shouldHideComplete) ? !task.isComplete : true;
+            if (searchResult && showBecauseComplete) {
                 tasksOut.push(task);
             }
         }

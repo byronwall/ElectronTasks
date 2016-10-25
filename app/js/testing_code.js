@@ -31,6 +31,26 @@ function renderGrid() {
 
     //update the project title
     $("#projectTitle").text(mainTaskList.title);
+
+    //this needs to wire up some button click events
+    $(".btnComplete").on("click", function (ev) {
+        console.log("task complete button hit");
+
+        //this gets the TR which has the ID in it
+        var trElement = $(this).parents("tr")[0];
+        //this gets the element, now need to process the button
+
+        var currentID = trElement.id;
+        currentID = currentID.split("task-list_")[1];
+        currentID = parseInt(currentID);
+
+        //now holds the current ID
+        var currentTask = mainTaskList.tasks[currentID];
+
+        //complete the task and update the display
+        currentTask.completeTask();
+        renderGrid();
+    })
 }
 
 function updateProjectBucket() {
