@@ -251,7 +251,7 @@ function setupMainPageTasks() {
         //convert to rowId to get the correct ID in the task list
         var rowId = grid.getRowId(rowIndex);
 
-        if (columnIndex == 0 && newValue == "") {
+        if (columnIndex == grid.getColumnIndex("description") && newValue == "") {
             //delete the current item, it has been blanked
             mainTaskList.removeTask(rowId);
             grid.remove(rowIndex);
