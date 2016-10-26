@@ -51,6 +51,7 @@ function renderGrid() {
         //complete the task and update the display
         currentTask.completeTask();
         renderGrid();
+        saveTaskList();
     });
 
     $(".btnDelete").on("click", function (ev) {
@@ -68,6 +69,7 @@ function renderGrid() {
         var currentTask = mainTaskList.tasks[currentID];
         currentTask.removeTask()
         renderGrid();
+        saveTaskList();
         //delete the task and rerender
     })
 }
@@ -75,7 +77,7 @@ function renderGrid() {
 function updateBreadcrumbs() {
     var projects = mainTaskList.getCrumbs();
     console.log("crumbs", projects);
-    
+
     //TODO need to fix variable names
 
     //clear out the tag bucket
