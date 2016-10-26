@@ -217,6 +217,8 @@ function sortNow() {
     mainTaskList.isSortEnabled = true;
     renderGrid();
     mainTaskList.isSortEnabled = isSortEnabled;
+
+    saveTaskList();
 }
 
 function createNewTask(options = {}) {
@@ -262,6 +264,7 @@ function createNewTasklist() {
 function createNewTask(options = {}) {
     var newTask = mainTaskList.getNew();
     newTask.description = "new task";
+    newTask.isFirstEdit = true;
 
     _.assign(newTask, options);
 
@@ -297,6 +300,8 @@ function setupMainPageTasks() {
 
         //convert to rowId to get the correct ID in the task list
         var rowId = grid.getRowId(rowIndex);
+        var columnName = this.getColumnName(columnIndex);
+        var currentTask = mainTaskList.tasks[rowId];
 
         //TODO add this code back in at some point if desired
         if (false && columnIndex == grid.getColumnIndex("description") && newValue == "") {
@@ -307,10 +312,10 @@ function setupMainPageTasks() {
         }
         else {
             //this will update the underlying data
-            var columnName = this.getColumnName(columnIndex);
-            var currentTask = mainTaskList.tasks[rowId];
+
 
             currentTask[columnName] = newValue;
+            currentTask.isFirstEdit = false;
 
             //need to add a check here for hash tags
             if (columnName === "description") {
@@ -336,6 +341,11 @@ function setupMainPageTasks() {
 
         mainTaskList.save()
         renderGrid();
+
+        if (shouldAddTaskWhenDoneEditing && columnName === "description") {
+            createNewTask();
+            shouldAddTaskWhenDoneEditing = false;
+        }
     };
 
     $("#loader").on("click", function () {
@@ -801,6 +811,30 @@ function setupMainPageTasks() {
         //this lets the shortcuts go through whenever
         return false;
     }
+
+    //this sets up an event to capture the keydown (before anything else runs)
+    $("body").get(0).addEventListener("keydown", function (ev) {
+
+        //TODO add another one for ESCAPE to delete the task if needed
+        if (ev.key === "Enter") {
+            console.log("Enter was hit")
+
+            //this gets the TR which has the ID in it
+            var trElement = $(ev.target).parents("tr")[0];
+            
+            //this gets the element, now need to process the button
+            var currentID = trElement.id;
+            currentID = currentID.split("task-list_")[1];
+            currentID = parseInt(currentID);
+
+            //now holds the current ID
+            var currentTask = mainTaskList.tasks[currentID];
+
+            if (currentTask.isFirstEdit) {
+                shouldAddTaskWhenDoneEditing = true;
+            }
+        }
+    }, true);
 
     $("#btnClearIsolation").on("click", function (ev) {
         //this will remove the isolation

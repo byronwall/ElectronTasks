@@ -23,6 +23,8 @@ module.exports = class Task {
 
         this.status = "";
 
+        this.isFirstEdit = false;
+
         this.isProjectRoot = false;
 
         //these will be INTs that store the ID
