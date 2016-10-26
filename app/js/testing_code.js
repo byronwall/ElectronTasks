@@ -84,8 +84,6 @@ function updateBreadcrumbs() {
 
     //add a new span for each one
     _.each(projects, function (project) {
-
-
         var label = $("<li/>").appendTo(projectBucket)
         var aDom = $("<a/>").attr("href", "#").text(project.description).appendTo(label);
 
@@ -104,10 +102,13 @@ function updateProjectBucket() {
     var projectBucket = $("#projectBucket")
     projectBucket.empty();
 
+    var dummyTask = new Task();
+    dummyTask.description = "all projects"
+    dummyTask.ID = null;
+    projects.unshift(dummyTask);
+
     //add a new span for each one
     _.each(projects, function (project) {
-
-
         var label = $("<li/>").appendTo(projectBucket)
         var aDom = $("<a/>").attr("href", "#").text(project.description).appendTo(label);
 
