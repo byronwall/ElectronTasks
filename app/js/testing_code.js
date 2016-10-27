@@ -275,10 +275,17 @@ function createNewTask(options = {}) {
 
     if (newTask.parentTask != null) {
         mainTaskList.tasks[newTask.parentTask].childTasks.push(newTask.ID);
+        renderGrid();
+        grid.editCell(grid.getRowIndex(newTask.ID), grid.getColumnIndex("description"))
+    }
+    else {
+        //this will prevent the task from being added if it has no parent
+        console.log("stranded task removed")
+        //TODO add a warning that task was not created since it would have been stranded
+        newTask.removeTask();
     }
 
-    renderGrid();
-    grid.editCell(grid.getRowIndex(newTask.ID), grid.getColumnIndex("description"))
+
 }
 
 function createNewTasklist() {
