@@ -731,9 +731,14 @@ function setupMainPageTasks() {
             //now holds the current ID
             var currentTask = mainTaskList.tasks[currentID];
 
-            //have the task be below the current one
-            options.sortOrder = currentTask.sortOrder + 0.5;
-            options.parentTask = currentTask.parentTask;
+            if (currentTask.isProjectRoot) {
+                options.parentTask = currentTask.ID;
+            }
+            else {
+                //have the task be below the current one
+                options.sortOrder = currentTask.sortOrder + 0.5;
+                options.parentTask = currentTask.parentTask;
+            }
 
             var editor = e.target.celleditor;
             //if editing or a change was made, apply that change
