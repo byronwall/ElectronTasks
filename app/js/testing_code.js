@@ -12,6 +12,8 @@ var $ = require("jquery");
 //TODO clean this section up to hide these variables
 //delcare any local/global variables
 var grid;
+var shouldAddTaskWhenDoneEditing = false;
+var shouldDeleteTaskWhenDoneEditing = false;
 
 function entryPoint() {
     //this is equal to the onLoad event for the body
@@ -343,7 +345,11 @@ function setupMainPageTasks() {
         renderGrid();
 
         if (shouldAddTaskWhenDoneEditing && columnName === "description") {
-            createNewTask();
+            var options = {
+                parentTask: currentTask.parentTask,
+                sortOrder: currentTask.sortOrder + 0.5
+            }
+            createNewTask(options);
             shouldAddTaskWhenDoneEditing = false;
         }
     };
@@ -814,6 +820,20 @@ function setupMainPageTasks() {
 
     //this sets up an event to capture the keydown (before anything else runs)
     $("body").get(0).addEventListener("keydown", function (ev) {
+        if (ev.key === "Escape" && shouldDeleteTaskWhenDoneEditing) {
+            console.log("bubble keydown", ev.key)
+            taskToDelete.removeTask();
+            renderGrid();
+
+            shouldDeleteTaskWhenDoneEditing = false;
+        }
+    });
+
+    $("body").get(0).addEventListener("keydown", function (ev) {
+
+        //ensures that the element is within the table
+        //TODO make this more specific
+        if(!$(ev.target).parents("tr").length) return;
 
         //TODO add another one for ESCAPE to delete the task if needed
         if (ev.key === "Enter") {
@@ -821,7 +841,7 @@ function setupMainPageTasks() {
 
             //this gets the TR which has the ID in it
             var trElement = $(ev.target).parents("tr")[0];
-            
+
             //this gets the element, now need to process the button
             var currentID = trElement.id;
             currentID = currentID.split("task-list_")[1];
@@ -834,6 +854,28 @@ function setupMainPageTasks() {
                 shouldAddTaskWhenDoneEditing = true;
             }
         }
+
+        if (ev.key === "Escape") {
+            console.log("escape was hit");
+
+            //this gets the TR which has the ID in it
+            var trElement = $(ev.target).parents("tr")[0];
+
+            //this gets the element, now need to process the button
+            var currentID = trElement.id;
+            currentID = currentID.split("task-list_")[1];
+            currentID = parseInt(currentID);
+
+            //now holds the current ID
+            var currentTask = mainTaskList.tasks[currentID];
+
+            if (currentTask.isFirstEdit && currentTask.description == "new task") {
+                shouldDeleteTaskWhenDoneEditing = true;
+                taskToDelete = currentTask;
+                console.log("should delete task")
+            }
+        }
+
     }, true);
 
     $("#btnClearIsolation").on("click", function (ev) {
