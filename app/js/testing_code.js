@@ -77,10 +77,8 @@ function renderGrid() {
 }
 
 function updateBreadcrumbs() {
-    var projects = mainTaskList.getCrumbs();
-    console.log("crumbs", projects);
-
     //TODO need to fix variable names
+    var projects = mainTaskList.getCrumbs();
 
     //clear out the tag bucket
     var projectBucket = $("#breadcumbs")
@@ -833,7 +831,7 @@ function setupMainPageTasks() {
 
         //ensures that the element is within the table
         //TODO make this more specific
-        if(!$(ev.target).parents("tr").length) return;
+        if (!$(ev.target).parents("tr").length) return;
 
         //TODO add another one for ESCAPE to delete the task if needed
         if (ev.key === "Enter") {
