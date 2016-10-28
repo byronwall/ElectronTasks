@@ -1,7 +1,7 @@
 //create a Task object
 
 module.exports = class Task {
-    constructor(taskList) {
+    constructor(taskList, shouldGetId = true) {
 
         this.taskList = taskList;
 
@@ -10,7 +10,8 @@ module.exports = class Task {
         this.duration = 0;
         this.startDate = null;
         this.endDate = null;
-        this.ID = Task.getUnique;
+        console.log("new task constru")
+        this.ID = (shouldGetId) ? Task.getUnique : -1;
 
         this.dateAdded = (new Date()).toLocaleString();
 
@@ -95,7 +96,7 @@ module.exports = class Task {
             Task._id = data.ID + 1;
         }
 
-        if(task.status == ""){
+        if (task.status == "") {
             task.status = null;
         }
 
@@ -104,9 +105,11 @@ module.exports = class Task {
 
     static get getUnique() {
         if (!Task._id) {
-            Task._id = 0;
+            Task._id = 1;
         }
-        return Task._id++;
+        Task._id = Task._id + 1;
+        console.log("unique id", Task._id);
+        return Task._id;
     }
 
     completeTask(isComplete) {

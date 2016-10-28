@@ -105,7 +105,7 @@ function updateProjectBucket() {
     var projectBucket = $("#projectBucket")
     projectBucket.empty();
 
-    var dummyTask = new Task();
+    var dummyTask = new Task(null, false);
     dummyTask.description = "all projects"
     dummyTask.ID = null;
     projects.unshift(dummyTask);
@@ -632,6 +632,11 @@ function setupMainPageTasks() {
             var aboveId = currentTask.parentTask;
             var aboveTask = mainTaskList.tasks[aboveId];
 
+            if(aboveTask.parentTask == null){
+                //don't allow a stranded task
+                return;
+            }
+
             console.log(aboveTask);
 
             //need to set the parent for the current and the child for the above
@@ -645,6 +650,7 @@ function setupMainPageTasks() {
 
             //get the new parent
             //grandparent
+            
             var grandparentID = aboveTask.parentTask;
             console.log(grandparentID)
             console.log(mainTaskList)
