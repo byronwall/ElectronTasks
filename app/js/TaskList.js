@@ -8,6 +8,10 @@ class TaskList {
 
         this.searchTerm = "";
         this.searchObj = {};
+        this.searchChildren = false;
+        this.searchParents = false;
+
+        this.visibleTasks = {};
 
         this.path = "";
         this.googleDriveId = undefined;
@@ -25,6 +29,7 @@ class TaskList {
             { "name": "duration", "label": "duration (min)", "datatype": "double", "editable": true, "active": false },
             { "name": "priority", "label": "priority", "datatype": "integer", "editable": true, "active": false },
             { "name": "status", "label": "status", "datatype": "string", "editable": true, "active": false },
+            { "name": "milestone", "label": "milestone", "datatype": "string", "editable": true, "active": false },
             { "name": "dateAdded", "label": "added", "datatype": "date", "editable": true, "active": false },
             { "name": "startDate", "label": "start", "datatype": "date", "editable": true, "active": false },
             { "name": "endDate", "label": "end", "datatype": "date", "editable": true, "active": false }
@@ -78,7 +83,18 @@ class TaskList {
         return projects;
     }
 
-    getCrumbs(){
+    getMilestones() {
+        var projects = [];
+        _.each(this.tasks, function (task) {
+            if (projects.indexOf(task.milestone) == -1) {
+                projects.push(task.milestone);
+            }
+        })
+
+        return projects;
+    }
+
+    getCrumbs() {
         //need to return these in top down order
 
         //get the isolation level, and work up through parents until there is none
@@ -87,12 +103,12 @@ class TaskList {
         //return an array of tasks
         var bottomTask = this.tasks[this.idForIsolatedTask];
 
-        while(bottomTask != null){
+        while (bottomTask != null) {
             crumbsOut.unshift(bottomTask);
 
-            if(bottomTask.parentTask == null){
+            if (bottomTask.parentTask == null) {
                 bottomTask = null;
-            }else{
+            } else {
                 bottomTask = this.tasks[bottomTask.parentTask]
             }
         }
@@ -147,6 +163,9 @@ class TaskList {
         //run through children to update any dependent properties
         this.getPseudoRootNode().updateDependentProperties();
 
+        //run the searches
+        this.determineIfTasksAreVisible();
+
         //process children
         if (this.idForIsolatedTask == undefined) {
             this.recurseChildren(this.getPseudoRootNode(), -1, tasksOut)
@@ -158,18 +177,62 @@ class TaskList {
             this.recurseChildren(isolatedTask, startLevel, tasksOut);
         }
 
+        //need to build tasksout down here based on the task visible option
+
         return _.map(tasksOut, function (item) {
             return { "id": item.ID, "values": item }
         })
+    }
+
+    determineIfTasksAreVisible() {
+        //iterate each task and run the search
+        var self = this;
+
+        var tasksToProcessAgain = [];
+        _.each(this.tasks, function (task) {
+            var searchResult = self.searchTerm == "" || task.isResultForSearch(self.searchObj)
+            var showBecauseComplete = (self.shouldHideComplete) ? !task.isComplete : true;
+            if (searchResult && showBecauseComplete) {
+
+                tasksToProcessAgain.push(task);
+                task.isVisible = true;
+            } else {
+                task.isVisible = false;
+            }
+        })
+
+        _.each(tasksToProcessAgain, function (task) {
+            if (self.searchChildren) {
+                //add the kids
+                function recurseMakeVisible(childTask) {
+                    _.each(childTask.childTasks, function (childTaskID) {
+                        recurseMakeVisible(self.tasks[childTaskID]);
+                    })
+                    childTask.isVisible = !childTask.isComplete;
+                }
+
+                recurseMakeVisible(task);
+            }
+
+            if (self.searchParents) {
+                //add the parents
+                //TODO rename the variables, this is awful
+                var parentTaskId = task.parentTask;
+                while (parentTaskId != null) {
+                    var parentTask = self.tasks[parentTaskId]
+                    parentTask.isVisible = !parentTask.isComplete;
+                    parentTaskId = parentTask.parentTask;
+                }
+            }
+        })
+        //at this point, all of the tasks have visibility set
     }
 
     recurseChildren(task, indentLevel, tasksOut) {
         //skip if starting on the pseudo root
         if (indentLevel > -1) {
             //do a check on desc
-            var searchResult = this.searchTerm == "" || task.isResultForSearch(this.searchObj)
-            var showBecauseComplete = (this.shouldHideComplete) ? !task.isComplete : true;
-            if (searchResult && showBecauseComplete) {
+            if (task.isVisible) {
                 tasksOut.push(task);
             }
         }
@@ -186,7 +249,6 @@ class TaskList {
 
         _.each(subOrder, function (itemObj) {
             var itemNo = itemObj.id;
-            //TODO apply sort order to the children here
             var childTask = self.tasks[itemNo];
             childTask.sortOrder = subProcessOrder++;
             self.recurseChildren(childTask, indentLevel + 1, tasksOut)

@@ -76,6 +76,12 @@
 				<div class="input-group">
 					<input type="text" class="form-control" id="txtSearch" placeholder="Search for...">
 					<span class="input-group-btn">
+						<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldSearchChildren">
+							children
+						</button>
+						<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldSearchParents">
+							parents
+						</button>
 						<button class="btn btn-default" type="button" id="btnClearSearch">Clear</button>
 					</span>
 				</div>
@@ -90,6 +96,9 @@
 			<h4 id="statusBucket"></h4>
 		</div>
 
+		<div class="row">
+			<h4 id="milestoneBucket"></h4>
+		</div>
 
 		<div class="row">
 			<h1 id="projectTitle">Project Title</h1>

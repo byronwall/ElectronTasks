@@ -21,7 +21,8 @@ module.exports = class Task {
 
         this.tags = [];
 
-        this.status = "";
+        this.status = null;
+        this.milestone = null;
 
         this.isFirstEdit = false;
 
@@ -33,6 +34,7 @@ module.exports = class Task {
 
         this.indent = 0;
         this.sortOrder = Number.MAX_SAFE_INTEGER;
+        this.isVisible = true;
     }
 
     isResultForSearch(searchTerm) {
@@ -93,6 +95,10 @@ module.exports = class Task {
             Task._id = data.ID + 1;
         }
 
+        if(task.status == ""){
+            task.status = null;
+        }
+
         return task;
     }
 
@@ -129,7 +135,46 @@ module.exports = class Task {
         //delete the current task from the task list
     }
 
+    updateDescriptionBasedOnDataFields() {
+        //take the current description
+
+        //do the split step
+
+        var parts = this.description.split(" ");
+
+        var partsToKeep = [];
+        _.each(parts, function (part) {
+            switch (part[0]) {
+                case "#":
+                case "@":
+                case "!":
+                    break;
+                default:
+                    partsToKeep.push(part);
+            }
+        });
+
+        //now that the task fields are updated, update the desc
+        _.each(this.tags, function (tag) {
+            partsToKeep.push("#" + tag);
+        });
+
+        if (this.status != null) {
+            partsToKeep.push("@" + this.status);
+        }
+        if (this.milestone != null) {
+            partsToKeep.push("!" + this.milestone);
+        }
+        //now add the remaining parts
+
+        var newDesc = partsToKeep.join(" ");
+        this.description = newDesc;
+    }
+
     updateDependentProperties() {
+        //update desc
+        this.updateDescriptionBasedOnDataFields();
+
         //need to take an array of fields and run through them
         if (this.childTasks.length == 0) {
             //nothing to do without children

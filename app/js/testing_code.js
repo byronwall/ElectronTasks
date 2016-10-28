@@ -31,6 +31,7 @@ function renderGrid() {
     updateProjectBucket();
     updateStatusBucket();
     updateBreadcrumbs();
+    updateMilestoneBucket();
 
     //update the project title
     $("#projectTitle").text(mainTaskList.title);
@@ -122,6 +123,29 @@ function updateProjectBucket() {
         $(label).on("click", function (ev) {
             mainTaskList.idForIsolatedTask = project.ID;
             renderGrid();
+        });
+    })
+}
+
+function updateMilestoneBucket() {
+    var tags = mainTaskList.getMilestones().sort();
+
+    //TODO update variable names
+
+    //clear out the tag bucket
+    var tagBucket = $("#milestoneBucket")
+    tagBucket.empty();
+
+    //add a new span for each one
+    _.each(tags, function (tag) {
+        var span = $("<span/>").text(tag).appendTo(tagBucket).attr("class", "label label-warning");
+
+        span.on("click", function (ev) {
+            //set the search box and call its event handler
+            $("#txtSearch").val("milestone:" + tag).keyup();
+
+            renderGrid();
+            $("#txtSearch").focus();
         });
     })
 }
@@ -339,6 +363,9 @@ function setupMainPageTasks() {
                         case "@":
                             currentTask.status = part.substring(1);
                             break;
+                        case "!":
+                            currentTask.milestone = part.substring(1);
+                            break;
                     }
                 });
 
@@ -469,6 +496,18 @@ function setupMainPageTasks() {
         renderGrid();
     });
 
+    var flipChildStates = false;
+    var flipParentStates = false;
+    $("#shouldSearchChildren").on("click", function (ev) {
+        flipChildStates = true;
+        $("#txtSearch").keyup();
+    });
+
+    $("#shouldSearchParents").on("click", function (ev) {
+        flipParentStates = true;
+        $("#txtSearch").keyup();
+    });
+
     $("#txtSearch").on("keyup", function (ev) {
         //this needs to do the active search
         //set a filter
@@ -479,6 +518,18 @@ function setupMainPageTasks() {
         }
 
         mainTaskList.searchTerm = $(this).val();
+        mainTaskList.searchChildren = $("#shouldSearchChildren").hasClass("active")
+        mainTaskList.searchParents = $("#shouldSearchParents").hasClass("active")
+
+        if (flipChildStates) {
+            flipChildStates = false;
+            mainTaskList.searchChildren = !mainTaskList.searchChildren;
+        }
+
+        if (flipParentStates) {
+            flipParentStates = false;
+            mainTaskList.searchParents = !mainTaskList.searchParents;
+        }
 
         //render again
         renderGrid();
