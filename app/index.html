@@ -24,7 +24,6 @@
 			</div>
 
 			<button id="saver" class="btn">save</button>
-			<button id="newTask" class="btn">new task</button>
 			<button id="newTasklist" class="btn">new tasklist</button>
 
 			<button id="btnClearIsolation" class="btn">clear isolation</button>
@@ -48,11 +47,22 @@
 			</div>
 		</div>
 		<div class="row">
-			<span>columns to show</span>
-			<div class="btn-group" data-toggle="buttons" id="columnChooser"></div>
-		</div>
-		<div class="row">
-			<span>sort options</span>
+			<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Columns to Show
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" id="columnChooser"> </ul>
+			</div>
+
+			<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Column Sort
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" id="sortChooser"> </ul>
+			</div>
+
 			<div class="btn-group" data-toggle="buttons" id="sortChooser"></div>
 			<div class="btn-group" data-toggle="buttons" id="sortDirChooser"></div>
 

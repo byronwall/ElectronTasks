@@ -10,7 +10,7 @@ module.exports = class Task {
         this.duration = 0;
         this.startDate = null;
         this.endDate = null;
-        console.log("new task constru")
+        
         this.ID = (shouldGetId) ? Task.getUnique : -1;
 
         this.dateAdded = (new Date()).toLocaleString();

@@ -242,7 +242,7 @@ function sortNow() {
     renderGrid();
     mainTaskList.isSortEnabled = isSortEnabled;
 
-    saveTaskList();
+    mainTaskList.save();
 }
 
 function createNewTask(options = {}) {
@@ -419,8 +419,26 @@ function setupMainPageTasks() {
     //set up the column chooser
     _.each(mainTaskList.getListOfColumns(), function (columnName) {
         //create the label and the actual input element
-        var label = $("<label/>").appendTo("#columnChooser").text(columnName).attr("class", "btn btn-primary");
+
+        /*
+
+<li><a href="#"><label class="btn btn-primary active">
+    <input type="checkbox" autocomplete="off" checked> Checkbox 1 (pre-checked)
+  </label></a></li>
+
+        */
+
+        if(columnName == "action"){
+            //skip showing the action column
+            return;
+        }
+
+        var li = $("<li/>").appendTo("#columnChooser")
+        var anchor = $("<a/>").appendTo(li)
+        var label = $("<label/>").appendTo(anchor).attr("class", "btn btn-primary");
         var inputEl = $("<input/>").attr("type", "checkbox").prop("checked", true).appendTo(label);
+
+        label.text(columnName);
 
         if (visibleColumns.indexOf(columnName) > -1) {
             label.addClass("active");
@@ -432,6 +450,7 @@ function setupMainPageTasks() {
 
             //this seems to be opposite of the actual value
             var isActive = !$(this).hasClass("active")
+            $(this).toggleClass("active")
             mainTaskList.columns[columnName].active = isActive;
 
             if (isActive) {
@@ -450,8 +469,12 @@ function setupMainPageTasks() {
         })
 
         //this adds the column to the sort selection
-        var label = $("<label/>").appendTo("#sortChooser").text(columnName).attr("class", "btn btn-primary");
+        var li = $("<li/>").appendTo("#sortChooser")
+        var anchor = $("<a/>").appendTo(li)
+        var label = $("<label/>").appendTo(anchor).attr("class", "btn btn-primary");
         var inputEl = $("<input/>").attr("type", "radio").appendTo(label);
+
+        label.text(columnName)
 
         if (columnName == mainTaskList.sortField) {
             label.addClass("active");
@@ -462,6 +485,8 @@ function setupMainPageTasks() {
             //this seems to be opposite of the actual value
             mainTaskList.sortField = columnName;
             sortNow();
+            $("#sortChooser label").removeClass("active");
+            $(this).toggleClass("active");
         })
     });
 
@@ -561,7 +586,13 @@ function setupMainPageTasks() {
             var aboveId = grid.getRowId(currentRow - 1);
             var aboveTask = mainTaskList.tasks[aboveId];
 
-            console.log(aboveTask);
+            console.log("above task", aboveTask);
+
+            //need to iterate until aboveTask is at same indent as current task
+            while (aboveTask.indent > currentTask.indent) {
+                aboveTask = mainTaskList.tasks[aboveTask.parentTask]
+                console.log("above task new", aboveTask);
+            }
 
 
             //remove the current parent if it exists
@@ -572,7 +603,7 @@ function setupMainPageTasks() {
             }
 
             //need to set the parent for the current and the child for the above
-            currentTask.parentTask = aboveId;
+            currentTask.parentTask = aboveTask.ID;
             aboveTask.childTasks.push(currentID);
 
             var editor = e.target.celleditor;
@@ -632,7 +663,7 @@ function setupMainPageTasks() {
             var aboveId = currentTask.parentTask;
             var aboveTask = mainTaskList.tasks[aboveId];
 
-            if(aboveTask.parentTask == null){
+            if (aboveTask.parentTask == null) {
                 //don't allow a stranded task
                 return;
             }
@@ -650,7 +681,7 @@ function setupMainPageTasks() {
 
             //get the new parent
             //grandparent
-            
+
             var grandparentID = aboveTask.parentTask;
             console.log(grandparentID)
             console.log(mainTaskList)
