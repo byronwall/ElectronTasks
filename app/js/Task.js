@@ -233,6 +233,7 @@ module.exports = class Task {
             "childTasks": this.childTasks,
             "sortOrder": this.sortOrder,
             "status": this.status,
+            "milestone": this.milestone,
             "isComplete": this.isComplete,
             "isProjectRoot": this.isProjectRoot,
             "tags": this.tags
