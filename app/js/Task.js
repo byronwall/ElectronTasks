@@ -70,7 +70,7 @@ module.exports = class Task {
 
             var allMatch = _.every(_.keys(searchTerm), function (key) {
                 //for each key need to check if that value is equal to value
-                if (typeof task[key] === "object") {
+                if (task[key] != null && typeof task[key] === "object") {
                     //this is an array
                     return task[key].indexOf(searchTerm[key]) > -1;
                 } else {
