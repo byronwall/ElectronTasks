@@ -17,6 +17,8 @@ var shouldDeleteTaskWhenDoneEditing = false;
 
 var localDrive = undefined;
 
+var mainTaskList = undefined;
+
 function entryPoint() {
     //this is equal to the onLoad event for the body
     setupMainPageTasks();
