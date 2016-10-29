@@ -109,7 +109,7 @@ function updateMilestoneBucket() {
     })
 }
 
-function updateSearch(searchTerm) {
+function updateSearch(searchTerm = "") {
     $("#txtSearch").val(searchTerm).keyup();
     renderGrid();
     $("#txtSearch").focus();
@@ -539,17 +539,7 @@ function setupMainPageTasks() {
     });
 
     //set up events for the search box
-    $("#btnClearSearch").on("click", function (ev) {
-        var searchBox = $("#txtSearch")
-        //clear the search box
-        searchBox.val("");
-
-        //reset the search filter
-        mainTaskList.searchTerm = "";
-
-        //render again
-        renderGrid();
-    });
+    $("#btnClearSearch").on("click", updateSearch);
 
     $("#shouldSearchChildren, #shouldSearchParents").on("click", function (ev) {
         $(ev.target).toggleClass("active")
