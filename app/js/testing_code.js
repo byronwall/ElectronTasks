@@ -42,39 +42,26 @@ function renderGrid() {
     $(".btnComplete").on("click", function (ev) {
         console.log("task complete button hit");
 
-        //this gets the TR which has the ID in it
-        var trElement = $(this).parents("tr")[0];
-        //this gets the element, now need to process the button
-
-        var currentID = trElement.id;
-        currentID = currentID.split("task-list_")[1];
-        currentID = parseInt(currentID);
-
-        //now holds the current ID
-        var currentTask = mainTaskList.tasks[currentID];
+        var currentTask = getCurrentTask(ev.target);
+        var currentID = currentTask.ID;
 
         //complete the task and update the display
         currentTask.completeTask();
+        
         renderGrid();
-        saveTaskList();
+        mainTaskList.save();
     });
 
     $(".btnDelete").on("click", function (ev) {
         console.log("task delete button hit");
 
-        //this gets the TR which has the ID in it
-        var trElement = $(this).parents("tr")[0];
-        //this gets the element, now need to process the button
+        var currentTask = getCurrentTask(ev.target);
+        var currentID = currentTask.ID;
 
-        var currentID = trElement.id;
-        currentID = currentID.split("task-list_")[1];
-        currentID = parseInt(currentID);
-
-        //now holds the current ID
-        var currentTask = mainTaskList.tasks[currentID];
         currentTask.removeTask()
+        
         renderGrid();
-        saveTaskList();
+        mainTaskList.save();
         //delete the task and rerender
     })
 }
@@ -695,9 +682,8 @@ function setupMainPageTasks() {
 
         if (e.target.tagName == "INPUT") {
 
-            var currentTask = getCurrentTask(e.target);
-
             //TODO refactor this away
+            var currentTask = getCurrentTask(e.target);
             var currentID = currentTask.ID;
 
             if (currentTask.parentTask == null) {
