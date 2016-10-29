@@ -37,33 +37,6 @@ function renderGrid() {
 
     //update the project title
     $("#projectTitle").text(mainTaskList.title);
-
-    //this needs to wire up some button click events
-    $(".btnComplete").on("click", function (ev) {
-        console.log("task complete button hit");
-
-        var currentTask = getCurrentTask(ev.target);
-        var currentID = currentTask.ID;
-
-        //complete the task and update the display
-        currentTask.completeTask();
-
-        renderGrid();
-        mainTaskList.save();
-    });
-
-    $(".btnDelete").on("click", function (ev) {
-        console.log("task delete button hit");
-
-        var currentTask = getCurrentTask(ev.target);
-        var currentID = currentTask.ID;
-
-        currentTask.removeTask()
-
-        renderGrid();
-        mainTaskList.save();
-        //delete the task and rerender
-    })
 }
 
 function updateBreadcrumbs() {
@@ -80,6 +53,7 @@ function updateBreadcrumbs() {
         var aDom = $("<a/>").attr("href", "#").text(project.description).appendTo(label);
 
         //set up a click event on the LABEL... does not work for the input
+        //TODO swap this for a delegated event
         $(label).on("click", function (ev) {
             mainTaskList.idForIsolatedTask = project.ID;
             renderGrid();
@@ -109,6 +83,7 @@ function updateProjectBucket() {
         }
 
         //set up a click event on the LABEL... does not work for the input
+        //TODO swap this for a delegated event
         $(label).on("click", function (ev) {
             mainTaskList.idForIsolatedTask = project.ID;
             renderGrid();
@@ -965,6 +940,33 @@ function setupMainPageTasks() {
 
         //update the search field
 
+    })
+
+    //this needs to wire up some button click events
+    $("#gridList").on("click", ".btnComplete", function (ev) {
+        console.log("task complete button hit");
+
+        var currentTask = getCurrentTask(ev.target);
+        var currentID = currentTask.ID;
+
+        //complete the task and update the display
+        currentTask.completeTask();
+
+        renderGrid();
+        mainTaskList.save();
+    });
+
+    $("#gridList").on("click",".btnDelete", function (ev) {
+        console.log("task delete button hit");
+
+        var currentTask = getCurrentTask(ev.target);
+        var currentID = currentTask.ID;
+
+        currentTask.removeTask()
+
+        renderGrid();
+        mainTaskList.save();
+        //delete the task and rerender
     })
 
     createNewTasklist();
