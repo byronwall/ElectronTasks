@@ -704,6 +704,51 @@ function setupMainPageTasks() {
         }
     })
 
+    Mousetrap.bind(["ctrl+alt+right", "ctrl+alt+left", "ctrl+alt+up", "ctrl+alt+down"], function (ev, combo) {
+
+        if (ev.target.tagName === "INPUT" && $(ev.target).parents("#gridList").length) {
+            console.log("move cell selector shortcut")
+
+            //if this is a tasklist input, there should be an element, and then rowIndex and columnIndex
+            var element = ev.target.element;
+            var rowIndex = element.rowIndex;
+            var columnIndex = element.columnIndex;
+
+            var colChange = 0;
+
+            //depending on combo
+            switch (combo) {
+                case "ctrl+alt+right":
+                    colChange = 1;
+                    break;
+                case "ctrl+alt+left":
+                    colChange = -1;
+                    break;
+                case "ctrl+alt+up":
+                    rowIndex--;
+                    break;
+                case "ctrl+alt+down":
+                    rowIndex++;
+                    break;
+            }
+
+            //need to deal with non-editable columns
+            //this must terminate because we started in a INPUT cell
+            do {
+                columnIndex = (columnIndex + colChange + grid.getColumnCount()) % grid.getColumnCount();
+            } while (!grid.columns[columnIndex].editable);
+
+            //do some bounds checking and wrap around if needed
+            rowIndex = (rowIndex + grid.getRowCount()) % grid.getRowCount();
+
+            applyEdit(ev.target);
+            grid.editCell(rowIndex, columnIndex);
+
+            return false;
+        }
+
+    });
+
     Mousetrap.bind("a", function (e) {
         if (e.target.tagName != "INPUT") {
             console.log("new task requested from A");
@@ -930,7 +975,7 @@ function setupMainPageTasks() {
         mainTaskList.save();
     });
 
-    $("#gridList").on("click",".btnDelete", function (ev) {
+    $("#gridList").on("click", ".btnDelete", function (ev) {
         console.log("task delete button hit");
 
         var currentTask = getCurrentTask(ev.target);
