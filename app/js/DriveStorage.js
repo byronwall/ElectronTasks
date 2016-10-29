@@ -154,6 +154,7 @@ DriveStorage.prototype.listFiles = function (callback) {
 
 DriveStorage.prototype.storeFile = function (contents, fileName, fileId, callback) {
     var self = this;
+
     var drive = google.drive({ version: 'v3', auth: self.auth });
 
     fileName = fileName + ".json";

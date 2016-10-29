@@ -15,6 +15,8 @@ var grid;
 var shouldAddTaskWhenDoneEditing = false;
 var shouldDeleteTaskWhenDoneEditing = false;
 
+var localDrive = undefined;
+
 function entryPoint() {
     //this is equal to the onLoad event for the body
     setupMainPageTasks();
@@ -233,6 +235,50 @@ function loadTaskListCallback(loadedTaskList) {
     mainTaskList.idForIsolatedTask = projects[0].ID;
 
     renderGrid();
+}
+
+function listGoogleDriveFiles() {
+    localDrive.listFiles(function (files) {
+        //once the files are here, update the button
+        updateDriveFileButton(files);
+    });
+}
+
+function saveFileInDrive() {
+    localDrive.storeFile(mainTaskList.getJSONString(), mainTaskList.title, mainTaskList.googleDriveId, function (fileId) {
+        console.log("saved/updated tasklist to Drive");
+        mainTaskList.googleDriveId = fileId;
+    });
+}
+
+function authorizeGoogleDrive(callback) {
+    localDrive = new DriveStorage()
+    localDrive.startAuth(callback);
+}
+
+function updateDriveFileButton(fileList) {
+    console.log("files inside func", fileList)
+
+    var driveGroup = $("#driveFileGroup ul");
+
+    if (fileList.length > 0) {
+        driveGroup.empty();
+    }
+
+    _.each(fileList, function (driveFile) {
+        var label = $("<li/>").appendTo(driveGroup)
+        var aDom = $("<a/>").attr("href", "#").text(driveFile.name).appendTo(label);
+
+        //set up a click event on the LABEL... does not work for the input
+        $(label).on("click", function (ev) {
+            //TODO need to wire this up
+            console.log("load the file from drive", driveFile.id)
+            localDrive.downloadFile(driveFile, function (path) {
+                console.log("downloaded file to ", path)
+                TaskList.load(path, loadTaskListCallback, driveFile.id);
+            })
+        })
+    });
 }
 
 function sortNow() {
@@ -918,49 +964,19 @@ function setupMainPageTasks() {
 
     $("#btnAuthDrive").on("click", function () {
         console.log("auth click")
-        localDrive = new DriveStorage()
-        localDrive.startAuth(function () {
-            //when authorized, get the file list
-            localDrive.listFiles(function (files) {
-                //once the files are here, update the button
-                updateDriveFileButton(files);
-            });
-        });
 
-        //load the files
-        function updateDriveFileButton(fileList) {
-            console.log("files inside func", fileList)
-
-            var driveGroup = $("#driveFileGroup ul");
-
-            if (fileList.length > 0) {
-                driveGroup.empty();
-            }
-
-            _.each(fileList, function (driveFile) {
-                var label = $("<li/>").appendTo(driveGroup)
-                var aDom = $("<a/>").attr("href", "#").text(driveFile.name).appendTo(label);
-
-                //set up a click event on the LABEL... does not work for the input
-                $(label).on("click", function (ev) {
-                    //TODO need to wire this up
-                    console.log("load the file from drive", driveFile.id)
-                    localDrive.downloadFile(driveFile, function (path) {
-                        console.log("downloaded file to ", path)
-                        TaskList.load(path, loadTaskListCallback, driveFile.id);
-                    })
-                })
-            });
-        }
+        authorizeGoogleDrive(listGoogleDriveFiles);
     })
 
     $("#btnDriveStore").on("click", function () {
         console.log("drive sotre click")
-        //function (contents, fileName, fileId, callback) {
-        localDrive.storeFile(mainTaskList.getJSONString(), mainTaskList.title, mainTaskList.googleDriveId, function (fileId) {
-            console.log("saved/updated tasklist to Drive");
-            mainTaskList.googleDriveId = fileId;
-        });
+
+        if (localDrive === undefined) {
+            authorizeGoogleDrive(saveFileInDrive);
+            return;
+        }
+
+        saveFileInDrive();
     })
 
     createNewTasklist();
