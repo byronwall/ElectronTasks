@@ -166,6 +166,7 @@ function updateRecentFileButton() {
         var aDom = $("<a/>").attr("href", "#").text(fileName).appendTo(label);
 
         //set up a click event on the LABEL... does not work for the input
+        //TODO swap this for a delegated event
         $(label).on("click", function (ev) {
             TaskList.load(fileName, loadTaskListCallback);
         })
@@ -339,8 +340,6 @@ function createNewTask(options = {}) {
         //TODO add a warning that task was not created since it would have been stranded
         newTask.removeTask();
     }
-
-
 }
 
 function createNewTasklist() {
@@ -552,16 +551,11 @@ function setupMainPageTasks() {
         renderGrid();
     });
 
-    var flipChildStates = false;
-    var flipParentStates = false;
-    $("#shouldSearchChildren").on("click", function (ev) {
-        flipChildStates = true;
+    $("#shouldSearchChildren, #shouldSearchParents").on("click", function (ev) {
+        $(ev.target).toggleClass("active")
         $("#txtSearch").keyup();
-    });
 
-    $("#shouldSearchParents").on("click", function (ev) {
-        flipParentStates = true;
-        $("#txtSearch").keyup();
+        return false;
     });
 
     $("#txtSearch").on("keyup", function (ev) {
@@ -574,23 +568,11 @@ function setupMainPageTasks() {
         }
 
         mainTaskList.searchTerm = $(this).val();
-        mainTaskList.searchChildren = $("#shouldSearchChildren").hasClass("active")
-        mainTaskList.searchParents = $("#shouldSearchParents").hasClass("active")
-
-        if (flipChildStates) {
-            flipChildStates = false;
-            mainTaskList.searchChildren = !mainTaskList.searchChildren;
-        }
-
-        if (flipParentStates) {
-            flipParentStates = false;
-            mainTaskList.searchParents = !mainTaskList.searchParents;
-        }
+        mainTaskList.searchChildren = $("#shouldSearchChildren").hasClass("active");
+        mainTaskList.searchParents = $("#shouldSearchParents").hasClass("active");
 
         //render again
         renderGrid();
-
-        //possibly put in a delay so it doesnt rip around
     });
 
     Mousetrap.bind("alt+right", function (e) {
