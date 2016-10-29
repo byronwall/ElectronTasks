@@ -127,15 +127,8 @@ function updateMilestoneBucket() {
 
     //add a new span for each one
     _.each(tags, function (tag) {
-        var span = $("<span/>").text(tag).appendTo(tagBucket).attr("class", "label label-warning");
-
-        span.on("click", function (ev) {
-            //set the search box and call its event handler
-            $("#txtSearch").val("milestone:" + tag).keyup();
-
-            renderGrid();
-            $("#txtSearch").focus();
-        });
+        var span = $("<span/>").text(tag).appendTo(tagBucket).attr("class", "label label-warning label-search");
+        span.attr("data-type", "milestone");
     })
 }
 
@@ -154,15 +147,8 @@ function updateTagBucket() {
 
     //add a new span for each one
     _.each(tags, function (tag) {
-        var span = $("<span/>").text(tag).appendTo(tagBucket).attr("class", "label label-primary");
-
-        span.on("click", function (ev) {
-            //set the search box and call its event handler
-            $("#txtSearch").val("tags:" + tag).keyup();
-
-            renderGrid();
-            $("#txtSearch").focus();
-        });
+        var span = $("<span/>").text(tag).appendTo(tagBucket).attr("class", "label label-primary label-search");
+        span.attr("data-type", "tags");
     })
 }
 
@@ -175,15 +161,8 @@ function updateStatusBucket() {
 
     //add a new span for each one
     _.each(tags, function (tag) {
-        var span = $("<span/>").text(tag).appendTo(tagBucket).attr("class", "label label-info");
-
-        span.on("click", function (ev) {
-            //set the search box and call its event handler
-            $("#txtSearch").val("status:" + tag).keyup();
-
-            renderGrid();
-            $("#txtSearch").focus();
-        });
+        var span = $("<span/>").text(tag).appendTo(tagBucket).attr("class", "label label-info label-search");
+        span.attr("data-type", "status");
     })
 }
 
@@ -971,7 +950,7 @@ function setupMainPageTasks() {
         saveFileInDrive();
     })
 
-    $("#gridList").on("click", ".label-search", function (ev) {
+    $("#gridList, .label-bucket").on("click", ".label-search", function (ev) {
         console.log("click", ev);
 
         //get the target
@@ -982,6 +961,7 @@ function setupMainPageTasks() {
         //get its dataset.type
 
         updateSearch(type + ":" + $(target).text())
+        return false;
 
         //update the search field
 
