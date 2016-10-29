@@ -373,18 +373,16 @@ function setupMainPageTasks() {
         }
         else {
             //this will update the underlying data
-
-
             currentTask[columnName] = newValue;
             currentTask.isFirstEdit = false;
 
-            //reset the fields before setting them again
-            currentTask.tags = [];
-            currentTask.milestone = null;
-            currentTask.status = null;
-
             //need to add a check here for hash tags
             if (columnName === "description") {
+                //reset the fields before setting them again
+                currentTask.tags = [];
+                currentTask.milestone = null;
+                currentTask.status = null;
+
                 //check for "#"
                 //split on space
                 var parts = newValue.split(" ");
