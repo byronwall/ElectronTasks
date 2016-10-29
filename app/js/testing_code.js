@@ -378,6 +378,11 @@ function setupMainPageTasks() {
             currentTask[columnName] = newValue;
             currentTask.isFirstEdit = false;
 
+            //reset the fields before setting them again
+            currentTask.tags = [];
+            currentTask.milestone = null;
+            currentTask.status = null;
+
             //need to add a check here for hash tags
             if (columnName === "description") {
                 //check for "#"
