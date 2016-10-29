@@ -47,7 +47,7 @@ function renderGrid() {
 
         //complete the task and update the display
         currentTask.completeTask();
-        
+
         renderGrid();
         mainTaskList.save();
     });
@@ -59,7 +59,7 @@ function renderGrid() {
         var currentID = currentTask.ID;
 
         currentTask.removeTask()
-        
+
         renderGrid();
         mainTaskList.save();
         //delete the task and rerender
@@ -137,6 +137,12 @@ function updateMilestoneBucket() {
             $("#txtSearch").focus();
         });
     })
+}
+
+function updateSearch(searchTerm) {
+    $("#txtSearch").val(searchTerm).keyup();
+    renderGrid();
+    $("#txtSearch").focus();
 }
 
 function updateTagBucket() {
@@ -963,6 +969,22 @@ function setupMainPageTasks() {
         }
 
         saveFileInDrive();
+    })
+
+    $("#gridList").on("click", ".label-search", function (ev) {
+        console.log("click", ev);
+
+        //get the target
+        var target = ev.target;
+        var type = target.dataset.type;
+
+        console.log("type", type);
+        //get its dataset.type
+
+        updateSearch(type + ":" + $(target).text())
+
+        //update the search field
+
     })
 
     createNewTasklist();
