@@ -7,3 +7,9 @@
 .label-search{
     cursor:pointer;
 }
+.btnComplete:hover{
+    background-color: #0b0;
+}
+.btnDelete:hover{
+    background-color: #d00;
+}
