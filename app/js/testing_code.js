@@ -598,7 +598,7 @@ function setupMainPageTasks() {
         //possibly put in a delay so it doesnt rip around
     });
 
-    Mousetrap.bind("mod+right", function (e) {
+    Mousetrap.bind("alt+right", function (e) {
         if (e.target.tagName == "INPUT") {
 
             var currentTask = getCurrentTask(e.target);
@@ -636,7 +636,7 @@ function setupMainPageTasks() {
             return false;
         }
     })
-    Mousetrap.bind("mod+left", function (e) {
+    Mousetrap.bind("alt+left", function (e) {
         console.log("indent left requested");
 
         //indent left should put the current task under the level 
@@ -697,7 +697,7 @@ function setupMainPageTasks() {
         }
     })
 
-    Mousetrap.bind("mod+up", function (e) {
+    Mousetrap.bind("alt+up", function (e) {
         console.log("move up requested");
 
         //need to change the sort order to be one less than the task above the current one but at the same indent level
@@ -721,7 +721,7 @@ function setupMainPageTasks() {
 
 
 
-    Mousetrap.bind("mod+down", function (e) {
+    Mousetrap.bind("alt+down", function (e) {
         console.log("move down requested");
 
         if (e.target.tagName == "INPUT") {
@@ -760,7 +760,7 @@ function setupMainPageTasks() {
         }
     });
 
-    Mousetrap.bind("mod+a", function (e) {
+    Mousetrap.bind("alt+a", function (e) {
 
         var options = {}
 
@@ -806,7 +806,7 @@ function setupMainPageTasks() {
     $("#btnSortNow").on("click", sortNow);
 
     //these events handle the task isolation business
-    Mousetrap.bind("mod+q", function (e, combo) {
+    Mousetrap.bind("alt+q", function (e, combo) {
         console.log("task isolation requested");
 
         if (e.target.tagName == "INPUT") {
@@ -824,7 +824,7 @@ function setupMainPageTasks() {
             mainTaskList.idForIsolatedTask = undefined;
             renderGrid();
         }
-        
+
         return false;
     });
 
