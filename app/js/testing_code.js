@@ -955,7 +955,7 @@ function setupMainPageTasks() {
     })
 
     $("#btnDriveStore").on("click", function () {
-        console.log("drive sotre click")
+        console.log("drive store click")
 
         if (localDrive === undefined) {
             authorizeGoogleDrive(saveFileInDrive);
