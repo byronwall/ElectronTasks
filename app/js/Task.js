@@ -85,7 +85,7 @@ module.exports = class Task {
 
     static createFromData(data, taskList) {
         //this will create a task from a given JSON object
-        var task = new Task(taskList);
+        var task = new Task(taskList, false);
 
         var _ = require("lodash");
         _.map(data, function (value, index) {

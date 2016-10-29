@@ -260,6 +260,42 @@ function createNewTask(options = {}) {
     grid.editCell(grid.getRowIndex(newTask.ID), grid.getColumnIndex("description"))
 }
 
+function getCurrentTask(element) {
+    //find the element above that is the tr (contains the ID)
+    var currentID = $(element).parents("tr")[0].id;
+    currentID = currentID.split("task-list_")[1];
+    currentID = parseInt(currentID);
+
+    //now holds the current ID
+    var currentTask = mainTaskList.tasks[currentID];
+
+    return currentTask;
+}
+
+function getTaskAbove(currentTask) {
+    console.log("getAbove, currentTask", currentTask)
+    var currentRow = grid.getRowIndex(currentTask.ID);
+
+    //TODO add some error checking
+
+    //get the task above the current
+    var aboveId = grid.getRowId(currentRow - 1);
+    var aboveTask = mainTaskList.tasks[aboveId];
+
+    return aboveTask;
+}
+
+function applyEdit(element) {
+    var editor = element.celleditor;
+    //if editing or a change was made, apply that change
+    // backup onblur then remove it: it will be restored if editing could not be applied
+    element.onblur_backup = element.onblur;
+    element.onblur = null;
+    if (editor.applyEditing(element.element, editor.getEditorValue(element)) === false) {
+        element.onblur = element.onblur_backup;
+    }
+}
+
 function saveTaskList() {
     if (mainTaskList.path == "") {
         dialog.showSaveDialog(function (fileName) {
@@ -428,7 +464,7 @@ function setupMainPageTasks() {
 
         */
 
-        if(columnName == "action"){
+        if (columnName == "action") {
             //skip showing the action column
             return;
         }
@@ -564,29 +600,9 @@ function setupMainPageTasks() {
 
     Mousetrap.bind("mod+right", function (e) {
         if (e.target.tagName == "INPUT") {
-            //we have a text box
-            console.log(e.target.parentElement.parentElement.id)
-            //this contains "task-list_13"
 
-            var currentID = e.target.parentElement.parentElement.id;
-            currentID = currentID.split("task-list_")[1];
-            currentID = parseInt(currentID);
-
-            //now holds the current ID
-            var currentTask = mainTaskList.tasks[currentID];
-
-            console.log(currentID);
-            console.log(currentTask);
-
-            //need to get the task located above the current one (0 index)
-            var currentRow = grid.getRowIndex(currentID);
-
-            //get the task above the current
-
-            var aboveId = grid.getRowId(currentRow - 1);
-            var aboveTask = mainTaskList.tasks[aboveId];
-
-            console.log("above task", aboveTask);
+            var currentTask = getCurrentTask(e.target);
+            var aboveTask = getTaskAbove(currentTask);
 
             //need to iterate until aboveTask is at same indent as current task
             while (aboveTask.indent > currentTask.indent) {
@@ -594,30 +610,27 @@ function setupMainPageTasks() {
                 console.log("above task new", aboveTask);
             }
 
+            //TODO put this code somewhere else
 
             //remove the current parent if it exists
             if (currentTask.parentTask != null) {
                 var parentTask = mainTaskList.tasks[currentTask.parentTask];
-                var parentChildIndex = parentTask.childTasks.indexOf(currentID);
+                var parentChildIndex = parentTask.childTasks.indexOf(currentTask.ID);
                 parentTask.childTasks.splice(parentChildIndex, 1);
             }
 
             //need to set the parent for the current and the child for the above
             currentTask.parentTask = aboveTask.ID;
-            aboveTask.childTasks.push(currentID);
+            aboveTask.childTasks.push(currentTask.ID);
 
-            var editor = e.target.celleditor;
-            //if editing or a change was made, apply that change
-            // backup onblur then remove it: it will be restored if editing could not be applied
-            e.target.onblur_backup = e.target.onblur;
-            e.target.onblur = null;
-            if (editor.applyEditing(e.target.element, editor.getEditorValue(e.target)) === false) {
-                e.target.onblur = e.target.onblur_backup;
-            }
+            applyEdit(e.target);
 
             //the relationship is known... rerender?
             mainTaskList.save()
             renderGrid();
+
+            //need to get the task located above the current one (0 index)
+            var currentRow = grid.getRowIndex(currentTask.ID);
             grid.editCell(currentRow, grid.getColumnIndex("description"))
 
             return false;
@@ -625,7 +638,6 @@ function setupMainPageTasks() {
     })
     Mousetrap.bind("mod+left", function (e) {
         console.log("indent left requested");
-        console.log(e)
 
         //indent left should put the current task under the level 
         //parent -> task -> current task, should be a child of parent
@@ -636,25 +648,11 @@ function setupMainPageTasks() {
         //add this node to the child nodes of that parent if it exists
 
         if (e.target.tagName == "INPUT") {
-            //we have a text box
-            console.log(e.target.parentElement.parentElement.id)
-            //this contains "task-list_13"
 
+            var currentTask = getCurrentTask(e.target);
 
-            var currentID = e.target.parentElement.parentElement.id;
-            currentID = currentID.split("task-list_")[1];
-            currentID = parseInt(currentID);
-
-            //now holds the current ID
-            var currentTask = mainTaskList.tasks[currentID];
-
-            console.log(currentID);
-            console.log(currentTask);
-
-            //need to get the task located above the current one (0 index)
-            var currentRow = grid.getRowIndex(currentID);
-
-            //get the task above the current
+            //TODO refactor this away
+            var currentID = currentTask.ID;
 
             if (currentTask.parentTask == null) {
                 return;
@@ -668,23 +666,18 @@ function setupMainPageTasks() {
                 return;
             }
 
-            console.log(aboveTask);
+            //TODO all of this data code needs to go into the TaskList
 
             //need to set the parent for the current and the child for the above
-            console.log("childTasks of above task before:")
-            console.log(aboveTask.childTasks)
+
             //get index of self in children of parent task and remove from current parent
             var parentChildIndex = aboveTask.childTasks.indexOf(currentID);
             aboveTask.childTasks.splice(parentChildIndex, 1);
-            console.log("childTasks of above task:")
-            console.log(aboveTask.childTasks)
 
             //get the new parent
             //grandparent
 
             var grandparentID = aboveTask.parentTask;
-            console.log(grandparentID)
-            console.log(mainTaskList)
             currentTask.parentTask = grandparentID;
             if (grandparentID != null) {
                 var grandparentTask = mainTaskList.tasks[grandparentID];
@@ -693,57 +686,32 @@ function setupMainPageTasks() {
                 console.log("grandparent task after adding", grandparentTask)
             }
 
-            console.log("currentTask after all")
-            console.log(currentTask)
-
-            var editor = e.target.celleditor;
-            //if editing or a change was made, apply that change
-            // backup onblur then remove it: it will be restored if editing could not be applied
-            e.target.onblur_backup = e.target.onblur;
-            e.target.onblur = null;
-            if (editor.applyEditing(e.target.element, editor.getEditorValue(e.target)) === false) {
-                e.target.onblur = e.target.onblur_backup;
-            }
-
+            applyEdit(e.target);
 
             //the relationship is known... rerender?
             mainTaskList.save()
             renderGrid();
+
+            var currentRow = grid.getRowIndex(currentID);
             grid.editCell(currentRow, grid.getColumnIndex("description"))
         }
     })
 
     Mousetrap.bind("mod+up", function (e) {
         console.log("move up requested");
-        console.log(e)
 
         //need to change the sort order to be one less than the task above the current one but at the same indent level
         //sort orders will be corrected to be sequential, so just need to get a number between the two spots
 
         if (e.target.tagName == "INPUT") {
-            //we have a text box
-            console.log(e.target.parentElement.parentElement.id)
-            //this contains "task-list_13"
-
-            var currentID = e.target.parentElement.parentElement.id;
-            currentID = currentID.split("task-list_")[1];
-            currentID = parseInt(currentID);
 
             //now holds the current ID
-            var currentTask = mainTaskList.tasks[currentID];
+            var currentTask = getCurrentTask(e.target);
+            var currentID = currentTask.ID
 
             currentTask.sortOrder -= 1.1;
 
-            //need to cancel the editing before rendering to avoid a change being fired            
-            //NOTE that these two calls always appear together... not sure why the onblur is nulled
-            var editor = e.target.celleditor;
-            //if editing or a change was made, apply that change
-            // backup onblur then remove it: it will be restored if editing could not be applied
-            e.target.onblur_backup = e.target.onblur;
-            e.target.onblur = null;
-            if (editor.applyEditing(e.target.element, editor.getEditorValue(e.target)) === false) {
-                e.target.onblur = e.target.onblur_backup;
-            }
+            applyEdit(e.target);
 
             mainTaskList.save()
             renderGrid();
@@ -751,39 +719,18 @@ function setupMainPageTasks() {
         }
     })
 
+
+
     Mousetrap.bind("mod+down", function (e) {
         console.log("move down requested");
-        console.log(e)
-
-        //need to change the sort order to be one less than the task above the current one but at the same indent level
-        //sort orders will be corrected to be sequential, so just need to get a number between the two spots
 
         if (e.target.tagName == "INPUT") {
-            //we have a text box
-            console.log(e.target.parentElement.parentElement.id)
-            //this contains "task-list_13"
-
-            var currentID = e.target.parentElement.parentElement.id;
-            currentID = currentID.split("task-list_")[1];
-            currentID = parseInt(currentID);
-
-            //now holds the current ID
-            var currentTask = mainTaskList.tasks[currentID];
-
-            console.log("current task", currentTask)
+            var currentTask = getCurrentTask(e.target);
+            var currentID = currentTask.ID;
 
             currentTask.sortOrder += 1.1;
 
-            //need to cancel the editing before rendering to avoid a change being fired            
-            //NOTE that these two calls always appear together... not sure why the onblur is nulled
-            var editor = e.target.celleditor;
-            //if editing or a change was made, apply that change
-            // backup onblur then remove it: it will be restored if editing could not be applied
-            e.target.onblur_backup = e.target.onblur;
-            e.target.onblur = null;
-            if (editor.applyEditing(e.target.element, editor.getEditorValue(e.target)) === false) {
-                e.target.onblur = e.target.onblur_backup;
-            }
+            applyEdit(e.target);
 
             mainTaskList.save()
             renderGrid();
@@ -818,13 +765,10 @@ function setupMainPageTasks() {
         var options = {}
 
         if (e.target.tagName == "INPUT") {
-            //this contains "task-list_13"
-            var currentID = e.target.parentElement.parentElement.id;
-            currentID = currentID.split("task-list_")[1];
-            currentID = parseInt(currentID);
 
             //now holds the current ID
-            var currentTask = mainTaskList.tasks[currentID];
+            var currentTask = getCurrentTask(e.target);
+            var currentID = currentTask.ID;
 
             if (currentTask.isProjectRoot) {
                 options.parentTask = currentTask.ID;
@@ -835,14 +779,7 @@ function setupMainPageTasks() {
                 options.parentTask = currentTask.parentTask;
             }
 
-            var editor = e.target.celleditor;
-            //if editing or a change was made, apply that change
-            // backup onblur then remove it: it will be restored if editing could not be applied
-            e.target.onblur_backup = e.target.onblur;
-            e.target.onblur = null;
-            if (editor.applyEditing(e.target.element, editor.getEditorValue(e.target)) === false) {
-                e.target.onblur = e.target.onblur_backup;
-            }
+            applyEdit(e.target);
         }
 
         createNewTask(options);
@@ -869,43 +806,25 @@ function setupMainPageTasks() {
     $("#btnSortNow").on("click", sortNow);
 
     //these events handle the task isolation business
-    //TODO figure out why ALT+I does not work on Mac
     Mousetrap.bind("mod+q", function (e, combo) {
         console.log("task isolation requested");
-        console.log(combo);
 
         if (e.target.tagName == "INPUT") {
             //we have a text box
-            console.log("is input")
-            console.log("id", e.target.parentElement.parentElement.id)
-            //this contains "task-list_13"
+            var currentTask = getCurrentTask(e.target);
+            var currentID = currentTask.ID;
 
-
-            var currentID = e.target.parentElement.parentElement.id;
-            currentID = currentID.split("task-list_")[1];
-            currentID = parseInt(currentID);
-
-            var editor = e.target.celleditor;
-            //if editing or a change was made, apply that change
-            // backup onblur then remove it: it will be restored if editing could not be applied
-            e.target.onblur_backup = e.target.onblur;
-            e.target.onblur = null;
-            if (editor.applyEditing(e.target.element, editor.getEditorValue(e.target)) === false) {
-                e.target.onblur = e.target.onblur_backup;
-            }
+            applyEdit(e.target);
 
             mainTaskList.idForIsolatedTask = currentID;
             renderGrid();
         }
         else {
             //cancel the isolation if nothing is selected
-            console.log("no input, clear isolation")
             mainTaskList.idForIsolatedTask = undefined;
             renderGrid();
         }
-
-        console.log("done with isolation event")
-
+        
         return false;
     });
 
@@ -933,20 +852,11 @@ function setupMainPageTasks() {
         //TODO make this more specific
         if (!$(ev.target).parents("tr").length) return;
 
-        //TODO add another one for ESCAPE to delete the task if needed
         if (ev.key === "Enter") {
             console.log("Enter was hit")
 
-            //this gets the TR which has the ID in it
-            var trElement = $(ev.target).parents("tr")[0];
-
-            //this gets the element, now need to process the button
-            var currentID = trElement.id;
-            currentID = currentID.split("task-list_")[1];
-            currentID = parseInt(currentID);
-
-            //now holds the current ID
-            var currentTask = mainTaskList.tasks[currentID];
+            var currentTask = getCurrentTask(ev.target);
+            var currentID = currentTask.ID;
 
             if (currentTask.isFirstEdit) {
                 shouldAddTaskWhenDoneEditing = true;
@@ -956,16 +866,8 @@ function setupMainPageTasks() {
         if (ev.key === "Escape") {
             console.log("escape was hit");
 
-            //this gets the TR which has the ID in it
-            var trElement = $(ev.target).parents("tr")[0];
-
-            //this gets the element, now need to process the button
-            var currentID = trElement.id;
-            currentID = currentID.split("task-list_")[1];
-            currentID = parseInt(currentID);
-
-            //now holds the current ID
-            var currentTask = mainTaskList.tasks[currentID];
+            var currentTask = getCurrentTask(ev.target);
+            var currentID = currentTask.ID;
 
             if (currentTask.isFirstEdit && currentTask.description == "new task") {
                 shouldDeleteTaskWhenDoneEditing = true;
