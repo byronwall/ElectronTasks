@@ -397,13 +397,27 @@ function createNewTasklist() {
     createNewTask();
 }
 
-function setupMainPageTasks() {
-    //this is currently a dumping ground to get events created
+function createSortAscDescButtons() {
+    //create the asc/desc buttons
+    var sortDirs = ["asc", "desc"];
+    _.each(sortDirs, function (sortDir) {
+        var label = $("<label/>").appendTo("#sortDirChooser").text(sortDir).attr("class", "btn btn-info");
+        var inputEl = $("<input/>").attr("type", "radio").appendTo(label);
 
-    //create a blank task list to start
-    mainTaskList = new TaskList();
+        if (sortDir == mainTaskList.sortDir) {
+            label.addClass("active");
+        }
 
-    //set up the grid related events
+        //set up a click event on the LABEL... does not work for the input
+        $(label).on("click", function (ev) {
+            //this seems to be opposite of the actual value
+            mainTaskList.sortDir = sortDir;
+            sortNow();
+        })
+    });
+}
+
+function setupGrid() {
     grid = new EditableGrid("task-list");
     grid.modelChanged = function (rowIndex, columnIndex, oldValue, newValue, row) {
         //TODO update this call to handle validation
@@ -467,24 +481,9 @@ function setupMainPageTasks() {
             shouldAddTaskWhenDoneEditing = false;
         }
     };
+}
 
-    $("#loader").on("click", function () {
-        //set the list object
-        dialog.showOpenDialog(function (fileName) {
-            if (fileName === undefined) {
-                //TODO use an actual output box for this
-                console.log("no file chosen")
-                return false;
-            }
-
-            fileName = fileName[0];
-
-            TaskList.load(fileName, loadTaskListCallback);
-
-            addFileToRecentFileList(fileName);
-        });
-    });
-
+function setupLocalStorage() {
     //load the recentfile list from localStorage
     recentFiles = JSON.parse(localStorage.getItem("recentFiles"));
     if (recentFiles == null) {
@@ -496,20 +495,12 @@ function setupMainPageTasks() {
     if (visibleColumns == null) {
         visibleColumns = ["description"];
     }
+}
 
-    //TODO extract this code to a new function call
+function createColumnShowAndSort() {
     //set up the column chooser
     _.each(mainTaskList.getListOfColumns(), function (columnName) {
         //create the label and the actual input element
-
-        /*
-
-<li><a href="#"><label class="btn btn-primary active">
-    <input type="checkbox" autocomplete="off" checked> Checkbox 1 (pre-checked)
-  </label></a></li>
-
-        */
-
         if (columnName == "action") {
             //skip showing the action column
             return;
@@ -571,23 +562,24 @@ function setupMainPageTasks() {
             $(this).toggleClass("active");
         })
     });
+}
+function setupEvents() {
 
-    //create the asc/desc buttons
-    var sortDirs = ["asc", "desc"];
-    _.each(sortDirs, function (sortDir) {
-        var label = $("<label/>").appendTo("#sortDirChooser").text(sortDir).attr("class", "btn btn-info");
-        var inputEl = $("<input/>").attr("type", "radio").appendTo(label);
+    $("#loader").on("click", function () {
+        //set the list object
+        dialog.showOpenDialog(function (fileName) {
+            if (fileName === undefined) {
+                //TODO use an actual output box for this
+                console.log("no file chosen")
+                return false;
+            }
 
-        if (sortDir == mainTaskList.sortDir) {
-            label.addClass("active");
-        }
+            fileName = fileName[0];
 
-        //set up a click event on the LABEL... does not work for the input
-        $(label).on("click", function (ev) {
-            //this seems to be opposite of the actual value
-            mainTaskList.sortDir = sortDir;
-            sortNow();
-        })
+            TaskList.load(fileName, loadTaskListCallback);
+
+            addFileToRecentFileList(fileName);
+        });
     });
 
     //set up events for the search box
@@ -992,7 +984,7 @@ function setupMainPageTasks() {
         authorizeGoogleDrive(listGoogleDriveFiles);
     })
 
-    
+
     $("#btnPrint").on("click", function () {
         console.log("print clicked")
 
@@ -1082,6 +1074,21 @@ function setupMainPageTasks() {
         mainTaskList.save();
         //delete the task and rerender
     })
+}
+
+function setupMainPageTasks() {
+    //this is currently a dumping ground to get events created
+
+    //create a blank task list to start
+    mainTaskList = new TaskList();
+
+    //set up the grid related events
+    setupGrid();
+    setupLocalStorage();
+    createColumnShowAndSort();
+    createSortAscDescButtons();
+
+    setupEvents();
 
     createNewTasklist();
 }
