@@ -16,3 +16,14 @@
 .btnDelete:hover{
     background-color: #d00;
 }
+
+#gridList table{
+    border-collapse: collapse;
+    border: 1px solid black;
+  }
+#gridList  table td, #gridList  table th{
+    border: 1px solid black;
+  }
+
+  #gridList tr:hover td {
+      background:#ddd}
