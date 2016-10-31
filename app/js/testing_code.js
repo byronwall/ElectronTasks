@@ -110,6 +110,14 @@ function updateMilestoneBucket() {
 }
 
 function updateSearch(searchTerm = "") {
+
+    var curVal = $("#txtSearch").val();
+
+    //don't search if no change
+    if(curVal == searchTerm){
+        return;
+    }
+
     $("#txtSearch").val(searchTerm).keyup();
     renderGrid();
     $("#txtSearch").focus();
@@ -340,6 +348,17 @@ function createNewTask(options = {}) {
         //TODO add a warning that task was not created since it would have been stranded
         newTask.removeTask();
     }
+}
+
+function createNewProject() {
+    var newProjectTask = mainTaskList.getNew();
+    newProjectTask.isProjectRoot = true;
+    newProjectTask.description = "new project";
+    mainTaskList.idForIsolatedTask = newProjectTask.ID;
+
+    renderGrid();
+
+    grid.editCell(grid.getRowIndex(newProjectTask.ID), grid.getColumnIndex("description"))
 }
 
 function createNewTasklist() {
@@ -760,6 +779,24 @@ function setupMainPageTasks() {
         }
     });
 
+    Mousetrap.bind("p", function (e) {
+        if (e.target.tagName != "INPUT") {
+            console.log("new project requested from P");
+
+            createNewProject();
+            return false;
+        }
+    });
+
+    Mousetrap.bind("escape escape", function (e) {
+        if (e.target.tagName != "INPUT") {
+            console.log("escape hit twice");
+
+            updateSearch("");
+            return false;
+        }
+    });
+
     Mousetrap.bind("s", function (e) {
         if (e.target.tagName != "INPUT") {
             $("#txtSearch").focus();
@@ -898,18 +935,7 @@ function setupMainPageTasks() {
         renderGrid();
     });
 
-    $("#btnCreateProject").on("click", function (ev) {
-        //this will remove the isolation
-
-        var newProjectTask = mainTaskList.getNew();
-        newProjectTask.isProjectRoot = true;
-        newProjectTask.description = "new project";
-        mainTaskList.idForIsolatedTask = newProjectTask.ID;
-
-        renderGrid();
-
-        grid.editCell(grid.getRowIndex(newProjectTask.ID), grid.getColumnIndex("description"))
-    });
+    $("#btnCreateProject").on("click", createNewProject);
 
     $("#btnMoveStranded").on("click", function (ev) {
         mainTaskList.assignStrandedTasksToCurrentIsolationLevel();
