@@ -70,6 +70,20 @@ function updateProjectBucket() {
     var projectBucket = $("#projectBucket")
     projectBucket.empty();
 
+    //add the buttons to move the task
+    _.each(projects, function (project) {
+        var label = $("<li/>").attr("data-project", project.ID);
+        var aDom = $("<a/>").attr("href", "#").text(project.description).appendTo(label);
+
+        if (project.ID == mainTaskList.idForIsolatedTask) {
+            //skip current project
+            return;
+        }
+
+        //add the mover to all buttons
+        $(".gridMove").empty().append(label);
+    })
+
     var dummyTask = new Task(null, false);
     dummyTask.description = "all projects"
     dummyTask.ID = null;
@@ -114,7 +128,7 @@ function updateSearch(searchTerm = "") {
     var curVal = $("#txtSearch").val();
 
     //don't search if no change
-    if(curVal == searchTerm){
+    if (curVal == searchTerm) {
         return;
     }
 
@@ -1011,6 +1025,29 @@ function setupMainPageTasks() {
         var currentID = currentTask.ID;
 
         currentTask.removeTask()
+
+        renderGrid();
+        mainTaskList.save();
+        //delete the task and rerender
+    })
+
+    $("#gridList").on("click", ".gridMove li", function (ev) {
+        console.log("task move button hit");
+
+        var currentTask = getCurrentTask(ev.target);
+
+        var newProjectId = this.dataset.project;
+        var newProject = mainTaskList.tasks[newProjectId];
+
+        if (currentTask.parentTask != null) {
+            var parentTask = mainTaskList.tasks[currentTask.parentTask];
+            var parentChildIndex = parentTask.childTasks.indexOf(currentTask.ID);
+            parentTask.childTasks.splice(parentChildIndex, 1);
+        }
+
+        //need to set the parent for the current and the child for the above
+        currentTask.parentTask = newProjectId;
+        newProject.childTasks.push(currentTask.ID);
 
         renderGrid();
         mainTaskList.save();

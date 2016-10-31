@@ -4,6 +4,9 @@
 .testgrid td{
     min-width: 50px;
 }
+.editablegrid-action{
+    min-width:75px;
+}
 .label-search{
     cursor:pointer;
 }
