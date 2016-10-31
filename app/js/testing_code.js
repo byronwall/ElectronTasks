@@ -123,22 +123,6 @@ function updateProjectBucket() {
     })
 }
 
-function updateMilestoneBucket() {
-    var tags = mainTaskList.getMilestones().sort();
-
-    //TODO update variable names
-
-    //clear out the tag bucket
-    var tagBucket = $("#milestoneBucket")
-    tagBucket.empty();
-
-    //add a new span for each one
-    _.each(tags, function (tag) {
-        var span = $("<span/>").text(tag).appendTo(tagBucket).attr("class", "label label-warning label-search");
-        span.attr("data-type", "milestone");
-    })
-}
-
 function updateSearch(searchTerm = "") {
 
     var curVal = $("#txtSearch").val();
@@ -162,8 +146,8 @@ function updateTagBucket() {
 
     //add a new span for each one
     _.each(tags, function (tag) {
-        var span = $("<span/>").text(tag).appendTo(tagBucket).attr("class", "label label-primary label-search");
-        span.attr("data-type", "tags");
+        var label = $("<li/>").appendTo(tagBucket).attr("class", "label-search").attr("data-type", "tags")
+        var aDom = $("<a/>").attr("href", "#").text(tag).appendTo(label);
     })
 }
 
@@ -176,8 +160,24 @@ function updateStatusBucket() {
 
     //add a new span for each one
     _.each(tags, function (tag) {
-        var span = $("<span/>").text(tag).appendTo(tagBucket).attr("class", "label label-info label-search");
-        span.attr("data-type", "status");
+        var label = $("<li/>").appendTo(tagBucket).attr("class", "label-search").attr("data-type", "status")
+        var aDom = $("<a/>").attr("href", "#").text(tag).appendTo(label);
+    })
+}
+
+function updateMilestoneBucket() {
+    var tags = mainTaskList.getMilestones().sort();
+
+    //TODO update variable names
+
+    //clear out the tag bucket
+    var tagBucket = $("#milestoneBucket")
+    tagBucket.empty();
+
+    //add a new span for each one
+    _.each(tags, function (tag) {
+        var label = $("<li/>").appendTo(tagBucket).attr("class", "label-search").attr("data-type", "milestone")
+        var aDom = $("<a/>").attr("href", "#").text(tag).appendTo(label);
     })
 }
 
@@ -999,21 +999,19 @@ function setupEvents() {
         saveFileInDrive();
     })
 
-    $("#gridList, .label-bucket").on("click", ".label-search", function (ev) {
-        console.log("click", ev);
+    $("body").on("click", ".label-search", function (ev) {
+        console.log("label-search click", this);
 
         //get the target
-        var target = ev.target;
+        var target = this;
         var type = target.dataset.type;
 
         console.log("type", type);
         //get its dataset.type
 
         updateSearch(type + ":" + $(target).text())
-        return false;
 
         //update the search field
-
     })
 
     //this needs to wire up some button click events
