@@ -427,46 +427,37 @@ function setupGrid() {
         var columnName = this.getColumnName(columnIndex);
         var currentTask = mainTaskList.tasks[rowId];
 
-        //TODO add this code back in at some point if desired
-        if (false && columnIndex == grid.getColumnIndex("description") && newValue == "") {
-            //delete the current item, it has been blanked
+        //this will update the underlying data
+        currentTask[columnName] = newValue;
+        currentTask.isFirstEdit = false;
 
-            //mainTaskList.removeTask(rowId);
-            //grid.remove(rowIndex);
-        }
-        else {
-            //this will update the underlying data
-            currentTask[columnName] = newValue;
-            currentTask.isFirstEdit = false;
+        //need to add a check here for hash tags
+        if (columnName === "description") {
+            //reset the fields before setting them again
+            currentTask.tags = [];
+            currentTask.milestone = null;
+            currentTask.status = null;
 
-            //need to add a check here for hash tags
-            if (columnName === "description") {
-                //reset the fields before setting them again
-                currentTask.tags = [];
-                currentTask.milestone = null;
-                currentTask.status = null;
+            //check for "#"
+            //split on space
+            var parts = newValue.split(" ");
+            var tags = [];
+            _.each(parts, function (part) {
+                switch (part[0]) {
+                    case "#":
+                        var tag = part.substring(1);
+                        tags.push(tag);
+                        break;
+                    case "@":
+                        currentTask.status = part.substring(1);
+                        break;
+                    case "!":
+                        currentTask.milestone = part.substring(1);
+                        break;
+                }
+            });
 
-                //check for "#"
-                //split on space
-                var parts = newValue.split(" ");
-                var tags = [];
-                _.each(parts, function (part) {
-                    switch (part[0]) {
-                        case "#":
-                            var tag = part.substring(1);
-                            tags.push(tag);
-                            break;
-                        case "@":
-                            currentTask.status = part.substring(1);
-                            break;
-                        case "!":
-                            currentTask.milestone = part.substring(1);
-                            break;
-                    }
-                });
-
-                currentTask.tags = tags;
-            }
+            currentTask.tags = tags;
         }
 
         mainTaskList.save()
