@@ -43,21 +43,30 @@ function renderGrid() {
 
 function updateBreadcrumbs() {
     //TODO need to fix variable names
-    var projects = mainTaskList.getCrumbs();
+    var breadcrumbs = mainTaskList.getCrumbs();
 
     //clear out the tag bucket
-    var projectBucket = $("#breadcumbs")
-    projectBucket.empty();
+    var breadcrumbBucket = $("#breadcumbs")
+    breadcrumbBucket.empty();
+
+    //this will hide the breadbrumbs if isolatiojn is just a project (or nothing)
+    if (mainTaskList.idForIsolatedTask == undefined || mainTaskList.tasks[mainTaskList.idForIsolatedTask].isProjectRoot) {
+        breadcrumbBucket.hide()
+        return;
+    }
+    else {
+        breadcrumbBucket.show();
+    }
 
     //add a new span for each one
-    _.each(projects, function (project) {
-        var label = $("<li/>").appendTo(projectBucket)
-        var aDom = $("<a/>").attr("href", "#").text(project.description).appendTo(label);
+    _.each(breadcrumbs, function (breadcrumb) {
+        var label = $("<li/>").appendTo(breadcrumbBucket)
+        var aDom = $("<a/>").attr("href", "#").text(breadcrumb.description).appendTo(label);
 
         //set up a click event on the LABEL... does not work for the input
         //TODO swap this for a delegated event
         $(label).on("click", function (ev) {
-            mainTaskList.idForIsolatedTask = project.ID;
+            mainTaskList.idForIsolatedTask = breadcrumb.ID;
             renderGrid();
         });
     })
@@ -69,6 +78,13 @@ function updateProjectBucket() {
     //clear out the tag bucket
     var projectBucket = $("#projectBucket")
     projectBucket.empty();
+
+    if (projects.length == 1) {
+        projectBucket.hide();
+        return;
+    } else {
+        projectBucket.show();
+    }
 
     //add the buttons to move the task
     _.each(projects, function (project) {
