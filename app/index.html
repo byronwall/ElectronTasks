@@ -84,7 +84,7 @@
 		</div>
 
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-sm-7">
 				<div class="input-group">
 					<input type="text" class="form-control" id="txtSearch" placeholder="Search for...">
 					<span class="input-group-btn">
@@ -98,36 +98,38 @@
 					</span>
 				</div>
 			</div>
+
+			<div class="col-sm-5">
+				<div class="btn-group">
+					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						tags
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" id="tagBucket"> </ul>
+				</div>
+
+				<div class="btn-group">
+					<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						status
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" id="statusBucket"> </ul>
+				</div>
+
+				<div class="btn-group">
+					<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						milestones
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" id="milestoneBucket"> </ul>
+				</div>
+			</div>
 		</div>
 
 		<div class="row">
-			<div class="btn-group">
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					tags
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" id="tagBucket"> </ul>
+			<div class="col-sm-4">
+				<h1 id="projectTitle">Project Title</h1>
 			</div>
-
-			<div class="btn-group">
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					status
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" id="statusBucket"> </ul>
-			</div>
-
-			<div class="btn-group">
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					milestones
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" id="milestoneBucket"> </ul>
-			</div>
-		</div>
-
-		<div class="row">
-			<h1 id="projectTitle">Project Title</h1>
 		</div>
 
 		<div class="row">
