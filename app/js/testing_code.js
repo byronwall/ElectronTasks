@@ -992,6 +992,19 @@ function setupMainPageTasks() {
         authorizeGoogleDrive(listGoogleDriveFiles);
     })
 
+    
+    $("#btnPrint").on("click", function () {
+        console.log("print clicked")
+
+        window.print();
+    })
+
+    $("#btnClearLocalStorage").on("click", function () {
+        console.log("clear local storage")
+
+        localStorage.clear();
+    })
+
     $("#btnDriveStore").on("click", function () {
         console.log("drive store click")
 
