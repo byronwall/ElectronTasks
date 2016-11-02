@@ -56,7 +56,7 @@ class TaskList {
     getAllStatus() {
         var status = [];
         _.each(this.tasks, function (task) {
-            if (status.indexOf(task.status) == -1) {
+            if (status.indexOf(task.status) == -1 && task.status != null) {
                 status.push(task.status);
             }
         })
@@ -88,7 +88,7 @@ class TaskList {
     getMilestones() {
         var projects = [];
         _.each(this.tasks, function (task) {
-            if (projects.indexOf(task.milestone) == -1) {
+            if (projects.indexOf(task.milestone) == -1 && task.milestone != null) {
                 projects.push(task.milestone);
             }
         })

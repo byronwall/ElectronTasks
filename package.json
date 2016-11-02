@@ -15,6 +15,7 @@
     "google-auth-library": "^0.9.8",
     "googleapis": "^12.4.0",
     "jquery": "*",
+    "jquery-textcomplete": "^1.7.3",
     "jquery-ui": "^1.12.1",
     "jsonfile": "^2.3.1",
     "lodash": "*",

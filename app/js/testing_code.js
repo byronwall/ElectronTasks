@@ -7,7 +7,8 @@ var app = require('electron').remote;
 var dialog = app.dialog;
 
 var _ = require("lodash");
-var $ = require("jquery");
+var jQuery = require("jquery");
+var $ = jQuery;
 
 //TODO clean this section up to hide these variables
 //delcare any local/global variables
@@ -899,6 +900,8 @@ function setupEvents() {
         return false;
     }
 
+
+
     //this sets up an event to capture the keydown (before anything else runs)
     $("body").get(0).addEventListener("keydown", function (ev) {
         if (ev.key === "Escape" && shouldDeleteTaskWhenDoneEditing) {
@@ -1063,6 +1066,64 @@ function setupEvents() {
         mainTaskList.save();
         //delete the task and rerender
     })
+
+    //TODO pull this put into its own funcion?
+    require("jquery-textcomplete")
+    $("#gridList").on("DOMNodeInserted", "input", function (ev) {
+        console.log("input created?");
+
+        //TODO streamline this code since it's all the same
+        $(this).textcomplete([{
+            match: /(\B#)(\w{0,})$/,
+            search: function (term, callback) {
+                var answer = _.filter(mainTaskList.getAllTags(), function (item) {
+                    return item.indexOf(term) >= 0;
+                })
+                console.log("search")
+                callback(answer);
+            },
+            replace: function (word) {
+                return "#" + word + ' ';
+            }
+        }, {
+            match: /(\B@)(\w{0,})$/,
+            search: function (term, callback) {
+                var answer = _.filter(mainTaskList.getAllStatus(), function (item) {
+                    return item.indexOf(term) >= 0;
+                })
+                callback(answer);
+            },
+            replace: function (word) {
+                return "@" + word + ' ';
+            }
+        }, {
+            match: /(\B!)(\w{0,})$/,
+            search: function (term, callback) {
+                var answer = _.filter(mainTaskList.getMilestones(), function (item) {
+                    return item.indexOf(term) >= 0;
+                })
+                callback(answer);
+            },
+            replace: function (word) {
+                return "!" + word + ' ';
+            }
+        }]).on({
+            //these are needed in order to let the editablegrid now what is going on (it will skip events)
+            'textComplete:show': function (e) {
+                $(this).data('autocompleting', true);
+            },
+            'textComplete:hide': function (e) {
+                $(this).data('autocompleting', false);
+            }
+        });
+    });
+
+    $("#gridList").on("DOMNodeRemoved", "input", function (ev) {
+        //this will remove the popup when the input is removed.
+        console.log("input removed?");
+
+        $(this).textcomplete("destroy");
+    });
 }
 
 function setupMainPageTasks() {
