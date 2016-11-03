@@ -170,7 +170,7 @@ module.exports = class Task {
         }
         //now add the remaining parts
 
-        var newDesc = partsToKeep.join(" ");
+        var newDesc = _.filter(partsToKeep, function(item){return item!=""}).join(" ");
         this.description = newDesc;
     }
 
