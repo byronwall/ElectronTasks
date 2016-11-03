@@ -882,7 +882,8 @@ function setupEvents() {
             applyEdit(e.target);
 
             mainTaskList.idForIsolatedTask = currentID;
-            renderGrid();
+            //clear the search when changing isolation
+            updateSearch("");
         }
         else {
             //cancel the isolation if nothing is selected
