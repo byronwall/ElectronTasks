@@ -6,14 +6,12 @@
 	<link rel="stylesheet" href="../lib/editablegrid/editablegrid.css">
 	<link rel="stylesheet" href="css/taskManager.css">
 	<link href="../lib/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
-
 	<link href="../lib/jquery-ui/jquery-ui.css" rel="stylesheet">
 </head>
 
 <body>
 	<div class="container-fluid">
 		<div class="row">
-
 			<div class="btn-group" id="recentFileGroup">
 				<button type="button" class="btn btn-primary" id="loader">Load</button>
 				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -24,20 +22,16 @@
 					<li><a href="#">No recent documents.</a></li>
 				</ul>
 			</div>
-
 			<button id="saver" class="btn">save</button>
 			<button id="newTasklist" class="btn">new tasklist</button>
-
 			<button id="btnClearIsolation" class="btn">clear isolation</button>
 			<button id="btnCreateProject" class="btn">add project</button>
 			<button id="btnMoveStranded" class="btn">move stranded</button>
 			<button id="btnClearLocalStorage" class="btn">reset localStorage</button>
 			<button id="btnPrint" class="btn">print...</button>
-
 			<div class="btn-group">
 				<button id="btnAuthDrive" class="btn">auth Drive</button>
 				<button id="btnDriveStore" class="btn">store file</button>
-
 				<div class="btn-group" id="driveFileGroup">
 					<button type="button" class="btn btn-primary" id="loader">Load Drive</button>
 					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -58,7 +52,6 @@
 				</button>
 				<ul class="dropdown-menu" id="columnChooser"> </ul>
 			</div>
-
 			<div class="btn-group">
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Column Sort
@@ -66,25 +59,20 @@
 				</button>
 				<ul class="dropdown-menu" id="sortChooser"> </ul>
 			</div>
-
 			<div class="btn-group" data-toggle="buttons" id="sortChooser"></div>
 			<div class="btn-group" data-toggle="buttons" id="sortDirChooser"></div>
-
 			<div class="btn-group" id="sortOptions">
 				<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="isSortEnabled">
 					Active Sort?
 				</button>
-
 				<button type="button" class="btn btn-warning" id="btnSortNow">
 					Sort Now
 				</button>
-
 				<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldHideRoot">
 					Hide Root?
 				</button>
 			</div>
 		</div>
-
 		<div class="row">
 			<div class="col-sm-7">
 				<div class="input-group">
@@ -100,7 +88,6 @@
 					</span>
 				</div>
 			</div>
-
 			<div class="col-sm-5">
 				<div class="btn-group">
 					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -109,7 +96,6 @@
 					</button>
 					<ul class="dropdown-menu" id="tagBucket"> </ul>
 				</div>
-
 				<div class="btn-group">
 					<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						status
@@ -117,7 +103,6 @@
 					</button>
 					<ul class="dropdown-menu" id="statusBucket"> </ul>
 				</div>
-
 				<div class="btn-group">
 					<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						milestones
@@ -127,38 +112,55 @@
 				</div>
 			</div>
 		</div>
-
+		<div class="row">
+			<div class="btn-group" id="selectionMenu">
+				<button id="btnEditSelection" class="btn">edit</button>
+				<button id="btnCompleteSelection" class="btn">complete</button>
+				<button id="btnDeleteSelection" class="btn">delete</button>
+				<button id="btnMoveSelection" class="btn">move</button>
+				<button id="btnClearSelection" class="btn">clear</button>
+			</div>
+			<div class="modal fade" tabindex="-1" role="dialog" id="modalEdit">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title">Edit the selected tasks</h4>
+						</div>
+						<div class="modal-body" id="modalEditBody">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary" id="modalSave">Save changes</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-sm-4">
 				<h1 id="projectTitle">Project Title</h1>
 			</div>
 		</div>
-
 		<div class="row">
 			<ul id="projectBucket" class="nav nav-pills"></ul>
 		</div>
-
 		<div class="row">
 			<ol class="breadcrumb" id="breadcumbs"> </ol>
 		</div>
-
 		<div id="gridList"></div>
 	</div>
-
-
 	<script src="js/testing_code.js" type="text/javascript"></script>
-
 	<script src="../lib/jquery-ui/jquery-ui.js" type="text/javascript"></script>
-
 	<script src="../node_modules/mousetrap/mousetrap.js" type="text/javascript"></script>
 	<script src="../lib/editablegrid/editablegrid.js" type="text/javascript"></script>
 	<script src="../lib/editablegrid/editablegrid_validators.js" type="text/javascript"></script>
 	<script src="../lib/editablegrid/editablegrid_renderers.js" type="text/javascript"></script>
 	<script src="../lib/editablegrid/editablegrid_editors.js" type="text/javascript"></script>
 	<script src="../lib/editablegrid/editablegrid_utils.js" type="text/javascript"></script>
-
 	<script src="../node_modules/bootstrap/dist/js/bootstrap.js" type="text/javascript"></script>
-
 	<script src="../lib/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 </body>
 

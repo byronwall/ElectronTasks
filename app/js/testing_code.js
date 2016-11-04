@@ -27,6 +27,21 @@ function entryPoint() {
     mainTaskList = new TaskList();
 }
 
+function updateSelectionMenu() {
+    //determine if anything is selected
+
+    var selected = _.some(mainTaskList.tasks, function (item) {
+        return item.isSelected
+    });
+    console.log("selected", selected);
+
+    if (selected) {
+        $("#selectionMenu").show();
+    } else {
+        $("#selectionMenu").hide();
+    }
+}
+
 function renderGrid() {
     grid.load(mainTaskList.getGridDataObject());
     grid.renderGrid("gridList", "testgrid");
@@ -37,6 +52,8 @@ function renderGrid() {
     updateStatusBucket();
     updateBreadcrumbs();
     updateMilestoneBucket();
+
+    updateSelectionMenu();
 
     //update the project title
     $("#projectTitle").text(mainTaskList.title);
@@ -54,8 +71,7 @@ function updateBreadcrumbs() {
     if (mainTaskList.idForIsolatedTask == undefined || mainTaskList.tasks[mainTaskList.idForIsolatedTask].isProjectRoot) {
         breadcrumbBucket.hide()
         return;
-    }
-    else {
+    } else {
         breadcrumbBucket.show();
     }
 
@@ -322,8 +338,8 @@ function applyEdit(element) {
     console.log("element", element, typeof element, element instanceof Column);
     var editor = (element instanceof Column) ? element.cellEditor : element.celleditor;
     console.log("celleditor", editor)
-    //if editing or a change was made, apply that change
-    // backup onblur then remove it: it will be restored if editing could not be applied
+        //if editing or a change was made, apply that change
+        // backup onblur then remove it: it will be restored if editing could not be applied
     element.onblur_backup = element.onblur;
     element.onblur = null;
     if (editor.applyEditing(element.element, editor.getEditorValue(element)) === false) {
@@ -372,11 +388,10 @@ function createNewTask(options = {}) {
         mainTaskList.tasks[newTask.parentTask].childTasks.push(newTask.ID);
         renderGrid();
         grid.editCell(grid.getRowIndex(newTask.ID), grid.getColumnIndex("description"))
-    }
-    else {
+    } else {
         //this will prevent the task from being added if it has no parent
         console.log("stranded task removed")
-        //TODO add a warning that task was not created since it would have been stranded
+            //TODO add a warning that task was not created since it would have been stranded
         newTask.removeTask();
     }
 }
@@ -520,8 +535,7 @@ function createColumnShowAndSort() {
 
             if (isActive) {
                 visibleColumns.push(columnName);
-            }
-            else {
+            } else {
                 _.remove(visibleColumns, function (item) {
                     return item == columnName;
                 })
@@ -555,6 +569,7 @@ function createColumnShowAndSort() {
         })
     });
 }
+
 function setupEvents() {
 
     $("#loader").on("click", function () {
@@ -837,8 +852,7 @@ function setupEvents() {
 
             if (currentTask.isProjectRoot) {
                 options.parentTask = currentTask.ID;
-            }
-            else {
+            } else {
                 //have the task be below the current one
                 options.sortOrder = currentTask.sortOrder + 0.5;
                 options.parentTask = currentTask.parentTask;
@@ -884,8 +898,7 @@ function setupEvents() {
             mainTaskList.idForIsolatedTask = currentID;
             //clear the search when changing isolation
             updateSearch("");
-        }
-        else {
+        } else {
             //cancel the isolation if nothing is selected
             mainTaskList.idForIsolatedTask = undefined;
         }
@@ -986,6 +999,87 @@ function setupEvents() {
         window.print();
     })
 
+    $("#btnEditSelection").on("click", function () {
+        console.log("edit multiple clicked")
+
+        //need to get a list of those tasks which are selected
+
+        var selected = _.filter(mainTaskList.tasks, function (task) {
+            return task.isSelected;
+        })
+
+        console.log("selected", selected);
+
+        //this is a list of tasks, now need to compare their values
+        //start with just desc
+        var fields = ["description", "duration", "priority"];
+        var tasks = mainTaskList.tasks;
+
+        var modalBody = $("#modalEditBody");
+        modalBody.empty();
+
+        var modalCheckInputs = [];
+
+        _.each(fields, function (field) {
+            var sameValue = _.every(selected, function (task) {
+                return task[field] === selected[0][field];
+            })
+            console.log("field", field, sameValue);
+
+            //need to create the editor here (build the fields)
+
+            //TODO change this defualt value
+            var valueToShow = (sameValue) ? selected[0][field] : "various";
+
+            var div = $("<div/>").attr("class", "input-group")
+            var span = $("<span/>").attr("class", "input-group-addon")
+            var input = $("<input/>").attr("type", "text").attr("class", "form-control").val(valueToShow);
+            var checkbox = $("<input/>").attr("type", "checkbox");
+
+            span.text(field).prepend(checkbox)
+
+            //add the field to the input
+            input.data("field", field);
+
+            div.append(span).append(input);
+            modalBody.append(div);
+
+            //set up some events for this form
+            input.on("keyup", function () {
+                if ($(this).val() != valueToShow) {
+                    checkbox.attr("checked", true);
+                }
+            })
+
+            modalCheckInputs.push({
+                check: checkbox,
+                input: input
+            })
+        });
+
+        //wire up an event for the save click
+        var modalSave = $("#modalSave");
+        modalSave.off();
+        modalSave.on("click", function () {
+            //collect all of the items with checkboxses
+            _.each(modalCheckInputs, function (obj) {
+                if (obj.check.is(":checked")) {
+                    //get the new value
+                    //set that value for each task in the selector array
+                    _.each(selected, function (task) {
+                        task[obj.input.data("field")] = obj.input.val();
+                    })
+                }
+            })
+            //clear the modal
+            $("#modalEdit").modal("hide");
+            renderGrid();
+        })
+
+        //this will popup with the editor
+        $("#modalEdit").modal();
+    })
+
     $("#btnClearLocalStorage").on("click", function () {
         console.log("clear local storage")
 
@@ -1001,6 +1095,21 @@ function setupEvents() {
         }
 
         saveFileInDrive();
+    })
+
+    $("#gridList").on("click", "td", function (ev) {
+        console.log("tr click", this, ev);
+        console.log("event key", ev.metaKey)
+
+        if (ev.metaKey || ev.ctrlKey) {
+            //this needs to select the task
+            var currentTask = getCurrentTask(this);
+            currentTask.isSelected = !currentTask.isSelected;
+
+            console.log("task", currentTask);
+
+            renderGrid();
+        }
     })
 
     $("body").on("click", ".label-search", function (ev) {

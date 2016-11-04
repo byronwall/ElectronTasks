@@ -1,29 +1,41 @@
-.trComplete{
+.trComplete {
     text-decoration: line-through;
 }
-.testgrid td{
+
+.testgrid td {
     min-width: 50px;
 }
-.editablegrid-action{
-    min-width:75px;
+
+.editablegrid-action {
+    min-width: 75px;
 }
-.label-search{
-    cursor:pointer;
+
+.label-search {
+    cursor: pointer;
 }
-.btnComplete:hover{
+
+.btnComplete:hover {
     background-color: #0b0;
 }
-.btnDelete:hover{
+
+.btnDelete:hover {
     background-color: #d00;
 }
 
-#gridList table{
+#gridList table {
     border-collapse: collapse;
     border: 1px solid black;
-  }
-#gridList  table td, #gridList  table th{
-    border: 1px solid black;
-  }
+}
 
-  #gridList tr:hover td {
-      background:#ddd}
+#gridList table td,
+#gridList table th {
+    border: 1px solid black;
+}
+
+#gridList tr:hover td {
+    background: #ddd
+}
+
+#gridList tr.selected td {
+    background: #55f
+}

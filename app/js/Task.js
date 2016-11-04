@@ -34,6 +34,7 @@ module.exports = class Task {
         this.childTasks = [];
 
         this.indent = 0;
+        this.isSelected = false;
         this.sortOrder = Number.MAX_SAFE_INTEGER;
         this.isVisible = true;
     }
