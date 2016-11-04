@@ -133,9 +133,7 @@ function updateSearch(searchTerm = "") {
         return;
     }
 
-    $("#txtSearch").val(searchTerm).keyup();
-    renderGrid();
-    $("#txtSearch").focus();
+    $("#txtSearch").val(searchTerm).keyup().focus();
 }
 
 function updateTagBucket() {
@@ -321,7 +319,9 @@ function getTaskAbove(currentTask) {
 }
 
 function applyEdit(element) {
-    var editor = element.celleditor;
+    console.log("element", element, typeof element, element instanceof Column);
+    var editor = (element instanceof Column) ? element.cellEditor : element.celleditor;
+    console.log("celleditor", editor)
     //if editing or a change was made, apply that change
     // backup onblur then remove it: it will be restored if editing could not be applied
     element.onblur_backup = element.onblur;
@@ -1009,6 +1009,15 @@ function setupEvents() {
         //get the target
         var target = this;
         var type = target.dataset.type;
+
+        //get the column item to cancel the editing
+        var column = grid.columns[grid.getColumnIndex("description")];
+
+        //this click is happening after the editor appears
+        //need to end the editor and then render
+        //not sure why a render call is required?
+        applyEdit(column);
+        renderGrid();
 
         console.log("type", type);
         //get its dataset.type
