@@ -389,16 +389,13 @@ class TaskList {
 
         jsonfile.readFile(taskList.path, function (err, obj) {
 
-            console.log(typeof obj);
-            console.log(obj);
-
             var dataObj = {};
-
+            
             if (obj.length > 0) {
-                console.log("old format")
+                //this is for the old format where the file was only tasks
                 dataObj.tasks = obj;
             } else {
-                console.log("new format")
+                //this loads an actual TaskList object
                 dataObj = obj;
             }
 

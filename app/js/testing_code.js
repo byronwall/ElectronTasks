@@ -29,11 +29,9 @@ function entryPoint() {
 
 function updateSelectionMenu() {
     //determine if anything is selected
-
     var selected = _.some(mainTaskList.tasks, function (item) {
         return item.isSelected
     });
-    console.log("selected", selected);
 
     if (selected) {
         $("#selectionMenu").show();
@@ -335,11 +333,9 @@ function getTaskAbove(currentTask) {
 }
 
 function applyEdit(element) {
-    console.log("element", element, typeof element, element instanceof Column);
     var editor = (element instanceof Column) ? element.cellEditor : element.celleditor;
-    console.log("celleditor", editor)
-        //if editing or a change was made, apply that change
-        // backup onblur then remove it: it will be restored if editing could not be applied
+    //if editing or a change was made, apply that change
+    // backup onblur then remove it: it will be restored if editing could not be applied
     element.onblur_backup = element.onblur;
     element.onblur = null;
     if (editor.applyEditing(element.element, editor.getEditorValue(element)) === false) {
@@ -625,7 +621,6 @@ function setupEvents() {
             //need to iterate until aboveTask is at same indent as current task
             while (aboveTask.indent > currentTask.indent) {
                 aboveTask = mainTaskList.tasks[aboveTask.parentTask]
-                console.log("above task new", aboveTask);
             }
 
             //TODO put this code somewhere else
@@ -1008,8 +1003,6 @@ function setupEvents() {
             return task.isSelected;
         })
 
-        console.log("selected", selected);
-
         //this is a list of tasks, now need to compare their values
         //start with just desc
         var fields = ["description", "duration", "priority"];
@@ -1024,7 +1017,6 @@ function setupEvents() {
             var sameValue = _.every(selected, function (task) {
                 return task[field] === selected[0][field];
             })
-            console.log("field", field, sameValue);
 
             //need to create the editor here (build the fields)
 
@@ -1063,15 +1055,15 @@ function setupEvents() {
         modalSave.on("click", function () {
             //collect all of the items with checkboxses
             _.each(modalCheckInputs, function (obj) {
-                if (obj.check.is(":checked")) {
-                    //get the new value
-                    //set that value for each task in the selector array
-                    _.each(selected, function (task) {
-                        task[obj.input.data("field")] = obj.input.val();
-                    })
-                }
-            })
-            //clear the modal
+                    if (obj.check.is(":checked")) {
+                        //get the new value
+                        //set that value for each task in the selector array
+                        _.each(selected, function (task) {
+                            task[obj.input.data("field")] = obj.input.val();
+                        })
+                    }
+                })
+                //clear the modal
             $("#modalEdit").modal("hide");
             renderGrid();
         })
@@ -1098,15 +1090,11 @@ function setupEvents() {
     })
 
     $("#gridList").on("click", "td", function (ev) {
-        console.log("tr click", this, ev);
-        console.log("event key", ev.metaKey)
-
         if (ev.metaKey || ev.ctrlKey) {
-            //this needs to select the task
+            console.log("tr click with meta or CTRL")
+                //this needs to select the task
             var currentTask = getCurrentTask(this);
             currentTask.isSelected = !currentTask.isSelected;
-
-            console.log("task", currentTask);
 
             renderGrid();
         }

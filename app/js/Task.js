@@ -10,7 +10,7 @@ module.exports = class Task {
         this.duration = 0;
         this.startDate = null;
         this.endDate = null;
-        
+
         this.ID = (shouldGetId) ? Task.getUnique : -1;
 
         this.dateAdded = (new Date()).toLocaleString();
@@ -65,8 +65,7 @@ module.exports = class Task {
             })
 
             return !hasNoMatch;
-        }
-        else {
+        } else {
             var task = this;
 
             var allMatch = _.every(_.keys(searchTerm), function (key) {
@@ -109,7 +108,6 @@ module.exports = class Task {
             Task._id = 1;
         }
         Task._id = Task._id + 1;
-        console.log("unique id", Task._id);
         return Task._id;
     }
 
@@ -121,7 +119,6 @@ module.exports = class Task {
         var self = this;
         _.each(this.childTasks, function (childTaskIndex) {
             var childTask = self.taskList.tasks[childTaskIndex];
-            console.log(childTaskIndex, childTask);
             childTask.completeTask(self.isComplete);
         })
     }
@@ -171,7 +168,9 @@ module.exports = class Task {
         }
         //now add the remaining parts
 
-        var newDesc = _.filter(partsToKeep, function(item){return item!=""}).join(" ");
+        var newDesc = _.filter(partsToKeep, function (item) {
+            return item != ""
+        }).join(" ");
         this.description = newDesc;
     }
 
