@@ -888,8 +888,8 @@ function setupEvents() {
         else {
             //cancel the isolation if nothing is selected
             mainTaskList.idForIsolatedTask = undefined;
-            renderGrid();
         }
+        renderGrid();
 
         return false;
     });
