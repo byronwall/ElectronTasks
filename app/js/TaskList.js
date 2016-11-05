@@ -195,7 +195,8 @@ class TaskList {
         _.each(this.tasks, function (task) {
             var searchResult = self.searchTerm == "" || task.isResultForSearch(self.searchObj)
             var showBecauseComplete = (self.shouldHideComplete) ? !task.isComplete : true;
-            if (searchResult && showBecauseComplete) {
+            var showBecauseNew = task.isFirstEdit;
+            if ((searchResult && showBecauseComplete)||showBecauseNew) {
 
                 tasksToProcessAgain.push(task);
                 task.isVisible = true;
