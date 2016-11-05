@@ -915,8 +915,8 @@ function setupEvents() {
 
     //this sets up an event to capture the keydown (before anything else runs)
     $("body").get(0).addEventListener("keydown", function (ev) {
-        if (ev.key === "Escape" && shouldDeleteTaskWhenDoneEditing) {
-            console.log("bubble keydown", ev.key)
+        if ((ev.key === "Escape" || ev.key === "Enter") && shouldDeleteTaskWhenDoneEditing) {
+            console.log("bubble keydown to delete", ev.key)
             taskToDelete.removeTask();
             renderGrid();
 
@@ -941,16 +941,16 @@ function setupEvents() {
             }
         }
 
-        if (ev.key === "Escape") {
-            console.log("escape was hit");
+        if (ev.key === "Escape" || ev.key === "Enter") {
+            console.log("escape/enter was hit");
 
+            //this code assumes that the keypress was an input in the table;
             var currentTask = getCurrentTask(ev.target);
             var currentID = currentTask.ID;
 
-            if (currentTask.isFirstEdit && currentTask.description == "new task") {
+            if (currentTask.isFirstEdit && $(ev.target).val() == "new task") {
                 shouldDeleteTaskWhenDoneEditing = true;
                 taskToDelete = currentTask;
-                console.log("should delete task")
             }
         }
 
@@ -1210,8 +1210,6 @@ function setupEvents() {
     //TODO pull this put into its own funcion?
     require("jquery-textcomplete")
     $("#gridList").on("DOMNodeInserted", "input", function (ev) {
-        console.log("input created?");
-
         //TODO streamline this code since it's all the same
         $(this).textcomplete([{
             match: /(\B#)(\w{0,})$/,
@@ -1260,8 +1258,6 @@ function setupEvents() {
 
     $("#gridList").on("DOMNodeRemoved", "input", function (ev) {
         //this will remove the popup when the input is removed.
-        console.log("input removed?");
-
         $(this).textcomplete("destroy");
     });
 }
