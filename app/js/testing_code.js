@@ -933,6 +933,16 @@ function setupEvents() {
         }
     });
 
+    Mousetrap.bind(["shift+s", "alt+shift+s"], function (e, combo) {
+        console.log("show settings called", combo);
+
+        var validShortcut = isKeyboardInEditor(e.target) ? combo.indexOf("alt") > -1 : true;
+        if (validShortcut) {
+            $("#collapseExample").collapse("toggle");
+            return false;
+        }
+    });
+
     Mousetrap.bind(["mod+shift+a"], function (e, combo) {
         console.log("select all visible", combo);
 
