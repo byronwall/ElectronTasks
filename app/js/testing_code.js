@@ -211,11 +211,11 @@ function addFileToRecentFileList(fileName) {
 function updateRecentFileButton() {
 
     if (recentFiles.length > 0) {
-        $("#recentFileGroup ul").empty();
+        $("#recentFileGroup").empty();
     }
 
     _.each(recentFiles, function (fileName) {
-        var label = $("<li/>").appendTo("#recentFileGroup ul")
+        var label = $("<li/>").appendTo("#recentFileGroup")
         var aDom = $("<a/>").attr("href", "#").text(fileName).appendTo(label);
 
         //set up a click event on the LABEL... does not work for the input
@@ -262,7 +262,7 @@ function authorizeGoogleDrive(callback) {
 function updateDriveFileButton(fileList) {
     console.log("files inside func", fileList)
 
-    var driveGroup = $("#driveFileGroup ul");
+    var driveGroup = $("#driveFileGroup");
 
     if (fileList.length > 0) {
         driveGroup.empty();

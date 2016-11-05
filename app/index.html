@@ -11,40 +11,62 @@
 
 <body>
 	<div class="container-fluid">
-		<div class="row">
-			<div class="btn-group" id="recentFileGroup">
-				<button type="button" class="btn btn-primary" id="loader">Load</button>
-				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<div class="row col-xs-12">
+			<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Task List
 					<span class="caret"></span>
-					<span class="sr-only">Toggle Dropdown</span>
 				</button>
 				<ul class="dropdown-menu">
-					<li><a href="#">No recent documents.</a></li>
+					<li class="menu-item dropdown dropdown-submenu">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="loader">Load</a>
+						<ul class="dropdown-menu" id="recentFileGroup">
+							<li><a href="#">No recent documents.</a></li>
+						</ul>
+					</li>
+					<li class="menu-item" id="saver">
+						<a href="#">save</a>
+					</li>
+					<li class="menu-item" id="newTasklist">
+						<a href="#">new tasklist</a>
+					</li>
+					<li class="menu-item" id="btnClearIsolation">
+						<a href="#">clear isolation</a>
+					</li>
+					<li class="menu-item" id="btnCreateProject">
+						<a href="#">create project</a>
+					</li>
+					<li class="menu-item" id="btnMoveStranded">
+						<a href="#">move stranded</a>
+					</li>
+					<li class="menu-item" id="btnClearLocalStorage">
+						<a href="#">reset localStorage</a>
+					</li>
+					<li class="menu-item" id="btnPrint">
+						<a href="#">print...</a>
+					</li>
 				</ul>
 			</div>
-			<button id="saver" class="btn">save</button>
-			<button id="newTasklist" class="btn">new tasklist</button>
-			<button id="btnClearIsolation" class="btn">clear isolation</button>
-			<button id="btnCreateProject" class="btn">add project</button>
-			<button id="btnMoveStranded" class="btn">move stranded</button>
-			<button id="btnClearLocalStorage" class="btn">reset localStorage</button>
-			<button id="btnPrint" class="btn">print...</button>
 			<div class="btn-group">
-				<button id="btnAuthDrive" class="btn">auth Drive</button>
-				<button id="btnDriveStore" class="btn">store file</button>
-				<div class="btn-group" id="driveFileGroup">
-					<button type="button" class="btn btn-primary" id="loader">Load Drive</button>
-					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<span class="caret"></span>
-						<span class="sr-only">Toggle Dropdown</span>
-					</button>
-					<ul class="dropdown-menu">
-						<li><a href="#">No recent documents.</a></li>
-					</ul>
-				</div>
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Google Drive
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li class="menu-item dropdown dropdown-submenu">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="loader">Load</a>
+						<ul class="dropdown-menu" id="driveFileGroup">
+							<li><a href="#">No recent documents.</a></li>
+						</ul>
+					</li>
+					<li class="menu-item" id="btnAuthDrive">
+						<a href="#">auth drive</a>
+					</li>
+					<li class="menu-item" id="btnDriveStore">
+						<a href="#">store file</a>
+					</li>
+				</ul>
 			</div>
-		</div>
-		<div class="row">
 			<div class="btn-group">
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Columns to Show
@@ -74,10 +96,10 @@
 					<input type="text" class="form-control" id="txtSearch" placeholder="Search for...">
 					<span class="input-group-btn">
 						<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldSearchChildren">
-							children
+							+children
 						</button>
 						<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldSearchParents">
-							parents
+							+parents
 						</button>
 						<button class="btn btn-default" type="button" id="btnClearSearch">Clear</button>
 					</span>
