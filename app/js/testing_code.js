@@ -142,6 +142,11 @@ function updateProjectBucket() {
 
 function updateSearch(searchTerm = "") {
 
+    //when called on a "bare" event handler, the parameter coming in is an event object
+    if(typeof searchTerm != "string"){
+        searchTerm = "";
+    }
+
     var curVal = $("#txtSearch").val();
 
     //don't search if no change
