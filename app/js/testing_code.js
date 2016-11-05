@@ -20,6 +20,8 @@ var localDrive = undefined;
 
 var mainTaskList = undefined;
 
+var KEYBOARD_CANCEL = ["INPUT", "TEXTAREA"];
+
 function entryPoint() {
     //this is equal to the onLoad event for the body
     setupMainPageTasks();
@@ -796,7 +798,7 @@ function setupEvents() {
     });
 
     Mousetrap.bind("a", function (e) {
-        if (e.target.tagName != "INPUT") {
+        if(!_.includes(KEYBOARD_CANCEL, e.target.tagName)){
             console.log("new task requested from A");
             createNewTask();
             return false;
@@ -804,7 +806,7 @@ function setupEvents() {
     });
 
     Mousetrap.bind("p", function (e) {
-        if (e.target.tagName != "INPUT") {
+        if(!_.includes(KEYBOARD_CANCEL, e.target.tagName)){
             console.log("new project requested from P");
 
             createNewProject();
@@ -813,7 +815,7 @@ function setupEvents() {
     });
 
     Mousetrap.bind("escape escape", function (e) {
-        if (e.target.tagName != "INPUT") {
+        if(!_.includes(KEYBOARD_CANCEL, e.target.tagName)){
             console.log("escape hit twice");
 
             updateSearch("");
@@ -822,14 +824,14 @@ function setupEvents() {
     });
 
     Mousetrap.bind("s", function (e) {
-        if (e.target.tagName != "INPUT") {
+        if(!_.includes(KEYBOARD_CANCEL, e.target.tagName)){
             $("#txtSearch").focus();
             return false;
         }
     });
 
     Mousetrap.bind("q", function (e) {
-        if (e.target.tagName != "INPUT") {
+        if(!_.includes(KEYBOARD_CANCEL, e.target.tagName)){
             sortNow();
             return false;
         }
@@ -1149,6 +1151,37 @@ function setupEvents() {
         renderGrid();
         mainTaskList.save();
         //delete the task and rerender
+    })
+
+    var autosize = require("autosize");
+    autosize($("#modalCommentsText"));
+
+    $("#gridList").on("click", ".btnComment", function (ev) {
+        console.log("task comments button hit");
+
+        var currentTask = getCurrentTask(ev.target);
+        var currentID = currentTask.ID;
+
+        //need to show the comment modal, use those events for what's next
+        function showCommentModal() {
+            var modalComments = $("#modalComments");
+            modalComments.modal();
+
+            $("#modalCommentsText").val(currentTask.comments);
+            //wire up the save button
+            $("#modalSaveComments").off().on("click", function () {
+                //save the task data
+                var value = $("#modalCommentsText").val();
+                currentTask.comments = value;
+                modalComments.modal("hide");
+
+                renderGrid();
+            })
+        }
+
+        showCommentModal();
+
+        return false;
     })
 
     $("#gridList").on("click", ".gridMove li", function (ev) {

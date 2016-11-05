@@ -25,6 +25,8 @@ module.exports = class Task {
         this.status = null;
         this.milestone = null;
 
+        this.comments = "";
+
         this.isFirstEdit = false;
 
         this.isProjectRoot = false;
@@ -222,8 +224,9 @@ module.exports = class Task {
     getObjectForSaving() {
         //this will be used up above, ideally they match
         return {
-            "description": this.description,
             "ID": this.ID,
+            "description": this.description,
+            "comments": this.comments,
             "priority": this.priority,
             "duration": this.duration,
             "startDate": this.startDate,

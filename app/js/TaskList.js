@@ -32,6 +32,7 @@ class TaskList {
             { "name": "status", "label": "status", "datatype": "string", "editable": true, "active": false },
             { "name": "tags", "label": "tags", "datatype": "array", "editable": true, "active": false },
             { "name": "milestone", "label": "milestone", "datatype": "string", "editable": true, "active": false },
+            { "name": "comments", "label": "comments", "datatype": "string", "editable": true, "active": false },
             { "name": "dateAdded", "label": "added", "datatype": "date", "editable": true, "active": false },
             { "name": "startDate", "label": "start", "datatype": "date", "editable": true, "active": false },
             { "name": "endDate", "label": "end", "datatype": "date", "editable": true, "active": false }
