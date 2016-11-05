@@ -143,7 +143,7 @@ function updateProjectBucket() {
 function updateSearch(searchTerm = "") {
 
     //when called on a "bare" event handler, the parameter coming in is an event object
-    if(typeof searchTerm != "string"){
+    if (typeof searchTerm != "string") {
         searchTerm = "";
     }
 
@@ -803,7 +803,7 @@ function setupEvents() {
     });
 
     Mousetrap.bind("a", function (e) {
-        if(!_.includes(KEYBOARD_CANCEL, e.target.tagName)){
+        if (!_.includes(KEYBOARD_CANCEL, e.target.tagName)) {
             console.log("new task requested from A");
             createNewTask();
             return false;
@@ -811,7 +811,7 @@ function setupEvents() {
     });
 
     Mousetrap.bind("p", function (e) {
-        if(!_.includes(KEYBOARD_CANCEL, e.target.tagName)){
+        if (!_.includes(KEYBOARD_CANCEL, e.target.tagName)) {
             console.log("new project requested from P");
 
             createNewProject();
@@ -820,7 +820,7 @@ function setupEvents() {
     });
 
     Mousetrap.bind("escape escape", function (e) {
-        if(!_.includes(KEYBOARD_CANCEL, e.target.tagName)){
+        if (!_.includes(KEYBOARD_CANCEL, e.target.tagName)) {
             console.log("escape hit twice");
 
             updateSearch("");
@@ -829,14 +829,14 @@ function setupEvents() {
     });
 
     Mousetrap.bind("s", function (e) {
-        if(!_.includes(KEYBOARD_CANCEL, e.target.tagName)){
+        if (!_.includes(KEYBOARD_CANCEL, e.target.tagName)) {
             $("#txtSearch").focus();
             return false;
         }
     });
 
     Mousetrap.bind("q", function (e) {
-        if(!_.includes(KEYBOARD_CANCEL, e.target.tagName)){
+        if (!_.includes(KEYBOARD_CANCEL, e.target.tagName)) {
             sortNow();
             return false;
         }
@@ -907,6 +907,18 @@ function setupEvents() {
         renderGrid();
 
         return false;
+    });
+
+    Mousetrap.bind(["alt+/", "/"], function (e, combo) {
+        console.log("show shortcuts called", combo);
+
+        if (_.includes(KEYBOARD_CANCEL, e.target.tagName) && combo == "/") {
+            return;
+        }
+
+        $("#modalKeyboard").modal();
+        return false;
+
     });
 
     Mousetrap.bind("mod+s", saveTaskList);
