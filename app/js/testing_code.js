@@ -140,7 +140,7 @@ function updateProjectBucket() {
     })
 }
 
-function updateSearch(searchTerm = "") {
+function updateSearch(searchTerm = "", shouldFocus = true) {
 
     //when called on a "bare" event handler, the parameter coming in is an event object
     if (typeof searchTerm != "string") {
@@ -154,7 +154,11 @@ function updateSearch(searchTerm = "") {
         return;
     }
 
-    $("#txtSearch").val(searchTerm).keyup().focus();
+    $("#txtSearch").val(searchTerm).keyup()
+
+    if (shouldFocus) {
+        $("#txtSearch").focus();
+    }
 }
 
 function updateTagBucket() {
@@ -1192,7 +1196,7 @@ function setupEvents() {
         console.log("type", type);
         //get its dataset.type
 
-        updateSearch(type + ":" + $(target).text())
+        updateSearch(type + ":" + $(target).text(), false)
 
         //update the search field
     })
