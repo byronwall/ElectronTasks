@@ -59,19 +59,14 @@
 				</button>
 				<ul class="dropdown-menu" id="sortChooser"> </ul>
 			</div>
-			<div class="btn-group" data-toggle="buttons" id="sortChooser"></div>
 			<div class="btn-group" data-toggle="buttons" id="sortDirChooser"></div>
-			<div class="btn-group" id="sortOptions">
-				<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="isSortEnabled">
-					Active Sort?
-				</button>
-				<button type="button" class="btn btn-warning" id="btnSortNow">
-					Sort Now
-				</button>
-				<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldHideRoot">
-					Hide Root?
-				</button>
-			</div>
+			<button type="button" class="btn btn-warning" id="btnSortNow">
+				Sort Now
+			</button>
+			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+							aria-controls="collapseExample">
+				Show settings
+			</button>
 		</div>
 		<div class="row">
 			<div class="col-sm-7">
@@ -135,6 +130,32 @@
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 							<button type="button" class="btn btn-primary" id="modalSave">Save changes</button>
 						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="collapse col-xs-12" id="collapseExample">
+				<div class="panel panel-default">
+					<div class="panel-heading">Settings control panel
+						<button class="btn btn-danger btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+										aria-controls="collapseExample">
+							X
+						</button>
+					</div>
+					<div class="panel-body">
+						<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="isSortEnabled">
+							Active Sort?
+						</button>
+						<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldHideRoot">
+							Hide Root?
+						</button>
+						<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldCompleteChildren">
+							Complete children with parent?
+						</button>
+						<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldShowComplete">
+							Show complete tasks?
+						</button>
 					</div>
 				</div>
 			</div>
