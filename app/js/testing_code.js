@@ -909,6 +909,30 @@ function setupEvents() {
         return false;
     });
 
+    function isKeyboardInEditor(element) {
+        return _.includes(KEYBOARD_CANCEL, element.tagName);
+    }
+
+    Mousetrap.bind(["shift+c", "alt+shift+c"], function (e, combo) {
+        console.log("show children called", combo);
+
+        var validShortcut = isKeyboardInEditor(e.target) ? combo.indexOf("alt") > -1 : true;
+        if (validShortcut) {
+            $("#shouldSearchChildren").click();
+            return false;
+        }
+    });
+
+    Mousetrap.bind(["shift+p", "alt+shift+p"], function (e, combo) {
+        console.log("show parents called", combo);
+
+        var validShortcut = isKeyboardInEditor(e.target) ? combo.indexOf("alt") > -1 : true;
+        if (validShortcut) {
+            $("#shouldSearchParents").click();
+            return false;
+        }
+    });
+
     Mousetrap.bind(["alt+/", "/"], function (e, combo) {
         console.log("show shortcuts called", combo);
 
