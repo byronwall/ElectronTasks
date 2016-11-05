@@ -2,6 +2,10 @@
     text-decoration: line-through;
 }
 
+.trRoot {
+    font-weight: bold;
+}
+
 .testgrid td {
     min-width: 50px;
 }
