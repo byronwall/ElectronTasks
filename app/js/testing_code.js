@@ -933,6 +933,27 @@ function setupEvents() {
         }
     });
 
+    Mousetrap.bind(["mod+shift+a"], function (e, combo) {
+        console.log("select all visible", combo);
+
+        //need to get all visible tasks, exclude project root
+        var visibleTasks = _.filter(mainTaskList.tasks, function (task) {
+            return task.isVisible && !task.isProjectRoot;
+        })
+
+        var shouldDeselect = _.every(visibleTasks, function (task) {
+            return task.isSelected;
+        })
+
+        _.each(visibleTasks, function (task) {
+            task.isSelected = !shouldDeselect;
+        })
+
+        renderGrid();
+
+        return false;
+    });
+
     Mousetrap.bind(["alt+/", "/"], function (e, combo) {
         console.log("show shortcuts called", combo);
 
