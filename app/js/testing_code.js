@@ -1003,24 +1003,23 @@ function setupEvents() {
         if (!$(ev.target).parents("tr").length) return;
 
         if (ev.key === "Enter") {
-            console.log("Enter was hit")
 
             var currentTask = getCurrentTask(ev.target);
             var currentID = currentTask.ID;
 
             if (currentTask.isFirstEdit) {
+                console.log("Should add task set")
                 shouldAddTaskWhenDoneEditing = true;
             }
         }
 
         if (ev.key === "Escape" || ev.key === "Enter") {
-            console.log("escape/enter was hit");
-
             //this code assumes that the keypress was an input in the table;
             var currentTask = getCurrentTask(ev.target);
             var currentID = currentTask.ID;
 
             if (currentTask.isFirstEdit && $(ev.target).val() == "new task") {
+                console.log("Should delete set");
                 shouldDeleteTaskWhenDoneEditing = true;
                 taskToDelete = currentTask;
             }
