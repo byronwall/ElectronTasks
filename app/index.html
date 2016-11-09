@@ -32,9 +32,6 @@
 							<li class="menu-item" id="newTasklist">
 								<a href="#">new tasklist</a>
 							</li>
-							<li class="menu-item" id="btnClearIsolation">
-								<a href="#">clear isolation</a>
-							</li>
 							<li class="menu-item" id="btnCreateProject">
 								<a href="#">create project</a>
 							</li>
@@ -194,7 +191,9 @@
 			<ul id="projectBucket" class="nav nav-pills"></ul>
 		</div>
 		<div class="row">
-			<ol class="breadcrumb" id="breadcumbs"> </ol>
+			<ol class="breadcrumb" id="breadcumbs">
+				<li class="breadcrumb-item" id="btnClearIsolation"> <a href="#">(clear isolation)</a> </li>
+			</ol>
 		</div>
 		<div id="gridList"></div>
 		<div>
@@ -220,6 +219,7 @@
 		</div>
 	</div>
 	<div id="modals">
+		<div style="display:none" id="hidden"></div>
 		<div class="modal fade" tabindex="-1" role="dialog" id="modalKeyboard">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -269,9 +269,7 @@
 			</div>
 		</div>
 	</div>
-
 	<script src="js/testing_code.js" type="text/javascript"></script>
-	
 	<script src="../lib/jquery-ui/jquery-ui.js" type="text/javascript"></script>
 	<script src="../node_modules/mousetrap/mousetrap.js" type="text/javascript"></script>
 	<script src="../lib/editablegrid/editablegrid.js" type="text/javascript"></script>
@@ -281,7 +279,6 @@
 	<script src="../lib/editablegrid/editablegrid_utils.js" type="text/javascript"></script>
 	<script src="../node_modules/bootstrap/dist/js/bootstrap.js" type="text/javascript"></script>
 	<script src="../lib/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
-	
 </body>
 
 </html>

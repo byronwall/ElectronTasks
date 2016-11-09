@@ -104,6 +104,9 @@ function updateBreadcrumbs() {
     //TODO need to fix variable names
     var breadcrumbs = mainTaskList.getCrumbs();
 
+    var clearItem = $("#btnClearIsolation");
+    $("#hidden").append(clearItem);
+    
     //clear out the tag bucket
     var breadcrumbBucket = $("#breadcumbs")
     breadcrumbBucket.empty();
@@ -115,6 +118,10 @@ function updateBreadcrumbs() {
     } else {
         breadcrumbBucket.show();
     }
+
+    //create the clear isolation button
+    console.log(clearItem)
+    breadcrumbBucket.append(clearItem);
 
     //add a new span for each one
     _.each(breadcrumbs, function (breadcrumb) {
@@ -1289,6 +1296,7 @@ function setupEvents() {
 
         var currentTask = getCurrentTask(ev.target);
         var currentID = currentTask.ID;
+        var parentID = currentTask.parentTask;
 
         //do a check to see if this is a project and the only project
         if (currentTask.isProjectRoot) {
@@ -1317,6 +1325,11 @@ function setupEvents() {
 
         } else {
             currentTask.removeTask()
+        }
+
+        //check if the isolated task is the removed task
+        if(mainTaskList.idForIsolatedTask == currentID){
+            mainTaskList.idForIsolatedTask = parentID;
         }
 
         renderGrid();
