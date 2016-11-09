@@ -606,6 +606,17 @@ function setupEvents() {
         return false;
     });
 
+    $("#btnShouldShowComplete").on("click", function (ev) {
+        $(ev.target).toggleClass("active")
+
+        var shouldShowComplete = $("#btnShouldShowComplete").hasClass("active");
+
+        mainTaskList.shouldHideComplete = !shouldShowComplete;
+        renderGrid();
+
+        return false;
+    });
+
     $("#txtSearch").on("keyup", function (ev) {
         //this needs to do the active search
         //set a filter
@@ -1177,6 +1188,23 @@ function setupEvents() {
         }
     })
 
+    function showAlert(message) {
+        console.log(message);
+
+        require("bootstrap-notify");
+
+        $.notify({
+            message: message
+        }, {
+            // settings
+            type: 'info',
+            placement: {
+                from: "bottom"
+            },
+            delay: 1000
+        });
+    }
+
     $("body").on("click", ".label-search", function (ev) {
         console.log("label-search click", this);
 
@@ -1221,7 +1249,34 @@ function setupEvents() {
         var currentTask = getCurrentTask(ev.target);
         var currentID = currentTask.ID;
 
-        currentTask.removeTask()
+        //do a check to see if this is a project and the only project
+        if (currentTask.isProjectRoot) {
+            //clear the isolation
+            mainTaskList.idForIsolatedTask = null;
+
+            var projects = mainTaskList.getProjectsInList();
+            var projectCount = projects.length;
+
+            if (projectCount == 1) {
+                console.log("task cannot be deleted, since it is the last project root");
+                return false;
+            }
+
+            //delete the project
+            currentTask.removeTask()
+
+            projects = mainTaskList.getProjectsInList();
+            projectCount = projects.length;
+
+            //if there is only one project, isolate it
+            if (projectCount == 1) {
+                mainTaskList.idForIsolatedTask = projects[0].ID;
+            }
+
+
+        } else {
+            currentTask.removeTask()
+        }
 
         renderGrid();
         mainTaskList.save();
