@@ -363,6 +363,8 @@ class TaskList {
                 callback();
             }
         })
+
+        return true;
     }
 
     static createNewTaskList() {

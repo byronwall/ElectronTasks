@@ -29,6 +29,23 @@ function entryPoint() {
     mainTaskList = new TaskList();
 }
 
+function showAlert(message, type = "info") {
+    console.log(message);
+
+    require("bootstrap-notify");
+
+    $.notify({
+        message: message
+    }, {
+        // settings
+        type: type,
+        placement: {
+            from: "bottom"
+        },
+        delay: 1000
+    });
+}
+
 function updateSelectionMenu() {
     //determine if anything is selected
     var selected = _.some(mainTaskList.tasks, function (item) {
@@ -300,7 +317,7 @@ function sortNow() {
     renderGrid();
     mainTaskList.isSortEnabled = isSortEnabled;
 
-    mainTaskList.save();
+    saveTaskList();
 }
 
 function createNewTask(options = {}) {
@@ -354,8 +371,8 @@ function applyEdit(element) {
     }
 }
 
-function saveTaskList() {
-    if (mainTaskList.path == "") {
+function saveTaskList(shouldPromptForFilename = false) {
+    if (shouldPromptForFilename && mainTaskList.path == "") {
         dialog.showSaveDialog(function (fileName) {
 
             if (fileName === undefined) {
@@ -371,7 +388,10 @@ function saveTaskList() {
         })
     }
 
-    mainTaskList.save();
+    var didSave = mainTaskList.save();
+    if (didSave) {
+        showAlert("tasklist was saved", "success")
+    }
 }
 
 function createNewTasklist() {
@@ -483,7 +503,7 @@ function setupGrid() {
             currentTask.tags = tags;
         }
 
-        mainTaskList.save()
+        saveTaskList();
         renderGrid();
 
         if (shouldAddTaskWhenDoneEditing && columnName === "description") {
@@ -661,7 +681,7 @@ function setupEvents() {
             applyEdit(e.target);
 
             //the relationship is known... rerender?
-            mainTaskList.save()
+            saveTaskList();
             renderGrid();
 
             //need to get the task located above the current one (0 index)
@@ -723,7 +743,7 @@ function setupEvents() {
             applyEdit(e.target);
 
             //the relationship is known... rerender?
-            mainTaskList.save()
+            saveTaskList();
             renderGrid();
 
             var currentRow = grid.getRowIndex(currentID);
@@ -747,7 +767,7 @@ function setupEvents() {
 
             applyEdit(e.target);
 
-            mainTaskList.save()
+            saveTaskList();
             renderGrid();
             grid.editCell(grid.getRowIndex(currentID), grid.getColumnIndex("description"))
         }
@@ -766,7 +786,7 @@ function setupEvents() {
 
             applyEdit(e.target);
 
-            mainTaskList.save()
+            saveTaskList();
             renderGrid();
             grid.editCell(grid.getRowIndex(currentID), grid.getColumnIndex("description"))
         }
@@ -991,14 +1011,15 @@ function setupEvents() {
 
     });
 
-    Mousetrap.bind("mod+s", saveTaskList);
+    Mousetrap.bind("mod+s", function () {
+        saveTaskList(true);
+        return false;
+    });
 
     Mousetrap.prototype.stopCallback = function (a, b, c) {
         //this lets the shortcuts go through whenever
         return false;
     }
-
-
 
     //this sets up an event to capture the keydown (before anything else runs)
     $("body").get(0).addEventListener("keydown", function (ev) {
@@ -1188,22 +1209,7 @@ function setupEvents() {
         }
     })
 
-    function showAlert(message) {
-        console.log(message);
 
-        require("bootstrap-notify");
-
-        $.notify({
-            message: message
-        }, {
-            // settings
-            type: 'info',
-            placement: {
-                from: "bottom"
-            },
-            delay: 1000
-        });
-    }
 
     $("body").on("click", ".label-search", function (ev) {
         console.log("label-search click", this);
@@ -1240,7 +1246,7 @@ function setupEvents() {
         currentTask.completeTask();
 
         renderGrid();
-        mainTaskList.save();
+        saveTaskList();;
     });
 
     $("#gridList").on("click", ".btnDelete", function (ev) {
@@ -1279,7 +1285,7 @@ function setupEvents() {
         }
 
         renderGrid();
-        mainTaskList.save();
+        saveTaskList();;
         //delete the task and rerender
     })
 
@@ -1333,7 +1339,7 @@ function setupEvents() {
         newProject.childTasks.push(currentTask.ID);
 
         renderGrid();
-        mainTaskList.save();
+        saveTaskList();;
         //delete the task and rerender
     })
 

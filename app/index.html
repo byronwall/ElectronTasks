@@ -10,178 +10,181 @@
 </head>
 
 <body>
-	<div class="container-fluid">
-		<div class="row col-xs-12">
-			<div class="btn-group">
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Task List
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu">
-					<li class="menu-item dropdown dropdown-submenu">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="loader">Load</a>
-						<ul class="dropdown-menu" id="recentFileGroup">
-							<li><a href="#">No recent documents.</a></li>
-						</ul>
-					</li>
-					<li class="menu-item" id="saver">
-						<a href="#">save</a>
-					</li>
-					<li class="menu-item" id="newTasklist">
-						<a href="#">new tasklist</a>
-					</li>
-					<li class="menu-item" id="btnClearIsolation">
-						<a href="#">clear isolation</a>
-					</li>
-					<li class="menu-item" id="btnCreateProject">
-						<a href="#">create project</a>
-					</li>
-					<li class="menu-item" id="btnMoveStranded">
-						<a href="#">move stranded</a>
-					</li>
-					<li class="menu-item" id="btnClearLocalStorage">
-						<a href="#">reset localStorage</a>
-					</li>
-					<li class="menu-item" id="btnPrint">
-						<a href="#">print...</a>
-					</li>
-				</ul>
-			</div>
-			<div class="btn-group">
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Google Drive
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu">
-					<li class="menu-item dropdown dropdown-submenu">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="loader">Load</a>
-						<ul class="dropdown-menu" id="driveFileGroup">
-							<li><a href="#">No recent documents.</a></li>
-						</ul>
-					</li>
-					<li class="menu-item" id="btnAuthDrive">
-						<a href="#">auth drive</a>
-					</li>
-					<li class="menu-item" id="btnDriveStore">
-						<a href="#">store file</a>
-					</li>
-				</ul>
-			</div>
-			<div class="btn-group">
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Columns to Show
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" id="columnChooser"> </ul>
-			</div>
-			<div class="btn-group">
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Column Sort
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" id="sortChooser"> </ul>
-			</div>
-			<div class="btn-group" data-toggle="buttons" id="sortDirChooser"></div>
-			<button type="button" class="btn btn-warning" id="btnSortNow">
-				Sort Now
-			</button>
-			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
-							aria-controls="collapseExample">
-				Show settings
-			</button>
-		</div>
-		<div class="row">
-			<div class="col-sm-7">
-				<div class="input-group">
-					<input type="text" class="form-control" id="txtSearch" placeholder="Search for...">
-					<span class="input-group-btn">
-						<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldSearchChildren">
-							+children
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<div class="row col-xs-12">
+					<div class="btn-group">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Task List
+							<span class="caret"></span>
 						</button>
-						<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldSearchParents">
-							+parents
+						<ul class="dropdown-menu">
+							<li class="menu-item dropdown dropdown-submenu">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="loader">Load</a>
+								<ul class="dropdown-menu" id="recentFileGroup">
+									<li><a href="#">No recent documents.</a></li>
+								</ul>
+							</li>
+							<li class="menu-item" id="saver">
+								<a href="#">save</a>
+							</li>
+							<li class="menu-item" id="newTasklist">
+								<a href="#">new tasklist</a>
+							</li>
+							<li class="menu-item" id="btnClearIsolation">
+								<a href="#">clear isolation</a>
+							</li>
+							<li class="menu-item" id="btnCreateProject">
+								<a href="#">create project</a>
+							</li>
+							<li class="menu-item" id="btnMoveStranded">
+								<a href="#">move stranded</a>
+							</li>
+							<li class="menu-item" id="btnClearLocalStorage">
+								<a href="#">reset localStorage</a>
+							</li>
+							<li class="menu-item" id="btnPrint">
+								<a href="#">print...</a>
+							</li>
+						</ul>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Google Drive
+							<span class="caret"></span>
 						</button>
-						<button class="btn btn-default" type="button" id="btnClearSearch">Clear</button>
-					</span>
-				</div>
-			</div>
-			<div class="col-sm-5">
-				<div class="btn-group">
-					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						tags
-						<span class="caret"></span>
+						<ul class="dropdown-menu">
+							<li class="menu-item dropdown dropdown-submenu">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="loader">Load</a>
+								<ul class="dropdown-menu" id="driveFileGroup">
+									<li><a href="#">No recent documents.</a></li>
+								</ul>
+							</li>
+							<li class="menu-item" id="btnAuthDrive">
+								<a href="#">auth drive</a>
+							</li>
+							<li class="menu-item" id="btnDriveStore">
+								<a href="#">store file</a>
+							</li>
+						</ul>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Columns to Show
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" id="columnChooser"> </ul>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Column Sort
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" id="sortChooser"> </ul>
+					</div>
+					<div class="btn-group" data-toggle="buttons" id="sortDirChooser"></div>
+					<button type="button" class="btn btn-warning" id="btnSortNow">
+						Sort Now
 					</button>
-					<ul class="dropdown-menu" id="tagBucket"> </ul>
-				</div>
-				<div class="btn-group">
-					<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						status
-						<span class="caret"></span>
+					<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+									aria-controls="collapseExample">
+						Show settings
 					</button>
-					<ul class="dropdown-menu" id="statusBucket"> </ul>
 				</div>
-				<div class="btn-group">
-					<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						milestones
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" id="milestoneBucket"> </ul>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="btn-group" id="selectionMenu">
-				<button id="btnEditSelection" class="btn">edit</button>
-				<button id="btnCompleteSelection" class="btn">complete</button>
-				<button id="btnDeleteSelection" class="btn">delete</button>
-				<button id="btnMoveSelection" class="btn">move</button>
-				<button id="btnClearSelection" class="btn">clear</button>
-			</div>
-			<div class="modal fade" tabindex="-1" role="dialog" id="modalEdit">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
+				<div class="row">
+					<div class="col-sm-7">
+						<div class="input-group">
+							<input type="text" class="form-control" id="txtSearch" placeholder="Search for...">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldSearchChildren">
+									+children
+								</button>
+								<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldSearchParents">
+									+parents
+								</button>
+								<button class="btn btn-default" type="button" id="btnClearSearch">Clear</button>
+							</span>
+						</div>
+					</div>
+					<div class="col-sm-5">
+						<div class="btn-group">
+							<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								tags
+								<span class="caret"></span>
 							</button>
-							<h4 class="modal-title">Edit the selected tasks</h4>
+							<ul class="dropdown-menu" id="tagBucket"> </ul>
 						</div>
-						<div class="modal-body" id="modalEditBody">
+						<div class="btn-group">
+							<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								status
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" id="statusBucket"> </ul>
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary" id="modalSave">Save changes</button>
+						<div class="btn-group">
+							<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								milestones
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" id="milestoneBucket"> </ul>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="btn-group" id="selectionMenu">
+						<button id="btnEditSelection" class="btn">edit</button>
+						<button id="btnCompleteSelection" class="btn">complete</button>
+						<button id="btnDeleteSelection" class="btn">delete</button>
+						<button id="btnMoveSelection" class="btn">move</button>
+						<button id="btnClearSelection" class="btn">clear</button>
+					</div>
+					<div class="modal fade" tabindex="-1" role="dialog" id="modalEdit">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h4 class="modal-title">Edit the selected tasks</h4>
+								</div>
+								<div class="modal-body" id="modalEditBody">
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									<button type="button" class="btn btn-primary" id="modalSave">Save changes</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="collapse col-xs-12" id="collapseExample">
+						<div class="panel panel-default">
+							<div class="panel-heading">Settings control panel
+								<button class="btn btn-danger btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+												aria-controls="collapseExample">
+									X
+								</button>
+							</div>
+							<div class="panel-body">
+								<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="isSortEnabled">
+									Active Sort?
+								</button>
+								<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldHideRoot">
+									Hide Root?
+								</button>
+								<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="btnShouldShowComplete">
+									Show complete tasks?
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="collapse col-xs-12" id="collapseExample">
-				<div class="panel panel-default">
-					<div class="panel-heading">Settings control panel
-						<button class="btn btn-danger btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
-										aria-controls="collapseExample">
-							X
-						</button>
-					</div>
-					<div class="panel-body">
-						<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="isSortEnabled">
-							Active Sort?
-						</button>
-						<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldHideRoot">
-							Hide Root?
-						</button>
-						<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldCompleteChildren">
-							Complete children with parent?
-						</button>
-						<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldShowComplete">
-							Show complete tasks?
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
+	</nav>
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-4">
 				<h1 id="projectTitle">Project Title</h1>
@@ -225,7 +228,7 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 						<h4 class="modal-title">Keyboard Shortcuts</h4>
-						<p>For Macs, CTRL is used unless CMD is explicitly mentioned.  This avoids as many conflicts with native shortcuts as possible.</p>
+						<p>For Macs, CTRL is used unless CMD is explicitly mentioned. This avoids as many conflicts with native shortcuts as possible.</p>
 					</div>
 					<div class="modal-body">
 						<div class="row">
