@@ -46,6 +46,30 @@ function showAlert(message, type = "info") {
     });
 }
 
+function showSavePrompt(yesNoCallback) {
+    $("<div/>").text("Do you want to save first?").dialog({
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+            "Yes": function () {
+                $(this).dialog("close");
+                saveTaskList(true);
+                //need to do some saving
+
+                yesNoCallback();
+            },
+            "No": function () {
+                $(this).dialog("close");
+
+                //continue with whatever
+                yesNoCallback();
+            }
+        }
+    });
+}
+
 function updateSelectionMenu() {
     //determine if anything is selected
     var selected = _.some(mainTaskList.tasks, function (item) {
@@ -247,9 +271,19 @@ function updateRecentFileButton() {
         //set up a click event on the LABEL... does not work for the input
         //TODO swap this for a delegated event
         $(label).on("click", function (ev) {
-            TaskList.load(fileName, loadTaskListCallback);
+            loadTaskListWithPrompt(fileName)
         })
     });
+}
+
+function loadTaskListWithPrompt(fileName, driveId) {
+    if (mainTaskList.path == "") {
+        showSavePrompt(function () {
+            TaskList.load(fileName, loadTaskListCallback, driveId);
+        })
+    } else {
+        TaskList.load(fileName, loadTaskListCallback, driveId);
+    }
 }
 
 function loadTaskListCallback(loadedTaskList) {
@@ -304,7 +338,7 @@ function updateDriveFileButton(fileList) {
             console.log("load the file from drive", driveFile.id)
             localDrive.downloadFile(driveFile, function (path) {
                 console.log("downloaded file to ", path)
-                TaskList.load(path, loadTaskListCallback, driveFile.id);
+                loadTaskListWithPrompt(fileName, driveFile.id);
             })
         })
     });
@@ -462,6 +496,7 @@ function createSortAscDescButtons() {
 
 function setupGrid() {
     grid = new EditableGrid("task-list");
+    grid.enableSort = false;
     grid.modelChanged = function (rowIndex, columnIndex, oldValue, newValue, row) {
         //TODO update this call to handle validation
 
@@ -610,7 +645,7 @@ function setupEvents() {
 
             fileName = fileName[0];
 
-            TaskList.load(fileName, loadTaskListCallback);
+            loadTaskListWithPrompt(fileName)
 
             addFileToRecentFileList(fileName);
         });
