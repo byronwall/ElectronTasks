@@ -331,6 +331,15 @@ class TaskList {
         return JSON.stringify(objectToSave);
     }
 
+    isDefaultList(){
+        console.log(this.tasks)
+        if(Object.keys(this.tasks).length == 2 && this.tasks[3].description == "new task"){
+            return true;
+        }
+
+        return false;
+    }
+
     save(callback) {
         var jsonfile = require("jsonfile");
         var _ = require("lodash");

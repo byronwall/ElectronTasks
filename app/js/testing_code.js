@@ -285,7 +285,7 @@ function updateRecentFileButton() {
 }
 
 function loadTaskListWithPrompt(fileName, driveId) {
-    if (mainTaskList.path == "") {
+    if (mainTaskList.path == "" && !mainTaskList.isDefaultList()) {
         showSavePrompt(function () {
             TaskList.load(fileName, loadTaskListCallback, driveId);
         })
