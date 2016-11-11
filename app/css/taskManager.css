@@ -12,6 +12,7 @@ body {
 
 .testgrid td {
     min-width: 50px;
+    padding: 1px;
 }
 
 .editablegrid-action {
@@ -37,7 +38,7 @@ body {
 
 #gridList table td,
 #gridList table th {
-    border: 1px solid black;
+    border: 1px solid #eee;
 }
 
 #gridList tr:hover td {
@@ -45,7 +46,11 @@ body {
 }
 
 #gridList tr.selected td {
-    background: #D8C549
+    background: #8ABF39
+}
+
+#selectionMenu{
+    z-index: 9999;
 }
 
 

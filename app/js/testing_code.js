@@ -52,6 +52,7 @@ function showSavePrompt(yesNoCallback) {
         height: "auto",
         width: 400,
         modal: true,
+        title: "Save before leaving?",
         buttons: {
             "Yes": function () {
                 $(this).dialog("close");
@@ -106,7 +107,7 @@ function updateBreadcrumbs() {
 
     var clearItem = $("#btnClearIsolation");
     $("#hidden").append(clearItem);
-    
+
     //clear out the tag bucket
     var breadcrumbBucket = $("#breadcumbs")
     breadcrumbBucket.empty();
@@ -1242,13 +1243,32 @@ function setupEvents() {
 
     $("#gridList").on("click", "td", function (ev) {
         if (ev.metaKey || ev.ctrlKey) {
-            console.log("tr click with meta or CTRL")
+            console.log("tr click with meta or CTRL", this, $(this).offset(), ev)
                 //this needs to select the task
             var currentTask = getCurrentTask(this);
             currentTask.isSelected = !currentTask.isSelected;
 
+            //move the selection menu to position of the row
+            $("#selectionMenu").show();
+            $("#selectionMenu").offset({
+                top: ev.clientY,
+                left: ev.clientX + 25
+            });
+
             renderGrid();
         }
+    })
+
+    $("#btnClearSelection").on("click", function () {
+        console.log("clear selection click")
+
+        //clear selection, render grid
+        _.each(mainTaskList.tasks, function (task) {
+            task.isSelected = false;
+        })
+
+        renderGrid();
+        return false;
     })
 
 
@@ -1328,7 +1348,7 @@ function setupEvents() {
         }
 
         //check if the isolated task is the removed task
-        if(mainTaskList.idForIsolatedTask == currentID){
+        if (mainTaskList.idForIsolatedTask == currentID) {
             mainTaskList.idForIsolatedTask = parentID;
         }
 

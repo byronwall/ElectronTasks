@@ -129,33 +129,6 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="btn-group" id="selectionMenu">
-						<button id="btnEditSelection" class="btn">edit</button>
-						<button id="btnCompleteSelection" class="btn">complete</button>
-						<button id="btnDeleteSelection" class="btn">delete</button>
-						<button id="btnMoveSelection" class="btn">move</button>
-						<button id="btnClearSelection" class="btn">clear</button>
-					</div>
-					<div class="modal fade" tabindex="-1" role="dialog" id="modalEdit">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-									<h4 class="modal-title">Edit the selected tasks</h4>
-								</div>
-								<div class="modal-body" id="modalEditBody">
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-									<button type="button" class="btn btn-primary" id="modalSave">Save changes</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
 					<div class="collapse col-xs-12" id="collapseExample">
 						<div class="panel panel-default">
 							<div class="panel-heading">Settings control panel
@@ -196,30 +169,34 @@
 			</ol>
 		</div>
 		<div id="gridList"></div>
-		<div>
-			<div class="modal fade" tabindex="-1" role="dialog" id="modalComments">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-							<h4 class="modal-title">Comments for task</h4>
-						</div>
-						<div class="modal-body" id="modalEditBody">
-							<textarea class="form-control col-xs-12" id="modalCommentsText"></textarea>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary" id="modalSaveComments">Save changes</button>
-						</div>
+	</div>
+	<div id="modals">
+		<div style="display:none" id="hidden"></div>
+		<div class="btn-group col-sm-12" id="selectionMenu">
+			<button id="btnEditSelection" class="btn btn-default">edit</button>
+			<button id="btnCompleteSelection" class="btn btn-default disabled">complete</button>
+			<button id="btnDeleteSelection" class="btn btn-default disabled">delete</button>
+			<button id="btnMoveSelection" class="btn btn-default disabled">move</button>
+			<button id="btnClearSelection" class="btn btn-default">clear</button>
+		</div>
+		<div class="modal fade" tabindex="-1" role="dialog" id="modalEdit">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">Edit the selected tasks</h4>
+					</div>
+					<div class="modal-body" id="modalEditBody">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" id="modalSave">Save changes</button>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div id="modals">
-		<div style="display:none" id="hidden"></div>
 		<div class="modal fade" tabindex="-1" role="dialog" id="modalKeyboard">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -268,8 +245,28 @@
 				</div>
 			</div>
 		</div>
+		<div class="modal fade" tabindex="-1" role="dialog" id="modalComments">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title">Comments for task</h4>
+					</div>
+					<div class="modal-body" id="modalEditBody">
+						<textarea class="form-control col-xs-12" id="modalCommentsText"></textarea>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" id="modalSaveComments">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<script src="js/testing_code.js" type="text/javascript"></script>
+	<script src="../node_modules/bootstrap/dist/js/bootstrap.js" type="text/javascript"></script>
 	<script src="../lib/jquery-ui/jquery-ui.js" type="text/javascript"></script>
 	<script src="../node_modules/mousetrap/mousetrap.js" type="text/javascript"></script>
 	<script src="../lib/editablegrid/editablegrid.js" type="text/javascript"></script>
@@ -277,7 +274,6 @@
 	<script src="../lib/editablegrid/editablegrid_renderers.js" type="text/javascript"></script>
 	<script src="../lib/editablegrid/editablegrid_editors.js" type="text/javascript"></script>
 	<script src="../lib/editablegrid/editablegrid_utils.js" type="text/javascript"></script>
-	<script src="../node_modules/bootstrap/dist/js/bootstrap.js" type="text/javascript"></script>
 	<script src="../lib/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 </body>
 
