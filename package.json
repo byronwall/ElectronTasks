@@ -4,7 +4,8 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . --out=./build --icon=icon.icns --overwrite"
+    "build-win": "electron-packager . --platform=win32 --arch=x64,ia32 --out=./build --icon=icon.ico --overwrite",
+    "build-mac": "electron-packager . --platform=darwin --arch=x64,ia32 --out=./build --icon=icon.icns --overwrite"
   },
   "devDependencies": {
     "electron-packager": "^8.2.0",
