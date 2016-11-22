@@ -1369,9 +1369,15 @@ function setupEvents() {
         //need to show the comment modal, use those events for what's next
         function showCommentModal() {
             var modalComments = $("#modalComments");
+
+            modalComments.on('shown.bs.modal', function () {
+                $("#modalCommentsText").val(currentTask.comments).focus();
+            })
+
+            //TODO add the event to catch the CMD+ENTER here
+
             modalComments.modal();
 
-            $("#modalCommentsText").val(currentTask.comments);
             //wire up the save button
             $("#modalSaveComments").off().on("click", function () {
                 //save the task data

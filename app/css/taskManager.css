@@ -31,6 +31,10 @@ body {
     background-color: #d00;
 }
 
+#gridList {
+    padding-bottom: 100px;
+}
+
 #gridList table {
     border-collapse: collapse;
     border: 1px solid black;
