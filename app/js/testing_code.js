@@ -1369,9 +1369,10 @@ function setupEvents() {
         //need to show the comment modal, use those events for what's next
         function showCommentModal() {
             var modalComments = $("#modalComments");
+            $("#modalCommentsText").val(currentTask.comments)
 
             modalComments.on('shown.bs.modal', function () {
-                $("#modalCommentsText").val(currentTask.comments).focus();
+                $("#modalCommentsText").focus();
             })
 
             //TODO add the event to catch the CMD+ENTER here
