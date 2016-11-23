@@ -212,6 +212,7 @@ function updateSearch(searchTerm = "", shouldFocus = true) {
 
 function updateTagBucket() {
     var tags = mainTaskList.getAllTags().sort();
+    tags.push("<none>")
 
     //clear out the tag bucket
     var tagBucket = $("#tagBucket")
@@ -226,6 +227,7 @@ function updateTagBucket() {
 
 function updateStatusBucket() {
     var tags = mainTaskList.getAllStatus().sort();
+    tags.push("<none>")
 
     //clear out the tag bucket
     var tagBucket = $("#statusBucket")
@@ -240,6 +242,7 @@ function updateStatusBucket() {
 
 function updateMilestoneBucket() {
     var tags = mainTaskList.getMilestones().sort();
+    tags.push("<none>")
 
     //TODO update variable names
 

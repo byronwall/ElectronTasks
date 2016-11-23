@@ -74,9 +74,18 @@ module.exports = class Task {
                 //for each key need to check if that value is equal to value
                 if (task[key] != null && typeof task[key] === "object") {
                     //this is an array
+                    if (searchTerm[key] == "<none>"){
+                        //do a test for the none case
+                        return task[key].length == 0;
+                    }
+
                     return task[key].indexOf(searchTerm[key]) > -1;
                 } else {
                     //this is a bare field
+                    if (searchTerm[key] == "<none>"){
+                        //do a test for the none case
+                        return task[key] == "" || task[key] == null;
+                    }
                     return task[key] == searchTerm[key];
                 }
             });
