@@ -1078,13 +1078,19 @@ function setupEvents() {
         }
     });
 
+    //this event is being captured (not bubbled) with the true down below
     $("body").get(0).addEventListener("keydown", function (ev) {
 
         //ensures that the element is within the table
         //TODO make this more specific
         if (!$(ev.target).parents("tr").length) return;
 
-        if (ev.key === "Enter") {
+        var input = ev.target;
+
+        //check for autocompleting ensures that a new task is not created becasue of selecting a choice there
+        //this was creating a problem where hitting TAB again would create new task
+        var isAutoCompleting = $(input).data("autocompleting");
+        if (ev.key === "Enter" && !isAutoCompleting) {
 
             var currentTask = getCurrentTask(ev.target);
             var currentID = currentTask.ID;
