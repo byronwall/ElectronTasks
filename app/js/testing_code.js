@@ -519,7 +519,7 @@ function setupGrid() {
         //need to add a check here for hash tags
         if (columnName === "description" && currentTask.description == "new task") {
             //reset the fields before setting them again
-            
+
             console.log("task was deleted")
             currentTask.removeTask();
 
@@ -1136,7 +1136,12 @@ function setupEvents() {
 
     $("#btnClearIsolation").on("click", function (ev) {
         //this will remove the isolation
-        mainTaskList.idForIsolatedTask = null;
+        var projects = mainTaskList.getProjectsInList();
+        var projectCount = projects.length;
+
+        //if there is only one project, isolate it
+        mainTaskList.idForIsolatedTask = (projectCount == 1) ? projects[0].ID : null;
+
         renderGrid();
     });
 
