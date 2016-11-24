@@ -51,6 +51,8 @@ class TaskList {
             })
         })
 
+        tags.sort();
+
         return tags;
     }
 
@@ -61,6 +63,8 @@ class TaskList {
                 status.push(task.status);
             }
         })
+
+        status.sort();
 
         return status;
     }
@@ -82,6 +86,8 @@ class TaskList {
                 projects.push(task);
             }
         })
+
+        projects.sort();
 
         return projects;
     }
