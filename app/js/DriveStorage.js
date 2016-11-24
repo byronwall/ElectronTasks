@@ -16,20 +16,19 @@ function DriveStorage() {
 // Load client secrets from a local file.
 DriveStorage.prototype.startAuth = function (callback) {
     var self = this;
-    fs.readFile('client_secret.json', function processClientSecrets(err, content) {
-        if (err) {
-            console.log('Error loading client secret file: ' + err);
-            return;
-        }
-        // Authorize a client with the loaded credentials, then call the
-        // Drive API.
-        self.authorize(JSON.parse(content), function (oauth2Client) {
-            console.log("authorization was good!", oauth2Client);
 
-            self.auth = oauth2Client;
-            callback();
-        });
+    //pull the secret in instead of reading the file
+    var content = require("./client_secret.json");
+
+    // Authorize a client with the loaded credentials, then call the
+    // Drive API.
+    self.authorize(content, function (oauth2Client) {
+        console.log("authorization was good!", oauth2Client);
+
+        self.auth = oauth2Client;
+        callback();
     });
+
 }
 
 /**
@@ -93,7 +92,9 @@ DriveStorage.prototype.getNewToken = function (oauth2Client, callback) {
             }
             oauth2Client.credentials = token;
             self.storeToken(token);
-            server.close(function () { console.log("server closed") });
+            server.close(function () {
+                console.log("server closed")
+            });
 
             //TODO clean this up
             callback(oauth2Client);
@@ -131,7 +132,10 @@ DriveStorage.prototype.storeToken = function (token) {
  */
 DriveStorage.prototype.listFiles = function (callback) {
     var self = this;
-    var service = google.drive({ version: 'v3', auth: self.auth });
+    var service = google.drive({
+        version: 'v3',
+        auth: self.auth
+    });
     service.files.list({
         pageSize: 10,
         q: "mimeType='text/tasklist'",
@@ -155,7 +159,10 @@ DriveStorage.prototype.listFiles = function (callback) {
 DriveStorage.prototype.storeFile = function (contents, fileName, fileId, callback) {
     var self = this;
 
-    var drive = google.drive({ version: 'v3', auth: self.auth });
+    var drive = google.drive({
+        version: 'v3',
+        auth: self.auth
+    });
 
     fileName = fileName + ".json";
 
@@ -177,7 +184,7 @@ DriveStorage.prototype.storeFile = function (contents, fileName, fileId, callbac
             } else {
                 console.log('File Id:', file.id);
                 callback(file.id)
-                //TODO need to return this back to the TaskList
+                    //TODO need to return this back to the TaskList
             }
         });
     } else {
@@ -213,13 +220,16 @@ DriveStorage.prototype.downloadFile = function (file, callback) {
 
     console.log("try to download", fileId)
 
-    var drive = google.drive({ version: 'v3', auth: self.auth });
+    var drive = google.drive({
+        version: 'v3',
+        auth: self.auth
+    });
 
     var dest = fs.createWriteStream(path);
     drive.files.get({
-        fileId: fileId,
-        alt: "media"
-    })
+            fileId: fileId,
+            alt: "media"
+        })
         .on('end', function () {
             console.log('Done');
             callback(path);
