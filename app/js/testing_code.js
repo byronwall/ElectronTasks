@@ -508,6 +508,25 @@ function createSortAscDescButtons() {
 function setupGrid() {
     grid = new EditableGrid("task-list");
     grid.enableSort = false;
+    //TODO move these functions to their own home
+    grid.editorBlurred = function (rowIndex, columnIndex, element) {
+        //get the task for the element
+        //convert to rowId to get the correct ID in the task list
+        var rowId = grid.getRowId(rowIndex);
+        var columnName = this.getColumnName(columnIndex);
+        var currentTask = mainTaskList.tasks[rowId];
+
+        //need to add a check here for hash tags
+        if (columnName === "description" && currentTask.description == "new task") {
+            //reset the fields before setting them again
+            
+            console.log("task was deleted")
+            currentTask.removeTask();
+
+            saveTaskList(false);
+            renderGrid();
+        }
+    }
     grid.modelChanged = function (rowIndex, columnIndex, oldValue, newValue, row) {
         //TODO update this call to handle validation
 
@@ -1476,8 +1495,15 @@ function setupEvents() {
         });
     });
 
-    $("#gridList").on("DOMNodeRemoved", "input", function (ev) {
+    $("body").on("DOMNodeRemoved", "input", function (ev) {
         //this will remove the popup when the input is removed.
+
+        var input = ev.target;
+
+        if ($(input).parents("#gridList").length > 0) {
+            console.log("inside the gridlist")
+        }
+
         $(this).textcomplete("destroy");
     });
 }
