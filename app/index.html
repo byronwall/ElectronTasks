@@ -7,87 +7,93 @@
 	<link rel="stylesheet" href="css/taskManager.css">
 	<link href="../lib/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
 	<link href="../lib/jquery-ui/jquery-ui.css" rel="stylesheet">
+	<title>Project Manager</title>
 </head>
 
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<div class="row col-xs-12">
-					<div class="btn-group">
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Task List
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu">
-							<li class="menu-item dropdown dropdown-submenu">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="loader">Load</a>
-								<ul class="dropdown-menu" id="recentFileGroup">
-									<li><a href="#">No recent documents.</a></li>
-								</ul>
-							</li>
-							<li class="menu-item" id="saver">
-								<a href="#">save</a>
-							</li>
-							<li class="menu-item" id="newTasklist">
-								<a href="#">new tasklist</a>
-							</li>
-							<li class="menu-item" id="btnCreateProject">
-								<a href="#">create project</a>
-							</li>
-							<li class="menu-item" id="btnMoveStranded">
-								<a href="#">move stranded</a>
-							</li>
-							<li class="menu-item" id="btnClearLocalStorage">
-								<a href="#">reset localStorage</a>
-							</li>
-							<li class="menu-item" id="btnPrint">
-								<a href="#">print...</a>
-							</li>
-						</ul>
+			<div class="navbar-header pull-left" id="bs-example-navbar-collapse-1">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="btn-group">
+							<a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Task List
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li class="menu-item dropdown dropdown-submenu">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="loader">Load</a>
+									<ul class="dropdown-menu" id="recentFileGroup">
+										<li>
+											<a href="#">No recent documents.</a>
+										</li>
+									</ul>
+								</li>
+								<li class="menu-item" id="saver">
+									<a href="#">save</a>
+								</li>
+								<li class="menu-item" id="newTasklist">
+									<a href="#">new tasklist</a>
+								</li>
+								<li class="menu-item" id="btnCreateProject">
+									<a href="#">create project</a>
+								</li>
+								<li class="menu-item" id="btnMoveStranded">
+									<a href="#">move stranded</a>
+								</li>
+								<li class="menu-item" id="btnClearLocalStorage">
+									<a href="#">reset localStorage</a>
+								</li>
+								<li class="menu-item" id="btnPrint">
+									<a href="#">print...</a>
+								</li>
+							</ul>
+						</div>
+						<div class="btn-group">
+							<a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Google Drive
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li class="menu-item dropdown dropdown-submenu">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="loader">Load</a>
+									<ul class="dropdown-menu" id="driveFileGroup">
+										<li>
+											<a href="#">No recent documents.</a>
+										</li>
+									</ul>
+								</li>
+								<li class="menu-item" id="btnAuthDrive">
+									<a href="#">auth drive</a>
+								</li>
+								<li class="menu-item" id="btnDriveStore">
+									<a href="#">store file</a>
+								</li>
+							</ul>
+						</div>
+						<div class="btn-group">
+							<a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Columns to Show
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" id="columnChooser"> </ul>
+						</div>
+						<div class="btn-group">
+							<a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Column Sort
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" id="sortChooser"> </ul>
+						</div>
+						<div class="btn-group" data-toggle="buttons" id="sortDirChooser"></div>
+						<a type="button" class="btn btn-warning" id="btnSortNow">
+							Sort Now
+						</a>
+						<a class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+							Show settings
+						</a>
 					</div>
-					<div class="btn-group">
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Google Drive
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu">
-							<li class="menu-item dropdown dropdown-submenu">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="loader">Load</a>
-								<ul class="dropdown-menu" id="driveFileGroup">
-									<li><a href="#">No recent documents.</a></li>
-								</ul>
-							</li>
-							<li class="menu-item" id="btnAuthDrive">
-								<a href="#">auth drive</a>
-							</li>
-							<li class="menu-item" id="btnDriveStore">
-								<a href="#">store file</a>
-							</li>
-						</ul>
-					</div>
-					<div class="btn-group">
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Columns to Show
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" id="columnChooser"> </ul>
-					</div>
-					<div class="btn-group">
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Column Sort
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" id="sortChooser"> </ul>
-					</div>
-					<div class="btn-group" data-toggle="buttons" id="sortDirChooser"></div>
-					<button type="button" class="btn btn-warning" id="btnSortNow">
-						Sort Now
-					</button>
-					<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
-									aria-controls="collapseExample">
-						Show settings
-					</button>
 				</div>
 				<div class="row">
 					<div class="col-sm-7">
@@ -165,7 +171,9 @@
 		</div>
 		<div class="row">
 			<ol class="breadcrumb" id="breadcumbs">
-				<li class="breadcrumb-item" id="btnClearIsolation"> <a href="#">(clear isolation)</a> </li>
+				<li class="breadcrumb-item" id="btnClearIsolation">
+					<a href="#">(clear isolation)</a>
+				</li>
 			</ol>
 		</div>
 		<div id="gridList"></div>
