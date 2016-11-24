@@ -508,6 +508,25 @@ function createSortAscDescButtons() {
 function setupGrid() {
     grid = new EditableGrid("task-list");
     grid.enableSort = false;
+    //TODO move these functions to their own home
+    grid.editorBlurred = function (rowIndex, columnIndex, element) {
+        //get the task for the element
+        //convert to rowId to get the correct ID in the task list
+        var rowId = grid.getRowId(rowIndex);
+        var columnName = this.getColumnName(columnIndex);
+        var currentTask = mainTaskList.tasks[rowId];
+
+        //need to add a check here for hash tags
+        if (columnName === "description" && currentTask.description == "new task") {
+            //reset the fields before setting them again
+            
+            console.log("task was deleted")
+            currentTask.removeTask();
+
+            saveTaskList(false);
+            renderGrid();
+        }
+    }
     grid.modelChanged = function (rowIndex, columnIndex, oldValue, newValue, row) {
         //TODO update this call to handle validation
 
@@ -1481,51 +1500,11 @@ function setupEvents() {
 
         var input = ev.target;
 
-        if($(input).parents("#gridList").length > 0){
+        if ($(input).parents("#gridList").length > 0) {
             console.log("inside the gridlist")
         }
 
         $(this).textcomplete("destroy");
-
-        //do a check here to see if the removed NODE was a task and if that task should be deleted
-        console.log(ev.target)
-
-        
-
-        var task = getCurrentTask(input)
-        console.log(task);
-        
-        if(task.description == "new task"){
-            console.log("want to delete")
-            return;
-            mainTaskList.removeTask(task.ID)
-            applyEdit(input);
-            renderGrid();
-        }
-    });
-
-    $("body").on("focusout", "input", function (ev) {
-        //this will remove the popup when the input is removed.
-        var input = ev.target;
-
-        console.log("body blur", ev.target)
-
-        if($(input).parents("#gridList").length > 0){
-            console.log("inside the gridlist")
-        }
-
-        //do a check here to see if the removed NODE was a task and if that task should be deleted
-
-        var task = getCurrentTask(input)
-        console.log(task);
-        
-        if(task.description == "new task"){
-            console.log("want to delete")
-            return;
-            mainTaskList.removeTask(task.ID)
-            applyEdit(input);
-            renderGrid();
-        }
     });
 }
 
