@@ -1476,9 +1476,56 @@ function setupEvents() {
         });
     });
 
-    $("#gridList").on("DOMNodeRemoved", "input", function (ev) {
+    $("body").on("DOMNodeRemoved", "input", function (ev) {
         //this will remove the popup when the input is removed.
+
+        var input = ev.target;
+
+        if($(input).parents("#gridList").length > 0){
+            console.log("inside the gridlist")
+        }
+
         $(this).textcomplete("destroy");
+
+        //do a check here to see if the removed NODE was a task and if that task should be deleted
+        console.log(ev.target)
+
+        
+
+        var task = getCurrentTask(input)
+        console.log(task);
+        
+        if(task.description == "new task"){
+            console.log("want to delete")
+            return;
+            mainTaskList.removeTask(task.ID)
+            applyEdit(input);
+            renderGrid();
+        }
+    });
+
+    $("body").on("focusout", "input", function (ev) {
+        //this will remove the popup when the input is removed.
+        var input = ev.target;
+
+        console.log("body blur", ev.target)
+
+        if($(input).parents("#gridList").length > 0){
+            console.log("inside the gridlist")
+        }
+
+        //do a check here to see if the removed NODE was a task and if that task should be deleted
+
+        var task = getCurrentTask(input)
+        console.log(task);
+        
+        if(task.description == "new task"){
+            console.log("want to delete")
+            return;
+            mainTaskList.removeTask(task.ID)
+            applyEdit(input);
+            renderGrid();
+        }
     });
 }
 
