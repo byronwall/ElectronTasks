@@ -152,6 +152,8 @@ function updateProjectBucket() {
         projectBucket.show();
     }
 
+    $(".gridMove").empty();
+
     //add the buttons to move the task
     _.each(projects, function (project) {
         var label = $("<li/>").attr("data-project", project.ID);
@@ -163,7 +165,7 @@ function updateProjectBucket() {
         }
 
         //add the mover to all buttons
-        $(".gridMove").empty().append(label);
+        $(".gridMove").append(label);
     })
 
     var dummyTask = new Task(null, false);
