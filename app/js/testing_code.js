@@ -509,6 +509,27 @@ function setupGrid() {
     grid = new EditableGrid("task-list");
     grid.enableSort = false;
     //TODO move these functions to their own home
+    //TODO combine these functions into a common thing, they are the same currently
+    grid.editorCancelled = function (rowIndex, columnIndex, element) {
+        //get the task for the element
+        //convert to rowId to get the correct ID in the task list
+        console.log("editor cancelled, will delete task if new")
+        var rowId = grid.getRowId(rowIndex);
+        var columnName = this.getColumnName(columnIndex);
+        var currentTask = mainTaskList.tasks[rowId];
+
+        //need to add a check here for hash tags
+        if (columnName === "description" && currentTask.description == "new task") {
+            //reset the fields before setting them again
+
+            console.log("task was deleted")
+            currentTask.removeTask();
+
+            saveTaskList(false);
+            renderGrid();
+        }
+    }
+
     grid.editorBlurred = function (rowIndex, columnIndex, element) {
         //get the task for the element
         //convert to rowId to get the correct ID in the task list
@@ -1088,7 +1109,7 @@ function setupEvents() {
 
     //this sets up an event to capture the keydown (before anything else runs)
     $("body").get(0).addEventListener("keydown", function (ev) {
-        if ((ev.key === "Escape" || ev.key === "Enter") && shouldDeleteTaskWhenDoneEditing) {
+        if (ev.key === "Enter" && shouldDeleteTaskWhenDoneEditing) {
             console.log("bubble keydown to delete", ev.key)
             taskToDelete.removeTask();
             renderGrid();
@@ -1115,20 +1136,12 @@ function setupEvents() {
             var currentID = currentTask.ID;
 
             if (currentTask.isFirstEdit) {
-                console.log("Should add task set")
-                shouldAddTaskWhenDoneEditing = true;
-            }
-        }
-
-        if (ev.key === "Escape" || ev.key === "Enter") {
-            //this code assumes that the keypress was an input in the table;
-            var currentTask = getCurrentTask(ev.target);
-            var currentID = currentTask.ID;
-
-            if (currentTask.isFirstEdit && $(ev.target).val() == "new task") {
-                console.log("Should delete set");
-                shouldDeleteTaskWhenDoneEditing = true;
-                taskToDelete = currentTask;
+                if ($(input).val() == "new task") {
+                    shouldDeleteTaskWhenDoneEditing = true;
+                    taskToDelete = currentTask;
+                } else {
+                    shouldAddTaskWhenDoneEditing = true;
+                }
             }
         }
 
