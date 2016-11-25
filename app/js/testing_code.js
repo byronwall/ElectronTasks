@@ -189,7 +189,7 @@ function updateProjectBucket() {
     })
 }
 
-function updateSearch(searchTerm = "", shouldFocus = true) {
+function updateSearch(searchTerm = "", shouldFocus = true, shouldRender = true) {
 
     //when called on a "bare" event handler, the parameter coming in is an event object
     if (typeof searchTerm != "string") {
@@ -503,6 +503,28 @@ function createSortAscDescButtons() {
             sortNow();
         })
     });
+}
+
+function clearIsolation(shouldRender = true) {
+    var projects = mainTaskList.getProjectsInList();
+    var projectCount = projects.length;
+
+    //if there is only one project, isolate it
+    mainTaskList.idForIsolatedTask = (projectCount == 1) ? projects[0].ID : null;
+
+    if (shouldRender) {
+        renderGrid();
+    }
+}
+
+//clear selection, render grid
+function clearSelection(shouldRender = true) {
+    _.each(mainTaskList.tasks, function (task) {
+        task.isSelected = false;
+    })
+    if (shouldRender) {
+        renderGrid();
+    }
 }
 
 function setupGrid() {
@@ -940,11 +962,23 @@ function setupEvents() {
         }
     });
 
-    Mousetrap.bind("escape escape", function (e) {
+    Mousetrap.bind("escape escape escape", function (e) {
         if (!_.includes(KEYBOARD_CANCEL, e.target.tagName)) {
-            console.log("escape hit twice");
+            console.log("escape hit x3");
 
+            //clear search
+            //TODO make this not do a render
             updateSearch("");
+
+            //clear isolation
+            clearIsolation(false);
+
+            //clear selection
+            clearSelection(false);
+
+            //this is needed since it is avoided in the other calls
+            renderGrid();
+
             return false;
         }
     });
@@ -1149,13 +1183,7 @@ function setupEvents() {
 
     $("#btnClearIsolation").on("click", function (ev) {
         //this will remove the isolation
-        var projects = mainTaskList.getProjectsInList();
-        var projectCount = projects.length;
-
-        //if there is only one project, isolate it
-        mainTaskList.idForIsolatedTask = (projectCount == 1) ? projects[0].ID : null;
-
-        renderGrid();
+        clearIsolation()
     });
 
     $("#btnCreateProject").on("click", createNewProject);
@@ -1307,13 +1335,7 @@ function setupEvents() {
 
     $("#btnClearSelection").on("click", function () {
         console.log("clear selection click")
-
-        //clear selection, render grid
-        _.each(mainTaskList.tasks, function (task) {
-            task.isSelected = false;
-        })
-
-        renderGrid();
+        clearSelection();
         return false;
     })
 
