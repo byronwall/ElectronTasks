@@ -1443,18 +1443,27 @@ function setupEvents() {
                 $("#modalCommentsText").focus();
             })
 
-            //TODO add the event to catch the CMD+ENTER here
-
             modalComments.modal();
-
-            //wire up the save button
-            $("#modalSaveComments").off().on("click", function () {
-                //save the task data
+        
+            function saveModalComments() {
                 var value = $("#modalCommentsText").val();
                 currentTask.comments = value;
                 modalComments.modal("hide");
 
                 renderGrid();
+                saveTaskList(false);
+            }
+
+            $("#modalCommentsText").off().on("keydown", function (ev) {
+                if (ev.key == "Enter" && (ev.metaKey || ev.ctrlKey)) {
+                    saveModalComments();
+                }
+            })
+
+            //wire up the save button
+            $("#modalSaveComments").off().on("click", function () {
+                //save the task data
+                saveModalComments();
             })
         }
 
@@ -1487,7 +1496,7 @@ function setupEvents() {
     })
 
     //TODO pull this put into its own funcion?
-    require("jquery-textcomplete")
+    require("jquery-textcomplete");
     $("#gridList").on("DOMNodeInserted", "input", function (ev) {
         //TODO streamline this code since it's all the same
         $(this).textcomplete([{
