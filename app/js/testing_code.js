@@ -1502,7 +1502,7 @@ function setupEvents() {
     $("#gridList").on("DOMNodeInserted", "input", function (ev) {
         //TODO streamline this code since it's all the same
         $(this).textcomplete([{
-            match: /(\B#)(\w{0,})$/,
+            match: /(^|\s)#(\w{0,})$/,
             search: function (term, callback) {
                 var answer = _.filter(mainTaskList.getAllTags(), function (item) {
                     return item.indexOf(term) >= 0;
@@ -1511,10 +1511,10 @@ function setupEvents() {
                 callback(answer);
             },
             replace: function (word) {
-                return "#" + word + ' ';
+                return " #" + word + ' ';
             }
         }, {
-            match: /(\B@)(\w{0,})$/,
+            match: /(^|\s)@(\w{0,})$/,
             search: function (term, callback) {
                 var answer = _.filter(mainTaskList.getAllStatus(), function (item) {
                     return item.indexOf(term) >= 0;
@@ -1522,10 +1522,10 @@ function setupEvents() {
                 callback(answer);
             },
             replace: function (word) {
-                return "@" + word + ' ';
+                return " @" + word + ' ';
             }
         }, {
-            match: /(\B!)(\w{0,})$/,
+            match: /(^|\s)!(\w{0,})$/,
             search: function (term, callback) {
                 var answer = _.filter(mainTaskList.getMilestones(), function (item) {
                     return item.indexOf(term) >= 0;
@@ -1533,7 +1533,7 @@ function setupEvents() {
                 callback(answer);
             },
             replace: function (word) {
-                return "!" + word + ' ';
+                return " !" + word + ' ';
             }
         }]).on({
             //these are needed in order to let the editablegrid now what is going on (it will skip events)
