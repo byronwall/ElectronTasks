@@ -337,10 +337,15 @@ class TaskList {
         return JSON.stringify(objectToSave);
     }
 
-    isDefaultList(){
+    isDefaultList() {
         console.log(this.tasks)
-        if(Object.keys(this.tasks).length == 2 && this.tasks[3].description == "new task"){
-            return true;
+        if (this.tasks[2].description == "new project") {
+            if (Object.keys(this.tasks).length == 2 && this.tasks[3].description == "new task") {
+                return true;
+            }
+            if (Object.keys(this.tasks).length == 1) {
+                return true;
+            }
         }
 
         return false;
