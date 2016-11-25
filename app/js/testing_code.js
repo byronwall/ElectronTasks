@@ -1378,7 +1378,21 @@ function setupEvents() {
         currentTask.completeTask();
 
         renderGrid();
-        saveTaskList();;
+        saveTaskList();
+    });
+
+    //this needs to wire up some button click events
+    $("#gridList").on("click", ".btnIsolate", function (ev) {
+        console.log("task isolate button hit");
+
+        var currentTask = getCurrentTask(ev.target);
+        var currentID = currentTask.ID;
+
+        //complete the task and update the display
+        mainTaskList.idForIsolatedTask = currentID;
+
+        renderGrid();
+        saveTaskList();
     });
 
     $("#gridList").on("click", ".btnDelete", function (ev) {
