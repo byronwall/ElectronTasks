@@ -1327,8 +1327,8 @@ function setupEvents() {
             //move the selection menu to position of the row
             $("#selectionMenu").show();
             $("#selectionMenu").offset({
-                top: ev.clientY,
-                left: ev.clientX + 25
+                top: ev.pageY,
+                left: ev.pageX + 25
             });
 
             renderGrid();
