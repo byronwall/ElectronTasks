@@ -1233,7 +1233,7 @@ function setupEvents() {
 
         //this is a list of tasks, now need to compare their values
         //start with just desc
-        var fields = ["description", "duration", "priority"];
+        var fields = ["description", "duration", "priority", "status", "milestone", "tags"];
         var tasks = mainTaskList.tasks;
 
         var modalBody = $("#modalEditBody");
@@ -1287,7 +1287,7 @@ function setupEvents() {
                         //get the new value
                         //set that value for each task in the selector array
                         _.each(selected, function (task) {
-                            task[obj.input.data("field")] = obj.input.val();
+                            task.setDataValue(obj.input.data("field"), obj.input.val());
                         })
                     }
                 })

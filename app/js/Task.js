@@ -74,7 +74,7 @@ module.exports = class Task {
                 //for each key need to check if that value is equal to value
                 if (task[key] != null && typeof task[key] === "object") {
                     //this is an array
-                    if (searchTerm[key] == "<none>"){
+                    if (searchTerm[key] == "<none>") {
                         //do a test for the none case
                         return task[key].length == 0;
                     }
@@ -82,7 +82,7 @@ module.exports = class Task {
                     return task[key].indexOf(searchTerm[key]) > -1;
                 } else {
                     //this is a bare field
-                    if (searchTerm[key] == "<none>"){
+                    if (searchTerm[key] == "<none>") {
                         //do a test for the none case
                         return task[key] == "" || task[key] == null;
                     }
@@ -249,6 +249,28 @@ module.exports = class Task {
             "isComplete": this.isComplete,
             "isProjectRoot": this.isProjectRoot,
             "tags": this.tags
+        }
+    }
+    setDataValue(field, value) {
+        console.log("task set info", typeof this[field]);
+
+        if (typeof this[field] === "object") {
+
+            if (value == "") {
+                this[field] = [];
+            } else {
+                //assume this is a CSV string and split
+                var parts = value.split(",");
+                parts = _.map(parts, function (part) {
+                    return part.trim()
+                });
+
+                console.log("will set obj", field, parts);
+                this[field] = parts;
+            }
+        } else {
+            console.log("will set", field, value)
+            this[field] = value;
         }
     }
 }
