@@ -964,9 +964,9 @@ function setupEvents() {
         }
     });
 
-    Mousetrap.bind("escape escape escape", function (e) {
+    Mousetrap.bind("escape escape", function (e) {
         if (!_.includes(KEYBOARD_CANCEL, e.target.tagName)) {
-            console.log("escape hit x3");
+            console.log("escape hit x2");
 
             //clear search
             //TODO make this not do a render
@@ -1344,7 +1344,7 @@ function setupEvents() {
 
 
     $("body").on("click", ".label-search", function (ev) {
-        console.log("label-search click", this);
+        console.log("label-search click", this, "shift", ev.shiftKey);
 
         //get the target
         var target = this;
@@ -1362,9 +1362,19 @@ function setupEvents() {
         console.log("type", type);
         //get its dataset.type
 
-        updateSearch(type + ":" + $(target).text(), false)
+        var searchTerm = type + ":" + $(target).text();
+
+        if(ev.shiftKey){
+            searchTerm = $("#txtSearch").val() + " " + searchTerm;
+        }
+
+        updateSearch(searchTerm, false)
+
+        //close any dropdown menus used
+        $('.btn-group.open .dropdown-toggle').dropdown('toggle');
 
         //update the search field
+        return false;
     })
 
     //this needs to wire up some button click events
