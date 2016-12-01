@@ -747,6 +747,19 @@ function setupEvents() {
         return false;
     });
 
+    $("#btnShouldShowTagsForComplete").on("click", function (ev) {
+        $(ev.target).toggleClass("active")
+
+        var shouldShowComplete = $("#btnShouldShowTagsForComplete").hasClass("active");
+
+        mainTaskList.shouldExcludeCompleteTasksForBuckets = !shouldShowComplete;
+        renderGrid();
+
+        return false;
+    });
+
+    
+
     $("#txtSearch").on("keyup", function (ev) {
         //this needs to do the active search
         //set a filter

@@ -1,6 +1,10 @@
+var self;
+
 class TaskList {
 
     constructor() {
+        self = this;
+
         this.tasks = {};
         this.sortField = "priority";
         this.sortDir = "desc";
@@ -20,6 +24,7 @@ class TaskList {
 
         this.idForIsolatedTask = undefined;
         this.hideRootIfIsolated = false;
+        this.shouldExcludeCompleteTasksForBuckets = true;
 
         this.shouldHideComplete = true;
 
@@ -43,7 +48,11 @@ class TaskList {
 
     getAllTags() {
         var tags = [];
+
         _.each(this.tasks, function (item) {
+            if(item.isComplete && self.shouldExcludeCompleteTasksForBuckets){
+                return true;
+            }
             _.each(item.tags, function (tag) {
                 if (tags.indexOf(tag) == -1) {
                     tags.push(tag);
@@ -59,6 +68,9 @@ class TaskList {
     getAllStatus() {
         var status = [];
         _.each(this.tasks, function (task) {
+            if(task.isComplete && self.shouldExcludeCompleteTasksForBuckets){
+                return true;
+            }
             if (status.indexOf(task.status) == -1 && task.status != null) {
                 status.push(task.status);
             }
@@ -95,6 +107,9 @@ class TaskList {
     getMilestones() {
         var projects = [];
         _.each(this.tasks, function (task) {
+            if(task.isComplete && self.shouldExcludeCompleteTasksForBuckets){
+                return true;
+            }
             if (projects.indexOf(task.milestone) == -1 && task.milestone != null) {
                 projects.push(task.milestone);
             }
