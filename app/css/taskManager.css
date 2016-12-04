@@ -56,6 +56,19 @@ body {
 #selectionMenu {
     z-index: 9999;
 }
+#columnChooser{
+    min-width: 200px;
+}
+
+/* should handle flex sizing of desc button */
+
+.btn-group-flex{
+    display:flex;
+}
+
+.sort-desc{
+    flex:1;
+}
 
 
 /* keyboard styling taken from Stack Exchange */

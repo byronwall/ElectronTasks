@@ -37,13 +37,13 @@ function showAlert(message, type = "info") {
     $.notify({
         message: message
     }, {
-        // settings
-        type: type,
-        placement: {
-            from: "bottom"
-        },
-        delay: 1000
-    });
+            // settings
+            type: type,
+            placement: {
+                from: "bottom"
+            },
+            delay: 1000
+        });
 }
 
 function showSavePrompt(yesNoCallback) {
@@ -289,7 +289,7 @@ function updateRecentFileButton() {
     });
 }
 
-function resizeBasedOnNavbar(){
+function resizeBasedOnNavbar() {
     //get the height of the navbar
     var navbar = $("#navbar")
 
@@ -475,7 +475,7 @@ function createNewTask(options = {}) {
     } else {
         //this will prevent the task from being added if it has no parent
         console.log("stranded task removed")
-            //TODO add a warning that task was not created since it would have been stranded
+        //TODO add a warning that task was not created since it would have been stranded
         newTask.removeTask();
     }
 }
@@ -495,26 +495,6 @@ function createNewTasklist() {
     var newList = TaskList.createNewTaskList();
     loadTaskListCallback(newList);
     createNewTask();
-}
-
-function createSortAscDescButtons() {
-    //create the asc/desc buttons
-    var sortDirs = ["asc", "desc"];
-    _.each(sortDirs, function (sortDir) {
-        var label = $("<label/>").appendTo("#sortDirChooser").text(sortDir).attr("class", "btn btn-info");
-        var inputEl = $("<input/>").attr("type", "radio").appendTo(label);
-
-        if (sortDir == mainTaskList.sortDir) {
-            label.addClass("active");
-        }
-
-        //set up a click event on the LABEL... does not work for the input
-        $(label).on("click", function (ev) {
-            //this seems to be opposite of the actual value
-            mainTaskList.sortDir = sortDir;
-            sortNow();
-        })
-    });
 }
 
 function clearIsolation(shouldRender = true) {
@@ -660,20 +640,37 @@ function createColumnShowAndSort() {
             return;
         }
 
-        var li = $("<li/>").appendTo("#columnChooser")
-        var anchor = $("<a/>").appendTo(li)
-        var label = $("<label/>").appendTo(anchor).attr("class", "btn btn-primary");
-        var inputEl = $("<input/>").attr("type", "checkbox").prop("checked", true).appendTo(label);
+        /*
+        <li>
+									<div class="btn-group">
+										<a class="btn btn-default active">ID</a>
+										<a class="btn btn-default"><span class="glyphicon glyphicon-arrow-up"></a>
+										<a class="btn btn-default"><span class="glyphicon glyphicon-arrow-down"></a>
+									</div>
+								</li>
+                                */
 
-        label.text(columnName);
+        var li = $("<li/>").appendTo("#columnChooser")
+        var btnGroup = $("<div/>").appendTo(li).attr("class", "btn-group btn-group-flex")
+        var anchor = $("<a/>").appendTo(btnGroup).attr("class", "btn btn-default sort-desc");
+
+        //add the arrows
+        var aArrowUp = $("<a/>").appendTo(btnGroup).attr("class", "btn btn-default sort-arrow").data("dir", "asc");
+        var span = $("<span/>").appendTo(aArrowUp).attr("class", "glyphicon glyphicon-arrow-up");
+
+        var aArrowDown = $("<a/>").appendTo(btnGroup).attr("class", "btn btn-default sort-arrow").data("dir", "desc");
+        span = $("<span/>").appendTo(aArrowDown).attr("class", "glyphicon glyphicon-arrow-down");
+
+        anchor.text(columnName);
 
         if (visibleColumns.indexOf(columnName) > -1) {
-            label.addClass("active");
+            anchor.addClass("active");
             mainTaskList.columns[columnName].active = true;
         }
 
         //set up a click event on the LABEL... does not work for the input
-        $(label).on("click", function (ev) {
+        $(anchor).on("click", function (ev) {
+            console.log("show/hide column click")
 
             //this seems to be opposite of the actual value
             var isActive = !$(this).hasClass("active")
@@ -694,25 +691,24 @@ function createColumnShowAndSort() {
             renderGrid();
         })
 
-        //this adds the column to the sort selection
-        var li = $("<li/>").appendTo("#sortChooser")
-        var anchor = $("<a/>").appendTo(li)
-        var label = $("<label/>").appendTo(anchor).attr("class", "btn btn-primary");
-        var inputEl = $("<input/>").attr("type", "radio").appendTo(label);
-
-        label.text(columnName)
-
-        if (columnName == mainTaskList.sortField) {
-            label.addClass("active");
+        //TODO add a check for the ASC/DESC flag
+        if (columnName == mainTaskList.sortField && mainTaskList.sortDir == "desc") {
+            aArrowDown.addClass("active");
+        }
+        else if (columnName == mainTaskList.sortField && mainTaskList.sortDir == "asc") {
+            aArrowUp.addClass("active");
         }
 
-        //set up a click event on the LABEL... does not work for the input
-        $(label).on("click", function (ev) {
+        //add just combines the jQuery objects, no underlying change
+        aArrowUp.add(aArrowDown).on("click", function (ev) {
+            console.log("sort clicked", this, $(this).data("dir"))
             //this seems to be opposite of the actual value
             mainTaskList.sortField = columnName;
+            mainTaskList.sortDir = $(this).data("dir");
             sortNow();
-            $("#sortChooser label").removeClass("active");
-            $(this).toggleClass("active");
+
+            $("#columnChooser .sort-arrow").removeClass("active");
+            $(this).addClass("active");
         })
     });
 }
@@ -770,7 +766,7 @@ function setupEvents() {
 
     $(window).on("resize", resizeBasedOnNavbar)
 
-    
+
 
     $("#txtSearch").on("keyup", function (ev) {
         //this needs to do the active search
@@ -1308,15 +1304,15 @@ function setupEvents() {
         modalSave.on("click", function () {
             //collect all of the items with checkboxses
             _.each(modalCheckInputs, function (obj) {
-                    if (obj.check.is(":checked")) {
-                        //get the new value
-                        //set that value for each task in the selector array
-                        _.each(selected, function (task) {
-                            task.setDataValue(obj.input.data("field"), obj.input.val());
-                        })
-                    }
-                })
-                //clear the modal
+                if (obj.check.is(":checked")) {
+                    //get the new value
+                    //set that value for each task in the selector array
+                    _.each(selected, function (task) {
+                        task.setDataValue(obj.input.data("field"), obj.input.val());
+                    })
+                }
+            })
+            //clear the modal
             $("#modalEdit").modal("hide");
             renderGrid();
         })
@@ -1345,7 +1341,7 @@ function setupEvents() {
     $("#gridList").on("click", "td", function (ev) {
         if (ev.metaKey || ev.ctrlKey) {
             console.log("tr click with meta or CTRL", this, $(this).offset(), ev)
-                //this needs to select the task
+            //this needs to select the task
             var currentTask = getCurrentTask(this);
             currentTask.isSelected = !currentTask.isSelected;
 
@@ -1389,7 +1385,7 @@ function setupEvents() {
 
         var searchTerm = type + ":" + $(target).text();
 
-        if(ev.shiftKey){
+        if (ev.shiftKey) {
             searchTerm = $("#txtSearch").val() + " " + searchTerm;
         }
 
@@ -1495,7 +1491,7 @@ function setupEvents() {
             })
 
             modalComments.modal();
-        
+
             function saveModalComments() {
                 var value = $("#modalCommentsText").val();
                 currentTask.comments = value;
@@ -1618,7 +1614,6 @@ function setupMainPageTasks() {
     setupGrid();
     setupLocalStorage();
     createColumnShowAndSort();
-    createSortAscDescButtons();
 
     setupEvents();
 

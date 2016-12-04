@@ -19,6 +19,7 @@
 						<div class="btn-group">
 							<a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<span class="glyphicon glyphicon-menu-hamburger"></span>
+								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
 								<li class="menu-item dropdown dropdown-submenu">
@@ -70,27 +71,22 @@
 									</ul>
 								</li>
 						</div>
+						<a class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+							<span class="glyphicon glyphicon-cog"></span>
+						</a>
 						<div class="btn-group">
 							<a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Columns to Show
+								<span class="glyphicon glyphicon-th-list"></span>
 								<span class="caret"></span>
 							</a>
-							<ul class="dropdown-menu" id="columnChooser"> </ul>
+							<ul class="dropdown-menu" id="columnChooser">
+								<li class="menu-item">
+									<a type="button" class="btn btn-warning" id="btnSortNow">
+										Sort Now
+									</a>
+								</li>
+							</ul>
 						</div>
-						<div class="btn-group">
-							<a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Column Sort
-								<span class="caret"></span>
-							</a>
-							<ul class="dropdown-menu" id="sortChooser"> </ul>
-						</div>
-						<div class="btn-group" data-toggle="buttons" id="sortDirChooser"></div>
-						<a type="button" class="btn btn-warning" id="btnSortNow">
-							Sort Now
-						</a>
-						<a class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-							Show settings
-						</a>
 					</div>
 				</div>
 				<div class="row">
@@ -98,11 +94,11 @@
 						<div class="input-group">
 							<input type="text" class="form-control" id="txtSearch" placeholder="Search for...">
 							<span class="input-group-btn">
-								<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldSearchChildren">
-									+children
+								<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldSearchChildren" data-toggle="tooltip" title="Show children of search results">
+									<span class="glyphicon glyphicon-import"></span>
 								</button>
-								<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldSearchParents">
-									+parents
+								<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" id="shouldSearchParents" data-toggle="tooltip" title="Show parents of search results">
+									<span class="glyphicon glyphicon-export"></span>
 								</button>
 								<button class="btn btn-default" type="button" id="btnClearSearch">Clear</button>
 							</span>
