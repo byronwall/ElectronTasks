@@ -18,8 +18,7 @@
 					<div class="col-sm-12">
 						<div class="btn-group">
 							<a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Task List
-								<span class="caret"></span>
+								<span class="glyphicon glyphicon-menu-hamburger"></span>
 							</a>
 							<ul class="dropdown-menu">
 								<li class="menu-item dropdown dropdown-submenu">
@@ -48,29 +47,28 @@
 								<li class="menu-item" id="btnPrint">
 									<a href="#">print...</a>
 								</li>
-							</ul>
-						</div>
-						<div class="btn-group">
-							<a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								Google Drive
-								<span class="caret"></span>
-							</a>
-							<ul class="dropdown-menu">
+
 								<li class="menu-item dropdown dropdown-submenu">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="loader">Load</a>
-									<ul class="dropdown-menu" id="driveFileGroup">
-										<li>
-											<a href="#">No recent documents.</a>
+									<a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										Google Drive
+									</a>
+									<ul class="dropdown-menu">
+										<li class="menu-item dropdown dropdown-submenu">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="loader">Load</a>
+											<ul class="dropdown-menu" id="driveFileGroup">
+												<li>
+													<a href="#">No recent documents.</a>
+												</li>
+											</ul>
+										</li>
+										<li class="menu-item" id="btnAuthDrive">
+											<a href="#">auth drive</a>
+										</li>
+										<li class="menu-item" id="btnDriveStore">
+											<a href="#">store file</a>
 										</li>
 									</ul>
 								</li>
-								<li class="menu-item" id="btnAuthDrive">
-									<a href="#">auth drive</a>
-								</li>
-								<li class="menu-item" id="btnDriveStore">
-									<a href="#">store file</a>
-								</li>
-							</ul>
 						</div>
 						<div class="btn-group">
 							<a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -139,7 +137,7 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">Settings control panel
 								<button class="btn btn-danger btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
-												aria-controls="collapseExample">
+									aria-controls="collapseExample">
 									X
 								</button>
 							</div>
