@@ -289,6 +289,16 @@ function updateRecentFileButton() {
     });
 }
 
+function resizeBasedOnNavbar(){
+    //get the height of the navbar
+    var navbar = $("#navbar")
+
+    //update the padding on the main element
+    var height = navbar.height() + 5;
+
+    $("body").css("padding-top", height + "px")
+}
+
 function loadTaskListWithPrompt(fileName, driveId) {
     if (mainTaskList.path == "" && !mainTaskList.isDefaultList()) {
         showSavePrompt(function () {
@@ -757,6 +767,8 @@ function setupEvents() {
 
         return false;
     });
+
+    $(window).on("resize", resizeBasedOnNavbar)
 
     
 
@@ -1611,6 +1623,9 @@ function setupMainPageTasks() {
     setupEvents();
 
     createNewTasklist();
+
+    //size things correctly at end
+    resizeBasedOnNavbar();
 }
 
 $(document).ready(setupMainPageTasks);
