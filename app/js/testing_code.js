@@ -509,6 +509,12 @@ function clearIsolation(shouldRender = true) {
     }
 }
 
+function activateTooltipPlugin() {
+    //this will allow Bootstrap to drive the tooltips
+    console.log("init the tooltips")
+    $("button").tooltip();
+}
+
 //clear selection, render grid
 function clearSelection(shouldRender = true) {
     _.each(mainTaskList.tasks, function (task) {
@@ -1621,6 +1627,8 @@ function setupMainPageTasks() {
 
     //size things correctly at end
     resizeBasedOnNavbar();
+
+    activateTooltipPlugin();
 }
 
 $(document).ready(setupMainPageTasks);
