@@ -87,8 +87,9 @@
 								</li>
 							</ul>
 						</div>
+
 					</div>
-					<div class="col-sm-5">
+					<div class="col-sm-9">
 
 						<div class="input-group">
 							<input type="text" class="form-control" id="txtSearch" placeholder="Search for...">
@@ -101,37 +102,43 @@
 									data-placement="bottom" title="Show parents of search results">
 									<span class="glyphicon glyphicon-export"></span>
 								</button>
-								<button class="btn btn-danger" type="button" id="btnClearSearch">
+								
+								<div class="btn-group">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+										data-toggle="tooltip" data-placement="bottom" title="Shows a list of tags to filter with">
+										#
+										<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu dropdown-menu-right" id="tagBucket"> </ul>
+								</div>
+
+								<div class="btn-group">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+										data-toggle="tooltip" data-placement="bottom" title="Shows a list of status to filter with">
+										@
+										<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu dropdown-menu-right" id="statusBucket"> </ul>
+								</div>
+
+								<div class="btn-group">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+										data-toggle="tooltip" data-placement="bottom" title="Shows a list of milestones to filter with">
+										!
+										<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu dropdown-menu-right" id="milestoneBucket"> </ul>
+								</div>
+
+								<button class="btn btn-danger" type="button" id="btnClearSearch" data-toggle="tooltip" data-placement="bottom" title="Clear the search">
 									<span class="glyphicon glyphicon-remove"></span>
 								</button>
 
 							</span>
 						</div>
-					</div>
-					<div class="col-sm-4">
 
-						<div class="btn-group">
-							<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								tags
-								<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu" id="tagBucket"> </ul>
-						</div>
-						<div class="btn-group">
-							<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								status
-								<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu" id="statusBucket"> </ul>
-						</div>
-						<div class="btn-group">
-							<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								milestones
-								<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu" id="milestoneBucket"> </ul>
-						</div>
 					</div>
+
 				</div>
 				<div class="row">
 					<div class="collapse col-xs-12" id="collapseExample">

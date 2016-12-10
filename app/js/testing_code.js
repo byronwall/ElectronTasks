@@ -512,7 +512,9 @@ function clearIsolation(shouldRender = true) {
 function activateTooltipPlugin() {
     //this will allow Bootstrap to drive the tooltips
     console.log("init the tooltips")
-    $("button").tooltip();
+    $("button").tooltip(
+        { trigger: "hover" }
+    );
 }
 
 //clear selection, render grid

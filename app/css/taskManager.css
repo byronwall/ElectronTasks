@@ -70,6 +70,10 @@ body {
     flex:1;
 }
 
+.tooltip-inner {
+  white-space:nowrap;
+  max-width:none;
+}
 
 /* keyboard styling taken from Stack Exchange */
 
