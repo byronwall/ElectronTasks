@@ -515,6 +515,11 @@ function activateTooltipPlugin() {
     $("button").tooltip(
         { trigger: "hover" }
     );
+
+    $(".dropdown-toggle").on("click", function(){
+        //hide all tooltips
+        $("button").tooltip("hide");
+    })
 }
 
 //clear selection, render grid
