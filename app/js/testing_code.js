@@ -1166,10 +1166,10 @@ function setupEvents() {
         return false;
     });
 
-    Mousetrap.bind(["alt+/", "/"], function (e, combo) {
+    Mousetrap.bind(["alt+/", "/", "shift+/", "alt+shift+/"], function (e, combo) {
         console.log("show shortcuts called", combo);
 
-        if (_.includes(KEYBOARD_CANCEL, e.target.tagName) && combo == "/") {
+        if (_.includes(KEYBOARD_CANCEL, e.target.tagName) && !combo.includes("alt")) {
             return;
         }
 
