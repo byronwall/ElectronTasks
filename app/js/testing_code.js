@@ -1515,7 +1515,10 @@ function setupEvents() {
         //need to show the comment modal, use those events for what's next
         function showCommentModal() {
             var modalComments = $("#modalComments");
+
             $("#modalCommentsText").val(currentTask.comments)
+            $("#modalCommentsTask").text("#" + currentTask.ID + " " + currentTask.description)
+
 
             modalComments.on('shown.bs.modal', function () {
                 $("#modalCommentsText").focus();
