@@ -25,6 +25,7 @@ class TaskList {
         this.idForIsolatedTask = undefined;
         this.hideRootIfIsolated = false;
         this.shouldExcludeCompleteTasksForBuckets = true;
+        this.shouldShowCommentsWithDesc = true;
 
         this.shouldHideComplete = true;
 
@@ -143,7 +144,10 @@ class TaskList {
     getGridDataObject() {
         var gridDataObject = {
             "metadata": _.filter(this.columns, "active"),
-            "data": this._processGridData()
+            "data": this._processGridData(),
+            "settings": {
+                showComments: this.shouldShowCommentsWithDesc
+            }
         };
 
         return gridDataObject;

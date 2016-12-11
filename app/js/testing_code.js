@@ -788,6 +788,17 @@ function setupEvents() {
         return false;
     });
 
+    $("#btnShowCommentsWithDesc").on("click", function (ev) {
+        $(ev.target).toggleClass("active")
+
+        var shouldShowComplete = $("#btnShowCommentsWithDesc").hasClass("active");
+
+        mainTaskList.shouldShowCommentsWithDesc = shouldShowComplete;
+        renderGrid();
+
+        return false;
+    });
+
     $(window).on("resize", resizeBasedOnNavbar)
 
 
