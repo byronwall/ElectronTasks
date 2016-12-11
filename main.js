@@ -9,7 +9,8 @@ require('electron-context-menu')({
     label: 'Rainbow',
     // only show it when right-clicking images
     visible: params.mediaType === 'image'
-  }]
+  }],
+  showInspectElement: true
 });
 
 // Keep a global reference of the window object, if you don't, the window will
