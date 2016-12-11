@@ -574,6 +574,10 @@ function setupGrid() {
             saveTaskList(false);
             renderGrid();
         }
+
+        //TODO come up with a unified fix here
+        //this handles the disappearing comments
+        renderGrid();
     }
     grid.modelChanged = function (rowIndex, columnIndex, oldValue, newValue, row) {
         //TODO update this call to handle validation
