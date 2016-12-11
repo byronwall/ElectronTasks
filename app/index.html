@@ -102,7 +102,7 @@
 									data-placement="bottom" title="Show parents of search results">
 									<span class="glyphicon glyphicon-export"></span>
 								</button>
-								
+
 								<div class="btn-group">
 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
 										data-toggle="tooltip" data-placement="bottom" title="Shows a list of tags to filter with">
@@ -140,6 +140,16 @@
 					</div>
 
 				</div>
+				<div class="row">
+					<div class="btn-group col-xs-12" id="selectionMenu">
+						<button id="btnEditSelection" class="btn btn-default">edit</button>
+						<button id="btnCompleteSelection" class="btn btn-default disabled">complete</button>
+						<button id="btnDeleteSelection" class="btn btn-default disabled">delete</button>
+						<button id="btnMoveSelection" class="btn btn-default disabled">move</button>
+						<button id="btnClearSelection" class="btn btn-default">clear</button>
+					</div>
+				</div>
+
 				<div class="row">
 					<div class="collapse col-xs-12" id="collapseExample">
 						<div class="panel panel-default">
@@ -190,13 +200,7 @@
 	</div>
 	<div id="modals">
 		<div style="display:none" id="hidden"></div>
-		<div class="btn-group" id="selectionMenu">
-			<button id="btnEditSelection" class="btn btn-default">edit</button>
-			<button id="btnCompleteSelection" class="btn btn-default disabled">complete</button>
-			<button id="btnDeleteSelection" class="btn btn-default disabled">delete</button>
-			<button id="btnMoveSelection" class="btn btn-default disabled">move</button>
-			<button id="btnClearSelection" class="btn btn-default">clear</button>
-		</div>
+
 		<div class="modal fade" tabindex="-1" role="dialog" id="modalEdit">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">

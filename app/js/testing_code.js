@@ -1371,10 +1371,6 @@ function setupEvents() {
 
             //move the selection menu to position of the row
             $("#selectionMenu").show();
-            $("#selectionMenu").offset({
-                top: ev.pageY,
-                left: ev.pageX + 25
-            });
 
             renderGrid();
         }

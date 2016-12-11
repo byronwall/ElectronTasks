@@ -53,9 +53,6 @@ body {
     background: #8ABF39
 }
 
-#selectionMenu {
-    z-index: 9999;
-}
 #columnChooser{
     min-width: 200px;
 }
@@ -64,7 +61,7 @@ body {
 
 .btn-group-flex{
     display:flex;
-}
+}Ï
 
 .sort-desc{
     flex:1;
