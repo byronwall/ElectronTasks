@@ -417,14 +417,21 @@ function getTaskAbove(currentTask) {
     return aboveTask;
 }
 
-function applyEdit(element) {
+function applyEdit(element, shouldCancel = false) {
     var editor = (element instanceof Column) ? element.cellEditor : element.celleditor;
     //if editing or a change was made, apply that change
     // backup onblur then remove it: it will be restored if editing could not be applied
     element.onblur_backup = element.onblur;
     element.onblur = null;
-    if (editor.applyEditing(element.element, editor.getEditorValue(element)) === false) {
-        element.onblur = element.onblur_backup;
+
+    if (shouldCancel) {
+        editor.cancelEditing(element.element);
+    }
+    else {
+
+        if (editor.applyEditing(element.element, editor.getEditorValue(element)) === false) {
+            element.onblur = element.onblur_backup;
+        }
     }
 }
 
@@ -516,7 +523,7 @@ function activateTooltipPlugin() {
         { trigger: "hover" }
     );
 
-    $(".dropdown-toggle").on("click", function(){
+    $(".dropdown-toggle").on("click", function () {
         //hide all tooltips
         $("button").tooltip("hide");
     })
@@ -1394,7 +1401,7 @@ function setupEvents() {
         //this click is happening after the editor appears
         //need to end the editor and then render
         //not sure why a render call is required?
-        applyEdit(column);
+        applyEdit(column, true);
         renderGrid();
 
         console.log("type", type);
