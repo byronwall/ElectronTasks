@@ -50,7 +50,7 @@ class TaskList {
         var tags = [];
 
         _.each(this.tasks, function (item) {
-            if(item.isComplete && self.shouldExcludeCompleteTasksForBuckets){
+            if (item.isComplete && self.shouldExcludeCompleteTasksForBuckets) {
                 return true;
             }
             _.each(item.tags, function (tag) {
@@ -68,7 +68,7 @@ class TaskList {
     getAllStatus() {
         var status = [];
         _.each(this.tasks, function (task) {
-            if(task.isComplete && self.shouldExcludeCompleteTasksForBuckets){
+            if (task.isComplete && self.shouldExcludeCompleteTasksForBuckets) {
                 return true;
             }
             if (status.indexOf(task.status) == -1 && task.status != null) {
@@ -107,7 +107,7 @@ class TaskList {
     getMilestones() {
         var projects = [];
         _.each(this.tasks, function (task) {
-            if(task.isComplete && self.shouldExcludeCompleteTasksForBuckets){
+            if (task.isComplete && self.shouldExcludeCompleteTasksForBuckets) {
                 return true;
             }
             if (projects.indexOf(task.milestone) == -1 && task.milestone != null) {
@@ -217,7 +217,7 @@ class TaskList {
             var searchResult = self.searchTerm == "" || task.isResultForSearch(self.searchObj)
             var showBecauseComplete = (self.shouldHideComplete) ? !task.isComplete : true;
             var showBecauseNew = task.isFirstEdit;
-            if ((searchResult && showBecauseComplete)||showBecauseNew) {
+            if ((searchResult && showBecauseComplete) || showBecauseNew) {
 
                 tasksToProcessAgain.push(task);
                 task.isVisible = true;
@@ -355,7 +355,7 @@ class TaskList {
     isDefaultList() {
         console.log(this.tasks)
         if (this.tasks[2].description == "new project") {
-            if (Object.keys(this.tasks).length == 2 && this.tasks[3].description == "new task") {
+            if (Object.keys(this.tasks).length == 2 && this.tasks[3] != undefined && this.tasks[3].description == "new task") {
                 return true;
             }
             if (Object.keys(this.tasks).length == 1) {
@@ -429,7 +429,7 @@ class TaskList {
         jsonfile.readFile(taskList.path, function (err, obj) {
 
             var dataObj = {};
-            
+
             if (obj.length > 0) {
                 //this is for the old format where the file was only tasks
                 dataObj.tasks = obj;
