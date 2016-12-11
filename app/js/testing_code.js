@@ -333,13 +333,17 @@ function listGoogleDriveFiles() {
 function saveFileInDrive() {
     localDrive.storeFile(mainTaskList.getJSONString(), mainTaskList.title, mainTaskList.googleDriveId, function (fileId) {
         console.log("saved/updated tasklist to Drive");
+        showAlert("File stored on Google Drive");
         mainTaskList.googleDriveId = fileId;
     });
 }
 
 function authorizeGoogleDrive(callback) {
     localDrive = new DriveStorage()
-    localDrive.startAuth(callback);
+    localDrive.startAuth(function () {
+        showAlert("Google Drive has been authorized.  Check Google Drive -> Load menu to see files.")
+        callback();
+    });
 }
 
 function updateDriveFileButton(fileList) {
