@@ -165,4 +165,4 @@ function updateSelectionMenu() {
     }
 }
 
-module.exports.renderGrid = renderGrid;
+module.exports = renderGrid;
