@@ -899,4 +899,49 @@ setupEvents = function () {
     });
 }
 
+//TODO find a better spot for these event related functions
+
+function getCurrentTask(element) {
+    //find the element above that is the tr (contains the ID)
+    var currentID = $(element).parents("tr")[0].id;
+    currentID = currentID.split("task-list_")[1];
+    currentID = parseInt(currentID);
+
+    //now holds the current ID
+    var currentTask = mainTaskList.tasks[currentID];
+
+    return currentTask;
+}
+
+function getTaskAbove(currentTask) {
+    console.log("getAbove, currentTask", currentTask)
+    var currentRow = grid.getRowIndex(currentTask.ID);
+
+    //TODO add some error checking
+
+    //get the task above the current
+    var aboveId = grid.getRowId(currentRow - 1);
+    var aboveTask = mainTaskList.tasks[aboveId];
+
+    return aboveTask;
+}
+
+function applyEdit(element, shouldCancel = false) {
+    var editor = (element instanceof Column) ? element.cellEditor : element.celleditor;
+    //if editing or a change was made, apply that change
+    // backup onblur then remove it: it will be restored if editing could not be applied
+    element.onblur_backup = element.onblur;
+    element.onblur = null;
+
+    if (shouldCancel) {
+        editor.cancelEditing(element.element);
+    }
+    else {
+
+        if (editor.applyEditing(element.element, editor.getEditorValue(element)) === false) {
+            element.onblur = element.onblur_backup;
+        }
+    }
+}
+
 module.exports = setupEvents;
