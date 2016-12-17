@@ -31,13 +31,6 @@ var mainTaskList = undefined;
 
 var KEYBOARD_CANCEL = ["INPUT", "TEXTAREA"];
 
-function entryPoint() {
-    //this is equal to the onLoad event for the body
-    setupMainPageTasks();
-
-    mainTaskList = new TaskList();
-}
-
 function showAlert(message, type = "info") {
     console.log(message);
 
