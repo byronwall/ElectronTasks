@@ -81,6 +81,418 @@ setupEvents = function () {
         renderGrid();
     });
 
+
+
+    $("#saver").on("click", saveTaskList);
+
+    $("#newTask").on("click", createNewTask)
+    $("#newTasklist").on("click", createNewTasklist);
+
+    //bind events for the sort button click
+    $("#isSortEnabled").on("click", function (ev) {
+
+        //TODO determine why bootstrap states are reversed in events... too early detection?
+        //the button states are reversed when coming through
+        var isSortEnabled = !($(this).attr("aria-pressed") === 'true');
+        mainTaskList.isSortEnabled = isSortEnabled;
+
+        renderGrid();
+    });
+
+    //bind events for the sort button click
+    $("#btnSortNow").on("click", sortNow);
+
+
+
+    function isKeyboardInEditor(element) {
+        return _.includes(KEYBOARD_CANCEL, element.tagName);
+    }
+
+
+
+    //this sets up an event to capture the keydown (before anything else runs)
+    $("body").get(0).addEventListener("keydown", function (ev) {
+        if (ev.key === "Enter" && shouldDeleteTaskWhenDoneEditing) {
+            console.log("bubble keydown to delete", ev.key)
+            taskToDelete.removeTask();
+            renderGrid();
+
+            shouldDeleteTaskWhenDoneEditing = false;
+        }
+    });
+
+    //this event is being captured (not bubbled) with the true down below
+    $("body").get(0).addEventListener("keydown", function (ev) {
+
+        //ensures that the element is within the table
+        //TODO make this more specific
+        if (!$(ev.target).parents("tr").length) return;
+
+        var input = ev.target;
+
+        //check for autocompleting ensures that a new task is not created becasue of selecting a choice there
+        //this was creating a problem where hitting TAB again would create new task
+        var isAutoCompleting = $(input).data("autocompleting");
+        if (ev.key === "Enter" && !isAutoCompleting) {
+
+            var currentTask = getCurrentTask(ev.target);
+            var currentID = currentTask.ID;
+
+            if (currentTask.isFirstEdit) {
+                if ($(input).val() == "new task") {
+                    shouldDeleteTaskWhenDoneEditing = true;
+                    taskToDelete = currentTask;
+                } else {
+                    shouldAddTaskWhenDoneEditing = true;
+                }
+            }
+        }
+
+    }, true);
+
+    $("#btnClearIsolation").on("click", function (ev) {
+        //this will remove the isolation
+        clearIsolation()
+    });
+
+    $("#btnCreateProject").on("click", createNewProject);
+
+    $("#btnMoveStranded").on("click", function (ev) {
+        mainTaskList.assignStrandedTasksToCurrentIsolationLevel();
+        renderGrid();
+    });
+
+    $("#shouldHideRoot").on("click", function (ev) {
+        //flip the current value
+        mainTaskList.hideRootIfIsolated = !mainTaskList.hideRootIfIsolated
+        renderGrid();
+    });
+
+    $('#projectTitle').editable({
+        type: 'text',
+        title: 'Enter title',
+        success: function (response, newValue) {
+            mainTaskList.title = newValue;
+        }
+    });
+
+    $("#btnAuthDrive").on("click", function () {
+        console.log("auth click")
+
+        authorizeGoogleDrive(listGoogleDriveFiles);
+    })
+
+
+    $("#btnPrint").on("click", function () {
+        console.log("print clicked")
+
+        window.print();
+    })
+
+    $("#btnEditSelection").on("click", function () {
+        console.log("edit multiple clicked")
+
+        //need to get a list of those tasks which are selected
+
+        var selected = _.filter(mainTaskList.tasks, function (task) {
+            return task.isSelected;
+        })
+
+        //this is a list of tasks, now need to compare their values
+        //start with just desc
+        var fields = ["description", "duration", "priority", "status", "milestone", "tags"];
+        var tasks = mainTaskList.tasks;
+
+        var modalBody = $("#modalEditBody");
+        modalBody.empty();
+
+        var modalCheckInputs = [];
+
+        _.each(fields, function (field) {
+            var sameValue = _.every(selected, function (task) {
+                return task[field] === selected[0][field];
+            })
+
+            //need to create the editor here (build the fields)
+
+            //TODO change this defualt value
+            var valueToShow = (sameValue) ? selected[0][field] : "various";
+
+            var div = $("<div/>").attr("class", "input-group")
+            var span = $("<span/>").attr("class", "input-group-addon")
+            var input = $("<input/>").attr("type", "text").attr("class", "form-control").val(valueToShow);
+            var checkbox = $("<input/>").attr("type", "checkbox");
+
+            span.text(field).prepend(checkbox)
+
+            //add the field to the input
+            input.data("field", field);
+
+            div.append(span).append(input);
+            modalBody.append(div);
+
+            //set up some events for this form
+            input.on("keyup", function () {
+                if ($(this).val() != valueToShow) {
+                    checkbox.attr("checked", true);
+                }
+            })
+
+            modalCheckInputs.push({
+                check: checkbox,
+                input: input
+            })
+        });
+
+        //wire up an event for the save click
+        var modalSave = $("#modalSave");
+        modalSave.off();
+        modalSave.on("click", function () {
+            //collect all of the items with checkboxses
+            _.each(modalCheckInputs, function (obj) {
+                    if (obj.check.is(":checked")) {
+                        //get the new value
+                        //set that value for each task in the selector array
+                        _.each(selected, function (task) {
+                            task.setDataValue(obj.input.data("field"), obj.input.val());
+                        })
+                    }
+                })
+                //clear the modal
+            $("#modalEdit").modal("hide");
+            renderGrid();
+        })
+
+        //this will popup with the editor
+        $("#modalEdit").modal();
+    })
+
+    $("#btnClearLocalStorage").on("click", function () {
+        console.log("clear local storage")
+
+        localStorage.clear();
+    })
+
+    $("#btnDriveStore").on("click", function () {
+        console.log("drive store click")
+
+        if (localDrive === undefined) {
+            authorizeGoogleDrive(saveFileInDrive);
+            return;
+        }
+
+        saveFileInDrive();
+    })
+
+    $("#gridList").on("click", "td", function (ev) {
+        if (ev.metaKey || ev.ctrlKey) {
+            console.log("tr click with meta or CTRL", this, $(this).offset(), ev)
+                //this needs to select the task
+            var currentTask = getCurrentTask(this);
+            currentTask.isSelected = !currentTask.isSelected;
+
+            //move the selection menu to position of the row
+            $("#selectionMenu").show();
+
+            renderGrid();
+        }
+    })
+
+    $("#btnClearSelection").on("click", function () {
+        console.log("clear selection click")
+        clearSelection();
+        return false;
+    })
+
+
+
+    $("body").on("click", ".label-search", function (ev) {
+        console.log("label-search click", this, "shift", ev.shiftKey);
+
+        //get the target
+        var target = this;
+        var type = target.dataset.type;
+
+        //get the column item to cancel the editing
+        var column = grid.columns[grid.getColumnIndex("description")];
+
+        //this click is happening after the editor appears
+        //need to end the editor and then render
+        //not sure why a render call is required?
+        applyEdit(column, true);
+        renderGrid();
+
+        console.log("type", type);
+        //get its dataset.type
+
+        var searchTerm = type + ":" + $(target).text();
+
+        if (ev.shiftKey) {
+            searchTerm = $("#txtSearch").val() + " " + searchTerm;
+        }
+
+        updateSearch(searchTerm, false)
+
+        //close any dropdown menus used
+        $('.btn-group.open .dropdown-toggle').dropdown('toggle');
+
+        //update the search field
+        return false;
+    })
+
+    //this needs to wire up some button click events
+    $("#gridList").on("click", ".btnComplete", function (ev) {
+        console.log("task complete button hit");
+
+        var currentTask = getCurrentTask(ev.target);
+        var currentID = currentTask.ID;
+
+        //complete the task and update the display
+        currentTask.completeTask();
+
+        renderGrid();
+        saveTaskList();
+    });
+
+    //this needs to wire up some button click events
+    $("#gridList").on("click", ".btnIsolate", function (ev) {
+        console.log("task isolate button hit");
+
+        var currentTask = getCurrentTask(ev.target);
+        var currentID = currentTask.ID;
+
+        //complete the task and update the display
+        mainTaskList.idForIsolatedTask = currentID;
+
+        renderGrid();
+        saveTaskList();
+    });
+
+    $("#gridList").on("click", ".btnDelete", function (ev) {
+        console.log("task delete button hit");
+
+        var currentTask = getCurrentTask(ev.target);
+        var currentID = currentTask.ID;
+        var parentID = currentTask.parentTask;
+
+        //do a check to see if this is a project and the only project
+        if (currentTask.isProjectRoot) {
+            //clear the isolation
+            mainTaskList.idForIsolatedTask = null;
+
+            var projects = mainTaskList.getProjectsInList();
+            var projectCount = projects.length;
+
+            if (projectCount == 1) {
+                console.log("task cannot be deleted, since it is the last project root");
+                return false;
+            }
+
+            //delete the project
+            currentTask.removeTask()
+
+            projects = mainTaskList.getProjectsInList();
+            projectCount = projects.length;
+
+            //if there is only one project, isolate it
+            if (projectCount == 1) {
+                mainTaskList.idForIsolatedTask = projects[0].ID;
+            }
+
+
+        } else {
+            currentTask.removeTask()
+        }
+
+        //check if the isolated task is the removed task
+        if (mainTaskList.idForIsolatedTask == currentID) {
+            mainTaskList.idForIsolatedTask = parentID;
+        }
+
+        renderGrid();
+        saveTaskList();;
+        //delete the task and rerender
+    })
+
+    var autosize = require("autosize");
+    autosize($("#modalCommentsText"));
+
+    $("#gridList").on("click", ".btnComment", function (ev) {
+        console.log("task comments button hit");
+
+        var currentTask = getCurrentTask(ev.target);
+        var currentID = currentTask.ID;
+
+        //need to show the comment modal, use those events for what's next
+        function showCommentModal() {
+            var modalComments = $("#modalComments");
+
+            $("#modalCommentsText").val(currentTask.comments)
+            $("#modalCommentsTask").text("#" + currentTask.ID + " " + currentTask.description)
+
+
+            modalComments.on('shown.bs.modal', function () {
+                $("#modalCommentsText").focus();
+            })
+
+            modalComments.modal();
+
+            function saveModalComments() {
+                var value = $("#modalCommentsText").val();
+                currentTask.comments = value;
+                modalComments.modal("hide");
+
+                renderGrid();
+                saveTaskList(false);
+            }
+
+            $("#modalCommentsText").off().on("keydown", function (ev) {
+                if (ev.key == "Enter" && (ev.metaKey || ev.ctrlKey)) {
+                    saveModalComments();
+                }
+            })
+
+            //wire up the save button
+            $("#modalSaveComments").off().on("click", function () {
+                //save the task data
+                saveModalComments();
+            })
+        }
+
+        showCommentModal();
+
+        return false;
+    })
+
+    $("#gridList").on("click", ".gridMove li", function (ev) {
+        console.log("task move button hit");
+
+        var currentTask = getCurrentTask(ev.target);
+
+        var newProjectId = this.dataset.project;
+        var newProject = mainTaskList.tasks[newProjectId];
+
+        if (currentTask.parentTask != null) {
+            var parentTask = mainTaskList.tasks[currentTask.parentTask];
+            var parentChildIndex = parentTask.childTasks.indexOf(currentTask.ID);
+            parentTask.childTasks.splice(parentChildIndex, 1);
+        }
+
+        //need to set the parent for the current and the child for the above
+        currentTask.parentTask = newProjectId;
+        newProject.childTasks.push(currentTask.ID);
+
+        renderGrid();
+        saveTaskList();;
+        //delete the task and rerender
+    })
+
+    setupAutocompleteEvents();
+    setupMousetrapEvents();
+
+}
+
+function setupMousetrapEvents() {
     Mousetrap.bind("alt+right", function (e) {
         if (e.target.tagName == "INPUT") {
 
@@ -341,25 +753,6 @@ setupEvents = function () {
         return false;
     });
 
-    $("#saver").on("click", saveTaskList);
-
-    $("#newTask").on("click", createNewTask)
-    $("#newTasklist").on("click", createNewTasklist);
-
-    //bind events for the sort button click
-    $("#isSortEnabled").on("click", function (ev) {
-
-        //TODO determine why bootstrap states are reversed in events... too early detection?
-        //the button states are reversed when coming through
-        var isSortEnabled = !($(this).attr("aria-pressed") === 'true');
-        mainTaskList.isSortEnabled = isSortEnabled;
-
-        renderGrid();
-    });
-
-    //bind events for the sort button click
-    $("#btnSortNow").on("click", sortNow);
-
     //these events handle the task isolation business
     Mousetrap.bind("alt+q", function (e, combo) {
         console.log("task isolation requested");
@@ -382,10 +775,6 @@ setupEvents = function () {
 
         return false;
     });
-
-    function isKeyboardInEditor(element) {
-        return _.includes(KEYBOARD_CANCEL, element.tagName);
-    }
 
     Mousetrap.bind(["shift+c", "alt+shift+c"], function (e, combo) {
         console.log("show children called", combo);
@@ -459,384 +848,9 @@ setupEvents = function () {
         //this lets the shortcuts go through whenever
         return false;
     }
+}
 
-    //this sets up an event to capture the keydown (before anything else runs)
-    $("body").get(0).addEventListener("keydown", function (ev) {
-        if (ev.key === "Enter" && shouldDeleteTaskWhenDoneEditing) {
-            console.log("bubble keydown to delete", ev.key)
-            taskToDelete.removeTask();
-            renderGrid();
-
-            shouldDeleteTaskWhenDoneEditing = false;
-        }
-    });
-
-    //this event is being captured (not bubbled) with the true down below
-    $("body").get(0).addEventListener("keydown", function (ev) {
-
-        //ensures that the element is within the table
-        //TODO make this more specific
-        if (!$(ev.target).parents("tr").length) return;
-
-        var input = ev.target;
-
-        //check for autocompleting ensures that a new task is not created becasue of selecting a choice there
-        //this was creating a problem where hitting TAB again would create new task
-        var isAutoCompleting = $(input).data("autocompleting");
-        if (ev.key === "Enter" && !isAutoCompleting) {
-
-            var currentTask = getCurrentTask(ev.target);
-            var currentID = currentTask.ID;
-
-            if (currentTask.isFirstEdit) {
-                if ($(input).val() == "new task") {
-                    shouldDeleteTaskWhenDoneEditing = true;
-                    taskToDelete = currentTask;
-                } else {
-                    shouldAddTaskWhenDoneEditing = true;
-                }
-            }
-        }
-
-    }, true);
-
-    $("#btnClearIsolation").on("click", function (ev) {
-        //this will remove the isolation
-        clearIsolation()
-    });
-
-    $("#btnCreateProject").on("click", createNewProject);
-
-    $("#btnMoveStranded").on("click", function (ev) {
-        mainTaskList.assignStrandedTasksToCurrentIsolationLevel();
-        renderGrid();
-    });
-
-    $("#shouldHideRoot").on("click", function (ev) {
-        //flip the current value
-        mainTaskList.hideRootIfIsolated = !mainTaskList.hideRootIfIsolated
-        renderGrid();
-    });
-
-    $('#projectTitle').editable({
-        type: 'text',
-        title: 'Enter title',
-        success: function (response, newValue) {
-            mainTaskList.title = newValue;
-        }
-    });
-
-    $("#btnAuthDrive").on("click", function () {
-        console.log("auth click")
-
-        authorizeGoogleDrive(listGoogleDriveFiles);
-    })
-
-
-    $("#btnPrint").on("click", function () {
-        console.log("print clicked")
-
-        window.print();
-    })
-
-    $("#btnEditSelection").on("click", function () {
-        console.log("edit multiple clicked")
-
-        //need to get a list of those tasks which are selected
-
-        var selected = _.filter(mainTaskList.tasks, function (task) {
-            return task.isSelected;
-        })
-
-        //this is a list of tasks, now need to compare their values
-        //start with just desc
-        var fields = ["description", "duration", "priority", "status", "milestone", "tags"];
-        var tasks = mainTaskList.tasks;
-
-        var modalBody = $("#modalEditBody");
-        modalBody.empty();
-
-        var modalCheckInputs = [];
-
-        _.each(fields, function (field) {
-            var sameValue = _.every(selected, function (task) {
-                return task[field] === selected[0][field];
-            })
-
-            //need to create the editor here (build the fields)
-
-            //TODO change this defualt value
-            var valueToShow = (sameValue) ? selected[0][field] : "various";
-
-            var div = $("<div/>").attr("class", "input-group")
-            var span = $("<span/>").attr("class", "input-group-addon")
-            var input = $("<input/>").attr("type", "text").attr("class", "form-control").val(valueToShow);
-            var checkbox = $("<input/>").attr("type", "checkbox");
-
-            span.text(field).prepend(checkbox)
-
-            //add the field to the input
-            input.data("field", field);
-
-            div.append(span).append(input);
-            modalBody.append(div);
-
-            //set up some events for this form
-            input.on("keyup", function () {
-                if ($(this).val() != valueToShow) {
-                    checkbox.attr("checked", true);
-                }
-            })
-
-            modalCheckInputs.push({
-                check: checkbox,
-                input: input
-            })
-        });
-
-        //wire up an event for the save click
-        var modalSave = $("#modalSave");
-        modalSave.off();
-        modalSave.on("click", function () {
-            //collect all of the items with checkboxses
-            _.each(modalCheckInputs, function (obj) {
-                if (obj.check.is(":checked")) {
-                    //get the new value
-                    //set that value for each task in the selector array
-                    _.each(selected, function (task) {
-                        task.setDataValue(obj.input.data("field"), obj.input.val());
-                    })
-                }
-            })
-            //clear the modal
-            $("#modalEdit").modal("hide");
-            renderGrid();
-        })
-
-        //this will popup with the editor
-        $("#modalEdit").modal();
-    })
-
-    $("#btnClearLocalStorage").on("click", function () {
-        console.log("clear local storage")
-
-        localStorage.clear();
-    })
-
-    $("#btnDriveStore").on("click", function () {
-        console.log("drive store click")
-
-        if (localDrive === undefined) {
-            authorizeGoogleDrive(saveFileInDrive);
-            return;
-        }
-
-        saveFileInDrive();
-    })
-
-    $("#gridList").on("click", "td", function (ev) {
-        if (ev.metaKey || ev.ctrlKey) {
-            console.log("tr click with meta or CTRL", this, $(this).offset(), ev)
-            //this needs to select the task
-            var currentTask = getCurrentTask(this);
-            currentTask.isSelected = !currentTask.isSelected;
-
-            //move the selection menu to position of the row
-            $("#selectionMenu").show();
-
-            renderGrid();
-        }
-    })
-
-    $("#btnClearSelection").on("click", function () {
-        console.log("clear selection click")
-        clearSelection();
-        return false;
-    })
-
-
-
-    $("body").on("click", ".label-search", function (ev) {
-        console.log("label-search click", this, "shift", ev.shiftKey);
-
-        //get the target
-        var target = this;
-        var type = target.dataset.type;
-
-        //get the column item to cancel the editing
-        var column = grid.columns[grid.getColumnIndex("description")];
-
-        //this click is happening after the editor appears
-        //need to end the editor and then render
-        //not sure why a render call is required?
-        applyEdit(column, true);
-        renderGrid();
-
-        console.log("type", type);
-        //get its dataset.type
-
-        var searchTerm = type + ":" + $(target).text();
-
-        if (ev.shiftKey) {
-            searchTerm = $("#txtSearch").val() + " " + searchTerm;
-        }
-
-        updateSearch(searchTerm, false)
-
-        //close any dropdown menus used
-        $('.btn-group.open .dropdown-toggle').dropdown('toggle');
-
-        //update the search field
-        return false;
-    })
-
-    //this needs to wire up some button click events
-    $("#gridList").on("click", ".btnComplete", function (ev) {
-        console.log("task complete button hit");
-
-        var currentTask = getCurrentTask(ev.target);
-        var currentID = currentTask.ID;
-
-        //complete the task and update the display
-        currentTask.completeTask();
-
-        renderGrid();
-        saveTaskList();
-    });
-
-    //this needs to wire up some button click events
-    $("#gridList").on("click", ".btnIsolate", function (ev) {
-        console.log("task isolate button hit");
-
-        var currentTask = getCurrentTask(ev.target);
-        var currentID = currentTask.ID;
-
-        //complete the task and update the display
-        mainTaskList.idForIsolatedTask = currentID;
-
-        renderGrid();
-        saveTaskList();
-    });
-
-    $("#gridList").on("click", ".btnDelete", function (ev) {
-        console.log("task delete button hit");
-
-        var currentTask = getCurrentTask(ev.target);
-        var currentID = currentTask.ID;
-        var parentID = currentTask.parentTask;
-
-        //do a check to see if this is a project and the only project
-        if (currentTask.isProjectRoot) {
-            //clear the isolation
-            mainTaskList.idForIsolatedTask = null;
-
-            var projects = mainTaskList.getProjectsInList();
-            var projectCount = projects.length;
-
-            if (projectCount == 1) {
-                console.log("task cannot be deleted, since it is the last project root");
-                return false;
-            }
-
-            //delete the project
-            currentTask.removeTask()
-
-            projects = mainTaskList.getProjectsInList();
-            projectCount = projects.length;
-
-            //if there is only one project, isolate it
-            if (projectCount == 1) {
-                mainTaskList.idForIsolatedTask = projects[0].ID;
-            }
-
-
-        } else {
-            currentTask.removeTask()
-        }
-
-        //check if the isolated task is the removed task
-        if (mainTaskList.idForIsolatedTask == currentID) {
-            mainTaskList.idForIsolatedTask = parentID;
-        }
-
-        renderGrid();
-        saveTaskList();;
-        //delete the task and rerender
-    })
-
-    var autosize = require("autosize");
-    autosize($("#modalCommentsText"));
-
-    $("#gridList").on("click", ".btnComment", function (ev) {
-        console.log("task comments button hit");
-
-        var currentTask = getCurrentTask(ev.target);
-        var currentID = currentTask.ID;
-
-        //need to show the comment modal, use those events for what's next
-        function showCommentModal() {
-            var modalComments = $("#modalComments");
-
-            $("#modalCommentsText").val(currentTask.comments)
-            $("#modalCommentsTask").text("#" + currentTask.ID + " " + currentTask.description)
-
-
-            modalComments.on('shown.bs.modal', function () {
-                $("#modalCommentsText").focus();
-            })
-
-            modalComments.modal();
-
-            function saveModalComments() {
-                var value = $("#modalCommentsText").val();
-                currentTask.comments = value;
-                modalComments.modal("hide");
-
-                renderGrid();
-                saveTaskList(false);
-            }
-
-            $("#modalCommentsText").off().on("keydown", function (ev) {
-                if (ev.key == "Enter" && (ev.metaKey || ev.ctrlKey)) {
-                    saveModalComments();
-                }
-            })
-
-            //wire up the save button
-            $("#modalSaveComments").off().on("click", function () {
-                //save the task data
-                saveModalComments();
-            })
-        }
-
-        showCommentModal();
-
-        return false;
-    })
-
-    $("#gridList").on("click", ".gridMove li", function (ev) {
-        console.log("task move button hit");
-
-        var currentTask = getCurrentTask(ev.target);
-
-        var newProjectId = this.dataset.project;
-        var newProject = mainTaskList.tasks[newProjectId];
-
-        if (currentTask.parentTask != null) {
-            var parentTask = mainTaskList.tasks[currentTask.parentTask];
-            var parentChildIndex = parentTask.childTasks.indexOf(currentTask.ID);
-            parentTask.childTasks.splice(parentChildIndex, 1);
-        }
-
-        //need to set the parent for the current and the child for the above
-        currentTask.parentTask = newProjectId;
-        newProject.childTasks.push(currentTask.ID);
-
-        renderGrid();
-        saveTaskList();;
-        //delete the task and rerender
-    })
-
+function setupAutocompleteEvents() {
     //TODO pull this put into its own funcion?
     require("jquery-textcomplete");
     $("#gridList").on("DOMNodeInserted", "input", function (ev) {
@@ -935,8 +949,7 @@ function applyEdit(element, shouldCancel = false) {
 
     if (shouldCancel) {
         editor.cancelEditing(element.element);
-    }
-    else {
+    } else {
 
         if (editor.applyEditing(element.element, editor.getEditorValue(element)) === false) {
             element.onblur = element.onblur_backup;
