@@ -340,6 +340,13 @@ setupEvents = function () {
         return false;
     })
 
+    setupAutocompleteEvents();
+    setupMousetrapEvents();
+
+    setupActionPanelButtonEvents();
+}
+
+function setupActionPanelButtonEvents() {
     //this needs to wire up some button click events
     $("#gridList").on("click", ".btnComplete", function (ev) {
         console.log("task complete button hit");
@@ -486,10 +493,6 @@ setupEvents = function () {
         saveTaskList();;
         //delete the task and rerender
     })
-
-    setupAutocompleteEvents();
-    setupMousetrapEvents();
-
 }
 
 function setupMousetrapEvents() {
