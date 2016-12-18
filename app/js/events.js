@@ -1,66 +1,68 @@
 setupEvents = function () {
+    setupAutocompleteEvents();
+    setupMousetrapEvents();
+    setupActionPanelButtonEvents();
+    setupBulkEditEvents();
+    setupSettingsRelatedEvents();
+    setupGoogleDriveEvents();
+    setupSearchEvents();
+    setupFileMgmtEvents();
+    setupKeydownEvents();
+    setupTaskRelatedEvents();
+    setupAppRelatedEvents();
+}
 
-    $("#loader").on("click", function () {
-        //set the list object
-        dialog.showOpenDialog(function (fileName) {
-            if (fileName === undefined) {
-                //TODO use an actual output box for this
-                console.log("no file chosen")
-                return false;
-            }
+function setupAppRelatedEvents() {
 
-            fileName = fileName[0];
+    $("#btnPrint").on("click", function () {
+        console.log("print clicked")
 
-            loadTaskListWithPrompt(fileName)
+        window.print();
+    })
 
-            addFileToRecentFileList(fileName);
-        });
-    });
+    $("#btnClearLocalStorage").on("click", function () {
+        console.log("clear local storage")
 
-    //set up events for the search box
-    $("#btnClearSearch").on("click", updateSearch);
+        localStorage.clear();
+    })
 
     $(window).on("resize", resizeBasedOnNavbar)
 
-    $("#txtSearch").on("keyup", function (ev) {
-        //this needs to do the active search
-        //set a filter
-        //find the ESC key
-        if (ev.keyCode == 27) {
-            $(this).val("");
-            $("#txtSearch").blur();
+    $('#projectTitle').editable({
+        type: 'text',
+        title: 'Enter title',
+        success: function (response, newValue) {
+            mainTaskList.title = newValue;
         }
-
-        mainTaskList.searchTerm = $(this).val();
-        mainTaskList.searchChildren = $("#shouldSearchChildren").hasClass("active");
-        mainTaskList.searchParents = $("#shouldSearchParents").hasClass("active");
-
-        //render again
-        renderGrid();
     });
+}
 
-    $("#saver").on("click", saveTaskList);
+function isKeyboardInEditor(element) {
+    return _.includes(KEYBOARD_CANCEL, element.tagName);
+}
+
+function setupTaskRelatedEvents() {
 
     $("#newTask").on("click", createNewTask)
     $("#newTasklist").on("click", createNewTasklist);
 
     //bind events for the sort button click
-    $("#isSortEnabled").on("click", function (ev) {
+    $("#btnSortNow").on("click", sortNow);
+    $("#btnClearIsolation").on("click", function (ev) {
+        //this will remove the isolation
+        clearIsolation()
+    });
 
-        //TODO determine why bootstrap states are reversed in events... too early detection?
-        //the button states are reversed when coming through
-        var isSortEnabled = !($(this).attr("aria-pressed") === 'true');
-        mainTaskList.isSortEnabled = isSortEnabled;
+    $("#btnCreateProject").on("click", createNewProject);
 
+    $("#btnMoveStranded").on("click", function (ev) {
+        mainTaskList.assignStrandedTasksToCurrentIsolationLevel();
         renderGrid();
     });
 
-    //bind events for the sort button click
-    $("#btnSortNow").on("click", sortNow);
+}
 
-    function isKeyboardInEditor(element) {
-        return _.includes(KEYBOARD_CANCEL, element.tagName);
-    }
+function setupKeydownEvents() {
 
     //this sets up an event to capture the keydown (before anything else runs)
     $("body").get(0).addEventListener("keydown", function (ev) {
@@ -102,51 +104,34 @@ setupEvents = function () {
 
     }, true);
 
-    $("#btnClearIsolation").on("click", function (ev) {
-        //this will remove the isolation
-        clearIsolation()
+}
+
+function setupFileMgmtEvents() {
+
+    $("#loader").on("click", function () {
+        //set the list object
+        dialog.showOpenDialog(function (fileName) {
+            if (fileName === undefined) {
+                //TODO use an actual output box for this
+                console.log("no file chosen")
+                return false;
+            }
+
+            fileName = fileName[0];
+
+            loadTaskListWithPrompt(fileName)
+
+            addFileToRecentFileList(fileName);
+        });
     });
 
-    $("#btnCreateProject").on("click", createNewProject);
+    $("#saver").on("click", saveTaskList);
 
-    $("#btnMoveStranded").on("click", function (ev) {
-        mainTaskList.assignStrandedTasksToCurrentIsolationLevel();
-        renderGrid();
-    });
+}
 
-    $('#projectTitle').editable({
-        type: 'text',
-        title: 'Enter title',
-        success: function (response, newValue) {
-            mainTaskList.title = newValue;
-        }
-    });
+function setupSearchEvents() {
 
-    $("#btnPrint").on("click", function () {
-        console.log("print clicked")
-
-        window.print();
-    })
-
-    $("#btnClearLocalStorage").on("click", function () {
-        console.log("clear local storage")
-
-        localStorage.clear();
-    })
-
-    $("#gridList").on("click", "td", function (ev) {
-        if (ev.metaKey || ev.ctrlKey) {
-            console.log("tr click with meta or CTRL", this, $(this).offset(), ev)
-                //this needs to select the task
-            var currentTask = getCurrentTask(this);
-            currentTask.isSelected = !currentTask.isSelected;
-
-            //move the selection menu to position of the row
-            $("#selectionMenu").show();
-
-            renderGrid();
-        }
-    })
+    $("#btnClearSearch").on("click", updateSearch);
 
     $("body").on("click", ".label-search", function (ev) {
         console.log("label-search click", this, "shift", ev.shiftKey);
@@ -182,12 +167,23 @@ setupEvents = function () {
         return false;
     })
 
-    setupAutocompleteEvents();
-    setupMousetrapEvents();
-    setupActionPanelButtonEvents();
-    setupBulkEditEvents();
-    setupSettingsRelatedEvents();
-    setupGoogleDriveEvents();
+    $("#txtSearch").on("keyup", function (ev) {
+        //this needs to do the active search
+        //set a filter
+        //find the ESC key
+        if (ev.keyCode == 27) {
+            $(this).val("");
+            $("#txtSearch").blur();
+        }
+
+        mainTaskList.searchTerm = $(this).val();
+        mainTaskList.searchChildren = $("#shouldSearchChildren").hasClass("active");
+        mainTaskList.searchParents = $("#shouldSearchParents").hasClass("active");
+
+        //render again
+        renderGrid();
+    });
+
 }
 
 function setupGoogleDriveEvents() {
@@ -210,6 +206,17 @@ function setupGoogleDriveEvents() {
 }
 
 function setupSettingsRelatedEvents() {
+
+    //bind events for the sort button click
+    $("#isSortEnabled").on("click", function (ev) {
+
+        //TODO determine why bootstrap states are reversed in events... too early detection?
+        //the button states are reversed when coming through
+        var isSortEnabled = !($(this).attr("aria-pressed") === 'true');
+        mainTaskList.isSortEnabled = isSortEnabled;
+
+        renderGrid();
+    });
 
     $("#shouldHideRoot").on("click", function (ev) {
         //flip the current value
@@ -259,6 +266,21 @@ function setupSettingsRelatedEvents() {
 }
 
 function setupBulkEditEvents() {
+
+    $("#gridList").on("click", "td", function (ev) {
+        if (ev.metaKey || ev.ctrlKey) {
+            console.log("tr click with meta or CTRL", this, $(this).offset(), ev)
+                //this needs to select the task
+            var currentTask = getCurrentTask(this);
+            currentTask.isSelected = !currentTask.isSelected;
+
+            //move the selection menu to position of the row
+            $("#selectionMenu").show();
+
+            renderGrid();
+        }
+    })
+
     $("#btnEditSelection").on("click", function () {
         console.log("edit multiple clicked")
 
