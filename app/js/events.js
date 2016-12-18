@@ -1,4 +1,5 @@
 setupEvents = function () {
+    
     setupAutocompleteEvents();
     setupMousetrapEvents();
     setupActionPanelButtonEvents();
@@ -634,8 +635,6 @@ function setupMousetrapEvents() {
             grid.editCell(grid.getRowIndex(currentID), grid.getColumnIndex("description"))
         }
     })
-
-
 
     Mousetrap.bind("alt+down", function (e) {
         console.log("move down requested");
