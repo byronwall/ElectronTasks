@@ -20,48 +20,8 @@ setupEvents = function () {
     //set up events for the search box
     $("#btnClearSearch").on("click", updateSearch);
 
-    $("#shouldSearchChildren, #shouldSearchParents").on("click", function (ev) {
-        $(ev.target).toggleClass("active")
-        $("#txtSearch").keyup();
-
-        return false;
-    });
-
-    $("#btnShouldShowComplete").on("click", function (ev) {
-        $(ev.target).toggleClass("active")
-
-        var shouldShowComplete = $("#btnShouldShowComplete").hasClass("active");
-
-        mainTaskList.shouldHideComplete = !shouldShowComplete;
-        renderGrid();
-
-        return false;
-    });
-
-    $("#btnShouldShowTagsForComplete").on("click", function (ev) {
-        $(ev.target).toggleClass("active")
-
-        var shouldShowComplete = $("#btnShouldShowTagsForComplete").hasClass("active");
-
-        mainTaskList.shouldExcludeCompleteTasksForBuckets = !shouldShowComplete;
-        renderGrid();
-
-        return false;
-    });
-
-    $("#btnShowCommentsWithDesc").on("click", function (ev) {
-        $(ev.target).toggleClass("active")
-
-        var shouldShowComplete = $("#btnShowCommentsWithDesc").hasClass("active");
-
-        mainTaskList.shouldShowCommentsWithDesc = shouldShowComplete;
-        renderGrid();
-
-        return false;
-    });
-
     $(window).on("resize", resizeBasedOnNavbar)
-    
+
     $("#txtSearch").on("keyup", function (ev) {
         //this needs to do the active search
         //set a filter
@@ -154,12 +114,6 @@ setupEvents = function () {
         renderGrid();
     });
 
-    $("#shouldHideRoot").on("click", function (ev) {
-        //flip the current value
-        mainTaskList.hideRootIfIsolated = !mainTaskList.hideRootIfIsolated
-        renderGrid();
-    });
-
     $('#projectTitle').editable({
         type: 'text',
         title: 'Enter title',
@@ -167,12 +121,6 @@ setupEvents = function () {
             mainTaskList.title = newValue;
         }
     });
-
-    $("#btnAuthDrive").on("click", function () {
-        console.log("auth click")
-
-        authorizeGoogleDrive(listGoogleDriveFiles);
-    })
 
     $("#btnPrint").on("click", function () {
         console.log("print clicked")
@@ -184,17 +132,6 @@ setupEvents = function () {
         console.log("clear local storage")
 
         localStorage.clear();
-    })
-
-    $("#btnDriveStore").on("click", function () {
-        console.log("drive store click")
-
-        if (localDrive === undefined) {
-            authorizeGoogleDrive(saveFileInDrive);
-            return;
-        }
-
-        saveFileInDrive();
     })
 
     $("#gridList").on("click", "td", function (ev) {
@@ -247,10 +184,78 @@ setupEvents = function () {
 
     setupAutocompleteEvents();
     setupMousetrapEvents();
-
     setupActionPanelButtonEvents();
-
     setupBulkEditEvents();
+    setupSettingsRelatedEvents();
+    setupGoogleDriveEvents();
+}
+
+function setupGoogleDriveEvents() {
+    $("#btnAuthDrive").on("click", function () {
+        console.log("auth click")
+
+        authorizeGoogleDrive(listGoogleDriveFiles);
+    })
+
+    $("#btnDriveStore").on("click", function () {
+        console.log("drive store click")
+
+        if (localDrive === undefined) {
+            authorizeGoogleDrive(saveFileInDrive);
+            return;
+        }
+
+        saveFileInDrive();
+    })
+}
+
+function setupSettingsRelatedEvents() {
+
+    $("#shouldHideRoot").on("click", function (ev) {
+        //flip the current value
+        mainTaskList.hideRootIfIsolated = !mainTaskList.hideRootIfIsolated
+        renderGrid();
+    });
+
+    $("#shouldSearchChildren, #shouldSearchParents").on("click", function (ev) {
+        $(ev.target).toggleClass("active")
+        $("#txtSearch").keyup();
+
+        return false;
+    });
+
+    $("#btnShouldShowComplete").on("click", function (ev) {
+        $(ev.target).toggleClass("active")
+
+        var shouldShowComplete = $("#btnShouldShowComplete").hasClass("active");
+
+        mainTaskList.shouldHideComplete = !shouldShowComplete;
+        renderGrid();
+
+        return false;
+    });
+
+    $("#btnShouldShowTagsForComplete").on("click", function (ev) {
+        $(ev.target).toggleClass("active")
+
+        var shouldShowComplete = $("#btnShouldShowTagsForComplete").hasClass("active");
+
+        mainTaskList.shouldExcludeCompleteTasksForBuckets = !shouldShowComplete;
+        renderGrid();
+
+        return false;
+    });
+
+    $("#btnShowCommentsWithDesc").on("click", function (ev) {
+        $(ev.target).toggleClass("active")
+
+        var shouldShowComplete = $("#btnShowCommentsWithDesc").hasClass("active");
+
+        mainTaskList.shouldShowCommentsWithDesc = shouldShowComplete;
+        renderGrid();
+
+        return false;
+    });
 }
 
 function setupBulkEditEvents() {
