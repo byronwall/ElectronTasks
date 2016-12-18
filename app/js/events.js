@@ -61,9 +61,7 @@ setupEvents = function () {
     });
 
     $(window).on("resize", resizeBasedOnNavbar)
-
-
-
+    
     $("#txtSearch").on("keyup", function (ev) {
         //this needs to do the active search
         //set a filter
@@ -80,8 +78,6 @@ setupEvents = function () {
         //render again
         renderGrid();
     });
-
-
 
     $("#saver").on("click", saveTaskList);
 
@@ -102,13 +98,9 @@ setupEvents = function () {
     //bind events for the sort button click
     $("#btnSortNow").on("click", sortNow);
 
-
-
     function isKeyboardInEditor(element) {
         return _.includes(KEYBOARD_CANCEL, element.tagName);
     }
-
-
 
     //this sets up an event to capture the keydown (before anything else runs)
     $("body").get(0).addEventListener("keydown", function (ev) {
@@ -182,13 +174,86 @@ setupEvents = function () {
         authorizeGoogleDrive(listGoogleDriveFiles);
     })
 
-
     $("#btnPrint").on("click", function () {
         console.log("print clicked")
 
         window.print();
     })
 
+    $("#btnClearLocalStorage").on("click", function () {
+        console.log("clear local storage")
+
+        localStorage.clear();
+    })
+
+    $("#btnDriveStore").on("click", function () {
+        console.log("drive store click")
+
+        if (localDrive === undefined) {
+            authorizeGoogleDrive(saveFileInDrive);
+            return;
+        }
+
+        saveFileInDrive();
+    })
+
+    $("#gridList").on("click", "td", function (ev) {
+        if (ev.metaKey || ev.ctrlKey) {
+            console.log("tr click with meta or CTRL", this, $(this).offset(), ev)
+                //this needs to select the task
+            var currentTask = getCurrentTask(this);
+            currentTask.isSelected = !currentTask.isSelected;
+
+            //move the selection menu to position of the row
+            $("#selectionMenu").show();
+
+            renderGrid();
+        }
+    })
+
+    $("body").on("click", ".label-search", function (ev) {
+        console.log("label-search click", this, "shift", ev.shiftKey);
+
+        //get the target
+        var target = this;
+        var type = target.dataset.type;
+
+        //get the column item to cancel the editing
+        var column = grid.columns[grid.getColumnIndex("description")];
+
+        //this click is happening after the editor appears
+        //need to end the editor and then render
+        //not sure why a render call is required?
+        applyEdit(column, true);
+        renderGrid();
+
+        console.log("type", type);
+        //get its dataset.type
+
+        var searchTerm = type + ":" + $(target).text();
+
+        if (ev.shiftKey) {
+            searchTerm = $("#txtSearch").val() + " " + searchTerm;
+        }
+
+        updateSearch(searchTerm, false)
+
+        //close any dropdown menus used
+        $('.btn-group.open .dropdown-toggle').dropdown('toggle');
+
+        //update the search field
+        return false;
+    })
+
+    setupAutocompleteEvents();
+    setupMousetrapEvents();
+
+    setupActionPanelButtonEvents();
+
+    setupBulkEditEvents();
+}
+
+function setupBulkEditEvents() {
     $("#btnEditSelection").on("click", function () {
         console.log("edit multiple clicked")
 
@@ -265,85 +330,13 @@ setupEvents = function () {
 
         //this will popup with the editor
         $("#modalEdit").modal();
-    })
-
-    $("#btnClearLocalStorage").on("click", function () {
-        console.log("clear local storage")
-
-        localStorage.clear();
-    })
-
-    $("#btnDriveStore").on("click", function () {
-        console.log("drive store click")
-
-        if (localDrive === undefined) {
-            authorizeGoogleDrive(saveFileInDrive);
-            return;
-        }
-
-        saveFileInDrive();
-    })
-
-    $("#gridList").on("click", "td", function (ev) {
-        if (ev.metaKey || ev.ctrlKey) {
-            console.log("tr click with meta or CTRL", this, $(this).offset(), ev)
-                //this needs to select the task
-            var currentTask = getCurrentTask(this);
-            currentTask.isSelected = !currentTask.isSelected;
-
-            //move the selection menu to position of the row
-            $("#selectionMenu").show();
-
-            renderGrid();
-        }
-    })
+    });
 
     $("#btnClearSelection").on("click", function () {
         console.log("clear selection click")
         clearSelection();
         return false;
     })
-
-
-
-    $("body").on("click", ".label-search", function (ev) {
-        console.log("label-search click", this, "shift", ev.shiftKey);
-
-        //get the target
-        var target = this;
-        var type = target.dataset.type;
-
-        //get the column item to cancel the editing
-        var column = grid.columns[grid.getColumnIndex("description")];
-
-        //this click is happening after the editor appears
-        //need to end the editor and then render
-        //not sure why a render call is required?
-        applyEdit(column, true);
-        renderGrid();
-
-        console.log("type", type);
-        //get its dataset.type
-
-        var searchTerm = type + ":" + $(target).text();
-
-        if (ev.shiftKey) {
-            searchTerm = $("#txtSearch").val() + " " + searchTerm;
-        }
-
-        updateSearch(searchTerm, false)
-
-        //close any dropdown menus used
-        $('.btn-group.open .dropdown-toggle').dropdown('toggle');
-
-        //update the search field
-        return false;
-    })
-
-    setupAutocompleteEvents();
-    setupMousetrapEvents();
-
-    setupActionPanelButtonEvents();
 }
 
 function setupActionPanelButtonEvents() {
