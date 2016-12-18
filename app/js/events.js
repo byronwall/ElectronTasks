@@ -1,5 +1,5 @@
 setupEvents = function () {
-    
+
     setupAutocompleteEvents();
     setupMousetrapEvents();
     setupActionPanelButtonEvents();
@@ -614,7 +614,7 @@ function setupMousetrapEvents() {
         }
     })
 
-    Mousetrap.bind("alt+up", function (e) {
+    Mousetrap.bind(["alt+up", "alt+down"], function (e, combo) {
         console.log("move up requested");
 
         //need to change the sort order to be one less than the task above the current one but at the same indent level
@@ -626,24 +626,11 @@ function setupMousetrapEvents() {
             var currentTask = getCurrentTask(e.target);
             var currentID = currentTask.ID
 
-            currentTask.sortOrder -= 1.1;
-
-            applyEdit(e.target);
-
-            saveTaskList();
-            renderGrid();
-            grid.editCell(grid.getRowIndex(currentID), grid.getColumnIndex("description"))
-        }
-    })
-
-    Mousetrap.bind("alt+down", function (e) {
-        console.log("move down requested");
-
-        if (e.target.tagName == "INPUT") {
-            var currentTask = getCurrentTask(e.target);
-            var currentID = currentTask.ID;
-
-            currentTask.sortOrder += 1.1;
+            if (combo == "alt+up") {
+                currentTask.sortOrder -= 1.1;
+            } else {
+                currentTask.sortOrder += 1.1;
+            }
 
             applyEdit(e.target);
 
