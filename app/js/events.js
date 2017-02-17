@@ -1,4 +1,10 @@
-setupEvents = function () {
+/* globals grid, mainTaskList, Task, renderGrid, saveTaskList, Mousetrap, dialog, KEYBOARD_CANCEL,
+updateSearch, createNewTask, createNewProject, Column, sortNow, resizeBasedOnNavbar, createNewTasklist,
+clearIsolation, taskToDelete, shouldDeleteTaskWhenDoneEditing, loadTaskListWithPrompt, addFileToRecentFileList,
+authorizeGoogleDrive, listGoogleDriveFiles, saveFileInDrive, localDrive, clearSelection, $, _
+*/
+
+var setupEvents = function () {
 
     setupAutocompleteEvents();
     setupMousetrapEvents();
@@ -11,23 +17,23 @@ setupEvents = function () {
     setupKeydownEvents();
     setupTaskRelatedEvents();
     setupAppRelatedEvents();
-}
+};
 
 function setupAppRelatedEvents() {
 
     $("#btnPrint").on("click", function () {
-        console.log("print clicked")
+        console.log("print clicked");
 
         window.print();
-    })
+    });
 
     $("#btnClearLocalStorage").on("click", function () {
-        console.log("clear local storage")
+        console.log("clear local storage");
 
         localStorage.clear();
-    })
+    });
 
-    $(window).on("resize", resizeBasedOnNavbar)
+    $(window).on("resize", resizeBasedOnNavbar);
 
     $('#projectTitle').editable({
         type: 'text',
@@ -44,14 +50,14 @@ function isKeyboardInEditor(element) {
 
 function setupTaskRelatedEvents() {
 
-    $("#newTask").on("click", createNewTask)
+    $("#newTask").on("click", createNewTask);
     $("#newTasklist").on("click", createNewTasklist);
 
     //bind events for the sort button click
     $("#btnSortNow").on("click", sortNow);
     $("#btnClearIsolation").on("click", function (ev) {
         //this will remove the isolation
-        clearIsolation()
+        clearIsolation();
     });
 
     $("#btnCreateProject").on("click", createNewProject);
@@ -68,7 +74,7 @@ function setupKeydownEvents() {
     //this sets up an event to capture the keydown (before anything else runs)
     $("body").get(0).addEventListener("keydown", function (ev) {
         if (ev.key === "Enter" && shouldDeleteTaskWhenDoneEditing) {
-            console.log("bubble keydown to delete", ev.key)
+            console.log("bubble keydown to delete", ev.key);
             taskToDelete.removeTask();
             renderGrid();
 
@@ -81,7 +87,9 @@ function setupKeydownEvents() {
 
         //ensures that the element is within the table
         //TODO make this more specific
-        if (!$(ev.target).parents("tr").length) return;
+        if (!$(ev.target).parents("tr").length){
+             return;
+        }
 
         var input = ev.target;
 
@@ -94,7 +102,7 @@ function setupKeydownEvents() {
             var currentID = currentTask.ID;
 
             if (currentTask.isFirstEdit) {
-                if ($(input).val() == "new task") {
+                if ($(input).val() === "new task") {
                     shouldDeleteTaskWhenDoneEditing = true;
                     taskToDelete = currentTask;
                 } else {
@@ -114,13 +122,13 @@ function setupFileMgmtEvents() {
         dialog.showOpenDialog(function (fileName) {
             if (fileName === undefined) {
                 //TODO use an actual output box for this
-                console.log("no file chosen")
+                console.log("no file chosen");
                 return false;
             }
 
             fileName = fileName[0];
 
-            loadTaskListWithPrompt(fileName)
+            loadTaskListWithPrompt(fileName);
 
             addFileToRecentFileList(fileName);
         });
@@ -159,20 +167,20 @@ function setupSearchEvents() {
             searchTerm = $("#txtSearch").val() + " " + searchTerm;
         }
 
-        updateSearch(searchTerm, false)
+        updateSearch(searchTerm, false);
 
         //close any dropdown menus used
         $('.btn-group.open .dropdown-toggle').dropdown('toggle');
 
         //update the search field
         return false;
-    })
+    });
 
     $("#txtSearch").on("keyup", function (ev) {
         //this needs to do the active search
         //set a filter
         //find the ESC key
-        if (ev.keyCode == 27) {
+        if (ev.keyCode === 27) {
             $(this).val("");
             $("#txtSearch").blur();
         }
@@ -189,13 +197,13 @@ function setupSearchEvents() {
 
 function setupGoogleDriveEvents() {
     $("#btnAuthDrive").on("click", function () {
-        console.log("auth click")
+        console.log("auth click");
 
         authorizeGoogleDrive(listGoogleDriveFiles);
-    })
+    });
 
     $("#btnDriveStore").on("click", function () {
-        console.log("drive store click")
+        console.log("drive store click");
 
         if (localDrive === undefined) {
             authorizeGoogleDrive(saveFileInDrive);
@@ -203,7 +211,7 @@ function setupGoogleDriveEvents() {
         }
 
         saveFileInDrive();
-    })
+    });
 }
 
 function setupSettingsRelatedEvents() {
@@ -221,19 +229,19 @@ function setupSettingsRelatedEvents() {
 
     $("#shouldHideRoot").on("click", function (ev) {
         //flip the current value
-        mainTaskList.hideRootIfIsolated = !mainTaskList.hideRootIfIsolated
+        mainTaskList.hideRootIfIsolated = !mainTaskList.hideRootIfIsolated;
         renderGrid();
     });
 
     $("#shouldSearchChildren, #shouldSearchParents").on("click", function (ev) {
-        $(ev.target).toggleClass("active")
+        $(ev.target).toggleClass("active");
         $("#txtSearch").keyup();
 
         return false;
     });
 
     $("#btnShouldShowComplete").on("click", function (ev) {
-        $(ev.target).toggleClass("active")
+        $(ev.target).toggleClass("active");
 
         var shouldShowComplete = $("#btnShouldShowComplete").hasClass("active");
 
@@ -244,7 +252,7 @@ function setupSettingsRelatedEvents() {
     });
 
     $("#btnShouldShowTagsForComplete").on("click", function (ev) {
-        $(ev.target).toggleClass("active")
+        $(ev.target).toggleClass("active");
 
         var shouldShowComplete = $("#btnShouldShowTagsForComplete").hasClass("active");
 
@@ -255,7 +263,7 @@ function setupSettingsRelatedEvents() {
     });
 
     $("#btnShowCommentsWithDesc").on("click", function (ev) {
-        $(ev.target).toggleClass("active")
+        $(ev.target).toggleClass("active");
 
         var shouldShowComplete = $("#btnShowCommentsWithDesc").hasClass("active");
 
@@ -270,7 +278,7 @@ function setupBulkEditEvents() {
 
     $("#gridList").on("click", "td", function (ev) {
         if (ev.metaKey || ev.ctrlKey) {
-            console.log("tr click with meta or CTRL", this, $(this).offset(), ev)
+            console.log("tr click with meta or CTRL", this, $(this).offset(), ev);
                 //this needs to select the task
             var currentTask = getCurrentTask(this);
             currentTask.isSelected = !currentTask.isSelected;
@@ -280,16 +288,16 @@ function setupBulkEditEvents() {
 
             renderGrid();
         }
-    })
+    });
 
     $("#btnEditSelection").on("click", function () {
-        console.log("edit multiple clicked")
+        console.log("edit multiple clicked");
 
         //need to get a list of those tasks which are selected
 
         var selected = _.filter(mainTaskList.tasks, function (task) {
             return task.isSelected;
-        })
+        });
 
         //this is a list of tasks, now need to compare their values
         //start with just desc
@@ -304,19 +312,19 @@ function setupBulkEditEvents() {
         _.each(fields, function (field) {
             var sameValue = _.every(selected, function (task) {
                 return task[field] === selected[0][field];
-            })
+            });
 
             //need to create the editor here (build the fields)
 
             //TODO change this defualt value
             var valueToShow = (sameValue) ? selected[0][field] : "various";
 
-            var div = $("<div/>").attr("class", "input-group")
-            var span = $("<span/>").attr("class", "input-group-addon")
+            var div = $("<div/>").attr("class", "input-group");
+            var span = $("<span/>").attr("class", "input-group-addon");
             var input = $("<input/>").attr("type", "text").attr("class", "form-control").val(valueToShow);
             var checkbox = $("<input/>").attr("type", "checkbox");
 
-            span.text(field).prepend(checkbox)
+            span.text(field).prepend(checkbox);
 
             //add the field to the input
             input.data("field", field);
@@ -326,15 +334,15 @@ function setupBulkEditEvents() {
 
             //set up some events for this form
             input.on("keyup", function () {
-                if ($(this).val() != valueToShow) {
+                if ($(this).val() !== valueToShow) {
                     checkbox.attr("checked", true);
                 }
-            })
+            });
 
             modalCheckInputs.push({
                 check: checkbox,
                 input: input
-            })
+            });
         });
 
         //wire up an event for the save click
@@ -348,23 +356,23 @@ function setupBulkEditEvents() {
                         //set that value for each task in the selector array
                         _.each(selected, function (task) {
                             task.setDataValue(obj.input.data("field"), obj.input.val());
-                        })
+                        });
                     }
-                })
+                });
                 //clear the modal
             $("#modalEdit").modal("hide");
             renderGrid();
-        })
+        });
 
         //this will popup with the editor
         $("#modalEdit").modal();
     });
 
     $("#btnClearSelection").on("click", function () {
-        console.log("clear selection click")
+        console.log("clear selection click");
         clearSelection();
         return false;
-    })
+    });
 }
 
 function setupActionPanelButtonEvents() {
@@ -411,36 +419,36 @@ function setupActionPanelButtonEvents() {
             var projects = mainTaskList.getProjectsInList();
             var projectCount = projects.length;
 
-            if (projectCount == 1) {
+            if (projectCount ===1) {
                 console.log("task cannot be deleted, since it is the last project root");
                 return false;
             }
 
             //delete the project
-            currentTask.removeTask()
+            currentTask.removeTask();
 
             projects = mainTaskList.getProjectsInList();
             projectCount = projects.length;
 
             //if there is only one project, isolate it
-            if (projectCount == 1) {
+            if (projectCount === 1) {
                 mainTaskList.idForIsolatedTask = projects[0].ID;
             }
 
 
         } else {
-            currentTask.removeTask()
+            currentTask.removeTask();
         }
 
         //check if the isolated task is the removed task
-        if (mainTaskList.idForIsolatedTask == currentID) {
+        if (mainTaskList.idForIsolatedTask === currentID) {
             mainTaskList.idForIsolatedTask = parentID;
         }
 
         renderGrid();
-        saveTaskList();;
+        saveTaskList();
         //delete the task and rerender
-    })
+    });
 
     var autosize = require("autosize");
     autosize($("#modalCommentsText"));
@@ -455,13 +463,13 @@ function setupActionPanelButtonEvents() {
         function showCommentModal() {
             var modalComments = $("#modalComments");
 
-            $("#modalCommentsText").val(currentTask.comments)
-            $("#modalCommentsTask").text("#" + currentTask.ID + " " + currentTask.description)
+            $("#modalCommentsText").val(currentTask.comments);
+            $("#modalCommentsTask").text("#" + currentTask.ID + " " + currentTask.description);
 
 
             modalComments.on('shown.bs.modal', function () {
                 $("#modalCommentsText").focus();
-            })
+            });
 
             modalComments.modal();
 
@@ -475,22 +483,22 @@ function setupActionPanelButtonEvents() {
             }
 
             $("#modalCommentsText").off().on("keydown", function (ev) {
-                if (ev.key == "Enter" && (ev.metaKey || ev.ctrlKey)) {
+                if (ev.key === "Enter" && (ev.metaKey || ev.ctrlKey)) {
                     saveModalComments();
                 }
-            })
+            });
 
             //wire up the save button
             $("#modalSaveComments").off().on("click", function () {
                 //save the task data
                 saveModalComments();
-            })
+            });
         }
 
         showCommentModal();
 
         return false;
-    })
+    });
 
     $("#gridList").on("click", ".gridMove li", function (ev) {
         console.log("task move button hit");
@@ -500,7 +508,7 @@ function setupActionPanelButtonEvents() {
         var newProjectId = this.dataset.project;
         var newProject = mainTaskList.tasks[newProjectId];
 
-        if (currentTask.parentTask != null) {
+        if (currentTask.parentTask !== null) {
             var parentTask = mainTaskList.tasks[currentTask.parentTask];
             var parentChildIndex = parentTask.childTasks.indexOf(currentTask.ID);
             parentTask.childTasks.splice(parentChildIndex, 1);
@@ -511,27 +519,27 @@ function setupActionPanelButtonEvents() {
         newProject.childTasks.push(currentTask.ID);
 
         renderGrid();
-        saveTaskList();;
+        saveTaskList();
         //delete the task and rerender
-    })
+    });
 }
 
 function setupMousetrapEvents() {
     Mousetrap.bind("alt+right", function (e) {
-        if (e.target.tagName == "INPUT") {
+        if (e.target.tagName === "INPUT") {
 
             var currentTask = getCurrentTask(e.target);
             var aboveTask = getTaskAbove(currentTask);
 
             //need to iterate until aboveTask is at same indent as current task
             while (aboveTask.indent > currentTask.indent) {
-                aboveTask = mainTaskList.tasks[aboveTask.parentTask]
+                aboveTask = mainTaskList.tasks[aboveTask.parentTask];
             }
 
             //TODO put this code somewhere else
 
             //remove the current parent if it exists
-            if (currentTask.parentTask != null) {
+            if (currentTask.parentTask !== null) {
                 var parentTask = mainTaskList.tasks[currentTask.parentTask];
                 var parentChildIndex = parentTask.childTasks.indexOf(currentTask.ID);
                 parentTask.childTasks.splice(parentChildIndex, 1);
@@ -549,11 +557,12 @@ function setupMousetrapEvents() {
 
             //need to get the task located above the current one (0 index)
             var currentRow = grid.getRowIndex(currentTask.ID);
-            grid.editCell(currentRow, grid.getColumnIndex("description"))
+            grid.editCell(currentRow, grid.getColumnIndex("description"));
 
             return false;
         }
-    })
+    });
+
     Mousetrap.bind("alt+left", function (e) {
         console.log("indent left requested");
 
@@ -565,20 +574,20 @@ function setupMousetrapEvents() {
         //check the parent of the parent and make them equal
         //add this node to the child nodes of that parent if it exists
 
-        if (e.target.tagName == "INPUT") {
+        if (e.target.tagName === "INPUT") {
 
             //TODO refactor this away
             var currentTask = getCurrentTask(e.target);
             var currentID = currentTask.ID;
 
-            if (currentTask.parentTask == null) {
+            if (currentTask.parentTask === null) {
                 return;
             }
 
             var aboveId = currentTask.parentTask;
             var aboveTask = mainTaskList.tasks[aboveId];
 
-            if (aboveTask.parentTask == null) {
+            if (aboveTask.parentTask === null) {
                 //don't allow a stranded task
                 return;
             }
@@ -596,11 +605,11 @@ function setupMousetrapEvents() {
 
             var grandparentID = aboveTask.parentTask;
             currentTask.parentTask = grandparentID;
-            if (grandparentID != null) {
+            if (grandparentID !== null) {
                 var grandparentTask = mainTaskList.tasks[grandparentID];
                 grandparentTask.childTasks.push(currentID);
 
-                console.log("grandparent task after adding", grandparentTask)
+                console.log("grandparent task after adding", grandparentTask);
             }
 
             applyEdit(e.target);
@@ -610,9 +619,9 @@ function setupMousetrapEvents() {
             renderGrid();
 
             var currentRow = grid.getRowIndex(currentID);
-            grid.editCell(currentRow, grid.getColumnIndex("description"))
+            grid.editCell(currentRow, grid.getColumnIndex("description"));
         }
-    })
+    });
 
     Mousetrap.bind(["alt+up", "alt+down"], function (e, combo) {
         console.log("move up requested");
@@ -620,13 +629,13 @@ function setupMousetrapEvents() {
         //need to change the sort order to be one less than the task above the current one but at the same indent level
         //sort orders will be corrected to be sequential, so just need to get a number between the two spots
 
-        if (e.target.tagName == "INPUT") {
+        if (e.target.tagName === "INPUT") {
 
             //now holds the current ID
             var currentTask = getCurrentTask(e.target);
-            var currentID = currentTask.ID
+            var currentID = currentTask.ID;
 
-            if (combo == "alt+up") {
+            if (combo === "alt+up") {
                 currentTask.sortOrder -= 1.1;
             } else {
                 currentTask.sortOrder += 1.1;
@@ -636,14 +645,14 @@ function setupMousetrapEvents() {
 
             saveTaskList();
             renderGrid();
-            grid.editCell(grid.getRowIndex(currentID), grid.getColumnIndex("description"))
+            grid.editCell(grid.getRowIndex(currentID), grid.getColumnIndex("description"));
         }
-    })
+    });
 
     Mousetrap.bind(["ctrl+alt+right", "ctrl+alt+left", "ctrl+alt+up", "ctrl+alt+down"], function (ev, combo) {
 
         if (ev.target.tagName === "INPUT" && $(ev.target).parents("#gridList").length) {
-            console.log("move cell selector shortcut")
+            console.log("move cell selector shortcut");
 
             //if this is a tasklist input, there should be an element, and then rowIndex and columnIndex
             var element = ev.target.element;
@@ -682,7 +691,6 @@ function setupMousetrapEvents() {
 
             return false;
         }
-
     });
 
     Mousetrap.bind("a", function (e) {
@@ -739,9 +747,9 @@ function setupMousetrapEvents() {
 
     Mousetrap.bind("alt+a", function (e) {
 
-        var options = {}
+        var options = {};
 
-        if (e.target.tagName == "INPUT") {
+        if (e.target.tagName === "INPUT") {
 
             //now holds the current ID
             var currentTask = getCurrentTask(e.target);
@@ -766,7 +774,7 @@ function setupMousetrapEvents() {
     Mousetrap.bind("alt+q", function (e, combo) {
         console.log("task isolation requested");
 
-        if (e.target.tagName == "INPUT") {
+        if (e.target.tagName === "INPUT") {
             //we have a text box
             var currentTask = getCurrentTask(e.target);
             var currentID = currentTask.ID;
@@ -821,15 +829,15 @@ function setupMousetrapEvents() {
         //need to get all visible tasks, exclude project root
         var visibleTasks = _.filter(mainTaskList.tasks, function (task) {
             return task.isVisible && !task.isProjectRoot;
-        })
+        });
 
         var shouldDeselect = _.every(visibleTasks, function (task) {
             return task.isSelected;
-        })
+        });
 
         _.each(visibleTasks, function (task) {
             task.isSelected = !shouldDeselect;
-        })
+        });
 
         renderGrid();
 
@@ -856,7 +864,7 @@ function setupMousetrapEvents() {
     Mousetrap.prototype.stopCallback = function (a, b, c) {
         //this lets the shortcuts go through whenever
         return false;
-    }
+    };
 }
 
 function setupAutocompleteEvents() {
@@ -869,8 +877,8 @@ function setupAutocompleteEvents() {
             search: function (term, callback) {
                 var answer = _.filter(mainTaskList.getAllTags(), function (item) {
                     return item.indexOf(term) >= 0;
-                })
-                console.log("search")
+                });
+                console.log("search");
                 callback(answer);
             },
             replace: function (word) {
@@ -881,7 +889,7 @@ function setupAutocompleteEvents() {
             search: function (term, callback) {
                 var answer = _.filter(mainTaskList.getAllStatus(), function (item) {
                     return item.indexOf(term) >= 0;
-                })
+                });
                 callback(answer);
             },
             replace: function (word) {
@@ -892,7 +900,7 @@ function setupAutocompleteEvents() {
             search: function (term, callback) {
                 var answer = _.filter(mainTaskList.getMilestones(), function (item) {
                     return item.indexOf(term) >= 0;
-                })
+                });
                 callback(answer);
             },
             replace: function (word) {
@@ -915,7 +923,7 @@ function setupAutocompleteEvents() {
         var input = ev.target;
 
         if ($(input).parents("#gridList").length > 0) {
-            console.log("inside the gridlist")
+            console.log("inside the gridlist");
         }
 
         $(this).textcomplete("destroy");
@@ -937,7 +945,7 @@ function getCurrentTask(element) {
 }
 
 function getTaskAbove(currentTask) {
-    console.log("getAbove, currentTask", currentTask)
+    console.log("getAbove, currentTask", currentTask);
     var currentRow = grid.getRowIndex(currentTask.ID);
 
     //TODO add some error checking
