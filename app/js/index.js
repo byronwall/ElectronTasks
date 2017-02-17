@@ -12,7 +12,7 @@ var $ = jQuery;
 
 //these requires were added to split up code.... hopefully
 var renderGrid = require("./js/grid-render.js");
-var setupEvents = require("./js/events.js")
+var setupEvents = require("./js/events.js");
 
 var TaskGrid = require("./js/grid-setup.js");
 var grid;
@@ -25,9 +25,9 @@ var setupLocalStorage = require("./js/local-storage.js");
 var shouldAddTaskWhenDoneEditing = false;
 var shouldDeleteTaskWhenDoneEditing = false;
 
-var localDrive = undefined;
+var localDrive;
 
-var mainTaskList = undefined;
+var mainTaskList;
 
 var KEYBOARD_CANCEL = ["INPUT", "TEXTAREA"];
 
@@ -76,29 +76,31 @@ function showSavePrompt(yesNoCallback) {
 function updateSearch(searchTerm = "", shouldFocus = true, shouldRender = true) {
 
     //when called on a "bare" event handler, the parameter coming in is an event object
-    if (typeof searchTerm != "string") {
+    if (typeof searchTerm !== "string") {
         searchTerm = "";
     }
 
     var curVal = $("#txtSearch").val();
 
     //don't search if no change
-    if (curVal == searchTerm) {
+    if (curVal === searchTerm) {
         return;
     }
 
-    $("#txtSearch").val(searchTerm).keyup()
+    $("#txtSearch").val(searchTerm).keyup();
 
     if (shouldFocus) {
         $("#txtSearch").focus();
     }
 }
 
+var recentFiles = [];
+
 //check if the filename is already in the list
 function addFileToRecentFileList(fileName) {
     _.remove(recentFiles, function (item) {
-        return (item == fileName);
-    })
+        return (item === fileName);
+    });
     recentFiles.unshift(fileName);
     //if not, add to the top of the list
 
@@ -113,46 +115,48 @@ function updateRecentFileButton() {
     }
 
     _.each(recentFiles, function (fileName) {
-        var label = $("<li/>").appendTo("#recentFileGroup")
+        var label = $("<li/>").appendTo("#recentFileGroup");
         var aDom = $("<a/>").attr("href", "#").text(fileName).appendTo(label);
 
         //set up a click event on the LABEL... does not work for the input
         //TODO swap this for a delegated event
         $(label).on("click", function (ev) {
-            loadTaskListWithPrompt(fileName)
-        })
+            loadTaskListWithPrompt(fileName);
+        });
     });
 }
 
 function resizeBasedOnNavbar() {
     //get the height of the navbar
-    var navbar = $("#navbar")
+    var navbar = $("#navbar");
 
     //update the padding on the main element
     var height = navbar.height() + 5;
 
-    $("body").css("padding-top", height + "px")
+    $("body").css("padding-top", height + "px");
 }
 
 function loadTaskListWithPrompt(fileName, driveId) {
-    if (mainTaskList.path == "" && !mainTaskList.isDefaultList()) {
+    if (mainTaskList.path === "" && !mainTaskList.isDefaultList()) {
         showSavePrompt(function () {
             TaskList.load(fileName, loadTaskListCallback, driveId);
-        })
+        });
     } else {
         TaskList.load(fileName, loadTaskListCallback, driveId);
     }
 }
 
+var visibleColumns = [];
+
 function loadTaskListCallback(loadedTaskList) {
     mainTaskList = loadedTaskList;
     _.each(visibleColumns, function (columnName) {
         mainTaskList.columns[columnName].active = true;
-    })
+    });
 
     //get first project in file and isolate on it
     var projects = mainTaskList.getProjectsInList();
-    console.log("loader proj", projects)
+    console.log("loader proj", projects);
     mainTaskList.idForIsolatedTask = projects[0].ID;
 
     renderGrid();
@@ -174,15 +178,15 @@ function saveFileInDrive() {
 }
 
 function authorizeGoogleDrive(callback) {
-    localDrive = new DriveStorage()
+    localDrive = new DriveStorage();
     localDrive.startAuth(function () {
-        showAlert("Google Drive has been authorized.  Check Google Drive -> Load menu to see files.")
+        showAlert("Google Drive has been authorized.  Check Google Drive -> Load menu to see files.");
         callback();
     });
 }
 
 function updateDriveFileButton(fileList) {
-    console.log("files inside func", fileList)
+    console.log("files inside func", fileList);
 
     var driveGroup = $("#driveFileGroup");
 
@@ -191,18 +195,18 @@ function updateDriveFileButton(fileList) {
     }
 
     _.each(fileList, function (driveFile) {
-        var label = $("<li/>").appendTo(driveGroup)
+        var label = $("<li/>").appendTo(driveGroup);
         var aDom = $("<a/>").attr("href", "#").text(driveFile.name).appendTo(label);
 
         //set up a click event on the LABEL... does not work for the input
         $(label).on("click", function (ev) {
             //TODO need to wire this up
-            console.log("load the file from drive", driveFile.id)
+            console.log("load the file from drive", driveFile.id);
             localDrive.downloadFile(driveFile, function (path) {
-                console.log("downloaded file to ", path)
-                loadTaskListWithPrompt(fileName, driveFile.id);
-            })
-        })
+                console.log("downloaded file to ", path);
+                loadTaskListWithPrompt(path, driveFile.id);
+            });
+        });
     });
 }
 
@@ -223,16 +227,16 @@ function createNewTask(options = {}) {
     _.assign(newTask, options);
 
     //assign child for the parent
-    if (newTask.parentTask != null) {
+    if (newTask.parentTask !== null) {
         mainTaskList.tasks[newTask.parentTask].childTasks.push(newTask.ID);
     }
 
     renderGrid();
-    grid.editCell(grid.getRowIndex(newTask.ID), grid.getColumnIndex("description"))
+    grid.editCell(grid.getRowIndex(newTask.ID), grid.getColumnIndex("description"));
 }
 
 function saveTaskList(shouldPromptForFilename = false) {
-    if (shouldPromptForFilename && mainTaskList.path == "") {
+    if (shouldPromptForFilename && mainTaskList.path === "") {
         dialog.showSaveDialog(function (fileName) {
 
             if (fileName === undefined) {
@@ -245,12 +249,12 @@ function saveTaskList(shouldPromptForFilename = false) {
             //TODO this is a duplicate piece of code
             mainTaskList.save();
             addFileToRecentFileList(fileName);
-        })
+        });
     }
 
     var didSave = mainTaskList.save();
     if (didSave) {
-        showAlert("tasklist was saved", "success")
+        showAlert("tasklist was saved", "success");
     }
 }
 
@@ -267,17 +271,17 @@ function createNewTask(options = {}) {
     _.assign(newTask, options);
 
     //assign child for the parent
-    if (newTask.parentTask == null) {
+    if (newTask.parentTask === null) {
         newTask.parentTask = mainTaskList.idForIsolatedTask;
     }
 
-    if (newTask.parentTask != null) {
+    if (newTask.parentTask !== null) {
         mainTaskList.tasks[newTask.parentTask].childTasks.push(newTask.ID);
         renderGrid();
-        grid.editCell(grid.getRowIndex(newTask.ID), grid.getColumnIndex("description"))
+        grid.editCell(grid.getRowIndex(newTask.ID), grid.getColumnIndex("description"));
     } else {
         //this will prevent the task from being added if it has no parent
-        console.log("stranded task removed")
+        console.log("stranded task removed");
         //TODO add a warning that task was not created since it would have been stranded
         newTask.removeTask();
     }
@@ -291,7 +295,7 @@ function createNewProject() {
 
     renderGrid();
 
-    grid.editCell(grid.getRowIndex(newProjectTask.ID), grid.getColumnIndex("description"))
+    grid.editCell(grid.getRowIndex(newProjectTask.ID), grid.getColumnIndex("description"));
 }
 
 function createNewTasklist() {
@@ -305,7 +309,7 @@ function clearIsolation(shouldRender = true) {
     var projectCount = projects.length;
 
     //if there is only one project, isolate it
-    mainTaskList.idForIsolatedTask = (projectCount == 1) ? projects[0].ID : null;
+    mainTaskList.idForIsolatedTask = (projectCount === 1) ? projects[0].ID : null;
 
     if (shouldRender) {
         renderGrid();
@@ -314,7 +318,7 @@ function clearIsolation(shouldRender = true) {
 
 function activateTooltipPlugin() {
     //this will allow Bootstrap to drive the tooltips
-    console.log("init the tooltips")
+    console.log("init the tooltips");
     $("button").tooltip(
         { trigger: "hover" }
     );
@@ -322,14 +326,14 @@ function activateTooltipPlugin() {
     $(".dropdown-toggle").on("click", function () {
         //hide all tooltips
         $("button").tooltip("hide");
-    })
+    });
 }
 
 //clear selection, render grid
 function clearSelection(shouldRender = true) {
     _.each(mainTaskList.tasks, function (task) {
         task.isSelected = false;
-    })
+    });
     if (shouldRender) {
         renderGrid();
     }
@@ -339,7 +343,7 @@ function createColumnShowAndSort() {
     //set up the column chooser
     _.each(mainTaskList.getListOfColumns(), function (columnName) {
         //create the label and the actual input element
-        if (columnName == "action") {
+        if (columnName === "action") {
             //skip showing the action column
             return;
         }
@@ -354,8 +358,8 @@ function createColumnShowAndSort() {
 								</li>
                                 */
 
-        var li = $("<li/>").appendTo("#columnChooser")
-        var btnGroup = $("<div/>").appendTo(li).attr("class", "btn-group btn-group-flex")
+        var li = $("<li/>").appendTo("#columnChooser");
+        var btnGroup = $("<div/>").appendTo(li).attr("class", "btn-group btn-group-flex");
         var anchor = $("<a/>").appendTo(btnGroup).attr("class", "btn btn-default sort-desc");
 
         //add the arrows
@@ -374,38 +378,38 @@ function createColumnShowAndSort() {
 
         //set up a click event on the LABEL... does not work for the input
         $(anchor).on("click", function (ev) {
-            console.log("show/hide column click")
+            console.log("show/hide column click");
 
             //this seems to be opposite of the actual value
-            var isActive = !$(this).hasClass("active")
-            $(this).toggleClass("active")
+            var isActive = !$(this).hasClass("active");
+            $(this).toggleClass("active");
             mainTaskList.columns[columnName].active = isActive;
 
             if (isActive) {
                 visibleColumns.push(columnName);
             } else {
                 _.remove(visibleColumns, function (item) {
-                    return item == columnName;
-                })
+                    return item === columnName;
+                });
             }
 
             //update the local storage
             localStorage.setItem("visibleColumns", JSON.stringify(visibleColumns));
 
             renderGrid();
-        })
+        });
 
         //TODO add a check for the ASC/DESC flag
-        if (columnName == mainTaskList.sortField && mainTaskList.sortDir == "desc") {
+        if (columnName === mainTaskList.sortField && mainTaskList.sortDir === "desc") {
             aArrowDown.addClass("active");
         }
-        else if (columnName == mainTaskList.sortField && mainTaskList.sortDir == "asc") {
+        else if (columnName === mainTaskList.sortField && mainTaskList.sortDir === "asc") {
             aArrowUp.addClass("active");
         }
 
         //add just combines the jQuery objects, no underlying change
         aArrowUp.add(aArrowDown).on("click", function (ev) {
-            console.log("sort clicked", this, $(this).data("dir"))
+            console.log("sort clicked", this, $(this).data("dir"));
             //this seems to be opposite of the actual value
             mainTaskList.sortField = columnName;
             mainTaskList.sortDir = $(this).data("dir");
@@ -413,7 +417,7 @@ function createColumnShowAndSort() {
 
             $("#columnChooser .sort-arrow").removeClass("active");
             $(this).addClass("active");
-        })
+        });
     });
 }
 

@@ -1,3 +1,4 @@
+/* globals $, _ */
 //create a Task object
 
 module.exports = class Task {
@@ -53,18 +54,18 @@ module.exports = class Task {
 
                 var isMatch = false;
 
-                if (item == null) {
+                if (item === null) {
                     return true;
                 }
 
                 if (typeof item === "string") {
-                    isMatch = item.toUpperCase().indexOf(searchTerm.toUpperCase()) != -1;
+                    isMatch = item.toUpperCase().indexOf(searchTerm.toUpperCase()) !== -1;
                 } else {
-                    isMatch = (item == searchTerm);
+                    isMatch = (item === searchTerm);
                 }
 
                 return !isMatch;
-            })
+            });
 
             return !hasNoMatch;
         } else {
@@ -72,21 +73,21 @@ module.exports = class Task {
 
             var allMatch = _.every(_.keys(searchTerm), function (key) {
                 //for each key need to check if that value is equal to value
-                if (task[key] != null && typeof task[key] === "object") {
+                if (task[key] !== null && typeof task[key] === "object") {
                     //this is an array
-                    if (searchTerm[key] == "<none>") {
+                    if (searchTerm[key] === "<none>") {
                         //do a test for the none case
-                        return task[key].length == 0;
+                        return task[key].length === 0;
                     }
 
                     return task[key].indexOf(searchTerm[key]) > -1;
                 } else {
                     //this is a bare field
-                    if (searchTerm[key] == "<none>") {
+                    if (searchTerm[key] === "<none>") {
                         //do a test for the none case
-                        return task[key] == "" || task[key] == null;
+                        return task[key] === "" || task[key] === null;
                     }
-                    return task[key] == searchTerm[key];
+                    return task[key] === searchTerm[key];
                 }
             });
 
@@ -100,14 +101,14 @@ module.exports = class Task {
 
         var _ = require("lodash");
         _.map(data, function (value, index) {
-            task[index] = value
-        })
+            task[index] = value;
+        });
 
         if (data.ID > Task._id || !Task._id) {
             Task._id = data.ID + 1;
         }
 
-        if (task.status == "") {
+        if (task.status === "") {
             task.status = null;
         }
 
@@ -124,14 +125,14 @@ module.exports = class Task {
 
     completeTask(isComplete) {
         //this will flip completion on the current task
-        this.isComplete = (isComplete == undefined) ? !this.isComplete : isComplete;
+        this.isComplete = (isComplete === undefined) ? !this.isComplete : isComplete;
 
         //check if there are any children, if so, complete those also
         var self = this;
         _.each(this.childTasks, function (childTaskIndex) {
             var childTask = self.taskList.tasks[childTaskIndex];
             childTask.completeTask(self.isComplete);
-        })
+        });
     }
 
     removeTask() {
@@ -140,7 +141,7 @@ module.exports = class Task {
         _.each(this.childTasks, function (childTaskIndex) {
             var childTask = self.taskList.tasks[childTaskIndex];
             childTask.removeTask();
-        })
+        });
 
         self.taskList.removeTask(self.ID);
 
@@ -171,16 +172,16 @@ module.exports = class Task {
             partsToKeep.push("#" + tag);
         });
 
-        if (this.status != null) {
+        if (this.status !== null) {
             partsToKeep.push("@" + this.status);
         }
-        if (this.milestone != null) {
+        if (this.milestone !== null) {
             partsToKeep.push("!" + this.milestone);
         }
         //now add the remaining parts
 
         var newDesc = _.filter(partsToKeep, function (item) {
-            return item != ""
+            return item !== "";
         }).join(" ");
         this.description = newDesc;
     }
@@ -190,7 +191,7 @@ module.exports = class Task {
         this.updateDescriptionBasedOnDataFields();
 
         //need to take an array of fields and run through them
-        if (this.childTasks.length == 0) {
+        if (this.childTasks.length === 0) {
             //nothing to do without children
             return;
         }
@@ -210,7 +211,7 @@ module.exports = class Task {
 
             //stick each set of values into an array
             _.each(transForms, function (value, key) {
-                if (values[key] == undefined) {
+                if (values[key] === undefined) {
                     values[key] = [];
                 }
 
@@ -219,14 +220,14 @@ module.exports = class Task {
                     values[key].push(childTask[key]);
                 }
             });
-        })
+        });
 
         //iteate the array of values and update the values for this task
         _.each(transForms, function (value, key) {
             //this is a very magic way to get the function
             //lodash has sum/min/max as functions
             //this pulls the correct function and applies it to the current transForms field
-            self[key] = _[value](values[key])
+            self[key] = _[value](values[key]);
         });
     }
 
@@ -249,28 +250,28 @@ module.exports = class Task {
             "isComplete": this.isComplete,
             "isProjectRoot": this.isProjectRoot,
             "tags": this.tags
-        }
+        };
     }
     setDataValue(field, value) {
         console.log("task set info", typeof this[field]);
 
         if (typeof this[field] === "object") {
 
-            if (value == "") {
+            if (value === "") {
                 this[field] = [];
             } else {
                 //assume this is a CSV string and split
                 var parts = value.split(",");
                 parts = _.map(parts, function (part) {
-                    return part.trim()
+                    return part.trim();
                 });
 
                 console.log("will set obj", field, parts);
                 this[field] = parts;
             }
         } else {
-            console.log("will set", field, value)
+            console.log("will set", field, value);
             this[field] = value;
         }
     }
-}
+};

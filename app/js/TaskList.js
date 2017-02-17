@@ -1,3 +1,5 @@
+/* globals Task, $, _ */
+
 var self;
 
 class TaskList {
@@ -42,7 +44,7 @@ class TaskList {
             { "name": "dateAdded", "label": "added", "datatype": "date", "editable": true, "active": false },
             { "name": "startDate", "label": "start", "datatype": "date", "editable": true, "active": false },
             { "name": "endDate", "label": "end", "datatype": "date", "editable": true, "active": false }
-        ]
+        ];
 
         this.columns = _.keyBy(this._possibleColumns, "name");
     }
@@ -55,11 +57,11 @@ class TaskList {
                 return true;
             }
             _.each(item.tags, function (tag) {
-                if (tags.indexOf(tag) == -1) {
+                if (tags.indexOf(tag) === -1) {
                     tags.push(tag);
                 }
-            })
-        })
+            });
+        });
 
         tags.sort();
 
@@ -72,10 +74,10 @@ class TaskList {
             if (task.isComplete && self.shouldExcludeCompleteTasksForBuckets) {
                 return true;
             }
-            if (status.indexOf(task.status) == -1 && task.status != null) {
+            if (status.indexOf(task.status) === -1 && task.status !== null) {
                 status.push(task.status);
             }
-        })
+        });
 
         status.sort();
 
@@ -85,11 +87,11 @@ class TaskList {
     assignStrandedTasksToCurrentIsolationLevel() {
         var self = this;
         _.each(this.tasks, function (task) {
-            if (task.parentTask == null && !task.isProjectRoot) {
+            if (task.parentTask === null && !task.isProjectRoot) {
                 task.parentTask = self.idForIsolatedTask;
                 self.tasks[self.idForIsolatedTask].childTasks.push(task.ID);
             }
-        })
+        });
     }
 
     getProjectsInList() {
@@ -98,7 +100,7 @@ class TaskList {
             if (task.isProjectRoot) {
                 projects.push(task);
             }
-        })
+        });
 
         projects.sort();
 
@@ -111,10 +113,10 @@ class TaskList {
             if (task.isComplete && self.shouldExcludeCompleteTasksForBuckets) {
                 return true;
             }
-            if (projects.indexOf(task.milestone) == -1 && task.milestone != null) {
+            if (projects.indexOf(task.milestone) === -1 && task.milestone !== null) {
                 projects.push(task.milestone);
             }
-        })
+        });
 
         return projects;
     }
@@ -128,13 +130,13 @@ class TaskList {
         //return an array of tasks
         var bottomTask = this.tasks[this.idForIsolatedTask];
 
-        while (bottomTask != null) {
+        while (bottomTask !== null) {
             crumbsOut.unshift(bottomTask);
 
-            if (bottomTask.parentTask == null) {
+            if (bottomTask.parentTask === null) {
                 bottomTask = null;
             } else {
-                bottomTask = this.tasks[bottomTask.parentTask]
+                bottomTask = this.tasks[bottomTask.parentTask];
             }
         }
 
@@ -151,7 +153,7 @@ class TaskList {
         };
 
         return gridDataObject;
-    };
+    }
 
     _processGridData() {
         //get a list of all tasks
@@ -163,7 +165,7 @@ class TaskList {
         //if at the root, add to the root, and process the child tasks, just push them on
         //do a depth first seach and all will get added
 
-        var tasksOut = []
+        var tasksOut = [];
 
         //these checks set the sort column if used
         this.activeSortField = (this.isSortEnabled) ? this.sortField : "sortOrder";
@@ -186,7 +188,7 @@ class TaskList {
                 }
                 self.searchObj[parts[0]] = parts[1];
             }
-        })
+        });
 
         //run through children to update any dependent properties
         this.getPseudoRootNode().updateDependentProperties();
@@ -195,8 +197,8 @@ class TaskList {
         this.determineIfTasksAreVisible();
 
         //process children
-        if (this.idForIsolatedTask == undefined) {
-            this.recurseChildren(this.getPseudoRootNode(), -1, tasksOut)
+        if (this.idForIsolatedTask === undefined) {
+            this.recurseChildren(this.getPseudoRootNode(), -1, tasksOut);
         } else {
             //do the recursion only on the selected task
             var isolatedTask = this.tasks[this.idForIsolatedTask];
@@ -208,8 +210,8 @@ class TaskList {
         //need to build tasksout down here based on the task visible option
 
         return _.map(tasksOut, function (item) {
-            return { "id": item.ID, "values": item }
-        })
+            return { "id": item.ID, "values": item };
+        });
     }
 
     determineIfTasksAreVisible() {
@@ -218,7 +220,7 @@ class TaskList {
 
         var tasksToProcessAgain = [];
         _.each(this.tasks, function (task) {
-            var searchResult = self.searchTerm == "" || task.isResultForSearch(self.searchObj)
+            var searchResult = self.searchTerm === "" || task.isResultForSearch(self.searchObj);
             var showBecauseComplete = (self.shouldHideComplete) ? !task.isComplete : true;
             var showBecauseNew = task.isFirstEdit;
             if ((searchResult && showBecauseComplete) || showBecauseNew) {
@@ -228,7 +230,7 @@ class TaskList {
             } else {
                 task.isVisible = false;
             }
-        })
+        });
 
         _.each(tasksToProcessAgain, function (task) {
             if (self.searchChildren) {
@@ -236,7 +238,7 @@ class TaskList {
                 function recurseMakeVisible(childTask) {
                     _.each(childTask.childTasks, function (childTaskID) {
                         recurseMakeVisible(self.tasks[childTaskID]);
-                    })
+                    });
                     childTask.isVisible = !childTask.isComplete;
                 }
 
@@ -247,13 +249,13 @@ class TaskList {
                 //add the parents
                 //TODO rename the variables, this is awful
                 var parentTaskId = task.parentTask;
-                while (parentTaskId != null) {
-                    var parentTask = self.tasks[parentTaskId]
+                while (parentTaskId !== null) {
+                    var parentTask = self.tasks[parentTaskId];
                     parentTask.isVisible = !parentTask.isComplete;
                     parentTaskId = parentTask.parentTask;
                 }
             }
-        })
+        });
         //at this point, all of the tasks have visibility set
     }
 
@@ -271,16 +273,16 @@ class TaskList {
         //determine subtask ordering
         var self = this;
         var subOrder = _.map(task.childTasks, function (childTaskId) {
-            return { "sort": self.tasks[childTaskId][self.activeSortField], "id": childTaskId }
-        })
+            return { "sort": self.tasks[childTaskId][self.activeSortField], "id": childTaskId };
+        });
 
-        subOrder = _.orderBy(subOrder, ["sort"], [this.activeSortDir])
+        subOrder = _.orderBy(subOrder, ["sort"], [this.activeSortDir]);
 
         _.each(subOrder, function (itemObj) {
             var itemNo = itemObj.id;
             var childTask = self.tasks[itemNo];
             childTask.sortOrder = subProcessOrder++;
-            self.recurseChildren(childTask, indentLevel + 1, tasksOut)
+            self.recurseChildren(childTask, indentLevel + 1, tasksOut);
         });
     }
 
@@ -290,10 +292,10 @@ class TaskList {
         var newTask = new Task(this, false);
 
         _.each(this.tasks, function (task) {
-            if (task.parentTask == null) {
-                newTask.childTasks.push(task.ID)
+            if (task.parentTask === null) {
+                newTask.childTasks.push(task.ID);
             }
-        })
+        });
 
         return newTask;
     }
@@ -311,7 +313,7 @@ class TaskList {
         //check if the task has a parent, if so remove from there
         var taskToDelete = this.tasks[ID];
 
-        if (taskToDelete.parentTask != null) {
+        if (taskToDelete.parentTask !== null) {
             //assign children to current parent
             var parentTask = this.tasks[taskToDelete.parentTask];
             parentTask.childTasks = parentTask.childTasks.concat(taskToDelete.childTasks);
@@ -325,7 +327,7 @@ class TaskList {
         var obj = this;
         _.each(taskToDelete.childTasks, function (taskId) {
             obj.tasks[taskId].parentTask = taskToDelete.parentTask;
-        })
+        });
 
         //check if task has children, if so, delete those children too (and their children)
         // -or- collapse the current node "up" a level into the current parent
@@ -345,7 +347,7 @@ class TaskList {
         //TODO use this method for the normal save() call too
         var output = _.map(this.tasks, function (d) {
             return d.getObjectForSaving();
-        })
+        });
 
         var objectToSave = {
             title: this.title,
@@ -357,12 +359,12 @@ class TaskList {
     }
 
     isDefaultList() {
-        console.log(this.tasks)
-        if (this.tasks[2].description == "new project") {
-            if (Object.keys(this.tasks).length == 2 && this.tasks[3] != undefined && this.tasks[3].description == "new task") {
+        console.log(this.tasks);
+        if (this.tasks[2].description === "new project") {
+            if (Object.keys(this.tasks).length === 2 && this.tasks[3] !== undefined && this.tasks[3].description === "new task") {
                 return true;
             }
-            if (Object.keys(this.tasks).length == 1) {
+            if (Object.keys(this.tasks).length === 1) {
                 return true;
             }
         }
@@ -374,7 +376,7 @@ class TaskList {
         var jsonfile = require("jsonfile");
         var _ = require("lodash");
 
-        if (this.path == "") {
+        if (this.path === "") {
             //TODO put this prompt into a actual message bar
             console.log("no path set, will not save");
             return false;
@@ -383,7 +385,7 @@ class TaskList {
         //create new object with only the date to keep        
         var output = _.map(this.tasks, function (d) {
             return d.getObjectForSaving();
-        })
+        });
 
         var objectToSave = {
             title: this.title,
@@ -392,7 +394,7 @@ class TaskList {
         };
 
         jsonfile.writeFile(this.path, objectToSave, { spaces: 2 }, function (err) {
-            if (err != null) {
+            if (err !== null) {
                 console.error(err);
             }
 
@@ -401,7 +403,7 @@ class TaskList {
             if (callback !== undefined) {
                 callback();
             }
-        })
+        });
 
         return true;
     }
@@ -444,7 +446,7 @@ class TaskList {
 
             //obj contains title, googleDriveId, and tasks
             taskList.title = dataObj.title;
-            if (fileId == undefined) {
+            if (fileId === undefined) {
                 //try to get the data from the file
                 taskList.googleDriveId = dataObj.googleDriveId;
             } else {
@@ -456,13 +458,11 @@ class TaskList {
                 var task = Task.createFromData(item, taskList);
 
                 taskList.tasks[task.ID] = task;
-            })
-
-
+            });
 
             //work is done, call the callback
             callback(taskList);
-        })
+        });
     }
 }
 

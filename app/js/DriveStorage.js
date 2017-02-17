@@ -29,7 +29,7 @@ DriveStorage.prototype.startAuth = function (callback) {
         callback();
     });
 
-}
+};
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
@@ -55,7 +55,7 @@ DriveStorage.prototype.authorize = function (credentials, callback) {
             callback(oauth2Client);
         }
     });
-}
+};
 
 /**
  * Get and store new token after prompting for user authorization, and then
@@ -93,7 +93,7 @@ DriveStorage.prototype.getNewToken = function (oauth2Client, callback) {
             oauth2Client.credentials = token;
             self.storeToken(token);
             server.close(function () {
-                console.log("server closed")
+                console.log("server closed");
             });
 
             //TODO clean this up
@@ -106,7 +106,7 @@ DriveStorage.prototype.getNewToken = function (oauth2Client, callback) {
 
     //TODO need a check down here to make sure that things don't stay open too long
 
-}
+};
 
 /**
  * Store token to disk be used in later program executions.
@@ -117,13 +117,13 @@ DriveStorage.prototype.storeToken = function (token) {
     try {
         fs.mkdirSync(TOKEN_DIR);
     } catch (err) {
-        if (err.code != 'EEXIST') {
+        if (err.code !== 'EEXIST') {
             throw err;
         }
     }
     fs.writeFile(TOKEN_PATH, JSON.stringify(token));
     console.log('Token stored to ' + TOKEN_PATH);
-}
+};
 
 /**
  * Lists the names and IDs of up to 10 files.
@@ -146,7 +146,7 @@ DriveStorage.prototype.listFiles = function (callback) {
             return;
         }
         var files = response.files;
-        if (files.length == 0) {
+        if (files.length === 0) {
             console.log('No files found.');
         } else {
             console.log('Files', files);
@@ -154,7 +154,7 @@ DriveStorage.prototype.listFiles = function (callback) {
             callback(files);
         }
     });
-}
+};
 
 DriveStorage.prototype.storeFile = function (contents, fileName, fileId, callback) {
     var self = this;
@@ -166,7 +166,7 @@ DriveStorage.prototype.storeFile = function (contents, fileName, fileId, callbac
 
     fileName = fileName + ".json";
 
-    if (fileId == undefined) {
+    if (fileId === undefined) {
         //new file to create
         drive.files.create({
             resource: {
@@ -183,7 +183,7 @@ DriveStorage.prototype.storeFile = function (contents, fileName, fileId, callbac
                 console.log(err);
             } else {
                 console.log('File Id:', file.id);
-                callback(file.id)
+                callback(file.id);
                     //TODO need to return this back to the TaskList
             }
         });
@@ -209,7 +209,7 @@ DriveStorage.prototype.storeFile = function (contents, fileName, fileId, callbac
             }
         });
     }
-}
+};
 
 DriveStorage.prototype.downloadFile = function (file, callback) {
     var fileId = file.id;
@@ -218,7 +218,7 @@ DriveStorage.prototype.downloadFile = function (file, callback) {
     var path = './tmp/' + fileName;
     var self = this;
 
-    console.log("try to download", fileId)
+    console.log("try to download", fileId);
 
     var drive = google.drive({
         version: 'v3',
@@ -238,6 +238,6 @@ DriveStorage.prototype.downloadFile = function (file, callback) {
             console.log('Error during download', err);
         })
         .pipe(dest);
-}
+};
 
 module.exports = DriveStorage;

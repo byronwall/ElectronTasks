@@ -1,3 +1,6 @@
+/* globals EditableGrid, mainTaskList, saveTaskList, renderGrid, shouldAddTaskWhenDoneEditing, 
+createNewTask, _, */
+
 var grid;
 
 class TaskGrid {
@@ -9,22 +12,22 @@ class TaskGrid {
         grid.editorCancelled = function (rowIndex, columnIndex, element) {
             //get the task for the element
             //convert to rowId to get the correct ID in the task list
-            console.log("editor cancelled, will delete task if new")
+            console.log("editor cancelled, will delete task if new");
             var rowId = grid.getRowId(rowIndex);
             var columnName = this.getColumnName(columnIndex);
             var currentTask = mainTaskList.tasks[rowId];
 
             //need to add a check here for hash tags
-            if (columnName === "description" && currentTask.description == "new task") {
+            if (columnName === "description" && currentTask.description === "new task") {
                 //reset the fields before setting them again
 
-                console.log("task was deleted")
+                console.log("task was deleted");
                 currentTask.removeTask();
 
                 saveTaskList(false);
                 renderGrid();
             }
-        }
+        };
 
         grid.editorBlurred = function (rowIndex, columnIndex, element) {
             //get the task for the element
@@ -34,10 +37,10 @@ class TaskGrid {
             var currentTask = mainTaskList.tasks[rowId];
 
             //need to add a check here for hash tags
-            if (columnName === "description" && currentTask.description == "new task") {
+            if (columnName === "description" && currentTask.description === "new task") {
                 //reset the fields before setting them again
 
-                console.log("task was deleted")
+                console.log("task was deleted");
                 currentTask.removeTask();
 
                 saveTaskList(false);
@@ -47,7 +50,8 @@ class TaskGrid {
             //TODO come up with a unified fix here
             //this handles the disappearing comments
             renderGrid();
-        }
+        };
+
         grid.modelChanged = function (rowIndex, columnIndex, oldValue, newValue, row) {
             //TODO update this call to handle validation
 
@@ -96,7 +100,7 @@ class TaskGrid {
                 var options = {
                     parentTask: currentTask.parentTask,
                     sortOrder: currentTask.sortOrder + 0.5
-                }
+                };
                 createNewTask(options);
                 shouldAddTaskWhenDoneEditing = false;
             }
