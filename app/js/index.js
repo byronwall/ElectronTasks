@@ -217,6 +217,8 @@ function sortNow() {
     renderGrid();
     mainTaskList.isSortEnabled = isSortEnabled;
 
+    showAlert("Tasklist sorted");
+
     saveTaskList();
 }
 

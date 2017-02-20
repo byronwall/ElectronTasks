@@ -1,7 +1,9 @@
 ## [Unreleased]
 
 ### Added
- - MOD+P new keyboard shortcut to open print dialog
+ - `MOD+P` new keyboard shortcut to open print dialog
+ - Notifications added for:
+   - Sorting a tasklist
 
 ### Changed
  - Remove default priority (was previously 5, now "")
