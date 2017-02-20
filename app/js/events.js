@@ -863,6 +863,11 @@ function setupMousetrapEvents() {
         return false;
     });
 
+    Mousetrap.bind("mod+p", function () {        
+        window.print();
+        return false;
+    });
+
     Mousetrap.prototype.stopCallback = function (a, b, c) {
         //this lets the shortcuts go through whenever
         return false;
