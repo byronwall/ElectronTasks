@@ -400,6 +400,8 @@ function setupActionPanelButtonEvents() {
         //complete the task and update the display
         mainTaskList.idForIsolatedTask = currentID;
 
+        updateSearch("");
+
         renderGrid();
         saveTaskList();
     });

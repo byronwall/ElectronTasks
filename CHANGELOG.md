@@ -1,4 +1,4 @@
 ## [Unreleased]
 ### Added
 ### Changed
- - [WIP] clear search when isolating task
+ - Clear search when isolating task via action button (already cleared when using keyboard shortcut)
