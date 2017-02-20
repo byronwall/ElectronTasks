@@ -35,7 +35,7 @@ class TaskList {
             { "name": "action", "label": "", "datatype": "action", "editable": false, "active": true },
             { "name": "ID", "label": "id", "datatype": "integer,,-1,,,", "editable": false, "active": false },
             { "name": "description", "label": "desc", "datatype": "hashtag", "editable": true, "active": false },
-            { "name": "duration", "label": "duration (min)", "datatype": "double", "editable": true, "active": false },
+            { "name": "duration", "label": "duration", "datatype": "double", "editable": true, "active": false },
             { "name": "priority", "label": "priority", "datatype": "integer", "editable": true, "active": false },
             { "name": "status", "label": "status", "datatype": "string", "editable": true, "active": false },
             { "name": "tags", "label": "tags", "datatype": "array", "editable": true, "active": false },
