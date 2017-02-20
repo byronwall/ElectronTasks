@@ -197,7 +197,7 @@ class TaskList {
         this.determineIfTasksAreVisible();
 
         //process children
-        if (this.idForIsolatedTask === undefined) {
+        if (this.idForIsolatedTask === null) {
             this.recurseChildren(this.getPseudoRootNode(), -1, tasksOut);
         } else {
             //do the recursion only on the selected task

@@ -12,3 +12,4 @@
 ### Fixed
  - Clear `isProjectRoot` flag when moving a project to be a subtask
  - Clear search when isolating task via action button (already cleared when using keyboard shortcut)
+ - Clicking on `all projects` throws an error.  Was checking for `undefined` instead of `null` when rendering
