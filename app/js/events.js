@@ -507,6 +507,8 @@ function setupActionPanelButtonEvents() {
 
         var currentTask = getCurrentTask(ev.target);
 
+        //TODO move this code to the Task or TaskList module
+
         var newProjectId = this.dataset.project;
         var newProject = mainTaskList.tasks[newProjectId];
 
@@ -519,6 +521,12 @@ function setupActionPanelButtonEvents() {
         //need to set the parent for the current and the child for the above
         currentTask.parentTask = newProjectId;
         newProject.childTasks.push(currentTask.ID);
+
+        //remove project flag if project is being moved
+        if(currentTask.isProjectRoot){
+            currentTask.isProjectRoot = false;
+            mainTaskList.idForIsolatedTask = newProject.ID;
+        }
 
         renderGrid();
         saveTaskList();
