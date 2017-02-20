@@ -8,6 +8,7 @@
 ### Changed
  - Remove default priority (was previously 5, now "")
  - Remove "(min)" from duration column
+ - `launch.json` supports debugging within VS Code
 
 ### Fixed
  - Clear `isProjectRoot` flag when moving a project to be a subtask
