@@ -19,7 +19,7 @@ module.exports = class Task {
         this.isComplete = false;
 
         //some new fields for testig
-        this.priority = 5;
+        this.priority = "";
 
         this.tags = [];
 
