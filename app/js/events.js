@@ -539,25 +539,7 @@ function setupMousetrapEvents() {
         if (e.target.tagName === "INPUT") {
 
             var currentTask = getCurrentTask(e.target);
-            var aboveTask = getTaskAbove(currentTask);
-
-            //need to iterate until aboveTask is at same indent as current task
-            while (aboveTask.indent > currentTask.indent) {
-                aboveTask = mainTaskList.tasks[aboveTask.parentTask];
-            }
-
-            //TODO put this code somewhere else
-
-            //remove the current parent if it exists
-            if (currentTask.parentTask !== null) {
-                var parentTask = mainTaskList.tasks[currentTask.parentTask];
-                var parentChildIndex = parentTask.childTasks.indexOf(currentTask.ID);
-                parentTask.childTasks.splice(parentChildIndex, 1);
-            }
-
-            //need to set the parent for the current and the child for the above
-            currentTask.parentTask = aboveTask.ID;
-            aboveTask.childTasks.push(currentTask.ID);
+            currentTask.indentRight();
 
             applyEdit(e.target);
 
@@ -925,19 +907,6 @@ function getCurrentTask(element) {
     var currentTask = mainTaskList.tasks[currentID];
 
     return currentTask;
-}
-
-function getTaskAbove(currentTask) {
-    console.log("getAbove, currentTask", currentTask);
-    var currentRow = grid.getRowIndex(currentTask.ID);
-
-    //TODO add some error checking
-
-    //get the task above the current
-    var aboveId = grid.getRowId(currentRow - 1);
-    var aboveTask = mainTaskList.tasks[aboveId];
-
-    return aboveTask;
 }
 
 function applyEdit(element, shouldCancel = false) {

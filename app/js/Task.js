@@ -1,8 +1,11 @@
 /* globals $, _ */
 //create a Task object
+var self;
 
 module.exports = class Task {
     constructor(taskList, shouldGetId = true) {
+
+        self = this;
 
         this.taskList = taskList;
 
@@ -310,5 +313,36 @@ module.exports = class Task {
 
                 console.log("grandparent task after adding", grandparentTask);
             }
+    }
+    indentRight(){
+        var currentTask = this;
+            var aboveTask = this.getTaskAbove();
+
+            //remove the current parent if it exists
+            if (currentTask.parentTask !== null) {
+                var parentTask = this.taskList.tasks[currentTask.parentTask];
+                var parentChildIndex = parentTask.childTasks.indexOf(currentTask.ID);
+                parentTask.childTasks.splice(parentChildIndex, 1);
+            }
+
+            //need to set the parent for the current and the child for the above
+            currentTask.parentTask = aboveTask.ID;
+            aboveTask.childTasks.push(currentTask.ID);
+    }
+    getTaskAbove(){
+        //TOOD add some checks here on parentTask and aboveId
+
+        //get the parent task
+        var parentTask = this.taskList.tasks[this.parentTask];
+
+        //sort the children by sortOrder
+        var sorted = _.sortBy(parentTask.childTasks, function(a){return self.taskList.tasks[a].sortOrder;});
+
+        //find the current item in that list
+        var index = sorted.indexOf(this.ID);
+        var indexAbove = index - 1;
+        var aboveId = sorted[indexAbove];
+
+        return this.taskList.tasks[aboveId];
     }
 };
