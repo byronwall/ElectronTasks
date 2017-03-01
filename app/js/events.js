@@ -588,39 +588,7 @@ function setupMousetrapEvents() {
 
             //TODO refactor this away
             var currentTask = getCurrentTask(e.target);
-            var currentID = currentTask.ID;
-
-            if (currentTask.parentTask === null) {
-                return;
-            }
-
-            var aboveId = currentTask.parentTask;
-            var aboveTask = mainTaskList.tasks[aboveId];
-
-            if (aboveTask.parentTask === null) {
-                //don't allow a stranded task
-                return;
-            }
-
-            //TODO all of this data code needs to go into the TaskList
-
-            //need to set the parent for the current and the child for the above
-
-            //get index of self in children of parent task and remove from current parent
-            var parentChildIndex = aboveTask.childTasks.indexOf(currentID);
-            aboveTask.childTasks.splice(parentChildIndex, 1);
-
-            //get the new parent
-            //grandparent
-
-            var grandparentID = aboveTask.parentTask;
-            currentTask.parentTask = grandparentID;
-            if (grandparentID !== null) {
-                var grandparentTask = mainTaskList.tasks[grandparentID];
-                grandparentTask.childTasks.push(currentID);
-
-                console.log("grandparent task after adding", grandparentTask);
-            }
+            currentTask.indentLeft();
 
             applyEdit(e.target);
 
@@ -628,7 +596,7 @@ function setupMousetrapEvents() {
             saveTaskList();
             renderGrid();
 
-            var currentRow = grid.getRowIndex(currentID);
+            var currentRow = grid.getRowIndex(currentTask.ID);
             grid.editCell(currentRow, grid.getColumnIndex("description"));
         }
     });

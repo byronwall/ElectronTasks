@@ -274,4 +274,41 @@ module.exports = class Task {
             this[field] = value;
         }
     }
+
+    indentLeft(){
+        var currentTask = this;
+            var currentID = currentTask.ID;
+
+            if (currentTask.parentTask === null) {
+                return;
+            }
+
+            var aboveId = currentTask.parentTask;
+            var aboveTask = this.taskList.tasks[aboveId];
+
+            if (aboveTask.parentTask === null) {
+                //don't allow a stranded task
+                return;
+            }
+
+            //TODO all of this data code needs to go into the TaskList
+
+            //need to set the parent for the current and the child for the above
+
+            //get index of self in children of parent task and remove from current parent
+            var parentChildIndex = aboveTask.childTasks.indexOf(currentID);
+            aboveTask.childTasks.splice(parentChildIndex, 1);
+
+            //get the new parent
+            //grandparent
+
+            var grandparentID = aboveTask.parentTask;
+            currentTask.parentTask = grandparentID;
+            if (grandparentID !== null) {
+                var grandparentTask = this.taskList.tasks[grandparentID];
+                grandparentTask.childTasks.push(currentID);
+
+                console.log("grandparent task after adding", grandparentTask);
+            }
+    }
 };
