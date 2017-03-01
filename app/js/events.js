@@ -586,26 +586,19 @@ function setupMousetrapEvents() {
     Mousetrap.bind(["alt+up", "alt+down"], function (e, combo) {
         console.log("move up requested");
 
-        //need to change the sort order to be one less than the task above the current one but at the same indent level
-        //sort orders will be corrected to be sequential, so just need to get a number between the two spots
-
         if (e.target.tagName === "INPUT") {
 
             //now holds the current ID
             var currentTask = getCurrentTask(e.target);
-            var currentID = currentTask.ID;
-
-            if (combo === "alt+up") {
-                currentTask.sortOrder -= 1.1;
-            } else {
-                currentTask.sortOrder += 1.1;
-            }
+            
+            var shouldMoveUp = combo === "alt+up";
+            currentTask.moveTask(shouldMoveUp);
 
             applyEdit(e.target);
 
             saveTaskList();
             renderGrid();
-            grid.editCell(grid.getRowIndex(currentID), grid.getColumnIndex("description"));
+            grid.editCell(grid.getRowIndex(currentTask.ID), grid.getColumnIndex("description"));
         }
     });
 

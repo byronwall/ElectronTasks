@@ -278,65 +278,67 @@ module.exports = class Task {
         }
     }
 
-    indentLeft(){
+    indentLeft() {
         var currentTask = this;
-            var currentID = currentTask.ID;
+        var currentID = currentTask.ID;
 
-            if (currentTask.parentTask === null) {
-                return;
-            }
+        if (currentTask.parentTask === null) {
+            return;
+        }
 
-            var aboveId = currentTask.parentTask;
-            var aboveTask = this.taskList.tasks[aboveId];
+        var aboveId = currentTask.parentTask;
+        var aboveTask = this.taskList.tasks[aboveId];
 
-            if (aboveTask.parentTask === null) {
-                //don't allow a stranded task
-                return;
-            }
+        if (aboveTask.parentTask === null) {
+            //don't allow a stranded task
+            return;
+        }
 
-            //TODO all of this data code needs to go into the TaskList
+        //TODO all of this data code needs to go into the TaskList
 
-            //need to set the parent for the current and the child for the above
+        //need to set the parent for the current and the child for the above
 
-            //get index of self in children of parent task and remove from current parent
-            var parentChildIndex = aboveTask.childTasks.indexOf(currentID);
-            aboveTask.childTasks.splice(parentChildIndex, 1);
+        //get index of self in children of parent task and remove from current parent
+        var parentChildIndex = aboveTask.childTasks.indexOf(currentID);
+        aboveTask.childTasks.splice(parentChildIndex, 1);
 
-            //get the new parent
-            //grandparent
+        //get the new parent
+        //grandparent
 
-            var grandparentID = aboveTask.parentTask;
-            currentTask.parentTask = grandparentID;
-            if (grandparentID !== null) {
-                var grandparentTask = this.taskList.tasks[grandparentID];
-                grandparentTask.childTasks.push(currentID);
+        var grandparentID = aboveTask.parentTask;
+        currentTask.parentTask = grandparentID;
+        if (grandparentID !== null) {
+            var grandparentTask = this.taskList.tasks[grandparentID];
+            grandparentTask.childTasks.push(currentID);
 
-                console.log("grandparent task after adding", grandparentTask);
-            }
+            console.log("grandparent task after adding", grandparentTask);
+        }
     }
-    indentRight(){
+    indentRight() {
         var currentTask = this;
-            var aboveTask = this.getTaskAbove();
+        var aboveTask = this.getTaskAbove();
 
-            //remove the current parent if it exists
-            if (currentTask.parentTask !== null) {
-                var parentTask = this.taskList.tasks[currentTask.parentTask];
-                var parentChildIndex = parentTask.childTasks.indexOf(currentTask.ID);
-                parentTask.childTasks.splice(parentChildIndex, 1);
-            }
+        //remove the current parent if it exists
+        if (currentTask.parentTask !== null) {
+            var parentTask = this.taskList.tasks[currentTask.parentTask];
+            var parentChildIndex = parentTask.childTasks.indexOf(currentTask.ID);
+            parentTask.childTasks.splice(parentChildIndex, 1);
+        }
 
-            //need to set the parent for the current and the child for the above
-            currentTask.parentTask = aboveTask.ID;
-            aboveTask.childTasks.push(currentTask.ID);
+        //need to set the parent for the current and the child for the above
+        currentTask.parentTask = aboveTask.ID;
+        aboveTask.childTasks.push(currentTask.ID);
     }
-    getTaskAbove(){
+    getTaskAbove() {
         //TOOD add some checks here on parentTask and aboveId
 
         //get the parent task
         var parentTask = this.taskList.tasks[this.parentTask];
 
         //sort the children by sortOrder
-        var sorted = _.sortBy(parentTask.childTasks, function(a){return self.taskList.tasks[a].sortOrder;});
+        var sorted = _.sortBy(parentTask.childTasks, function (a) {
+            return self.taskList.tasks[a].sortOrder;
+        });
 
         //find the current item in that list
         var index = sorted.indexOf(this.ID);
@@ -344,5 +346,14 @@ module.exports = class Task {
         var aboveId = sorted[indexAbove];
 
         return this.taskList.tasks[aboveId];
+    }
+    moveTask(shouldMoveUp = true) {
+        var currentTask = this;
+
+        if (shouldMoveUp) {
+            currentTask.sortOrder -= 1.1;
+        } else {
+            currentTask.sortOrder += 1.1;
+        }
     }
 };
