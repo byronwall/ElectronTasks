@@ -347,13 +347,35 @@ module.exports = class Task {
 
         return this.taskList.tasks[aboveId];
     }
-    moveTask(shouldMoveUp = true) {
+    changeTaskOrder(shouldMoveUp = true) {
         var currentTask = this;
 
         if (shouldMoveUp) {
             currentTask.sortOrder -= 1.1;
         } else {
             currentTask.sortOrder += 1.1;
+        }
+    }
+    moveTaskToProject(newTaskId) {
+        var currentTask = this;
+        var newProjectId = newTaskId;
+        
+        var newProject = this.taskList.tasks[newProjectId];
+
+        if (currentTask.parentTask !== null) {
+            var parentTask = this.taskList.tasks[currentTask.parentTask];
+            var parentChildIndex = parentTask.childTasks.indexOf(currentTask.ID);
+            parentTask.childTasks.splice(parentChildIndex, 1);
+        }
+
+        //need to set the parent for the current and the child for the above
+        currentTask.parentTask = newProjectId;
+        newProject.childTasks.push(currentTask.ID);
+
+        //remove project flag if project is being moved
+        if (currentTask.isProjectRoot) {
+            currentTask.isProjectRoot = false;
+            this.taskList.idForIsolatedTask = newProject.ID;
         }
     }
 };

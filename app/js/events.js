@@ -506,31 +506,11 @@ function setupActionPanelButtonEvents() {
         console.log("task move button hit");
 
         var currentTask = getCurrentTask(ev.target);
-
-        //TODO move this code to the Task or TaskList module
-
-        var newProjectId = this.dataset.project;
-        var newProject = mainTaskList.tasks[newProjectId];
-
-        if (currentTask.parentTask !== null) {
-            var parentTask = mainTaskList.tasks[currentTask.parentTask];
-            var parentChildIndex = parentTask.childTasks.indexOf(currentTask.ID);
-            parentTask.childTasks.splice(parentChildIndex, 1);
-        }
-
-        //need to set the parent for the current and the child for the above
-        currentTask.parentTask = newProjectId;
-        newProject.childTasks.push(currentTask.ID);
-
-        //remove project flag if project is being moved
-        if(currentTask.isProjectRoot){
-            currentTask.isProjectRoot = false;
-            mainTaskList.idForIsolatedTask = newProject.ID;
-        }
+        var newProjectId = this.dataset.project;        
+        currentTask.moveTaskToProject(newProjectId);
 
         renderGrid();
         saveTaskList();
-        //delete the task and rerender
     });
 }
 
@@ -558,14 +538,6 @@ function setupMousetrapEvents() {
     Mousetrap.bind("alt+left", function (e) {
         console.log("indent left requested");
 
-        //indent left should put the current task under the level 
-        //parent -> task -> current task, should be a child of parent
-        //parent -> current task, should just null out the parent
-
-        //remove this node from the childTasks of the current parent
-        //check the parent of the parent and make them equal
-        //add this node to the child nodes of that parent if it exists
-
         if (e.target.tagName === "INPUT") {
 
             //TODO refactor this away
@@ -592,7 +564,7 @@ function setupMousetrapEvents() {
             var currentTask = getCurrentTask(e.target);
             
             var shouldMoveUp = combo === "alt+up";
-            currentTask.moveTask(shouldMoveUp);
+            currentTask.changeTaskOrder(shouldMoveUp);
 
             applyEdit(e.target);
 
