@@ -1,11 +1,9 @@
 /* globals $, _ */
 //create a Task object
-var self;
+
 
 module.exports = class Task {
     constructor(taskList, shouldGetId = true) {
-
-        self = this;
 
         this.taskList = taskList;
 
@@ -336,6 +334,7 @@ module.exports = class Task {
         var parentTask = this.taskList.tasks[this.parentTask];
 
         //sort the children by sortOrder
+        var self = this;
         var sorted = _.sortBy(parentTask.childTasks, function (a) {
             return self.taskList.tasks[a].sortOrder;
         });
