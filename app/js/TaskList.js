@@ -1,12 +1,11 @@
 /* globals Task, $, _ */
 
-var self;
+
 
 class TaskList {
 
     constructor() {
-        self = this;
-
+        
         this.tasks = {};
         this.sortField = "priority";
         this.sortDir = "desc";
@@ -52,6 +51,7 @@ class TaskList {
     getAllTags() {
         var tags = [];
 
+        var self = this;
         _.each(this.tasks, function (item) {
             if (item.isComplete && self.shouldExcludeCompleteTasksForBuckets) {
                 return true;
@@ -70,6 +70,7 @@ class TaskList {
 
     getAllStatus() {
         var status = [];
+        var self = this;
         _.each(this.tasks, function (task) {
             if (task.isComplete && self.shouldExcludeCompleteTasksForBuckets) {
                 return true;
@@ -109,6 +110,7 @@ class TaskList {
 
     getMilestones() {
         var projects = [];
+        var self = this;
         _.each(this.tasks, function (task) {
             if (task.isComplete && self.shouldExcludeCompleteTasksForBuckets) {
                 return true;

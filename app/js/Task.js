@@ -223,7 +223,7 @@ module.exports = class Task {
             });
         });
 
-        //iteate the array of values and update the values for this task
+        //iterate the array of values and update the values for this task
         _.each(transForms, function (value, key) {
             //this is a very magic way to get the function
             //lodash has sum/min/max as functions
@@ -328,7 +328,7 @@ module.exports = class Task {
         aboveTask.childTasks.push(currentTask.ID);
     }
     getTaskAbove() {
-        //TOOD add some checks here on parentTask and aboveId
+        //TODO add some checks here on parentTask and aboveId
 
         //get the parent task
         var parentTask = this.taskList.tasks[this.parentTask];
