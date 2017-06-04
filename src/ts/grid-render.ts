@@ -1,5 +1,3 @@
-/* globals grid, mainTaskList, Task, $, _ */
-
 var renderGrid = function () {
     grid.load(mainTaskList.getGridDataObject());
     grid.renderGrid("gridList", "testgrid");
@@ -166,5 +164,3 @@ function updateSelectionMenu() {
         $("#selectionMenu").hide();
     }
 }
-
-module.exports = renderGrid;

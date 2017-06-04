@@ -8,6 +8,8 @@ var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
     process.env.USERPROFILE) + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'drive-nodejs-quickstart.json';
 
+//TODO clean this up into an actual class
+
 function DriveStorage() {
     // If modifying these scopes, delete your previously saved credentials
     // at ~/.credentials/drive-nodejs-quickstart.json
@@ -184,7 +186,7 @@ DriveStorage.prototype.storeFile = function (contents, fileName, fileId, callbac
             } else {
                 console.log('File Id:', file.id);
                 callback(file.id);
-                    //TODO need to return this back to the TaskList
+                //TODO need to return this back to the TaskList
             }
         });
     } else {
@@ -227,9 +229,9 @@ DriveStorage.prototype.downloadFile = function (file, callback) {
 
     var dest = fs.createWriteStream(path);
     drive.files.get({
-            fileId: fileId,
-            alt: "media"
-        })
+        fileId: fileId,
+        alt: "media"
+    })
         .on('end', function () {
             console.log('Done');
             callback(path);
@@ -239,5 +241,3 @@ DriveStorage.prototype.downloadFile = function (file, callback) {
         })
         .pipe(dest);
 };
-
-module.exports = DriveStorage;

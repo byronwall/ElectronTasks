@@ -1,8 +1,4 @@
-/* globals grid, mainTaskList, Task, renderGrid, saveTaskList, Mousetrap, dialog, KEYBOARD_CANCEL,
-updateSearch, createNewTask, createNewProject, Column, sortNow, resizeBasedOnNavbar, createNewTasklist,
-clearIsolation, taskToDelete, shouldDeleteTaskWhenDoneEditing, loadTaskListWithPrompt, addFileToRecentFileList,
-authorizeGoogleDrive, listGoogleDriveFiles, saveFileInDrive, localDrive, clearSelection, $, _
-*/
+var taskToDelete: Task;
 
 var setupEvents = function () {
 
@@ -13,7 +9,7 @@ var setupEvents = function () {
     setupSettingsRelatedEvents();
     setupGoogleDriveEvents();
     setupSearchEvents();
-    setupFileMgmtEvents();
+    setupFileManagementEvents();
     setupKeydownEvents();
     setupTaskRelatedEvents();
     setupAppRelatedEvents();
@@ -87,13 +83,13 @@ function setupKeydownEvents() {
 
         //ensures that the element is within the table
         //TODO make this more specific
-        if (!$(ev.target).parents("tr").length){
-             return;
+        if (!$(ev.target).parents("tr").length) {
+            return;
         }
 
         var input = ev.target;
 
-        //check for autocompleting ensures that a new task is not created becasue of selecting a choice there
+        //check for auto completing ensures that a new task is not created because of selecting a choice there
         //this was creating a problem where hitting TAB again would create new task
         var isAutoCompleting = $(input).data("autocompleting");
         if (ev.key === "Enter" && !isAutoCompleting) {
@@ -115,7 +111,7 @@ function setupKeydownEvents() {
 
 }
 
-function setupFileMgmtEvents() {
+function setupFileManagementEvents() {
 
     $("#loader").on("click", function () {
         //set the list object
@@ -128,7 +124,7 @@ function setupFileMgmtEvents() {
 
             fileName = fileName[0];
 
-            loadTaskListWithPrompt(fileName);
+            loadTaskListWithPrompt(fileName, "");
 
             addFileToRecentFileList(fileName);
         });
@@ -279,7 +275,7 @@ function setupBulkEditEvents() {
     $("#gridList").on("click", "td", function (ev) {
         if (ev.metaKey || ev.ctrlKey) {
             console.log("tr click with meta or CTRL", this, $(this).offset(), ev);
-                //this needs to select the task
+            //this needs to select the task
             var currentTask = getCurrentTask(this);
             currentTask.isSelected = !currentTask.isSelected;
 
@@ -351,15 +347,15 @@ function setupBulkEditEvents() {
         modalSave.on("click", function () {
             //collect all of the items with checkboxses
             _.each(modalCheckInputs, function (obj) {
-                    if (obj.check.is(":checked")) {
-                        //get the new value
-                        //set that value for each task in the selector array
-                        _.each(selected, function (task) {
-                            task.setDataValue(obj.input.data("field"), obj.input.val());
-                        });
-                    }
-                });
-                //clear the modal
+                if (obj.check.is(":checked")) {
+                    //get the new value
+                    //set that value for each task in the selector array
+                    _.each(selected, function (task) {
+                        task.setDataValue(obj.input.data("field"), obj.input.val());
+                    });
+                }
+            });
+            //clear the modal
             $("#modalEdit").modal("hide");
             renderGrid();
         });
@@ -421,7 +417,7 @@ function setupActionPanelButtonEvents() {
             var projects = mainTaskList.getProjectsInList();
             var projectCount = projects.length;
 
-            if (projectCount ===1) {
+            if (projectCount === 1) {
                 console.log("task cannot be deleted, since it is the last project root");
                 return false;
             }
@@ -506,7 +502,7 @@ function setupActionPanelButtonEvents() {
         console.log("task move button hit");
 
         var currentTask = getCurrentTask(ev.target);
-        var newProjectId = this.dataset.project;        
+        var newProjectId = this.dataset.project;
         currentTask.moveTaskToProject(newProjectId);
 
         renderGrid();
@@ -515,8 +511,10 @@ function setupActionPanelButtonEvents() {
 }
 
 function setupMousetrapEvents() {
-    Mousetrap.bind("alt+right", function (e) {
-        if (e.target.tagName === "INPUT") {
+    Mousetrap.bind("alt+right", function (e: KeyboardEvent) {
+
+        var target = e.target as HTMLElement;
+        if (target.tagName === "INPUT") {
 
             var currentTask = getCurrentTask(e.target);
             currentTask.indentRight();
@@ -535,10 +533,10 @@ function setupMousetrapEvents() {
         }
     });
 
-    Mousetrap.bind("alt+left", function (e) {
-        console.log("indent left requested");
+    Mousetrap.bind("alt+left", function (e: KeyboardEvent) {
 
-        if (e.target.tagName === "INPUT") {
+        var target = e.target as HTMLElement;
+        if (target.tagName === "INPUT") {
 
             //TODO refactor this away
             var currentTask = getCurrentTask(e.target);
@@ -555,14 +553,14 @@ function setupMousetrapEvents() {
         }
     });
 
-    Mousetrap.bind(["alt+up", "alt+down"], function (e, combo) {
-        console.log("move up requested");
+    Mousetrap.bind(["alt+up", "alt+down"], function (e: KeyboardEvent, combo) {
 
-        if (e.target.tagName === "INPUT") {
+        var target = e.target as HTMLElement;
+        if (target.tagName === "INPUT") {
 
             //now holds the current ID
             var currentTask = getCurrentTask(e.target);
-            
+
             var shouldMoveUp = combo === "alt+up";
             currentTask.changeTaskOrder(shouldMoveUp);
 
@@ -574,13 +572,15 @@ function setupMousetrapEvents() {
         }
     });
 
-    Mousetrap.bind(["ctrl+alt+right", "ctrl+alt+left", "ctrl+alt+up", "ctrl+alt+down"], function (ev, combo) {
+    Mousetrap.bind(["ctrl+alt+right", "ctrl+alt+left", "ctrl+alt+up", "ctrl+alt+down"], function (ev: KeyboardEvent, combo) {
 
-        if (ev.target.tagName === "INPUT" && $(ev.target).parents("#gridList").length) {
+        var target = ev.target as HTMLElement;
+        if (target.tagName === "INPUT" && $(ev.target).parents("#gridList").length) {
             console.log("move cell selector shortcut");
 
             //if this is a tasklist input, there should be an element, and then rowIndex and columnIndex
-            var element = ev.target.element;
+            //TODO figure out how to get this element to come through
+            var element = target["element"];
             var rowIndex = element.rowIndex;
             var columnIndex = element.columnIndex;
 
@@ -618,16 +618,20 @@ function setupMousetrapEvents() {
         }
     });
 
-    Mousetrap.bind("a", function (e) {
-        if (!_.includes(KEYBOARD_CANCEL, e.target.tagName)) {
+    Mousetrap.bind("a", function (e: KeyboardEvent) {
+
+        var target = e.target as HTMLElement;
+        if (!_.includes(KEYBOARD_CANCEL, target.tagName)) {
             console.log("new task requested from A");
             createNewTask();
             return false;
         }
     });
 
-    Mousetrap.bind("p", function (e) {
-        if (!_.includes(KEYBOARD_CANCEL, e.target.tagName)) {
+    Mousetrap.bind("p", function (e: KeyboardEvent) {
+
+        var target = e.target as HTMLElement;
+        if (!_.includes(KEYBOARD_CANCEL, target.tagName)) {
             console.log("new project requested from P");
 
             createNewProject();
@@ -635,8 +639,10 @@ function setupMousetrapEvents() {
         }
     });
 
-    Mousetrap.bind("escape escape", function (e) {
-        if (!_.includes(KEYBOARD_CANCEL, e.target.tagName)) {
+    Mousetrap.bind("escape escape", function (e: KeyboardEvent) {
+
+        var target = e.target as HTMLElement;
+        if (!_.includes(KEYBOARD_CANCEL, target.tagName)) {
             console.log("escape hit x2");
 
             //clear search
@@ -656,36 +662,43 @@ function setupMousetrapEvents() {
         }
     });
 
-    Mousetrap.bind("s", function (e) {
-        if (!_.includes(KEYBOARD_CANCEL, e.target.tagName)) {
+    Mousetrap.bind("s", function (e: KeyboardEvent) {
+
+        var target = e.target as HTMLElement;
+        if (!_.includes(KEYBOARD_CANCEL, target.tagName)) {
             $("#txtSearch").focus();
             return false;
         }
     });
 
-    Mousetrap.bind("q", function (e) {
-        if (!_.includes(KEYBOARD_CANCEL, e.target.tagName)) {
+    Mousetrap.bind("q", function (e: KeyboardEvent) {
+
+        var target = e.target as HTMLElement;
+        if (!_.includes(KEYBOARD_CANCEL, target.tagName)) {
             sortNow();
             return false;
         }
     });
 
-    Mousetrap.bind("alt+a", function (e) {
+    Mousetrap.bind("alt+a", function (e: KeyboardEvent) {
 
+        var target = e.target as HTMLElement;
+
+        //TODO these options need to be a real object
         var options = {};
 
-        if (e.target.tagName === "INPUT") {
+        if (target.tagName === "INPUT") {
 
             //now holds the current ID
             var currentTask = getCurrentTask(e.target);
             var currentID = currentTask.ID;
 
             if (currentTask.isProjectRoot) {
-                options.parentTask = currentTask.ID;
+                options["parentTask"] = currentTask.ID;
             } else {
                 //have the task be below the current one
-                options.sortOrder = currentTask.sortOrder + 0.5;
-                options.parentTask = currentTask.parentTask;
+                options["sortOrder"] = currentTask.sortOrder + 0.5;
+                options["parentTask"] = currentTask.parentTask;
             }
 
             applyEdit(e.target);
@@ -696,10 +709,12 @@ function setupMousetrapEvents() {
     });
 
     //these events handle the task isolation business
-    Mousetrap.bind("alt+q", function (e, combo) {
+    Mousetrap.bind("alt+q", function (e: KeyboardEvent, combo) {
         console.log("task isolation requested");
 
-        if (e.target.tagName === "INPUT") {
+        var target = e.target as HTMLElement;
+
+        if (target.tagName === "INPUT") {
             //we have a text box
             var currentTask = getCurrentTask(e.target);
             var currentID = currentTask.ID;
@@ -769,10 +784,12 @@ function setupMousetrapEvents() {
         return false;
     });
 
-    Mousetrap.bind(["alt+/", "/", "shift+/", "alt+shift+/"], function (e, combo) {
+    Mousetrap.bind(["alt+/", "/", "shift+/", "alt+shift+/"], function (e: KeyboardEvent, combo) {
         console.log("show shortcuts called", combo);
 
-        if (_.includes(KEYBOARD_CANCEL, e.target.tagName) && !combo.includes("alt")) {
+        var target = e.target as HTMLElement;
+
+        if (_.includes(KEYBOARD_CANCEL, target.tagName) && !combo.includes("alt")) {
             return;
         }
 
@@ -786,7 +803,7 @@ function setupMousetrapEvents() {
         return false;
     });
 
-    Mousetrap.bind("mod+p", function () {        
+    Mousetrap.bind("mod+p", function () {
         window.print();
         return false;
     });
@@ -890,5 +907,3 @@ function applyEdit(element, shouldCancel = false) {
         }
     }
 }
-
-module.exports = setupEvents;

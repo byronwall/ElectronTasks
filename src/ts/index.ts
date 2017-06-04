@@ -1,7 +1,4 @@
 //these requires are needed in order to load objects on the Browser side of things
-var Task = require("./js/Task.js");
-var TaskList = require("./js/TaskList.js");
-var DriveStorage = require("./js/DriveStorage.js");
 
 var app = require('electron').remote;
 var dialog = app.dialog;
@@ -11,16 +8,10 @@ var jQuery = require("jquery");
 var $ = jQuery;
 
 //these requires were added to split up code.... hopefully
-var renderGrid = require("./js/grid-render.js");
-var setupEvents = require("./js/events.js");
-
-var TaskGrid = require("./js/grid-setup.js");
 var grid;
 
-var setupLocalStorage = require("./js/local-storage.js");
-
 //TODO clean this section up to hide these variables
-//delcare any local/global variables
+//declare any local/global variables
 
 var shouldAddTaskWhenDoneEditing = false;
 var shouldDeleteTaskWhenDoneEditing = false;
@@ -94,34 +85,32 @@ function updateSearch(searchTerm = "", shouldFocus = true, shouldRender = true) 
     }
 }
 
-var recentFiles = [];
-
 //check if the filename is already in the list
 function addFileToRecentFileList(fileName) {
-    _.remove(recentFiles, function (item) {
+    _.remove(LocalStorageManager.recentFiles, function (item) {
         return (item === fileName);
     });
-    recentFiles.unshift(fileName);
+    LocalStorageManager.recentFiles.unshift(fileName);
     //if not, add to the top of the list
 
-    localStorage.setItem("recentFiles", JSON.stringify(recentFiles));
+    localStorage.setItem("recentFiles", JSON.stringify(LocalStorageManager.recentFiles));
     updateRecentFileButton();
 }
 
 function updateRecentFileButton() {
 
-    if (recentFiles.length > 0) {
+    if (LocalStorageManager.recentFiles.length > 0) {
         $("#recentFileGroup").empty();
     }
 
-    _.each(recentFiles, function (fileName) {
+    _.each(LocalStorageManager.recentFiles, function (fileName) {
         var label = $("<li/>").appendTo("#recentFileGroup");
         var aDom = $("<a/>").attr("href", "#").text(fileName).appendTo(label);
 
         //set up a click event on the LABEL... does not work for the input
         //TODO swap this for a delegated event
         $(label).on("click", function (ev) {
-            loadTaskListWithPrompt(fileName);
+            loadTaskListWithPrompt(fileName, "");
         });
     });
 }
@@ -146,11 +135,9 @@ function loadTaskListWithPrompt(fileName, driveId) {
     }
 }
 
-var visibleColumns = [];
-
 function loadTaskListCallback(loadedTaskList) {
     mainTaskList = loadedTaskList;
-    _.each(visibleColumns, function (columnName) {
+    _.each(LocalStorageManager.visibleColumns, function (columnName) {
         mainTaskList.columns[columnName].active = true;
     });
 
@@ -222,21 +209,6 @@ function sortNow() {
     saveTaskList();
 }
 
-function createNewTask(options = {}) {
-    var newTask = mainTaskList.getNew();
-    newTask.description = "new task";
-
-    _.assign(newTask, options);
-
-    //assign child for the parent
-    if (newTask.parentTask !== null) {
-        mainTaskList.tasks[newTask.parentTask].childTasks.push(newTask.ID);
-    }
-
-    renderGrid();
-    grid.editCell(grid.getRowIndex(newTask.ID), grid.getColumnIndex("description"));
-}
-
 function saveTaskList(shouldPromptForFilename = false) {
     if (shouldPromptForFilename && mainTaskList.path === "") {
         dialog.showSaveDialog(function (fileName) {
@@ -258,11 +230,6 @@ function saveTaskList(shouldPromptForFilename = false) {
     if (didSave) {
         showAlert("tasklist was saved", "success");
     }
-}
-
-function createNewTasklist() {
-    loadTaskListCallback(new TaskList());
-    createNewTask();
 }
 
 function createNewTask(options = {}) {
@@ -373,7 +340,7 @@ function createColumnShowAndSort() {
 
         anchor.text(columnName);
 
-        if (visibleColumns.indexOf(columnName) > -1) {
+        if (LocalStorageManager.visibleColumns.indexOf(columnName) > -1) {
             anchor.addClass("active");
             mainTaskList.columns[columnName].active = true;
         }
@@ -388,15 +355,15 @@ function createColumnShowAndSort() {
             mainTaskList.columns[columnName].active = isActive;
 
             if (isActive) {
-                visibleColumns.push(columnName);
+                LocalStorageManager.visibleColumns.push(columnName);
             } else {
-                _.remove(visibleColumns, function (item) {
+                _.remove(LocalStorageManager.visibleColumns, function (item) {
                     return item === columnName;
                 });
             }
 
             //update the local storage
-            localStorage.setItem("visibleColumns", JSON.stringify(visibleColumns));
+            localStorage.setItem("visibleColumns", JSON.stringify(LocalStorageManager.visibleColumns));
 
             renderGrid();
         });
@@ -433,7 +400,7 @@ function setupMainPageTasks() {
     //TODO remove this hack    
     grid = (new TaskGrid()).getGrid();
 
-    setupLocalStorage();
+    LocalStorageManager.setupLocalStorage();
     createColumnShowAndSort();
 
     setupEvents();

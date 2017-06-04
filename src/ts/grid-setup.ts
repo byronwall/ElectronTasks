@@ -1,10 +1,8 @@
-/* globals EditableGrid, mainTaskList, saveTaskList, renderGrid, shouldAddTaskWhenDoneEditing, 
-createNewTask, _, */
-
 var grid;
 
 class TaskGrid {
     constructor() {
+        //TODO bring this EditableGrid class into the TS fold
         grid = new EditableGrid("task-list");
         grid.enableSort = false;
         //TODO move these functions to their own home
@@ -110,5 +108,3 @@ class TaskGrid {
         return grid;
     }
 }
-
-module.exports = TaskGrid;

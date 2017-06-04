@@ -1,11 +1,37 @@
-/* globals Task, $, _ */
-
-
-
 class TaskList {
 
+    tasks: any; //TODO: clean this up
+    sortField: string;
+    sortDir: string;
+    isSortEnabled: boolean;
+
+    searchTerm: string;
+    searchObj: any; //TODO: add an object for this
+    searchChildren: boolean;
+    searchParents: boolean;
+
+    visibleTasks: any; //TODO:make an object here
+
+    path: string;
+    googleDriveId: any; //TODO: clean up
+
+    title: string;
+
+    idForIsolatedTask: number;
+    hideRootIfIsolated: boolean;
+    shouldExcludeCompleteTasksForBuckets: boolean;
+    shouldShowCommentsWithDesc: boolean;
+
+    shouldHideComplete: boolean;
+
+    _possibleColumns: any; //TODO: make an obj
+    columns: any; //TODO: determine this
+
+    activeSortField: string;
+    activeSortDir: string;
+
     constructor() {
-        
+
         this.tasks = {};
         this.sortField = "priority";
         this.sortDir = "desc";
@@ -165,7 +191,7 @@ class TaskList {
 
         //all tasks with either be at the root or have a parent
         //if at the root, add to the root, and process the child tasks, just push them on
-        //do a depth first seach and all will get added
+        //do a depth first search and all will get added
 
         var tasksOut = [];
 
@@ -209,7 +235,7 @@ class TaskList {
             this.recurseChildren(isolatedTask, startLevel, tasksOut);
         }
 
-        //need to build tasksout down here based on the task visible option
+        //need to build tasks out down here based on the task visible option
 
         return _.map(tasksOut, function (item) {
             return { "id": item.ID, "values": item };
@@ -237,14 +263,7 @@ class TaskList {
         _.each(tasksToProcessAgain, function (task) {
             if (self.searchChildren) {
                 //add the kids
-                function recurseMakeVisible(childTask) {
-                    _.each(childTask.childTasks, function (childTaskID) {
-                        recurseMakeVisible(self.tasks[childTaskID]);
-                    });
-                    childTask.isVisible = !childTask.isComplete;
-                }
-
-                recurseMakeVisible(task);
+                this.recurseMakeVisible(task);
             }
 
             if (self.searchParents) {
@@ -259,6 +278,13 @@ class TaskList {
             }
         });
         //at this point, all of the tasks have visibility set
+    }
+
+    recurseMakeVisible(childTask) {
+        _.each(childTask.childTasks, (childTaskID) => {
+            this.recurseMakeVisible(this.tasks[childTaskID]);
+        });
+        childTask.isVisible = !childTask.isComplete;
     }
 
     recurseChildren(task, indentLevel, tasksOut) {
@@ -289,7 +315,7 @@ class TaskList {
     }
 
     getPseudoRootNode() {
-        //need to return a "task" that has the parentless nodes as its children
+        //need to return a "task" that has the parent-less nodes as its children
 
         var newTask = new Task(this, false);
 
@@ -438,25 +464,27 @@ class TaskList {
 
             var dataObj = {};
 
+            //TODO: replace these strings with an actual object
+
             if (obj.length > 0) {
                 //this is for the old format where the file was only tasks
-                dataObj.tasks = obj;
+                dataObj["tasks"] = obj;
             } else {
                 //this loads an actual TaskList object
                 dataObj = obj;
             }
 
             //obj contains title, googleDriveId, and tasks
-            taskList.title = dataObj.title;
-            if (fileId === undefined) {
+            taskList.title = dataObj["title"];
+            if (fileId === "") {
                 //try to get the data from the file
-                taskList.googleDriveId = dataObj.googleDriveId;
+                taskList.googleDriveId = dataObj["googleDriveId"];
             } else {
                 //grab the fileId from Google
                 taskList.googleDriveId = fileId;
             }
 
-            _.each(dataObj.tasks, function (item) {
+            _.each(dataObj["tasks"], function (item) {
                 var task = Task.createFromData(item, taskList);
 
                 taskList.tasks[task.ID] = task;
@@ -467,5 +495,3 @@ class TaskList {
         });
     }
 }
-
-module.exports = TaskList;

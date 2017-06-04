@@ -1,8 +1,29 @@
-/* globals $, _ */
-//create a Task object
+class Task {
 
+    taskList: TaskList;
+    description: string;
+    duration: number;
+    startDate: Date;
+    endDate: Date;
+    ID: number;
+    dateAdded: Date;
+    isComplete: boolean;
+    priority: any;
+    tags: string[];
+    status: string;
+    milestone: string;
+    comments: string;
+    isFirstEdit: boolean;
+    isProjectRoot: boolean;
+    parentTask: number;
+    childTasks: number[];
+    indent: number;
+    isSelected: boolean;
+    sortOrder: number;
+    isVisible: boolean;
 
-module.exports = class Task {
+    static _id = 1;
+
     constructor(taskList, shouldGetId = true) {
 
         this.taskList = taskList;
@@ -15,11 +36,11 @@ module.exports = class Task {
 
         this.ID = (shouldGetId) ? Task.getUnique : -1;
 
-        this.dateAdded = (new Date()).toLocaleString();
+        this.dateAdded = new Date();
 
         this.isComplete = false;
 
-        //some new fields for testig
+        //some new fields for testing
         this.priority = "";
 
         this.tags = [];
@@ -33,7 +54,7 @@ module.exports = class Task {
 
         this.isProjectRoot = false;
 
-        //these will be INTs that store the ID
+        //these will be integers that store the ID
         this.parentTask = null;
         this.childTasks = [];
 
@@ -358,7 +379,7 @@ module.exports = class Task {
     moveTaskToProject(newTaskId) {
         var currentTask = this;
         var newProjectId = newTaskId;
-        
+
         var newProject = this.taskList.tasks[newProjectId];
 
         if (currentTask.parentTask !== null) {
