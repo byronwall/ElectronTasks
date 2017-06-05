@@ -15,7 +15,7 @@ function DriveStorage() {
 DriveStorage.prototype.startAuth = function (callback) {
     var self = this;
     //pull the secret in instead of reading the file
-    var content = require("./client_secret.json");
+    var content = require("./js/client_secret.json");
     // Authorize a client with the loaded credentials, then call the
     // Drive API.
     self.authorize(content, function (oauth2Client) {
