@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "sourceMap": true,
+        "outFile": "app/js/bundle.js"
+    },
+    "include": [    
+        "./src/ts/*"
+    ]
+}
