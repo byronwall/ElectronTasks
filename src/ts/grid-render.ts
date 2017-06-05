@@ -23,10 +23,10 @@ function updateBreadcrumbs() {
     $("#hidden").append(clearItem);
 
     //clear out the tag bucket
-    var breadcrumbBucket = $("#breadcumbs");
+    var breadcrumbBucket = $("#breadcrumbs");
     breadcrumbBucket.empty();
 
-    //this will hide the breadbrumbs if isolatiojn is just a project (or nothing)
+    //this will hide the breadcrumbs if isolation is just a project (or nothing)
     if (mainTaskList.idForIsolatedTask === undefined || mainTaskList.tasks[mainTaskList.idForIsolatedTask].isProjectRoot) {
         breadcrumbBucket.hide();
         return;

@@ -5,7 +5,8 @@
   "scripts": {
     "start": "electron .",
     "build-win": "electron-packager . --platform=win32 --arch=x64,ia32 --out=./build --icon=icon.ico --overwrite",
-    "build-mac": "electron-packager . --platform=darwin --arch=x64,ia32 --out=./build --icon=icon.icns --overwrite"
+    "build-mac": "electron-packager . --platform=darwin --arch=x64,ia32 --out=./build --icon=icon.icns --overwrite",
+    "track": "nyc electron ."
   },
   "devDependencies": {
     "@types/d3": "^4.5.0",
@@ -13,7 +14,7 @@
     "@types/mousetrap": "^1.5.33",
     "@types/node": "^7.0.27",
     "@types/seedrandom": "^2.4.27",
-    "electron": "*",
+    "electron": "^1.7.2",
     "electron-packager": "^8.7.0",
     "jshint": "^2.9.4",
     "typescript": "^2.2.1"
