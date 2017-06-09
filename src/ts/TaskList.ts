@@ -1,12 +1,24 @@
-class TaskList {
+import * as _ from "lodash";
+import { Task } from "./Task";
+import { Dictionary } from "lodash";
 
-    tasks: any; //TODO: clean this up
+interface DataColumn {
+    name: string;
+    label: string;
+    datatype: string;
+    editable: boolean;
+    active: boolean;
+}
+
+export class TaskList {
+
+    tasks: Dictionary<Task>;
     sortField: string;
     sortDir: string;
     isSortEnabled: boolean;
 
     searchTerm: string;
-    searchObj: any; //TODO: add an object for this
+    searchObj: any; //TODO use a real obj here
     searchChildren: boolean;
     searchParents: boolean;
 
@@ -24,7 +36,7 @@ class TaskList {
 
     shouldHideComplete: boolean;
 
-    _possibleColumns: any; //TODO: make an obj
+    _possibleColumns: DataColumn[];
     columns: any; //TODO: determine this
 
     activeSortField: string;
@@ -156,6 +168,10 @@ class TaskList {
         var crumbsOut = [];
 
         //return an array of tasks
+        if(this.idForIsolatedTask === null){
+            return [];
+        }
+        
         var bottomTask = this.tasks[this.idForIsolatedTask];
 
         while (bottomTask !== null) {
@@ -287,7 +303,7 @@ class TaskList {
         childTask.isVisible = !childTask.isComplete;
     }
 
-    recurseChildren(task, indentLevel, tasksOut) {
+    recurseChildren(task: Task, indentLevel, tasksOut) {
         //skip if starting on the pseudo root
         if (indentLevel > -1) {
             //do a check on desc
@@ -364,7 +380,7 @@ class TaskList {
         delete this.tasks[ID];
     }
 
-    getListOfColumns() {
+    getListOfColumns(): string[] {
         //this will return a list of all possible columns that could be visualized
 
         //iterate through possible columns and return the name
@@ -428,7 +444,7 @@ class TaskList {
 
             //TODO change this out for a status update proper
             console.log("saved... calling callback");
-            if (callback !== undefined) {
+            if (callback !== null) {
                 callback();
             }
         });

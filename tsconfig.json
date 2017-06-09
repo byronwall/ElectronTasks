@@ -2,8 +2,10 @@
     "compilerOptions": {
         "target": "es6",
         "module": "commonjs",
+        "moduleResolution": "node",
         "sourceMap": true,
-        "outFile": "app/js/bundle.js"
+        "outDir": "app/js/node_modules/",
+        "baseUrl": "./src/ts/"        
     },
     "include": [    
         "./src/ts/*"

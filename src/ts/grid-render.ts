@@ -1,6 +1,18 @@
-var renderGrid = function () {
+import { EditableGrid } from './EditableGrid';
+import {TaskList} from "./TaskList";
+import * as $ from "jquery";
+import * as _ from "lodash";
+import { Task } from "./Task";
+import { grid, mainTaskList } from "index";
+
+export var renderGrid = function () {
     grid.load(mainTaskList.getGridDataObject());
+
+    console.log(grid.data);
+    
     grid.renderGrid("gridList", "testgrid");
+
+    console.log("grid rendered");
 
     //add a call to update the "tag" bucket"
     updateTagBucket();
@@ -27,7 +39,7 @@ function updateBreadcrumbs() {
     breadcrumbBucket.empty();
 
     //this will hide the breadcrumbs if isolation is just a project (or nothing)
-    if (mainTaskList.idForIsolatedTask === undefined || mainTaskList.tasks[mainTaskList.idForIsolatedTask].isProjectRoot) {
+    if (mainTaskList.idForIsolatedTask === null || mainTaskList.tasks[mainTaskList.idForIsolatedTask].isProjectRoot) {
         breadcrumbBucket.hide();
         return;
     } else {

@@ -1,31 +1,41 @@
-//these requires are needed in order to load objects on the Browser side of things
+require["paths"] = ["./app/js"];
+
+import { LocalStorageManager } from 'local-storage';
+
+import * as path from 'path';
+import * as _ from 'lodash';
+import * as $ from 'jquery';
+
+import { Column, EditableGrid } from "EditableGrid";
+
+//TODO ideally these hacks would not be required
+window["$"] = $;
+window["jQuery"] = $;
+
+import { Task } from "Task";
+import { TaskGrid } from "grid-setup";
+import { setupEvents } from "app-events";
+import { renderGrid } from "grid-render";
+import { TaskList } from "TaskList";
 
 var app = require('electron').remote;
 var dialog = app.dialog;
 
-var _ = require("lodash");
-var jQuery = require("jquery");
-var $ = jQuery;
-
-//these requires were added to split up code.... hopefully
-var grid;
-
 //TODO clean this section up to hide these variables
 //declare any local/global variables
 
-var shouldAddTaskWhenDoneEditing = false;
-var shouldDeleteTaskWhenDoneEditing = false;
+export var localDrive: DriveStorage;
 
-var localDrive;
+export let mainTaskList: TaskList;
 
-var mainTaskList;
+export var grid: EditableGrid;
 
-var KEYBOARD_CANCEL = ["INPUT", "TEXTAREA"];
+export class AppGlobal{
+    static shouldAddTaskWhenDoneEditing = false;
+}
 
 function showAlert(message, type = "info") {
     console.log(message);
-
-    require("bootstrap-notify");
 
     $.notify({
         message: message
@@ -64,29 +74,10 @@ function showSavePrompt(yesNoCallback) {
     });
 }
 
-function updateSearch(searchTerm = "", shouldFocus = true, shouldRender = true) {
 
-    //when called on a "bare" event handler, the parameter coming in is an event object
-    if (typeof searchTerm !== "string") {
-        searchTerm = "";
-    }
-
-    var curVal = $("#txtSearch").val();
-
-    //don't search if no change
-    if (curVal === searchTerm) {
-        return;
-    }
-
-    $("#txtSearch").val(searchTerm).keyup();
-
-    if (shouldFocus) {
-        $("#txtSearch").focus();
-    }
-}
 
 //check if the filename is already in the list
-function addFileToRecentFileList(fileName) {
+export function addFileToRecentFileList(fileName) {
     _.remove(LocalStorageManager.recentFiles, function (item) {
         return (item === fileName);
     });
@@ -97,7 +88,7 @@ function addFileToRecentFileList(fileName) {
     updateRecentFileButton();
 }
 
-function updateRecentFileButton() {
+export function updateRecentFileButton() {
 
     if (LocalStorageManager.recentFiles.length > 0) {
         $("#recentFileGroup").empty();
@@ -115,7 +106,7 @@ function updateRecentFileButton() {
     });
 }
 
-function resizeBasedOnNavbar() {
+export function resizeBasedOnNavbar() {
     //get the height of the navbar
     var navbar = $("#navbar");
 
@@ -125,7 +116,7 @@ function resizeBasedOnNavbar() {
     $("body").css("padding-top", height + "px");
 }
 
-function loadTaskListWithPrompt(fileName, driveId) {
+export function loadTaskListWithPrompt(fileName, driveId) {
     if (mainTaskList.path === "" && !mainTaskList.isDefaultList()) {
         showSavePrompt(function () {
             TaskList.load(fileName, loadTaskListCallback, driveId);
@@ -149,14 +140,18 @@ function loadTaskListCallback(loadedTaskList) {
     renderGrid();
 }
 
-function listGoogleDriveFiles() {
+
+
+//TODO move these Google Drive things elsewhere
+
+export function listGoogleDriveFiles() {
     localDrive.listFiles(function (files) {
         //once the files are here, update the button
         updateDriveFileButton(files);
     });
 }
 
-function saveFileInDrive() {
+export function saveFileInDrive() {
     localDrive.storeFile(mainTaskList.getJSONString(), mainTaskList.title, mainTaskList.googleDriveId, function (fileId) {
         console.log("saved/updated tasklist to Drive");
         showAlert("File stored on Google Drive");
@@ -164,7 +159,7 @@ function saveFileInDrive() {
     });
 }
 
-function authorizeGoogleDrive(callback) {
+export function authorizeGoogleDrive(callback) {
     localDrive = new DriveStorage();
     localDrive.startAuth(function () {
         showAlert("Google Drive has been authorized.  Check Google Drive -> Load menu to see files.");
@@ -197,7 +192,7 @@ function updateDriveFileButton(fileList) {
     });
 }
 
-function sortNow() {
+export function sortNow() {
     var isSortEnabled = mainTaskList.isSortEnabled;
 
     mainTaskList.isSortEnabled = true;
@@ -209,7 +204,7 @@ function sortNow() {
     saveTaskList();
 }
 
-function saveTaskList(shouldPromptForFilename = false) {
+export function saveTaskList(shouldPromptForFilename = false) {
     if (shouldPromptForFilename && mainTaskList.path === "") {
         dialog.showSaveDialog(function (fileName) {
 
@@ -221,18 +216,18 @@ function saveTaskList(shouldPromptForFilename = false) {
 
             mainTaskList.path = fileName;
             //TODO this is a duplicate piece of code
-            mainTaskList.save();
+            mainTaskList.save(null);
             addFileToRecentFileList(fileName);
         });
     }
 
-    var didSave = mainTaskList.save();
+    var didSave = mainTaskList.save(null);
     if (didSave) {
         showAlert("tasklist was saved", "success");
     }
 }
 
-function createNewTask(options = {}) {
+export function createNewTask(options = {}) {
     var newTask = mainTaskList.getNew();
     newTask.description = "new task";
     newTask.isFirstEdit = true;
@@ -256,40 +251,19 @@ function createNewTask(options = {}) {
     }
 }
 
-function createNewProject() {
-    var newProjectTask = mainTaskList.getNew();
-    newProjectTask.isProjectRoot = true;
-    newProjectTask.description = "new project";
-    mainTaskList.idForIsolatedTask = newProjectTask.ID;
-
-    renderGrid();
-
-    grid.editCell(grid.getRowIndex(newProjectTask.ID), grid.getColumnIndex("description"));
-}
-
-function createNewTasklist() {
+export function createNewTasklist() {
     var newList = TaskList.createNewTaskList();
     loadTaskListCallback(newList);
     createNewTask();
-}
-
-function clearIsolation(shouldRender = true) {
-    var projects = mainTaskList.getProjectsInList();
-    var projectCount = projects.length;
-
-    //if there is only one project, isolate it
-    mainTaskList.idForIsolatedTask = (projectCount === 1) ? projects[0].ID : null;
-
-    if (shouldRender) {
-        renderGrid();
-    }
 }
 
 function activateTooltipPlugin() {
     //this will allow Bootstrap to drive the tooltips
     console.log("init the tooltips");
     $("button").tooltip(
-        { trigger: "hover" }
+        {
+            trigger: "hover"
+        }
     );
 
     $(".dropdown-toggle").on("click", function () {
@@ -299,7 +273,7 @@ function activateTooltipPlugin() {
 }
 
 //clear selection, render grid
-function clearSelection(shouldRender = true) {
+export function clearSelection(shouldRender = true) {
     _.each(mainTaskList.tasks, function (task) {
         task.isSelected = false;
     });
@@ -390,7 +364,7 @@ function createColumnShowAndSort() {
     });
 }
 
-function setupMainPageTasks() {
+export function setupMainPageTasks() {
     //this is currently a dumping ground to get events created
 
     //create a blank task list to start
@@ -398,7 +372,9 @@ function setupMainPageTasks() {
 
     //set up the grid related events
     //TODO remove this hack    
-    grid = (new TaskGrid()).getGrid();
+    grid = (new TaskGrid()).grid;
+
+    console.log("grid", grid);
 
     LocalStorageManager.setupLocalStorage();
     createColumnShowAndSort();

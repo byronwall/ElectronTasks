@@ -1,0 +1,4 @@
+interface JQuery{
+    editable({});
+    textcomplete({});
+}

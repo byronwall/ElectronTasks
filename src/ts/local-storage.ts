@@ -1,4 +1,8 @@
-class LocalStorageManager {
+
+
+import { updateRecentFileButton } from "./index";
+
+export class LocalStorageManager {
 
     static recentFiles = [];
     static visibleColumns = [];

@@ -1,4 +1,8 @@
-class Task {
+
+import { TaskList } from "./TaskList";
+import * as _ from "lodash";
+
+export class Task {
 
     taskList: TaskList;
     description: string;
@@ -71,8 +75,9 @@ class Task {
         if (typeof searchTerm === "string") {
 
             //return true if any
-            //TODO swap this for a "some" to avoid the negations
-            var hasNoMatch = _.every(this, function (item) {
+            //TODO swap this for a "some" to avoid the negations         
+            var hasNoMatch = _.every(Object.keys(this), (key) => {
+                let item = this[key];
 
                 var isMatch = false;
 
@@ -145,7 +150,7 @@ class Task {
         return Task._id;
     }
 
-    completeTask(isComplete) {
+    completeTask(isComplete = undefined) {
         //this will flip completion on the current task
         this.isComplete = (isComplete === undefined) ? !this.isComplete : isComplete;
 
@@ -274,7 +279,7 @@ class Task {
             "tags": this.tags
         };
     }
-    setDataValue(field, value) {
+    setDataValue(field, value: string) {
         console.log("task set info", typeof this[field]);
 
         if (typeof this[field] === "object") {

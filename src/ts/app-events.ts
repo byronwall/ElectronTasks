@@ -1,6 +1,21 @@
+import { AppGlobal } from './';
+import { type } from 'os';
+import { renderGrid } from './grid-render';
+import { Task } from './Task';
+import { Column, EditableGrid } from './EditableGrid';
+import { resizeBasedOnNavbar, mainTaskList, createNewTask, createNewTasklist, sortNow, loadTaskListWithPrompt, saveTaskList, addFileToRecentFileList, grid, authorizeGoogleDrive, listGoogleDriveFiles, localDrive, saveFileInDrive, clearSelection } from "./index";
+import * as _ from 'lodash';
+
+import * as electron from "electron";
+const dialog = electron.remote.dialog;
+
+let shouldDeleteTaskWhenDoneEditing = false;
+
 var taskToDelete: Task;
 
-var setupEvents = function () {
+var KEYBOARD_CANCEL = ["INPUT", "TEXTAREA"];
+
+export var setupEvents = function () {
 
     setupAutocompleteEvents();
     setupMousetrapEvents();
@@ -102,7 +117,7 @@ function setupKeydownEvents() {
                     shouldDeleteTaskWhenDoneEditing = true;
                     taskToDelete = currentTask;
                 } else {
-                    shouldAddTaskWhenDoneEditing = true;
+                    AppGlobal.shouldAddTaskWhenDoneEditing = true;
                 }
             }
         }
@@ -130,13 +145,13 @@ function setupFileManagementEvents() {
         });
     });
 
-    $("#saver").on("click", saveTaskList);
+    $("#saver").on("click", () => { saveTaskList() });
 
 }
 
 function setupSearchEvents() {
 
-    $("#btnClearSearch").on("click", updateSearch);
+    $("#btnClearSearch").on("click", () => { updateSearch() });
 
     $("body").on("click", ".label-search", function (ev) {
         console.log("label-search click", this, "shift", ev.shiftKey);
@@ -291,7 +306,7 @@ function setupBulkEditEvents() {
 
         //need to get a list of those tasks which are selected
 
-        var selected = _.filter(mainTaskList.tasks, function (task) {
+        var selected = _.filter<Task>(mainTaskList.tasks, function (task) {
             return task.isSelected;
         });
 
@@ -331,7 +346,7 @@ function setupBulkEditEvents() {
             //set up some events for this form
             input.on("keyup", function () {
                 if ($(this).val() !== valueToShow) {
-                    checkbox.attr("checked", true);
+                    checkbox.attr("checked", "true");
                 }
             });
 
@@ -767,11 +782,11 @@ function setupMousetrapEvents() {
         console.log("select all visible", combo);
 
         //need to get all visible tasks, exclude project root
-        var visibleTasks = _.filter(mainTaskList.tasks, function (task) {
+        var visibleTasks = _.filter(mainTaskList.tasks, function (task: Task) {
             return task.isVisible && !task.isProjectRoot;
         });
 
-        var shouldDeselect = _.every(visibleTasks, function (task) {
+        var shouldDeselect = _.every(visibleTasks, function (task: Task) {
             return task.isSelected;
         });
 
@@ -813,6 +828,8 @@ function setupMousetrapEvents() {
         return false;
     };
 }
+
+
 
 function setupAutocompleteEvents() {
     //TODO pull this put into its own funcion?
@@ -883,10 +900,11 @@ function getCurrentTask(element) {
     //find the element above that is the tr (contains the ID)
     var currentID = $(element).parents("tr")[0].id;
     currentID = currentID.split("task-list_")[1];
-    currentID = parseInt(currentID);
+
+    let idInt = parseInt(currentID);
 
     //now holds the current ID
-    var currentTask = mainTaskList.tasks[currentID];
+    var currentTask = mainTaskList.tasks[idInt];
 
     return currentTask;
 }
@@ -905,5 +923,49 @@ function applyEdit(element, shouldCancel = false) {
         if (editor.applyEditing(element.element, editor.getEditorValue(element)) === false) {
             element.onblur = element.onblur_backup;
         }
+    }
+}
+
+function clearIsolation(shouldRender = true) {
+    var projects = mainTaskList.getProjectsInList();
+    var projectCount = projects.length;
+
+    //if there is only one project, isolate it
+    mainTaskList.idForIsolatedTask = (projectCount === 1) ? projects[0].ID : null;
+
+    if (shouldRender) {
+        renderGrid();
+    }
+}
+
+function createNewProject() {
+    var newProjectTask = mainTaskList.getNew();
+    newProjectTask.isProjectRoot = true;
+    newProjectTask.description = "new project";
+    mainTaskList.idForIsolatedTask = newProjectTask.ID;
+
+    renderGrid();
+
+    grid.editCell(grid.getRowIndex(newProjectTask.ID), grid.getColumnIndex("description"));
+}
+
+function updateSearch(searchTerm = "", shouldFocus = true, shouldRender = true) {
+
+    //when called on a "bare" event handler, the parameter coming in is an event object
+    if (typeof searchTerm !== "string") {
+        searchTerm = "";
+    }
+
+    var curVal = $("#txtSearch").val();
+
+    //don't search if no change
+    if (curVal === searchTerm) {
+        return;
+    }
+
+    $("#txtSearch").val(searchTerm).keyup();
+
+    if (shouldFocus) {
+        $("#txtSearch").focus();
     }
 }
