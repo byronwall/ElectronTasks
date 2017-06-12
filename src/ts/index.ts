@@ -1,17 +1,17 @@
 require["paths"] = ["./app/js"];
 
-import { LocalStorageManager } from 'local-storage';
-
 import * as path from 'path';
 import * as _ from 'lodash';
 import * as $ from 'jquery';
-
-import { Column, EditableGrid } from "EditableGrid";
 
 //TODO ideally these hacks would not be required
 window["$"] = $;
 window["jQuery"] = $;
 
+import "bootstrap-notify";
+
+import { LocalStorageManager } from 'local-storage';
+import { EditableGrid } from "grid/EditableGrid";
 import { Task } from "Task";
 import { TaskGrid } from "grid-setup";
 import { setupEvents } from "app-events";

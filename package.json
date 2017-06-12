@@ -16,8 +16,9 @@
     "@types/jqueryui": "^1.11.32",
     "@types/lodash": "^4.14.54",
     "@types/mousetrap": "^1.5.33",
-    "@types/node": "^7.0.28",
-    "electron": "^1.7.2",
+    "@types/node": "^7.0.29",
+    "asar": "^0.13.0",
+    "electron": "^1.7.3",
     "electron-packager": "^8.7.1",
     "jshint": "^2.9.4",
     "typescript": "^2.2.1"

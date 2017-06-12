@@ -1,12 +1,12 @@
+import {Column} from 'grid/Column';
 import { AppGlobal } from './';
-import { type } from 'os';
 import { renderGrid } from './grid-render';
 import { Task } from './Task';
-import { Column, EditableGrid } from './EditableGrid';
+import { EditableGrid } from 'grid/EditableGrid';
 import { resizeBasedOnNavbar, mainTaskList, createNewTask, createNewTasklist, sortNow, loadTaskListWithPrompt, saveTaskList, addFileToRecentFileList, grid, authorizeGoogleDrive, listGoogleDriveFiles, localDrive, saveFileInDrive, clearSelection } from "./index";
 import * as _ from 'lodash';
-
 import * as electron from "electron";
+
 const dialog = electron.remote.dialog;
 
 let shouldDeleteTaskWhenDoneEditing = false;

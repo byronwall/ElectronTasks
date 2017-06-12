@@ -1,4 +1,4 @@
-import { EditableGrid } from './EditableGrid';
+import { EditableGrid } from 'grid/EditableGrid';
 import {TaskList} from "./TaskList";
 import * as $ from "jquery";
 import * as _ from "lodash";

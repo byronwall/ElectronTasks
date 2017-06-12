@@ -1,5 +1,5 @@
 import { AppGlobal } from './';
-import { EditableGrid } from './EditableGrid';
+import { EditableGrid } from 'grid/EditableGrid';
 
 import { saveTaskList, mainTaskList, createNewTask } from "./index";
 import { renderGrid } from "./grid-render";
