@@ -1,8 +1,8 @@
-import {Column} from 'grid/Column';
+import {Column} from './grid/Column';
 import { AppGlobal } from './';
 import { renderGrid } from './grid-render';
 import { Task } from './Task';
-import { EditableGrid } from 'grid/EditableGrid';
+import { EditableGrid } from './grid/EditableGrid';
 import { resizeBasedOnNavbar, mainTaskList, createNewTask, createNewTasklist, sortNow, loadTaskListWithPrompt, saveTaskList, addFileToRecentFileList, grid, authorizeGoogleDrive, listGoogleDriveFiles, localDrive, saveFileInDrive, clearSelection } from "./index";
 import * as _ from 'lodash';
 import * as electron from "electron";
@@ -130,18 +130,18 @@ function setupFileManagementEvents() {
 
     $("#loader").on("click", function () {
         //set the list object
-        dialog.showOpenDialog(function (fileName) {
+        dialog.showOpenDialog({}, function (fileName) {
             if (fileName === undefined) {
                 //TODO use an actual output box for this
                 console.log("no file chosen");
                 return false;
             }
 
-            fileName = fileName[0];
+            const fileNameToUse = fileName[0];
 
-            loadTaskListWithPrompt(fileName, "");
+            loadTaskListWithPrompt(fileNameToUse, "");
 
-            addFileToRecentFileList(fileName);
+            addFileToRecentFileList(fileNameToUse);
         });
     });
 

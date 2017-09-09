@@ -1,4 +1,4 @@
-import { EditableGrid } from 'grid/EditableGrid';
+import { EditableGrid } from './EditableGrid';
 
 export class CellEditor {
     column: any;
@@ -445,7 +445,7 @@ export class DateCellEditor extends TextCellEditor {
         // call base method
         TextCellEditor.prototype.displayEditor.call(this, element, htmlInput);
 
-        let options = {
+        let options: JQueryUI.DatepickerOptions = {
             dateFormat: "mm/dd/yy",
             changeMonth: true,
             changeYear: true,
@@ -456,7 +456,7 @@ export class DateCellEditor extends TextCellEditor {
                 this.onblur_backup = this.onblur;
                 this.onblur = null;
 
-                return true;
+                return {};
             },
             onClose: function (dateText, inst) {
                 // apply date if any, otherwise call original onblur event

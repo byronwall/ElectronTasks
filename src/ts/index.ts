@@ -176,7 +176,7 @@ function updateDriveFileButton(fileList) {
         driveGroup.empty();
     }
 
-    _.each(fileList, function (driveFile) {
+    _.each(fileList, function (driveFile: any) {
         var label = $("<li/>").appendTo(driveGroup);
         var aDom = $("<a/>").attr("href", "#").text(driveFile.name).appendTo(label);
 
@@ -206,7 +206,7 @@ export function sortNow() {
 
 export function saveTaskList(shouldPromptForFilename = false) {
     if (shouldPromptForFilename && mainTaskList.path === "") {
-        dialog.showSaveDialog(function (fileName) {
+        dialog.showSaveDialog({}, function (fileName) {
 
             if (fileName === undefined) {
                 //TODO put this in a real output box
@@ -274,7 +274,7 @@ function activateTooltipPlugin() {
 
 //clear selection, render grid
 export function clearSelection(shouldRender = true) {
-    _.each(mainTaskList.tasks, function (task) {
+    _.each(mainTaskList.tasks, function (task: any) {
         task.isSelected = false;
     });
     if (shouldRender) {
