@@ -23,9 +23,11 @@
             },
             "runtimeArgs": [
                 "${workspaceRoot}/main.js",
+                "--enableLogging",
                 "--remote-debugging-port=9222"
             ],
-            "webRoot": "${workspaceRoot}"
+            "webRoot": "${workspaceRoot}/app",
+            "sourceMaps": true
         }
     ]
 }
